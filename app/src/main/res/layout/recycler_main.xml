@@ -6,15 +6,17 @@
     android:layout_width="match_parent"
     android:elevation="10dp"
     android:id="@+id/constraint_deputado"
-    android:layout_height="110dp">
+    android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/icon_deputado"
         android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_height="80dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginBottom="14dp"
         android:src="@drawable/ic_avatar"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="ContentDescription" />
@@ -24,12 +26,14 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
+        android:layout_marginTop="15dp"
         android:layout_marginEnd="20dp"
         android:singleLine="true"
         android:text="Fulano"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/icon_deputado"
         app:layout_constraintTop_toTopOf="@+id/icon_deputado" />
 
@@ -39,55 +43,30 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginTop="4dp"
-        android:text="82%"
-        android:textColor="@color/white"
-        android:textSize="18sp"
+        android:text="PMDB"
+        android:textColor="@color/black"
+        android:textSize="14sp"
         app:layout_constraintStart_toEndOf="@+id/icon_deputado"
         app:layout_constraintTop_toBottomOf="@+id/text_name" />
 
-    <ImageView
-        android:id="@+id/icon_partido"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginStart="20dp"
-        android:src="@drawable/ic_avatar"
-        app:layout_constraintBottom_toBottomOf="@+id/text_partido"
-        app:layout_constraintStart_toEndOf="@+id/text_partido"
-        app:layout_constraintTop_toTopOf="@+id/text_partido"
-        tools:ignore="ContentDescription" />
-
     <TextView
-        android:id="@+id/text_max_min"
+        android:id="@+id/text_state"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
         android:layout_marginTop="4dp"
-        android:text="23º/12º"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/text_name"
+        android:text="- SP"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@+id/text_partido"
         app:layout_constraintTop_toBottomOf="@+id/text_name" />
-
-    <TextView
-        android:id="@+id/text_email"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginEnd="20dp"
-        android:singleLine="true"
-        android:text="Não informou email"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/icon_deputado"
-        app:layout_constraintTop_toBottomOf="@+id/icon_partido" />
 
     <Toolbar
         android:layout_width="0dp"
-        android:layout_height="1.5dp"
-        android:background="@color/white"
+        android:layout_height="1.2dp"
+        android:background="@color/purple_500"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/text_email"
-        app:layout_constraintStart_toStartOf="@+id/text_email" />
+        app:layout_constraintEnd_toEndOf="@+id/text_name"
+        app:layout_constraintStart_toStartOf="@+id/text_name" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

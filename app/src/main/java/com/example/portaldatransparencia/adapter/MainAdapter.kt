@@ -14,7 +14,7 @@ import com.example.portaldatransparencia.dataclass.MainDataClass
 
 class MainAdapter: RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
 
-    private var data = ArrayList<MainDataClass>()
+    private var data: List<Dado> = listOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
         val item = LayoutInflater
@@ -25,11 +25,11 @@ class MainAdapter: RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
-        val time = data[0].dados[position]
+        val time = data[position]
         holder.bind(time)
     }
 
-    override fun getItemCount() = data[0].dados.size
+    override fun getItemCount() = data.size
 
     inner class MainViewHolder (itemView: View): RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
@@ -38,26 +38,32 @@ class MainAdapter: RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
 
         override fun onClick(view: View?) {
             val position = adapterPosition
-            when(view){ } //itemView -> listener.clickRecycler(id, cidade) }
+            //when(view){ itemView -> listener.clickRecycler(id) }
         }
 
         @SuppressLint("UseCompatLoadingForDrawables")
         fun bind(deputado: Dado){
             itemView.run {
                 val image = findViewById<ImageView>(R.id.icon_deputado)
-                Glide.with(context).load(deputado.urlFoto).into(image)
+                Glide.with(context)
+                    .load(deputado.urlFoto)
+                    .circleCrop()
+                    .into(image)
                 findViewById<TextView>(R.id.text_name).text = deputado.nome
                 findViewById<TextView>(R.id.text_partido).text = deputado.siglaPartido
                 val imagePartido = findViewById<ImageView>(R.id.icon_partido)
-                Glide.with(context).load(deputado.uriPartido).into(imagePartido)
-                findViewById<TextView>(R.id.text_email).text = deputado.email.toString()
+                Glide.with(context)
+                    .load(deputado.uriPartido)
+                    .circleCrop()
+                    .into(imagePartido)
+                findViewById<TextView>(R.id.text_state).text = deputado.siglaUf
             }
         }
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun updateData(deputado: MainDataClass) {
-        data.add(deputado)
+    fun updateData(deputados: List<Dado>) {
+        data = deputados
         notifyDataSetChanged()
     }
 }

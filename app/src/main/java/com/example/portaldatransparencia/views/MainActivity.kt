@@ -1,5 +1,6 @@
 package com.example.portaldatransparencia.views
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -7,16 +8,18 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.portaldatransparencia.adapter.MainAdapter
 import com.example.portaldatransparencia.databinding.ActivityMainBinding
+import com.example.portaldatransparencia.dataclass.Dado
 import com.example.portaldatransparencia.dataclass.MainDataClass
+import com.example.portaldatransparencia.interfaces.IClickDeputado
 import com.example.portaldatransparencia.remote.ResultRequest
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), IClickDeputado {
 
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private val mainViewModel: MainViewModel by viewModel()
     private lateinit var adapter: MainAdapter
-    private lateinit var data: MainDataClass
+    private lateinit var data: List<Dado>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,8 +44,8 @@ class MainActivity : AppCompatActivity() {
                 when (result) {
                     is ResultRequest.Success -> {
                         result.dado?.let { deputados ->
-                            adapter.updateData(deputados)
-                            data = deputados
+                            adapter.updateData(deputados.dados)
+                            data = deputados.dados
                         }
                     }
                     is ResultRequest.Error -> {
@@ -69,5 +72,11 @@ class MainActivity : AppCompatActivity() {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
             override fun afterTextChanged(s: Editable) {}
         })
+    }
+
+    override fun clickDeputado(id: String) {
+        val intent = Intent()
+        intent.putExtra("id", id)
+        startActivity(intent)
     }
 }

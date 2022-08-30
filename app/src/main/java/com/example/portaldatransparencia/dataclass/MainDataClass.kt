@@ -1,7 +1,5 @@
 package com.example.portaldatransparencia.dataclass
 
-import com.google.gson.JsonObject
-
 data class MainDataClass (
     val dados: List<Dado>,
     val links: List<Link>
@@ -16,7 +14,7 @@ data class Dado (
     val siglaUf: String,
     val idLegislatura: Long,
     val urlFoto: String,
-    val email: JsonObject? = null
+    val email: String
 )
 
 data class Link (
