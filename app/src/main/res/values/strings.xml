@@ -3,4 +3,8 @@
     <string name="junho">junho</string>
     <string name="julho">Julho</string>
     <string name="agosto">Agosto</string>
+    <string name="geral">Geral</string>
+    <string name="gastos">Gastos</string>
+    <string name="gabinete">Gabinete</string>
+    <string name="acoes">Ações</string>
 </resources>

@@ -19,11 +19,12 @@ class DeputadoActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         id = Bundle().getString("id").toString()
-        setupViews()
+        setupViewGastos()
+        setupViewGeral()
         observer()
     }
 
-    private fun setupViews(){
+    private fun setupViewGastos(){
         val tabs = arrayOf(R.string.junho, R.string.julho, R.string.agosto)
         val tabLayout = binding.tabGastos
         val pagerGastos = binding.viewPagerGastos
@@ -31,6 +32,18 @@ class DeputadoActivity : AppCompatActivity() {
         pagerGastos.adapter = adapter
 
         TabLayoutMediator(tabLayout, pagerGastos){ tab, position ->
+            tab.text = getString(tabs[position])
+        }.attach()
+    }
+
+    private fun setupViewGeral(){
+        val tabs = arrayOf(R.string.geral, R.string.gastos, R.string.gabinete, R.string.acoes)
+        val tabLayout = binding.tabDeputado
+        val pagerGeral = binding.viewPagerDeputado
+        val adapter = TabViewAdapterGeral(this)
+        pagerGeral.adapter = adapter
+
+        TabLayoutMediator(tabLayout, pagerGeral){ tab, position ->
             tab.text = getString(tabs[position])
         }.attach()
     }
@@ -55,5 +68,4 @@ class DeputadoActivity : AppCompatActivity() {
             }
         }
     }
-
 }
