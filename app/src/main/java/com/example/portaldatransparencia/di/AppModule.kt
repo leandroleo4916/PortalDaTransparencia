@@ -2,6 +2,7 @@ package com.example.portaldatransparencia.di
 
 import com.example.portaldatransparencia.remote.ApiServiceMain
 import com.example.portaldatransparencia.remote.SearchRepository
+import com.example.portaldatransparencia.views.DeputadoViewModel
 import com.example.portaldatransparencia.views.MainViewModel
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -31,7 +32,8 @@ val retrofitModule = module {
 }
 
 val viewModelModule = module { viewModel { MainViewModel(get()) } }
+val viewModelDeputado = module { viewModel { DeputadoViewModel(get()) } }
 val playVoice = module { factory {  } }
 val dataBase = module { single { SearchRepository(get()) } }
 
-val appModules = listOf( retrofitModule, viewModelModule, playVoice, dataBase)
+val appModules = listOf( retrofitModule, viewModelModule, playVoice, dataBase, viewModelDeputado)

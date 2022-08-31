@@ -11,8 +11,9 @@ import com.bumptech.glide.Glide
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.dataclass.Dado
 import com.example.portaldatransparencia.dataclass.MainDataClass
+import com.example.portaldatransparencia.interfaces.IClickDeputado
 
-class MainAdapter: RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
+class MainAdapter(private val listener: IClickDeputado): RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
 
     private var data: List<Dado> = listOf()
 
@@ -31,14 +32,14 @@ class MainAdapter: RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
 
     override fun getItemCount() = data.size
 
-    inner class MainViewHolder (itemView: View): RecyclerView.ViewHolder(itemView),
+    inner class MainViewHolder(itemView: View): RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
 
         init { itemView.setOnClickListener(this) }
 
         override fun onClick(view: View?) {
             val position = adapterPosition
-            //when(view){ itemView -> listener.clickRecycler(id) }
+            when(view){ itemView -> listener.clickDeputado(data[position].id.toString()) }
         }
 
         @SuppressLint("UseCompatLoadingForDrawables")
@@ -51,11 +52,6 @@ class MainAdapter: RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
                     .into(image)
                 findViewById<TextView>(R.id.text_name).text = deputado.nome
                 findViewById<TextView>(R.id.text_partido).text = deputado.siglaPartido
-                val imagePartido = findViewById<ImageView>(R.id.icon_partido)
-                Glide.with(context)
-                    .load(deputado.uriPartido)
-                    .circleCrop()
-                    .into(imagePartido)
                 findViewById<TextView>(R.id.text_state).text = deputado.siglaUf
             }
         }

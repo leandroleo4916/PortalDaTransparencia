@@ -1,22 +1,20 @@
 package com.example.portaldatransparencia.views
 
-import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.portaldatransparencia.adapter.MainAdapter
-import com.example.portaldatransparencia.databinding.ActivityMainBinding
+import com.example.portaldatransparencia.databinding.ActivityDeputadoBinding
 import com.example.portaldatransparencia.dataclass.Dado
-import com.example.portaldatransparencia.interfaces.IClickDeputado
 import com.example.portaldatransparencia.remote.ResultRequest
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MainActivity : AppCompatActivity(), IClickDeputado {
+class DeputadoActivity : AppCompatActivity() {
 
-    private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
-    private val mainViewModel: MainViewModel by viewModel()
+    private val binding by lazy { ActivityDeputadoBinding.inflate(layoutInflater) }
+    private val mainViewModel: DeputadoViewModel by viewModel()
     private lateinit var adapter: MainAdapter
     private lateinit var data: List<Dado>
 
@@ -24,21 +22,12 @@ class MainActivity : AppCompatActivity(), IClickDeputado {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        recycler()
         observer()
-        search()
 
-    }
-
-    private fun recycler() {
-        val recycler = binding.recyclerDeputados
-        adapter = MainAdapter(this)
-        recycler.layoutManager = LinearLayoutManager(this)
-        recycler.adapter = adapter
     }
 
     private fun observer() {
-        mainViewModel.searchData(ordenarPor = "nome").observe(this) {
+        mainViewModel.searchDataDeputado(ordenarPor = "nome").observe(this) {
             it?.let { result ->
                 when (result) {
                     is ResultRequest.Success -> {
@@ -58,24 +47,4 @@ class MainActivity : AppCompatActivity(), IClickDeputado {
         }
     }
 
-    private fun search() {
-        binding.textSearch.addTextChangedListener(object : TextWatcher {
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                if (count != 0) {
-
-                } else {
-
-                }
-            }
-
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-            override fun afterTextChanged(s: Editable) {}
-        })
-    }
-
-    override fun clickDeputado(id: String) {
-        val intent = Intent(this, DeputadoActivity::class.java)
-        intent.putExtra("id", id)
-        startActivity(intent)
-    }
 }
