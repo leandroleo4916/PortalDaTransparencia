@@ -1,6 +1,8 @@
 package com.example.portaldatransparencia.di
 
+import com.example.portaldatransparencia.remote.ApiServiceIdDeputado
 import com.example.portaldatransparencia.remote.ApiServiceMain
+import com.example.portaldatransparencia.remote.IdDeputadoRepository
 import com.example.portaldatransparencia.remote.SearchRepository
 import com.example.portaldatransparencia.views.DeputadoViewModel
 import com.example.portaldatransparencia.views.MainViewModel
@@ -29,11 +31,15 @@ val retrofitModule = module {
         single<ApiServiceMain> {
                 get<Retrofit>().create(ApiServiceMain::class.java)
         }
+        single<ApiServiceIdDeputado> {
+                get<Retrofit>().create(ApiServiceIdDeputado::class.java)
+        }
 }
 
 val viewModelModule = module { viewModel { MainViewModel(get()) } }
 val viewModelDeputado = module { viewModel { DeputadoViewModel(get()) } }
-val playVoice = module { factory {  } }
-val dataBase = module { single { SearchRepository(get()) } }
+val repositorySearch = module { single { SearchRepository(get()) } }
+val repositoryIdDeputado = module { single { IdDeputadoRepository(get()) } }
 
-val appModules = listOf( retrofitModule, viewModelModule, playVoice, dataBase, viewModelDeputado)
+val appModules = listOf( retrofitModule, viewModelModule, repositorySearch,
+        viewModelDeputado, repositoryIdDeputado)

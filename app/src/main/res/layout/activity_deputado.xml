@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:liftOnScroll="true"
-        android:background="@color/purple_700">
+        android:background="@color/purple_500">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
@@ -24,32 +24,43 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/purple_700"
+                android:background="@color/purple_500"
                 android:orientation="vertical"
                 app:layout_collapseMode="parallax"
                 app:layout_collapseParallaxMultiplier="0.2"
                 android:paddingHorizontal="20dp">
 
-                <TextView
-                    android:id="@+id/title_contact"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="80dp"
-                    android:singleLine="false"
-                    android:text="Contatos"
-                    android:textAlignment="center"
-                    android:textColor="@android:color/white"
-                    android:textSize="30sp" />
+                    android:layout_height="match_parent">
 
-                <TextView
-                    android:id="@+id/total_contacts"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Total de contatos"
-                    android:textAlignment="center"
-                    android:layout_marginBottom="50dp"
-                    android:textColor="@color/white"
-                    android:textSize="15sp" />
+                    <ImageView
+                        android:id="@+id/title_contact"
+                        android:layout_width="75dp"
+                        android:layout_height="100dp"
+                        android:layout_marginTop="40dp"
+                        android:layout_marginStart="20sp"
+                        android:layout_marginBottom="40dp"
+                        android:src="@drawable/ic_avatar"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:id="@+id/text_description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginStart="8dp"
+                        android:text="Informações do deputado"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="15sp"
+                        app:layout_constraintStart_toEndOf="@+id/title_contact"
+                        app:layout_constraintTop_toTopOf="@+id/title_contact" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </LinearLayout>
 
@@ -60,20 +71,47 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_constraintTop_toTopOf="@+id/tab_deputado">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TableLayout
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tab_gastos"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_height="30dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="UselessLeaf" />
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/viewPager_gastos"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tab_gastos" />
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tab_deputado"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/viewPager_gastos"
+                tools:ignore="UselessLeaf" />
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/viewPager_deputado"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tab_deputado" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
