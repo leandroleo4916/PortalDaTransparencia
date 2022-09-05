@@ -18,22 +18,9 @@ class DeputadoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        id = Bundle().getString("id").toString()
-        setupViewGastos()
+        id = intent.extras?.getString("id").toString()
         setupViewGeral()
         observer()
-    }
-
-    private fun setupViewGastos(){
-        val tabs = arrayOf(R.string.junho, R.string.julho, R.string.agosto)
-        val tabLayout = binding.tabGastos
-        val pagerGastos = binding.viewPagerGastos
-        val adapter = TabViewPagerAdapter(this)
-        pagerGastos.adapter = adapter
-
-        TabLayoutMediator(tabLayout, pagerGastos){ tab, position ->
-            tab.text = getString(tabs[position])
-        }.attach()
     }
 
     private fun setupViewGeral(){
@@ -49,13 +36,11 @@ class DeputadoActivity : AppCompatActivity() {
     }
 
     private fun observer() {
-        mainViewModel.searchDataDeputado(id).observe(this) {
+        mainViewModel.searchDataDeputado("204521").observe(this) {
             it?.let { result ->
                 when (result) {
                     is ResultIdRequest.Success -> {
-                        result.dado?.let { deputado ->
-
-                        }
+                        result.dado?.let { deputado -> }
                     }
                     is ResultIdRequest.Error -> {
                         result.exception.message?.let { it -> }
@@ -63,7 +48,6 @@ class DeputadoActivity : AppCompatActivity() {
                     is ResultIdRequest.ErrorConnection -> {
                         result.exception.message?.let { it -> }
                     }
-                    else -> {}
                 }
             }
         }

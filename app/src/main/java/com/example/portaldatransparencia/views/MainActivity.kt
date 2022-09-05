@@ -53,7 +53,6 @@ class MainActivity : AppCompatActivity(), IClickDeputado {
                     is ResultRequest.ErrorConnection -> {
                         result.exception.message?.let { it -> }
                     }
-                    else -> {}
                 }
             }
         }

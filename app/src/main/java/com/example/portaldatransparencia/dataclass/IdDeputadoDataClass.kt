@@ -6,45 +6,49 @@ data class IdDeputadoDataClass(
 )
 
 data class Dados (
-    val cpf: String,
-    val dataFalecimento: String,
-    val dataNascimento: String,
-    val escolaridade: String,
     val id: Long,
-    val municipioNascimento: String,
-    val nomeCivil: String,
-    val redeSocial: List<String>,
-    val sexo: String,
-    val ufNascimento: String,
-    val ultimoStatus: UltimoStatus,
     val uri: String,
-    val urlWebsite: String
+    val nomeCivil: String,
+    val ultimoStatus: UltimoStatus,
+    val cpf: String,
+    val sexo: String,
+    val urlWebsite: String? = null,
+    val redeSocial: List<String>,
+    val dataNascimento: String,
+    val dataFalecimento: String? = null,
+    val ufNascimento: String,
+    val municipioNascimento: String,
+    val escolaridade: String
 )
 
 data class UltimoStatus (
-    val condicaoEleitoral: String,
-    val data: String,
-    val descricaoStatus: String,
-    val email: String,
-    val gabinete: Gabinete,
     val id: Long,
-    val idLegislatura: Long,
-    val nome: String,
-    val nomeEleitoral: String,
-    val siglaPartido: String,
-    val siglaUf: String,
-    val situacao: String,
     val uri: String,
+    val nome: String,
+    val siglaPartido: String,
     val uriPartido: String,
-    val urlFoto: String
+    val siglaUf: String,
+    val idLegislatura: Long,
+    val urlFoto: String,
+    val email: String? = null,
+    val data: String,
+    val nomeEleitoral: String,
+    val gabinete: Gabinete,
+    val situacao: String,
+    val condicaoEleitoral: String,
+    val descricaoStatus: String? = null
 )
 
 data class Gabinete (
-    val andar: String,
-    val email: String,
     val nome: String,
     val predio: String,
     val sala: String,
-    val telefone: String
+    val andar: String,
+    val telefone: String,
+    val email: String? = null
 )
 
+data class Link (
+    val rel: String,
+    val href: String
+)

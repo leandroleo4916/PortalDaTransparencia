@@ -17,8 +17,3 @@ data class Dado (
     val email: String
 )
 
-data class Link (
-    val rel: String,
-    val href: String
-)
-

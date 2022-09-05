@@ -3,8 +3,7 @@ package com.example.portaldatransparencia.remote
 import com.example.portaldatransparencia.dataclass.IdDeputadoDataClass
 import com.example.portaldatransparencia.dataclass.MainDataClass
 import retrofit2.Response
-import retrofit2.http.GET
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface ApiServiceMain {
     @GET("/api/v2/deputados?")
@@ -15,9 +14,9 @@ interface ApiServiceMain {
 }
 
 interface ApiServiceIdDeputado {
-    @GET("/api/v2/deputados/")
+    @GET("/api/v2/deputados/{id}")
     suspend fun getIdDeputado(
-        @Query("id") id: String
+         @Path("id") id: String
     ): Response<IdDeputadoDataClass>
 }
 
