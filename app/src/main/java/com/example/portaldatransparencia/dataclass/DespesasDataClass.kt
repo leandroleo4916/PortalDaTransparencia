@@ -25,7 +25,7 @@ data class DadoDespesas (
     val nomeFornecedor: String,
     val cnpjCpfFornecedor: String,
     val valorLiquido: Double,
-    val valorGlosa: Long,
+    val valorGlosa: Double,
     val numRessarcimento: String,
     val codLote: Long,
     val parcela: Long

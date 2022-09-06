@@ -22,8 +22,8 @@ class DespesasAdapter: RecyclerView.Adapter<DespesasAdapter.DespesasViewHolder>(
     }
 
     override fun onBindViewHolder(holder: DespesasViewHolder, position: Int) {
-        val time = data[position]
-        holder.bind(time)
+        val despesa = data[position]
+        holder.bind(despesa)
     }
 
     override fun getItemCount() = data.size
@@ -40,12 +40,22 @@ class DespesasAdapter: RecyclerView.Adapter<DespesasAdapter.DespesasViewHolder>(
 
         @SuppressLint("UseCompatLoadingForDrawables")
         fun bind(despesa: DadoDespesas){
+
             itemView.run {
-                findViewById<TextView>(R.id.text_date).text = despesa.dataDocumento
-                findViewById<TextView>(R.id.text_type_doc).text = despesa.tipoDocumento.toString()
-                findViewById<TextView>(R.id.text_nome_fornecedor).text = despesa.nomeFornecedor
-                findViewById<TextView>(R.id.text_destination).text = despesa.tipoDocumento.toString()
-                findViewById<TextView>(R.id.text_valor_nota).text = "R$ ${despesa.valorDocumento}"
+                val date = findViewById<TextView>(R.id.text_date)
+                val typeDoc = findViewById<TextView>(R.id.text_type_doc)
+                val fornecedor = findViewById<TextView>(R.id.text_nome_fornecedor)
+                val tipoDoc = findViewById<TextView>(R.id.text_destination)
+                val valor = findViewById<TextView>(R.id.text_valor_nota)
+                date.text = despesa.dataDocumento
+                typeDoc.text =
+                    if (despesa.tipoDespesa == null) "Não informado tipo de documento"
+                    else despesa.tipoDespesa.toString()
+                fornecedor.text = despesa.nomeFornecedor
+                tipoDoc.text =
+                    if (despesa.tipoDocumento == null) "Não informado tipo de documento"
+                    else despesa.tipoDocumento.toString()
+                valor.text = "R$ ${despesa.valorDocumento}"
             }
         }
     }

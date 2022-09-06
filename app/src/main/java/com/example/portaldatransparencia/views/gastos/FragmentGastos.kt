@@ -35,7 +35,7 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos) {
 
     private fun observer(){
 
-        viewModel.searchDespesasDeputado(id, ano).observe(viewLifecycleOwner){
+        viewModel.searchDespesasDeputado("204521", "2022").observe(viewLifecycleOwner){
             it?.let { result ->
                 when (result) {
                     is ResultDespesasRequest.Success -> {
