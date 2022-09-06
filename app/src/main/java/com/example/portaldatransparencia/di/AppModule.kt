@@ -1,11 +1,9 @@
 package com.example.portaldatransparencia.di
 
-import com.example.portaldatransparencia.remote.ApiServiceIdDeputado
-import com.example.portaldatransparencia.remote.ApiServiceMain
-import com.example.portaldatransparencia.remote.IdDeputadoRepository
-import com.example.portaldatransparencia.remote.SearchRepository
-import com.example.portaldatransparencia.views.DeputadoViewModel
-import com.example.portaldatransparencia.views.MainViewModel
+import com.example.portaldatransparencia.remote.*
+import com.example.portaldatransparencia.views.deputado.DeputadoViewModel
+import com.example.portaldatransparencia.views.gastos.DespesasViewModel
+import com.example.portaldatransparencia.views.main.MainViewModel
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -34,12 +32,17 @@ val retrofitModule = module {
         single<ApiServiceIdDeputado> {
                 get<Retrofit>().create(ApiServiceIdDeputado::class.java)
         }
+        single<ApiServiceIdDespesas> {
+                get<Retrofit>().create(ApiServiceIdDespesas::class.java)
+        }
 }
 
 val viewModelModule = module { viewModel { MainViewModel(get()) } }
 val viewModelDeputado = module { viewModel { DeputadoViewModel(get()) } }
+val viewModelDespesas = module { viewModel { DespesasViewModel(get()) } }
 val repositorySearch = module { single { SearchRepository(get()) } }
 val repositoryIdDeputado = module { single { IdDeputadoRepository(get()) } }
+val repositoryDespesasDeputado = module { single { IdDespesasRepository(get()) } }
 
 val appModules = listOf( retrofitModule, viewModelModule, repositorySearch,
-        viewModelDeputado, repositoryIdDeputado)
+        viewModelDeputado, repositoryIdDeputado, viewModelDespesas, repositoryDespesasDeputado)

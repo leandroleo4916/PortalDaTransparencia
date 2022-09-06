@@ -18,11 +18,11 @@
         android:theme="@style/Theme.PortalDaTransparencia"
         tools:targetApi="31">
         <activity
-            android:name=".views.MainActivity"
+            android:name=".views.main.MainActivity"
             android:exported="true">
         </activity>
         <activity
-            android:name=".views.DeputadoActivity"
+            android:name=".views.deputado.DeputadoActivity"
             android:exported="true">
 
             <intent-filter>

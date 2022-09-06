@@ -1,4 +1,4 @@
-package com.example.portaldatransparencia.views
+package com.example.portaldatransparencia.views.main
 
 import android.content.Intent
 import android.os.Bundle
@@ -11,6 +11,7 @@ import com.example.portaldatransparencia.databinding.ActivityMainBinding
 import com.example.portaldatransparencia.dataclass.Dado
 import com.example.portaldatransparencia.interfaces.IClickDeputado
 import com.example.portaldatransparencia.remote.ResultRequest
+import com.example.portaldatransparencia.views.deputado.DeputadoActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity(), IClickDeputado {

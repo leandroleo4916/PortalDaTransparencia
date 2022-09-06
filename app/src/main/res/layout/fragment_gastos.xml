@@ -5,22 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/white"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".views.main.MainActivity">
-
-    <EditText
-        android:id="@+id/text_search"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="12dp"
-        android:hint="Pesquisar por nome"
-        android:textColor="@color/black"
-        android:textColorHint="@color/purple_500"
-        app:layout_constraintEnd_toStartOf="@+id/ic_voz"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/ic_voz"
@@ -34,14 +19,13 @@
         tools:ignore="ContentDescription,MissingConstraints" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_deputados"
+        android:id="@+id/recycler_despesas"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="6dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_search"
-        tools:listitem="@layout/recycler_main" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:listitem="@layout/recycler_gastos" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

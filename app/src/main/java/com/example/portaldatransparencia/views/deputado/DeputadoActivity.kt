@@ -1,6 +1,5 @@
-package com.example.portaldatransparencia.views
+package com.example.portaldatransparencia.views.deputado
 
-import android.R.attr.data
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
@@ -8,12 +7,12 @@ import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.databinding.ActivityDeputadoBinding
 import com.example.portaldatransparencia.dataclass.IdDeputadoDataClass
 import com.example.portaldatransparencia.remote.ResultIdRequest
+import com.example.portaldatransparencia.views.TabViewAdapterGeral
 import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.time.LocalDate
 import java.time.Period
 import java.time.format.DateTimeFormatter
-
 
 class DeputadoActivity : AppCompatActivity() {
 
@@ -71,7 +70,8 @@ class DeputadoActivity : AppCompatActivity() {
             val age = age(item.dados.dataNascimento)
             ("${item.dados.ultimoStatus.nome}, ${age} anos, nascido em " +
                     "${item.dados.municipioNascimento} - ${item.dados.ufNascimento}. " +
-                    "Filiado ao partido ${item.dados.ultimoStatus.siglaPartido}").also { textDescription.text = it }
+                    "Filiado ao partido ${item.dados.ultimoStatus.siglaPartido}")
+                .also { textDescription.text = it }
         }
     }
 

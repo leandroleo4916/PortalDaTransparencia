@@ -1,4 +1,4 @@
-package com.example.portaldatransparencia.views
+package com.example.portaldatransparencia.views.deputado
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel

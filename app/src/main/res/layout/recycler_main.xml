@@ -61,7 +61,7 @@
         app:layout_constraintStart_toEndOf="@+id/text_partido"
         app:layout_constraintTop_toBottomOf="@+id/text_name" />
 
-    <Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:layout_width="0dp"
         android:layout_height="1.2dp"
         android:background="@color/purple_500"

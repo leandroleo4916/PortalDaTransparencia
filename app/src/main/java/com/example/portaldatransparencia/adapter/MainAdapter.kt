@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.dataclass.Dado
-import com.example.portaldatransparencia.dataclass.MainDataClass
 import com.example.portaldatransparencia.interfaces.IClickDeputado
 
 class MainAdapter(private val listener: IClickDeputado): RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
