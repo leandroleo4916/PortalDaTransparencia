@@ -4,6 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     style="@style/Widget.MaterialComponents.Chip.Choice"
     app:chipBackgroundColor="@color/back_chip_select"
+    android:textSize="16sp"
     android:textColor="@color/white"
+    android:checkable="true"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content" />

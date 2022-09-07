@@ -8,7 +8,7 @@ import com.google.android.material.R.*
 import com.google.android.material.chip.Chip
 
 data class FilterItem(
-    val id: Int? = null,
+    val id: Int,
     val text: String,
     val select: Int? = null
 )
@@ -20,6 +20,7 @@ fun FilterItem.toChip(context: Context): Chip{
     } else {
         Chip(ContextThemeWrapper(context, style.Widget_MaterialComponents_Chip_Choice))
     }
+    chip.id = id
     chip.text = text
     chip.textSize = 16F
     return chip
