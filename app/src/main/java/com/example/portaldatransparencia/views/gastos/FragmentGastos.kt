@@ -7,6 +7,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.adapter.DespesasAdapter
 import com.example.portaldatransparencia.databinding.FragmentGastosBinding
+import com.example.portaldatransparencia.dataclass.DadoDespesas
+import com.example.portaldatransparencia.dataclass.FilterItem
+import com.example.portaldatransparencia.dataclass.toChip
 import com.example.portaldatransparencia.remote.ResultDespesasRequest
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -24,6 +27,7 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos) {
         binding = FragmentGastosBinding.bind(view)
         recyclerView()
         observer()
+        filterYear()
     }
 
     private fun recyclerView() {
@@ -40,6 +44,7 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos) {
                 when (result) {
                     is ResultDespesasRequest.Success -> {
                         result.dado?.let { despesas ->
+                            calculateNotes(despesas.dados)
                             adapter.updateData(despesas.dados)
                         }
                     }
@@ -51,6 +56,32 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos) {
                     }
                 }
             }
+        }
+    }
+
+    private fun calculateNotes(dados: List<DadoDespesas>) {
+        binding!!.textNotesSend.text = dados.size.toString()+" notas"
+        var total = 0.0
+        dados.forEach { it ->
+            total = (total+it.valorDocumento)
+            binding!!.textTotal.text = "R$ "+total.toString()
+        }
+    }
+
+    private fun filterYear(){
+        val filter = arrayOf(
+            FilterItem(1,"2022"),
+            FilterItem(2,"2021"),
+            FilterItem(3,"2020"),
+            FilterItem(4,"2019"),
+            FilterItem(5,"2018"),
+            FilterItem(6,"2017"),
+            FilterItem(7,"2016"),
+            FilterItem(8,"2015")
+        )
+
+        filter.forEach { filter ->
+            binding?.chipFilter?.addView(filter.toChip(requireContext()))
         }
     }
 }

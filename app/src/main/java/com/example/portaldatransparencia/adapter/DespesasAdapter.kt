@@ -17,7 +17,6 @@ class DespesasAdapter: RecyclerView.Adapter<DespesasAdapter.DespesasViewHolder>(
         val item = LayoutInflater
             .from(parent.context)
             .inflate(R.layout.recycler_gastos, parent, false)
-
         return DespesasViewHolder(item)
     }
 
@@ -38,7 +37,6 @@ class DespesasAdapter: RecyclerView.Adapter<DespesasAdapter.DespesasViewHolder>(
              //when(view){ itemView -> listener.clickDeputado(data[position].id.toString()) }
         }
 
-        @SuppressLint("UseCompatLoadingForDrawables")
         fun bind(despesa: DadoDespesas){
 
             itemView.run {
