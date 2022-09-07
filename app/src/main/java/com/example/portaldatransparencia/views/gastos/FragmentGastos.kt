@@ -43,8 +43,14 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos) {
                 when (result) {
                     is ResultDespesasRequest.Success -> {
                         result.dado?.let { despesas ->
-                            calculateNotes(despesas.dados)
-                            adapter.updateData(despesas.dados)
+                            if (despesas.dados.isNotEmpty()){
+                                calculateNotes(despesas.dados)
+                                adapter.updateData(despesas.dados)
+                            }else{
+                                binding?.textNotesSend?.visibility = View.INVISIBLE
+                                binding?.textTotal?.text = "Não há dados no ano ${year}"
+                                adapter.updateData(despesas.dados)
+                            }
                         }
                     }
                     is ResultDespesasRequest.Error -> {
@@ -59,6 +65,7 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos) {
     }
 
     private fun calculateNotes(dados: List<DadoDespesas>) {
+        binding?.textNotesSend?.visibility = View.VISIBLE
         (dados.size.toString()+" notas").also { binding!!.textNotesSend.text = it }
         var total = 0.0
         dados.forEach { it ->
