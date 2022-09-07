@@ -14,9 +14,9 @@ data class Despesas (
 data class DadoDespesas (
     val ano: Long,
     val mes: Long,
-    val tipoDespesa: TipoDespesa,
+    val tipoDespesa: String,
     val codDocumento: Long,
-    val tipoDocumento: TipoDocumento,
+    val tipoDocumento: String,
     val codTipoDocumento: Long,
     val dataDocumento: String,
     val numDocumento: String,
@@ -30,47 +30,3 @@ data class DadoDespesas (
     val codLote: Long,
     val parcela: Long
 )
-
-@Serializable
-enum class TipoDespesa(val value: String) {
-    ManutençãoDeEscritórioDeApoioÀAtividadeParlamentar(
-        "Manutenção de escritório de apoio parlamentar");
-
-    companion object : KSerializer<TipoDespesa> {
-        override val descriptor: SerialDescriptor get() {
-            return PrimitiveSerialDescriptor("quicktype.TipoDespesa", PrimitiveKind.STRING)
-        }
-        override fun deserialize(decoder: Decoder): TipoDespesa =
-            when (val value = decoder.decodeString()) {
-                "Manutenção de escritório de apoio parlamentar"
-            -> ManutençãoDeEscritórioDeApoioÀAtividadeParlamentar
-            else
-            -> throw IllegalArgumentException("TipoDespesa could not parse: $value")
-        }
-        override fun serialize(encoder: Encoder, value: TipoDespesa) {
-            return encoder.encodeString(value.value)
-        }
-    }
-}
-
-@Serializable
-enum class TipoDocumento(val value: String) {
-    NotaFiscal("Nota Fiscal"),
-    RecibosOutros("Recibos/Outros");
-
-    companion object : KSerializer<TipoDocumento> {
-        override val descriptor: SerialDescriptor get() {
-            return PrimitiveSerialDescriptor("quicktype.TipoDocumento", PrimitiveKind.STRING)
-        }
-        override fun deserialize(decoder: Decoder): TipoDocumento =
-            when (val value = decoder.decodeString()) {
-            "Nota Fiscal"    -> NotaFiscal
-            "Recibos/Outros" -> RecibosOutros
-            else
-            -> throw IllegalArgumentException("TipoDocumento could not parse: $value")
-        }
-        override fun serialize(encoder: Encoder, value: TipoDocumento) {
-            return encoder.encodeString(value.value)
-        }
-    }
-}

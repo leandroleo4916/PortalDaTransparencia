@@ -43,19 +43,18 @@ class DespesasAdapter: RecyclerView.Adapter<DespesasAdapter.DespesasViewHolder>(
 
             itemView.run {
                 val date = findViewById<TextView>(R.id.text_date)
-                val typeDoc = findViewById<TextView>(R.id.text_type_doc)
+                val typeDespesa = findViewById<TextView>(R.id.text_type_doc)
                 val fornecedor = findViewById<TextView>(R.id.text_nome_fornecedor)
-                val tipoDoc = findViewById<TextView>(R.id.text_destination)
+                val typeDoc = findViewById<TextView>(R.id.text_destination)
                 val valor = findViewById<TextView>(R.id.text_valor_nota)
-                date.text = despesa.dataDocumento
-                typeDoc.text =
-                    if (despesa.tipoDespesa == null) "Não informado tipo de documento"
-                    else despesa.tipoDespesa.toString()
+
+                val dateDoc = despesa.dataDocumento.split("-")
+                date.text = dateDoc[2]+"/"+dateDoc[1]+"/"+dateDoc[0]
+                typeDespesa.text = despesa.tipoDespesa
                 fornecedor.text = despesa.nomeFornecedor
-                tipoDoc.text =
-                    if (despesa.tipoDocumento == null) "Não informado tipo de documento"
-                    else despesa.tipoDocumento.toString()
+                typeDoc.text = despesa.tipoDocumento
                 valor.text = "R$ ${despesa.valorDocumento}"
+
             }
         }
     }
