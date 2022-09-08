@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.dataclass.DadoDespesas
+import java.text.DecimalFormat
 
 class DespesasAdapter: RecyclerView.Adapter<DespesasAdapter.DespesasViewHolder>() {
 
@@ -47,11 +48,13 @@ class DespesasAdapter: RecyclerView.Adapter<DespesasAdapter.DespesasViewHolder>(
                 val valor = findViewById<TextView>(R.id.text_valor_nota)
 
                 val dateDoc = despesa.dataDocumento.split("-")
-                date.text = dateDoc[2]+"/"+dateDoc[1]+"/"+dateDoc[0]
+                (dateDoc[2]+"/"+dateDoc[1]+"/"+dateDoc[0]).also { date.text = it }
                 typeDespesa.text = despesa.tipoDespesa
                 fornecedor.text = despesa.nomeFornecedor
                 typeDoc.text = despesa.tipoDocumento
-                valor.text = "R$ ${despesa.valorDocumento}"
+                val format = DecimalFormat("#.00")
+                val formatTotal = format.format(despesa.valorDocumento)
+                "R$ $formatTotal".also { valor.text = it }
 
             }
         }
