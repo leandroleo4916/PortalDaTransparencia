@@ -8,7 +8,6 @@ import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.adapter.DespesasAdapter
 import com.example.portaldatransparencia.databinding.FragmentGastosBinding
 import com.example.portaldatransparencia.dataclass.DadoDespesas
-import com.example.portaldatransparencia.dataclass.ModifyChip
 import com.example.portaldatransparencia.remote.ResultDespesasRequest
 import com.google.android.material.chip.Chip
 import org.koin.androidx.viewmodel.ext.android.viewModel
