@@ -219,6 +219,17 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="ContentDescription,MissingConstraints" />
 
+    <com.wang.avi.AVLoadingIndicatorView
+        android:id="@+id/progress_main"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="80dp"
+        app:indicatorColor="@color/purple_700"
+        app:indicatorName="BallPulseIndicator"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scroll_year" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_deputados"
         android:layout_width="0dp"

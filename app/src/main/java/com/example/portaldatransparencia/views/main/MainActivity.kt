@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,14 +14,17 @@ import com.example.portaldatransparencia.dataclass.Dado
 import com.example.portaldatransparencia.interfaces.IClickDeputado
 import com.example.portaldatransparencia.interfaces.INotification
 import com.example.portaldatransparencia.remote.ResultRequest
+import com.example.portaldatransparencia.views.ProgressBar
 import com.example.portaldatransparencia.views.deputado.DeputadoActivity
 import com.google.android.material.chip.Chip
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity(), IClickDeputado, INotification {
 
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private val mainViewModel: MainViewModel by viewModel()
+    private val progress: ProgressBar by inject()
     private lateinit var adapter: MainAdapter
     private lateinit var data: List<Dado>
     private var chipEnabled: Chip? = null
@@ -48,6 +52,7 @@ class MainActivity : AppCompatActivity(), IClickDeputado, INotification {
                 when (result) {
                     is ResultRequest.Success -> {
                         result.dado?.let { deputados ->
+                            progress.disableProgress(binding.progressMain)
                             adapter.updateData(deputados.dados)
                             data = deputados.dados
                         }
@@ -66,9 +71,7 @@ class MainActivity : AppCompatActivity(), IClickDeputado, INotification {
     private fun search() {
         binding.textSearch.addTextChangedListener(object : TextWatcher {
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                if (count != 0) {
-                    adapter.filter.filter(s)
-                }
+                if (count != 0) adapter.filter.filter(s)
             }
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
             override fun afterTextChanged(s: Editable) {}
