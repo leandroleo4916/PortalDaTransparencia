@@ -34,6 +34,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
+                    <com.wang.avi.AVLoadingIndicatorView
+                        android:id="@+id/progress_deputado"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:indicatorColor="@color/purple_700"
+                        app:indicatorName="BallPulseIndicator"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
                     <ImageView
                         android:id="@+id/image_deputado"
                         android:layout_width="110dp"
@@ -42,6 +53,7 @@
                         android:layout_marginStart="10sp"
                         android:layout_marginBottom="40dp"
                         android:src="@drawable/ic_avatar"
+                        android:visibility="invisible"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -54,6 +66,7 @@
                         android:layout_marginStart="12dp"
                         android:layout_marginTop="12dp"
                         android:layout_marginEnd="12dp"
+                        android:visibility="invisible"
                         android:text="Informações do deputado"
                         android:textAlignment="textStart"
                         android:textColor="@color/black"

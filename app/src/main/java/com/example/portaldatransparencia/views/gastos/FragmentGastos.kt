@@ -50,6 +50,7 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos) {
                                 calculateNotes(despesas.dados)
                                 adapter.updateData(despesas.dados)
                             }else{
+                                binding?.progressDespesas?.visibility = View.GONE
                                 binding?.textNotesSend?.visibility = View.INVISIBLE
                                 binding?.textTotal?.text = "Não há dados no ano ${year}"
                                 adapter.updateData(despesas.dados)
@@ -68,7 +69,6 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos) {
     }
 
     private fun calculateNotes(dados: List<DadoDespesas>) {
-        binding?.textNotesSend?.visibility = View.VISIBLE
         (dados.size.toString()+" notas").also { binding!!.textNotesSend.text = it }
         var total = 0.0
         dados.forEach { it -> total = (total+it.valorDocumento) }
@@ -76,6 +76,10 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos) {
         val format = DecimalFormat("#.00")
         val formatTotal = format.format(total)
         ("R$ $formatTotal").also { binding!!.textTotal.text = it }
+
+        binding?.progressDespesas?.visibility = View.GONE
+        binding?.textNotesSend?.visibility = View.VISIBLE
+        binding?.textTotal?.visibility = View.VISIBLE
     }
 
     private fun listenerChip(){

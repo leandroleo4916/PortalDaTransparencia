@@ -1,6 +1,7 @@
 package com.example.portaldatransparencia.views.deputado
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.portaldatransparencia.R
@@ -72,6 +73,9 @@ class DeputadoActivity : AppCompatActivity() {
                     "${item.dados.municipioNascimento} - ${item.dados.ufNascimento}. " +
                     "Filiado ao partido ${item.dados.ultimoStatus.siglaPartido}")
                 .also { textDescription.text = it }
+            progressDeputado.visibility = View.GONE
+            textDescription.visibility = View.VISIBLE
+            imageDeputado.visibility = View.VISIBLE
         }
     }
 
