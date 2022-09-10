@@ -43,7 +43,7 @@ class DeputadoActivity : AppCompatActivity() {
     }
 
     private fun observer() {
-        mainViewModel.searchDataDeputado("204521").observe(this) {
+        mainViewModel.searchDataDeputado(id).observe(this) {
             it?.let { result ->
                 when (result) {
                     is ResultIdRequest.Success -> {
@@ -69,7 +69,7 @@ class DeputadoActivity : AppCompatActivity() {
                 .circleCrop()
                 .into(imageDeputado)
             val age = age(item.dados.dataNascimento)
-            ("${item.dados.ultimoStatus.nome}, ${age} anos, nascido em " +
+            ("${item.dados.ultimoStatus.nome}, $age anos, nascido em " +
                     "${item.dados.municipioNascimento} - ${item.dados.ufNascimento}. " +
                     "Filiado ao partido ${item.dados.ultimoStatus.siglaPartido}")
                 .also { textDescription.text = it }

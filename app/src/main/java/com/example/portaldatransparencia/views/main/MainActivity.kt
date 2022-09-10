@@ -4,13 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.portaldatransparencia.adapter.MainAdapter
 import com.example.portaldatransparencia.databinding.ActivityMainBinding
-import com.example.portaldatransparencia.dataclass.Dado
 import com.example.portaldatransparencia.interfaces.IClickDeputado
 import com.example.portaldatransparencia.interfaces.INotification
 import com.example.portaldatransparencia.remote.ResultRequest
@@ -26,7 +24,6 @@ class MainActivity : AppCompatActivity(), IClickDeputado, INotification {
     private val mainViewModel: MainViewModel by viewModel()
     private val progress: ProgressBar by inject()
     private lateinit var adapter: MainAdapter
-    private lateinit var data: List<Dado>
     private var chipEnabled: Chip? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,7 +51,6 @@ class MainActivity : AppCompatActivity(), IClickDeputado, INotification {
                         result.dado?.let { deputados ->
                             progress.disableProgress(binding.progressMain)
                             adapter.updateData(deputados.dados)
-                            data = deputados.dados
                         }
                     }
                     is ResultRequest.Error -> {

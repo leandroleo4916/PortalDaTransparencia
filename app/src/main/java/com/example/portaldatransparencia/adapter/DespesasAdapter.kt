@@ -8,9 +8,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.dataclass.DadoDespesas
+import com.example.portaldatransparencia.interfaces.INoteDespesas
 import java.text.DecimalFormat
 
-class DespesasAdapter: RecyclerView.Adapter<DespesasAdapter.DespesasViewHolder>() {
+class DespesasAdapter(private val listener: INoteDespesas): RecyclerView.Adapter<DespesasAdapter.DespesasViewHolder>() {
 
     private var data: List<DadoDespesas> = listOf()
 
@@ -35,7 +36,7 @@ class DespesasAdapter: RecyclerView.Adapter<DespesasAdapter.DespesasViewHolder>(
 
         override fun onClick(view: View?) {
             val position = adapterPosition
-             //when(view){ itemView -> listener.clickDeputado(data[position].id.toString()) }
+            when(view){ itemView -> listener.listenerDespesas(data[position]) }
         }
 
         fun bind(despesa: DadoDespesas){

@@ -8,12 +8,15 @@ import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.adapter.DespesasAdapter
 import com.example.portaldatransparencia.databinding.FragmentGastosBinding
 import com.example.portaldatransparencia.dataclass.DadoDespesas
+import com.example.portaldatransparencia.interfaces.INoteDespesas
 import com.example.portaldatransparencia.remote.ResultDespesasRequest
+import com.example.portaldatransparencia.views.SimpleAdapterView
 import com.google.android.material.chip.Chip
+import com.orhanobut.dialogplus.DialogPlus
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.DecimalFormat
 
-class FragmentGastos: Fragment(R.layout.fragment_gastos) {
+class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas {
 
     private var binding: FragmentGastosBinding? = null
     private val viewModel: DespesasViewModel by viewModel()
@@ -24,7 +27,6 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         binding = FragmentGastosBinding.bind(view)
         chipEnabled = binding!!.chip2022
         recyclerView()
@@ -34,7 +36,7 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos) {
 
     private fun recyclerView() {
         val recycler = binding!!.recyclerDespesas
-        adapter = DespesasAdapter()
+        adapter = DespesasAdapter(this)
         recycler.layoutManager = LinearLayoutManager(context)
         recycler.adapter = adapter
     }
@@ -100,5 +102,17 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos) {
         viewDisabled.isChecked = true
         chipEnabled = viewDisabled
         observer("204521", viewDisabled.text as String)
+    }
+
+    override fun listenerDespesas(note: DadoDespesas) {
+        val adapter = context?.let { SimpleAdapterView(it, note) }
+        val dialog = DialogPlus.newDialog(context)
+            .setAdapter(adapter)
+            .setOnItemClickListener { dialog, item, view, position -> }
+            .setExpanded(true)
+            .setExpanded(true, 400)
+            .setCancelable(true)
+            .create()
+        dialog.show()
     }
 }
