@@ -48,7 +48,7 @@ class MainAdapter(private val listener: IClickDeputado, private val notify: INot
         override fun onClick(view: View?) {
             val position = adapterPosition
             when (view) {
-                itemView -> listener.clickDeputado(data[position].id.toString())
+                itemView -> listener.clickDeputado(dataList[position].id.toString())
             }
         }
 

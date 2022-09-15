@@ -1,6 +1,7 @@
 package com.example.portaldatransparencia.di
 
 import com.example.portaldatransparencia.remote.*
+import com.example.portaldatransparencia.security.SecurityPreferences
 import com.example.portaldatransparencia.views.ProgressBar
 import com.example.portaldatransparencia.views.SimpleAdapterView
 import com.example.portaldatransparencia.views.deputado.DeputadoViewModel
@@ -46,9 +47,10 @@ val repositorySearch = module { single { SearchRepository(get()) } }
 val repositoryIdDeputado = module { single { IdDeputadoRepository(get()) } }
 val repositoryDespesasDeputado = module { single { IdDespesasRepository(get()) } }
 val progressModule = module { factory { ProgressBar() } }
-val simpleAdapterModule = module { factory { SimpleAdapterView(get()) } }
+val simpleAdapterModule = module { factory { SimpleAdapterView(get(), get()) } }
+val securityPreferences = module { single { SecurityPreferences(get()) } }
 
 val appModules = listOf( retrofitModule, viewModelModule, repositorySearch, progressModule,
         viewModelDeputado, repositoryIdDeputado, viewModelDespesas, repositoryDespesasDeputado,
-        simpleAdapterModule
+        simpleAdapterModule, securityPreferences
 )

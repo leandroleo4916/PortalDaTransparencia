@@ -1,5 +1,7 @@
 package com.example.portaldatransparencia.views.gastos
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -10,9 +12,11 @@ import com.example.portaldatransparencia.databinding.FragmentGastosBinding
 import com.example.portaldatransparencia.dataclass.DadoDespesas
 import com.example.portaldatransparencia.interfaces.INoteDespesas
 import com.example.portaldatransparencia.remote.ResultDespesasRequest
+import com.example.portaldatransparencia.security.SecurityPreferences
 import com.example.portaldatransparencia.views.SimpleAdapterView
 import com.google.android.material.chip.Chip
 import com.orhanobut.dialogplus.DialogPlus
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.DecimalFormat
 
@@ -21,6 +25,7 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas {
     private var binding: FragmentGastosBinding? = null
     private val viewModel: DespesasViewModel by viewModel()
     private lateinit var adapter: DespesasAdapter
+    private val securityPreferences: SecurityPreferences by inject()
     private lateinit var chipEnabled: Chip
     private lateinit var id: String
     private lateinit var ano: String
@@ -29,8 +34,9 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentGastosBinding.bind(view)
         chipEnabled = binding!!.chip2022
+        id = securityPreferences.getStoredString("id")
         recyclerView()
-        observer("204521", "2022")
+        observer(id, "2022")
         listenerChip()
     }
 
@@ -101,7 +107,7 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas {
         viewEnabled.isChecked = false
         viewDisabled.isChecked = true
         chipEnabled = viewDisabled
-        observer("204521", viewDisabled.text as String)
+        observer(id, viewDisabled.text as String)
     }
 
     override fun listenerDespesas(note: DadoDespesas) {
@@ -114,5 +120,9 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas {
             .setCancelable(true)
             .create()
         dialog.show()
+
+        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(note.urlDocumento))
+        startActivity(browserIntent)
     }
+
 }

@@ -67,7 +67,7 @@ class MainActivity : AppCompatActivity(), IClickDeputado, INotification {
     private fun search() {
         binding.textSearch.addTextChangedListener(object : TextWatcher {
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                if (count != 0) adapter.filter.filter(s)
+                adapter.filter.filter(s)
             }
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
             override fun afterTextChanged(s: Editable) {}

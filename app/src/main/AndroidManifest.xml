@@ -30,6 +30,10 @@
             android:name=".views.deputado.DeputadoActivity"
             android:exported="true">
         </activity>
+        <activity
+            android:name=".views.deputado.TesteActivity"
+            android:exported="true">
+        </activity>
     </application>
 
 </manifest>

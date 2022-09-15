@@ -8,8 +8,10 @@ import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.databinding.ActivityDeputadoBinding
 import com.example.portaldatransparencia.dataclass.IdDeputadoDataClass
 import com.example.portaldatransparencia.remote.ResultIdRequest
+import com.example.portaldatransparencia.security.SecurityPreferences
 import com.example.portaldatransparencia.views.TabViewAdapterGeral
 import com.google.android.material.tabs.TabLayoutMediator
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.time.LocalDate
 import java.time.Period
@@ -19,6 +21,7 @@ class DeputadoActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivityDeputadoBinding.inflate(layoutInflater) }
     private val mainViewModel: DeputadoViewModel by viewModel()
+    private val securityPreferences: SecurityPreferences by inject()
     private var id: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,6 +29,7 @@ class DeputadoActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         id = intent.extras?.getString("id").toString()
+        securityPreferences.storeString("id", id)
         setupViewGeral()
         observer()
     }
