@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.portaldatransparencia.R
@@ -111,18 +112,13 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas {
     }
 
     override fun listenerDespesas(note: DadoDespesas) {
-        val adapter = context?.let { SimpleAdapterView(it, note) }
-        val dialog = DialogPlus.newDialog(context)
-            .setAdapter(adapter)
-            .setOnItemClickListener { dialog, item, view, position -> }
-            .setExpanded(true)
-            .setExpanded(true, 400)
-            .setCancelable(true)
-            .create()
-        dialog.show()
 
-        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(note.urlDocumento))
-        startActivity(browserIntent)
+        if (note.urlDocumento != null){
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(note.urlDocumento))
+            startActivity(browserIntent)
+        } else {
+            Toast.makeText(context, "Comprovante não enviado", Toast.LENGTH_SHORT).show()
+        }
     }
 
 }

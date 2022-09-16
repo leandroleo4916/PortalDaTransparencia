@@ -1,6 +1,7 @@
 package com.example.portaldatransparencia.adapter
 
 import android.annotation.SuppressLint
+import android.icu.util.Calendar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +10,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.dataclass.DadoDespesas
 import com.example.portaldatransparencia.interfaces.INoteDespesas
+import okhttp3.internal.format
 import java.text.DecimalFormat
+import java.text.SimpleDateFormat
+import java.util.*
 
 class DespesasAdapter(private val listener: INoteDespesas): RecyclerView.Adapter<DespesasAdapter.DespesasViewHolder>() {
 
@@ -48,15 +52,18 @@ class DespesasAdapter(private val listener: INoteDespesas): RecyclerView.Adapter
                 val typeDoc = findViewById<TextView>(R.id.text_destination)
                 val valor = findViewById<TextView>(R.id.text_valor_nota)
 
-                val dateDoc = despesa.dataDocumento.split("-")
-                (dateDoc[2]+"/"+dateDoc[1]+"/"+dateDoc[0]).also { date.text = it }
-                typeDespesa.text = despesa.tipoDespesa
-                fornecedor.text = despesa.nomeFornecedor
-                typeDoc.text = despesa.tipoDocumento
-                val format = DecimalFormat("#.00")
-                val formatTotal = format.format(despesa.valorDocumento)
-                "R$ $formatTotal".also { valor.text = it }
-
+                if (despesa.dataDocumento != null){
+                    val dateDoc = despesa.dataDocumento.split("-")
+                    (dateDoc[2]+"/"+dateDoc[1]+"/"+dateDoc[0]).also { date.text = it }
+                }
+                despesa.tipoDespesa.let { typeDespesa.text = it }
+                despesa.nomeFornecedor.let { fornecedor.text = it }
+                despesa.tipoDocumento.let { typeDoc.text = it }
+                despesa.valorDocumento.let{
+                    val format = DecimalFormat("#.00")
+                    val formatTotal = format.format(it)
+                    valor.text = "R$ $formatTotal"
+                }
             }
         }
     }
