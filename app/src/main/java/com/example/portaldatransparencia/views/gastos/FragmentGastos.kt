@@ -14,9 +14,7 @@ import com.example.portaldatransparencia.dataclass.DadoDespesas
 import com.example.portaldatransparencia.interfaces.INoteDespesas
 import com.example.portaldatransparencia.remote.ResultDespesasRequest
 import com.example.portaldatransparencia.security.SecurityPreferences
-import com.example.portaldatransparencia.views.SimpleAdapterView
 import com.google.android.material.chip.Chip
-import com.orhanobut.dialogplus.DialogPlus
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.DecimalFormat
@@ -29,7 +27,9 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas {
     private val securityPreferences: SecurityPreferences by inject()
     private lateinit var chipEnabled: Chip
     private lateinit var id: String
-    private lateinit var ano: String
+    private var total = 0.0
+    private var numberNote = 0
+    private var page = 1
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -37,7 +37,7 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas {
         chipEnabled = binding!!.chip2022
         id = securityPreferences.getStoredString("id")
         recyclerView()
-        observer(id, "2022")
+        observer(id, "2022", page)
         listenerChip()
     }
 
@@ -48,21 +48,29 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas {
         recycler.adapter = adapter
     }
 
-    private fun observer(id: String, year: String) {
+    private fun observer(id: String, year: String, pagina: Int) {
 
-        viewModel.searchDespesasDeputado(id, year).observe(viewLifecycleOwner){
+        viewModel.searchDespesasDeputado(id, year, pagina).observe(viewLifecycleOwner){
             it?.let { result ->
                 when (result) {
                     is ResultDespesasRequest.Success -> {
                         result.dado?.let { despesas ->
                             if (despesas.dados.isNotEmpty()){
-                                calculateNotes(despesas.dados)
-                                adapter.updateData(despesas.dados)
+                                val size = despesas.dados.size
+                                numberNote += size
+                                calculateNumberNote(year)
+                                calculateTotal(despesas.dados, page)
+                                adapter.updateData(despesas.dados, page)
+                                page += 1
+                                if (size >= 100) {
+                                    observer(id, year, page)
+                                }
+
                             }else{
                                 binding?.progressDespesas?.visibility = View.GONE
                                 binding?.textNotesSend?.visibility = View.INVISIBLE
                                 binding?.textTotal?.text = "Não há dados no ano ${year}"
-                                adapter.updateData(despesas.dados)
+                                adapter.updateData(despesas.dados, page)
                             }
                         }
                     }
@@ -77,10 +85,13 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas {
         }
     }
 
-    private fun calculateNotes(dados: List<DadoDespesas>) {
-        (dados.size.toString()+" notas").also { binding!!.textNotesSend.text = it }
-        var total = 0.0
-        dados.forEach { it -> total = (total+it.valorDocumento) }
+    private fun calculateNumberNote(year: String){
+        binding!!.textNotesSend.text = "$numberNote notas no ano de $year"
+    }
+
+    private fun calculateTotal(dados: List<DadoDespesas>, page: Int) {
+        if (page == 1) total = 0.0
+        dados.forEach { total = (total+it.valorDocumento) }
 
         val format = DecimalFormat("#.00")
         val formatTotal = format.format(total)
@@ -107,8 +118,10 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas {
     private fun modify(viewEnabled: Chip, viewDisabled: Chip) {
         viewEnabled.isChecked = false
         viewDisabled.isChecked = true
+        numberNote = 0
+        page = 1
         chipEnabled = viewDisabled
-        observer(id, viewDisabled.text as String)
+        observer(id, viewDisabled.text as String, page)
     }
 
     override fun listenerDespesas(note: DadoDespesas) {

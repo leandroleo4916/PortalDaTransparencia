@@ -26,6 +26,8 @@ interface ApiServiceIdDespesas {
     suspend fun getIdDespesas(
          @Path("id") id: String,
          @Query("ano") ano: String,
+         @Query("itens") itens: Int = 100,
+         @Query("pagina") pagina: Int,
          @Query("ordem") ordem: String = "ASC",
          @Query("ordenarPor") ordenarPor: String = "ano"
     ): Response<Despesas>

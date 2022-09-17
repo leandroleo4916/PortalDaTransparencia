@@ -11,9 +11,9 @@ sealed class ResultDespesasRequest<out R> {
 
 class IdDespesasRepository(private val serviceApi: ApiServiceIdDespesas) {
 
-    fun searchDespesasData(id: String, ano: String) = liveData {
+    fun searchDespesasData(id: String, ano: String, pagina: Int) = liveData {
         try {
-            val request = serviceApi.getIdDespesas(id, ano)
+            val request = serviceApi.getIdDespesas(id, ano, pagina = pagina)
             if(request.isSuccessful){
                 emit(ResultDespesasRequest.Success(dado = request.body()))
             } else {

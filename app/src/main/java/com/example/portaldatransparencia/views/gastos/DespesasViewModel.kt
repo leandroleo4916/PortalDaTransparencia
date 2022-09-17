@@ -11,8 +11,8 @@ import com.example.portaldatransparencia.remote.ResultIdRequest
 
 class DespesasViewModel(private val repository: IdDespesasRepository): ViewModel() {
 
-    fun searchDespesasDeputado(id: String, ano: String):
-            LiveData<ResultDespesasRequest<Despesas?>> = repository.searchDespesasData(id, ano)
+    fun searchDespesasDeputado(id: String, ano: String, pagina: Int):
+            LiveData<ResultDespesasRequest<Despesas?>> = repository.searchDespesasData(id, ano, pagina)
 
 }
 

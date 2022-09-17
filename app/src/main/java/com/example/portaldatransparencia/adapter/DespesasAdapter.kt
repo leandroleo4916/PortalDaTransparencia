@@ -14,10 +14,11 @@ import okhttp3.internal.format
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 class DespesasAdapter(private val listener: INoteDespesas): RecyclerView.Adapter<DespesasAdapter.DespesasViewHolder>() {
 
-    private var data: List<DadoDespesas> = listOf()
+    private var data: ArrayList<DadoDespesas> = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DespesasViewHolder {
         val item = LayoutInflater
@@ -69,8 +70,9 @@ class DespesasAdapter(private val listener: INoteDespesas): RecyclerView.Adapter
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun updateData(deputados: List<DadoDespesas>) {
-        data = deputados
+    fun updateData(deputados: List<DadoDespesas>, page: Int) {
+        if (page == 1) { data = arrayListOf() }
+        deputados.forEach { data.add(it) }
         notifyDataSetChanged()
     }
 }
