@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_valor_notes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:foregroundGravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.wang.avi.AVLoadingIndicatorView
+            android:id="@+id/progress_front_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            app:indicatorColor="@color/purple_700"
+            app:indicatorName="BallPulseIndicator"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_frente_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="12dp"
+            android:singleLine="true"
+            android:text="Frente parlamentar..."
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/constraint_valor_notes"
+            app:layout_constraintStart_toStartOf="@+id/constraint_valor_notes"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/icon_deputado_front"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16sp"
+            android:src="@drawable/ic_check"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_frente_title"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/text_frente_situation"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="16sp"
+            android:layout_marginEnd="12dp"
+            android:text="11/07/2022 - Recebidos o REQ 1197/2022, a Ata, o Estatuto e as adesões.\r\n12/07/2022 - Confirmadas 205 assinaturas."
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="@+id/constraint_valor_notes"
+            app:layout_constraintStart_toEndOf="@+id/icon_deputado_front"
+            app:layout_constraintTop_toBottomOf="@+id/text_frente_title" />
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_coordinator"
+            android:layout_width="0dp"
+            android:layout_height="1.2dp"
+            android:layout_marginTop="16sp"
+            android:background="@color/purple_500"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_frente_situation" />
+
+        <TextView
+            android:id="@+id/text_coordinator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="12dp"
+            android:text="Coordenador"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/constraint_valor_notes"
+            app:layout_constraintStart_toStartOf="@+id/constraint_valor_notes"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar_coordinator" />
+
+        <ImageView
+            android:id="@+id/icon_deputado_image"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16sp"
+            android:src="@drawable/ic_avatar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_coordinator"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/text_frente_coordinator"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="16sp"
+            android:layout_marginEnd="12dp"
+            android:singleLine="true"
+            android:text="Nome do coordenador..."
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="@+id/constraint_valor_notes"
+            app:layout_constraintStart_toEndOf="@+id/icon_deputado_image"
+            app:layout_constraintTop_toBottomOf="@+id/text_coordinator" />
+
+        <TextView
+            android:id="@+id/text_frente_partido"
+            android:layout_width="0dp"
+            android:layout_height="27dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="12dp"
+            android:text="PARTIDO - ESTADO"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/constraint_valor_notes"
+            app:layout_constraintStart_toEndOf="@+id/icon_deputado_image"
+            app:layout_constraintTop_toBottomOf="@+id/text_frente_coordinator" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

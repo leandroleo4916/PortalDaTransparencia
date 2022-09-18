@@ -62,9 +62,7 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas {
                                 calculateTotal(despesas.dados, page)
                                 adapter.updateData(despesas.dados, page)
                                 page += 1
-                                if (size >= 100) {
-                                    observer(id, year, page)
-                                }
+                                if (size >= 100) observer(id, year, page)
 
                             }else{
                                 binding?.progressDespesas?.visibility = View.GONE
@@ -133,5 +131,4 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas {
             Toast.makeText(context, "Comprovante não enviado", Toast.LENGTH_SHORT).show()
         }
     }
-
 }

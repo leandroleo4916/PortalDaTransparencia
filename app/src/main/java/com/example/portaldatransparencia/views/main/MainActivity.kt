@@ -96,6 +96,8 @@ class MainActivity : AppCompatActivity(), IClickDeputado, INotification {
             chipPdt.setOnClickListener { modify(chipEnabled, chipPdt) }
             chipPhs.setOnClickListener { modify(chipEnabled, chipPhs) }
             chipPl.setOnClickListener { modify(chipEnabled, chipPl) }
+            chipPros.setOnClickListener { modify(chipEnabled, chipPros) }
+            chipPsc.setOnClickListener { modify(chipEnabled, chipPsc) }
             chipPmb.setOnClickListener { modify(chipEnabled, chipPmb) }
             chipPp.setOnClickListener { modify(chipEnabled, chipPp) }
             chipPt.setOnClickListener { modify(chipEnabled, chipPt) }

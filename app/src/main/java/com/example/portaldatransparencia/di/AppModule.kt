@@ -5,6 +5,7 @@ import com.example.portaldatransparencia.security.SecurityPreferences
 import com.example.portaldatransparencia.views.ProgressBar
 import com.example.portaldatransparencia.views.SimpleAdapterView
 import com.example.portaldatransparencia.views.deputado.DeputadoViewModel
+import com.example.portaldatransparencia.views.frente.FrenteViewModel
 import com.example.portaldatransparencia.views.gastos.DespesasViewModel
 import com.example.portaldatransparencia.views.main.MainViewModel
 import okhttp3.OkHttpClient
@@ -38,19 +39,26 @@ val retrofitModule = module {
         single<ApiServiceIdDespesas> {
                 get<Retrofit>().create(ApiServiceIdDespesas::class.java)
         }
+        single<ApiServiceFrente> {
+                get<Retrofit>().create(ApiServiceFrente::class.java)
+        }
 }
 
 val viewModelModule = module { viewModel { MainViewModel(get()) } }
 val viewModelDeputado = module { viewModel { DeputadoViewModel(get()) } }
 val viewModelDespesas = module { viewModel { DespesasViewModel(get()) } }
+val viewModelFront = module { viewModel { FrenteViewModel(get()) } }
+
 val repositorySearch = module { single { SearchRepository(get()) } }
 val repositoryIdDeputado = module { single { IdDeputadoRepository(get()) } }
 val repositoryDespesasDeputado = module { single { IdDespesasRepository(get()) } }
+val repositoryFront = module { single { FrenteRepository(get()) } }
+
 val progressModule = module { factory { ProgressBar() } }
 val simpleAdapterModule = module { factory { SimpleAdapterView(get(), get()) } }
 val securityPreferences = module { single { SecurityPreferences(get()) } }
 
 val appModules = listOf( retrofitModule, viewModelModule, repositorySearch, progressModule,
         viewModelDeputado, repositoryIdDeputado, viewModelDespesas, repositoryDespesasDeputado,
-        simpleAdapterModule, securityPreferences
+        simpleAdapterModule, securityPreferences, viewModelFront, repositoryFront
 )

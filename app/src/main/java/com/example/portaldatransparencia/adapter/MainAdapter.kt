@@ -62,7 +62,7 @@ class MainAdapter(private val listener: IClickDeputado, private val notify: INot
                     .into(image)
                 findViewById<TextView>(R.id.text_name).text = deputado.nome
                 findViewById<TextView>(R.id.text_partido).text = deputado.siglaPartido
-                findViewById<TextView>(R.id.text_state).text = deputado.siglaUf
+                findViewById<TextView>(R.id.text_state).text = " - ${deputado.siglaUf}"
             }
         }
     }

@@ -1,8 +1,6 @@
 package com.example.portaldatransparencia.remote
 
-import com.example.portaldatransparencia.dataclass.Despesas
-import com.example.portaldatransparencia.dataclass.IdDeputadoDataClass
-import com.example.portaldatransparencia.dataclass.MainDataClass
+import com.example.portaldatransparencia.dataclass.*
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -31,5 +29,26 @@ interface ApiServiceIdDespesas {
          @Query("ordem") ordem: String = "ASC",
          @Query("ordenarPor") ordenarPor: String = "ano"
     ): Response<Despesas>
+}
+
+interface ApiServiceFrente {
+    @GET("/api/v2/deputados/{id}/frentes")
+    suspend fun getFrente(
+        @Path("id") id: String
+    ): Response<Frente>
+}
+
+interface ApiServiceFrenteId {
+    @GET("/api/v2/deputados/{id}/frentes")
+    suspend fun getFrenteId(
+        @Path("id") id: String
+    ): Response<FrenteId>
+}
+
+interface ApiServiceOccupation {
+    @GET("/api/v2/deputados/{id}/ocupacoes")
+    suspend fun getOccupation(
+        @Path("id") id: String
+    ): Response<Occupation>
 }
 
