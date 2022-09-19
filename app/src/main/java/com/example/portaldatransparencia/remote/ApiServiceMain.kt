@@ -49,7 +49,7 @@ interface ApiServiceOccupation {
     @GET("/api/v2/deputados/{id}/ocupacoes")
     suspend fun getOccupation(
         @Path("id") id: String
-    ): Response<Occupation>
+    ): Response<OccupationDataClass>
 }
 
 interface ApiServiceProposta {

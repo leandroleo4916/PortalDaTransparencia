@@ -7,6 +7,7 @@ import com.example.portaldatransparencia.views.ProgressBar
 import com.example.portaldatransparencia.views.deputado.DeputadoViewModel
 import com.example.portaldatransparencia.views.frente.FrenteViewModel
 import com.example.portaldatransparencia.views.gastos.DespesasViewModel
+import com.example.portaldatransparencia.views.geral.OccupationViewModel
 import com.example.portaldatransparencia.views.main.MainViewModel
 import com.example.portaldatransparencia.views.proposta.PropostaViewModel
 import okhttp3.OkHttpClient
@@ -46,6 +47,9 @@ val retrofitModule = module {
         single<ApiServiceProposta> {
                 get<Retrofit>().create(ApiServiceProposta::class.java)
         }
+        single<ApiServiceOccupation> {
+                get<Retrofit>().create(ApiServiceOccupation::class.java)
+        }
 }
 
 val viewModelModule = module { viewModel { MainViewModel(get()) } }
@@ -53,12 +57,14 @@ val viewModelDeputado = module { viewModel { DeputadoViewModel(get()) } }
 val viewModelDespesas = module { viewModel { DespesasViewModel(get()) } }
 val viewModelFront = module { viewModel { FrenteViewModel(get()) } }
 val viewModelProposta = module { viewModel { PropostaViewModel(get()) } }
+val viewModelOccupation = module { viewModel { OccupationViewModel(get()) } }
 
 val repositorySearch = module { single { SearchRepository(get()) } }
 val repositoryIdDeputado = module { single { IdDeputadoRepository(get()) } }
 val repositoryDespesasDeputado = module { single { IdDespesasRepository(get()) } }
 val repositoryFront = module { single { FrenteRepository(get()) } }
 val repositoryProposta = module { single { PropostaRepository(get()) } }
+val repositoryOccupation = module { single { OccupationRepository(get()) } }
 
 val progressModule = module { factory { ProgressBar() } }
 val ageModule = module { factory { CalculateAge() } }
@@ -67,5 +73,5 @@ val securityPreferences = module { single { SecurityPreferences(get()) } }
 val appModules = listOf( retrofitModule, viewModelModule, repositorySearch, progressModule,
         viewModelDeputado, repositoryIdDeputado, viewModelDespesas, repositoryDespesasDeputado,
         securityPreferences, viewModelFront, repositoryFront, viewModelProposta, repositoryProposta,
-        ageModule
+        ageModule, viewModelOccupation, repositoryOccupation
 )

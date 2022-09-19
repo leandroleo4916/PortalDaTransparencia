@@ -1,11 +1,11 @@
 package com.example.portaldatransparencia.dataclass
 
-data class Occupation(
-    val dados: List<OccupationDado>,
+data class OccupationDataClass(
+    val dados: List<Occupation>,
     val links: List<Link>
 )
 
-data class OccupationDado (
+data class Occupation (
     val titulo: String,
     val entidade: String,
     val entidadeUF: String,
