@@ -58,7 +58,7 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas {
                             if (despesas.dados.isNotEmpty()){
                                 val size = despesas.dados.size
                                 numberNote += size
-                                calculateNumberNote(year)
+                                calculateNumberNote()
                                 calculateTotal(despesas.dados, page)
                                 adapter.updateData(despesas.dados, page)
                                 page += 1
@@ -67,6 +67,7 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas {
                             }else{
                                 binding?.progressDespesas?.visibility = View.GONE
                                 binding?.textNotesSend?.visibility = View.INVISIBLE
+                                binding?.textTotal?.visibility = View.VISIBLE
                                 binding?.textTotal?.text = "Não há dados no ano ${year}"
                                 adapter.updateData(despesas.dados, page)
                             }
@@ -83,8 +84,8 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas {
         }
     }
 
-    private fun calculateNumberNote(year: String){
-        binding!!.textNotesSend.text = "$numberNote notas no ano de $year"
+    private fun calculateNumberNote(){
+        binding!!.textNotesSend.text = "$numberNote notas fiscais"
     }
 
     private fun calculateTotal(dados: List<DadoDespesas>, page: Int) {

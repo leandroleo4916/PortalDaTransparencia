@@ -2,6 +2,8 @@ package com.example.portaldatransparencia.views.frente
 
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.portaldatransparencia.R
@@ -71,6 +73,5 @@ class FragmentFrente: Fragment(R.layout.fragment_frente), IFront {
     }
 
     override fun listenerFront(note: DadoFrente) {
-
     }
 }

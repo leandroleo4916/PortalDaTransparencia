@@ -52,3 +52,15 @@ interface ApiServiceOccupation {
     ): Response<Occupation>
 }
 
+interface ApiServiceProposta {
+    @GET("/api/v2/proposicoes?")
+    suspend fun getProposta(
+        @Query("ano") ano: String,
+        @Query("idDeputadoAutor") id: String,
+        @Query("itens") itens: Int = 100,
+        @Query("pagina") pagina: Int,
+        @Query("ordem") ordem: String = "ASC",
+        @Query("ordenarPor") ordenarPor: String = "id"
+    ): Response<PropostaDataClass>
+}
+

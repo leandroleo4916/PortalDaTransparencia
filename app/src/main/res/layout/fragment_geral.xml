@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_valor_notes"
+        android:layout_width="match_parent"
+        android:layout_height="700dp"
+        android:foregroundGravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.wang.avi.AVLoadingIndicatorView
+            android:id="@+id/progress_front_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            app:indicatorColor="@color/purple_700"
+            app:indicatorName="BallPulseIndicator"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_frente_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="12dp"
+            android:singleLine="true"
+            android:text="Dados"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/constraint_valor_notes"
+            app:layout_constraintStart_toStartOf="@+id/constraint_valor_notes"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/icon_deputado_geral"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16sp"
+            android:src="@drawable/ic_avatar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_frente_title"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/text_geral_information"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:text="Informações gerais..."
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="@+id/constraint_valor_notes"
+            app:layout_constraintStart_toEndOf="@+id/icon_deputado_geral"
+            app:layout_constraintTop_toTopOf="@+id/icon_deputado_geral" />
+
+        <TextView
+            android:id="@+id/text_gabinete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16sp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="Gabinete"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/constraint_valor_notes"
+            app:layout_constraintStart_toStartOf="@+id/constraint_valor_notes"
+            app:layout_constraintTop_toBottomOf="@+id/text_geral_information" />
+
+        <ImageView
+            android:id="@+id/icon_predio"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/ic_avatar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_gabinete"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/text_geral_predio"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="16dp"
+            android:text="Predio: 0"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/icon_predio"
+            app:layout_constraintEnd_toEndOf="@+id/constraint_valor_notes"
+            app:layout_constraintStart_toEndOf="@+id/icon_predio"
+            app:layout_constraintTop_toTopOf="@+id/icon_predio" />
+
+        <ImageView
+            android:id="@+id/icon_andar"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:src="@drawable/ic_avatar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/icon_predio"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/text_geral_andar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="16dp"
+            android:text="Andar: 0"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/icon_andar"
+            app:layout_constraintEnd_toEndOf="@+id/constraint_valor_notes"
+            app:layout_constraintStart_toEndOf="@+id/icon_andar"
+            app:layout_constraintTop_toTopOf="@+id/icon_andar" />
+
+        <ImageView
+            android:id="@+id/icon_sala"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:src="@drawable/ic_avatar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/icon_andar"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/text_geral_sala"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="16dp"
+            android:text="Sala: 0"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/icon_sala"
+            app:layout_constraintEnd_toEndOf="@+id/constraint_valor_notes"
+            app:layout_constraintStart_toEndOf="@+id/icon_sala"
+            app:layout_constraintTop_toTopOf="@+id/icon_sala" />
+
+        <ImageView
+            android:id="@+id/icon_phone"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:src="@drawable/ic_avatar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/icon_sala"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/text_geral_phone"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="16dp"
+            android:text="Telefone: 0000-0000"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/icon_phone"
+            app:layout_constraintEnd_toEndOf="@+id/constraint_valor_notes"
+            app:layout_constraintStart_toEndOf="@+id/icon_phone"
+            app:layout_constraintTop_toTopOf="@+id/icon_phone" />
+
+        <TextView
+            android:id="@+id/text_occupation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="Ocupações"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/constraint_valor_notes"
+            app:layout_constraintStart_toStartOf="@+id/constraint_valor_notes"
+            app:layout_constraintTop_toBottomOf="@+id/text_geral_phone" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>
