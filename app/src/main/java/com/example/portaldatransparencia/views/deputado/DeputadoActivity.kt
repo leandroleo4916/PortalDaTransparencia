@@ -9,6 +9,7 @@ import com.example.portaldatransparencia.databinding.ActivityDeputadoBinding
 import com.example.portaldatransparencia.dataclass.IdDeputadoDataClass
 import com.example.portaldatransparencia.remote.ResultIdRequest
 import com.example.portaldatransparencia.security.SecurityPreferences
+import com.example.portaldatransparencia.util.CalculateAge
 import com.example.portaldatransparencia.views.TabViewAdapterGeral
 import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.android.ext.android.inject
@@ -22,6 +23,7 @@ class DeputadoActivity : AppCompatActivity() {
     private val binding by lazy { ActivityDeputadoBinding.inflate(layoutInflater) }
     private val mainViewModel: DeputadoViewModel by viewModel()
     private val securityPreferences: SecurityPreferences by inject()
+    private val calculateAge: CalculateAge by inject()
     private var id: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -72,7 +74,7 @@ class DeputadoActivity : AppCompatActivity() {
                 .load(item.dados.ultimoStatus.urlFoto)
                 .circleCrop()
                 .into(imageDeputado)
-            val age = age(item.dados.dataNascimento)
+            val age = calculateAge.age(item.dados.dataNascimento)
             ("${item.dados.ultimoStatus.nome}, $age anos, nascido em " +
                     "${item.dados.municipioNascimento} - ${item.dados.ufNascimento}. " +
                     "Filiado ao partido ${item.dados.ultimoStatus.siglaPartido}")
@@ -81,12 +83,5 @@ class DeputadoActivity : AppCompatActivity() {
             textDescription.visibility = View.VISIBLE
             imageDeputado.visibility = View.VISIBLE
         }
-    }
-
-    private fun age(birth: String): Int {
-        val date = LocalDate.parse(birth, DateTimeFormatter.ofPattern("yyyy-MM-dd"))
-        val dateCurrent = LocalDate.now()
-        val periodo = Period.between(date, dateCurrent)
-        return periodo.years
     }
 }

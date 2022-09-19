@@ -33,7 +33,7 @@ data class UltimoStatus (
     val email: String? = null,
     val data: String,
     val nomeEleitoral: String,
-    val gabinete: Gabinete,
+    val gabinete: Gabinete?,
     val situacao: String,
     val condicaoEleitoral: String,
     val descricaoStatus: String? = null
@@ -41,10 +41,10 @@ data class UltimoStatus (
 
 data class Gabinete (
     val nome: String,
-    val predio: String,
-    val sala: String,
-    val andar: String,
-    val telefone: String,
+    val predio: String? = null,
+    val sala: String? = null,
+    val andar: String? = null,
+    val telefone: String? = null,
     val email: String? = null
 )
 

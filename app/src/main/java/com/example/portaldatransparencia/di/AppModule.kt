@@ -2,6 +2,7 @@ package com.example.portaldatransparencia.di
 
 import com.example.portaldatransparencia.remote.*
 import com.example.portaldatransparencia.security.SecurityPreferences
+import com.example.portaldatransparencia.util.CalculateAge
 import com.example.portaldatransparencia.views.ProgressBar
 import com.example.portaldatransparencia.views.deputado.DeputadoViewModel
 import com.example.portaldatransparencia.views.frente.FrenteViewModel
@@ -60,9 +61,11 @@ val repositoryFront = module { single { FrenteRepository(get()) } }
 val repositoryProposta = module { single { PropostaRepository(get()) } }
 
 val progressModule = module { factory { ProgressBar() } }
+val ageModule = module { factory { CalculateAge() } }
 val securityPreferences = module { single { SecurityPreferences(get()) } }
 
 val appModules = listOf( retrofitModule, viewModelModule, repositorySearch, progressModule,
         viewModelDeputado, repositoryIdDeputado, viewModelDespesas, repositoryDespesasDeputado,
-        securityPreferences, viewModelFront, repositoryFront, viewModelProposta, repositoryProposta
+        securityPreferences, viewModelFront, repositoryFront, viewModelProposta, repositoryProposta,
+        ageModule
 )

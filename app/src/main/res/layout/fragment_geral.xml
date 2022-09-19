@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,196 +8,423 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraint_valor_notes"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="700dp"
-        android:foregroundGravity="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:ignore="UselessParent">
 
-        <com.wang.avi.AVLoadingIndicatorView
-            android:id="@+id/progress_front_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            app:indicatorColor="@color/purple_700"
-            app:indicatorName="BallPulseIndicator"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_valor_notes"
+            android:layout_width="match_parent"
+            android:layout_height="700dp"
+            android:foregroundGravity="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/text_frente_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="12dp"
-            android:singleLine="true"
-            android:text="Dados"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/constraint_valor_notes"
-            app:layout_constraintStart_toStartOf="@+id/constraint_valor_notes"
-            app:layout_constraintTop_toTopOf="parent" />
+            <com.wang.avi.AVLoadingIndicatorView
+                android:id="@+id/progress_geral"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                app:indicatorColor="@color/purple_700"
+                app:indicatorName="BallPulseIndicator"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/icon_deputado_geral"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16sp"
-            android:src="@drawable/ic_avatar"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_frente_title"
-            tools:ignore="ContentDescription" />
+            <ImageView
+                android:id="@+id/icon_deputado_geral"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16sp"
+                android:src="@drawable/ic_avatar"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
 
-        <TextView
-            android:id="@+id/text_geral_information"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="12dp"
-            android:text="Informações gerais..."
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="@+id/constraint_valor_notes"
-            app:layout_constraintStart_toEndOf="@+id/icon_deputado_geral"
-            app:layout_constraintTop_toTopOf="@+id/icon_deputado_geral" />
+            <TextView
+                android:id="@+id/text_geral_information"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="16dp"
+                android:text="Informações gerais..."
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="@+id/constraint_valor_notes"
+                app:layout_constraintStart_toEndOf="@+id/icon_deputado_geral"
+                app:layout_constraintTop_toTopOf="@+id/icon_deputado_geral" />
 
-        <TextView
-            android:id="@+id/text_gabinete"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16sp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:text="Gabinete"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/constraint_valor_notes"
-            app:layout_constraintStart_toStartOf="@+id/constraint_valor_notes"
-            app:layout_constraintTop_toBottomOf="@+id/text_geral_information" />
+            <androidx.appcompat.widget.Toolbar
+                android:layout_width="0dp"
+                android:layout_height="1.2dp"
+                android:background="@color/purple_500"
+                app:layout_constraintBottom_toTopOf="@+id/text_gabinete"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
-        <ImageView
-            android:id="@+id/icon_predio"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:src="@drawable/ic_avatar"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_gabinete"
-            tools:ignore="ContentDescription" />
+            <TextView
+                android:id="@+id/text_gabinete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16sp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:text="Gabinete"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/constraint_valor_notes"
+                app:layout_constraintStart_toStartOf="@+id/constraint_valor_notes"
+                app:layout_constraintTop_toBottomOf="@+id/text_geral_information" />
 
-        <TextView
-            android:id="@+id/text_geral_predio"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="16dp"
-            android:text="Predio: 0"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="@+id/icon_predio"
-            app:layout_constraintEnd_toEndOf="@+id/constraint_valor_notes"
-            app:layout_constraintStart_toEndOf="@+id/icon_predio"
-            app:layout_constraintTop_toTopOf="@+id/icon_predio" />
+            <ImageView
+                android:id="@+id/icon_predio"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/ic_avatar"
+                app:layout_constraintStart_toStartOf="@+id/text_gabinete"
+                app:layout_constraintTop_toBottomOf="@+id/text_gabinete"
+                tools:ignore="ContentDescription" />
 
-        <ImageView
-            android:id="@+id/icon_andar"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="4dp"
-            android:src="@drawable/ic_avatar"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/icon_predio"
-            tools:ignore="ContentDescription" />
+            <TextView
+                android:id="@+id/text_geral_predio"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="16dp"
+                android:text="Predio: 0"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@+id/icon_predio"
+                app:layout_constraintEnd_toEndOf="@+id/constraint_valor_notes"
+                app:layout_constraintStart_toEndOf="@+id/icon_predio"
+                app:layout_constraintTop_toTopOf="@+id/icon_predio" />
 
-        <TextView
-            android:id="@+id/text_geral_andar"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="16dp"
-            android:text="Andar: 0"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="@+id/icon_andar"
-            app:layout_constraintEnd_toEndOf="@+id/constraint_valor_notes"
-            app:layout_constraintStart_toEndOf="@+id/icon_andar"
-            app:layout_constraintTop_toTopOf="@+id/icon_andar" />
+            <ImageView
+                android:id="@+id/icon_andar"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_avatar"
+                app:layout_constraintStart_toStartOf="@+id/icon_predio"
+                app:layout_constraintTop_toBottomOf="@+id/icon_predio"
+                tools:ignore="ContentDescription" />
 
-        <ImageView
-            android:id="@+id/icon_sala"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="4dp"
-            android:src="@drawable/ic_avatar"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/icon_andar"
-            tools:ignore="ContentDescription" />
+            <TextView
+                android:id="@+id/text_geral_andar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="16dp"
+                android:text="Andar: 0"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@+id/icon_andar"
+                app:layout_constraintEnd_toEndOf="@+id/constraint_valor_notes"
+                app:layout_constraintStart_toEndOf="@+id/icon_andar"
+                app:layout_constraintTop_toTopOf="@+id/icon_andar" />
 
-        <TextView
-            android:id="@+id/text_geral_sala"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="16dp"
-            android:text="Sala: 0"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="@+id/icon_sala"
-            app:layout_constraintEnd_toEndOf="@+id/constraint_valor_notes"
-            app:layout_constraintStart_toEndOf="@+id/icon_sala"
-            app:layout_constraintTop_toTopOf="@+id/icon_sala" />
+            <ImageView
+                android:id="@+id/icon_sala"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_avatar"
+                app:layout_constraintStart_toStartOf="@+id/icon_andar"
+                app:layout_constraintTop_toBottomOf="@+id/icon_andar"
+                tools:ignore="ContentDescription" />
 
-        <ImageView
-            android:id="@+id/icon_phone"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="4dp"
-            android:src="@drawable/ic_avatar"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/icon_sala"
-            tools:ignore="ContentDescription" />
+            <TextView
+                android:id="@+id/text_geral_sala"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="16dp"
+                android:text="Sala: 0"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@+id/icon_sala"
+                app:layout_constraintEnd_toEndOf="@+id/constraint_valor_notes"
+                app:layout_constraintStart_toEndOf="@+id/icon_sala"
+                app:layout_constraintTop_toTopOf="@+id/icon_sala" />
 
-        <TextView
-            android:id="@+id/text_geral_phone"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="16dp"
-            android:text="Telefone: 0000-0000"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="@+id/icon_phone"
-            app:layout_constraintEnd_toEndOf="@+id/constraint_valor_notes"
-            app:layout_constraintStart_toEndOf="@+id/icon_phone"
-            app:layout_constraintTop_toTopOf="@+id/icon_phone" />
+            <ImageView
+                android:id="@+id/icon_phone"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_avatar"
+                app:layout_constraintStart_toStartOf="@+id/icon_sala"
+                app:layout_constraintTop_toBottomOf="@+id/icon_sala"
+                tools:ignore="ContentDescription" />
 
-        <TextView
-            android:id="@+id/text_occupation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:text="Ocupações"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/constraint_valor_notes"
-            app:layout_constraintStart_toStartOf="@+id/constraint_valor_notes"
-            app:layout_constraintTop_toBottomOf="@+id/text_geral_phone" />
+            <TextView
+                android:id="@+id/text_geral_phone"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="16dp"
+                android:text="Telefone: 0000-0000"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@+id/icon_phone"
+                app:layout_constraintEnd_toEndOf="@+id/constraint_valor_notes"
+                app:layout_constraintStart_toEndOf="@+id/icon_phone"
+                app:layout_constraintTop_toTopOf="@+id/icon_phone" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.appcompat.widget.Toolbar
+                android:layout_width="0dp"
+                android:layout_height="1.2dp"
+                android:background="@color/purple_500"
+                app:layout_constraintBottom_toTopOf="@+id/text_occupation"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/text_occupation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="20dp"
+                android:text="Ocupações"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/constraint_valor_notes"
+                app:layout_constraintStart_toStartOf="@+id/constraint_valor_notes"
+                app:layout_constraintTop_toBottomOf="@+id/text_geral_phone" />
+
+            <TextView
+                android:id="@+id/text_work"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:text="Seu trabalho antes de ser deputado"
+                android:textColor="@color/purple_700"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="@+id/text_occupation"
+                app:layout_constraintStart_toStartOf="@+id/text_occupation"
+                app:layout_constraintTop_toBottomOf="@+id/text_occupation" />
+
+            <androidx.appcompat.widget.Toolbar
+                android:layout_width="0dp"
+                android:layout_height="1.2dp"
+                android:background="@color/purple_500"
+                app:layout_constraintBottom_toTopOf="@+id/text_rede_social"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/text_rede_social"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16sp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:text="Redes sociais"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/constraint_valor_notes"
+                app:layout_constraintStart_toStartOf="@+id/constraint_valor_notes"
+                app:layout_constraintTop_toBottomOf="@+id/text_work" />
+
+            <TextView
+                android:id="@+id/text_acompanhe_rede"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:text="Acompanhe o deputado nas redes sociais"
+                android:textColor="@color/purple_700"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="@+id/text_rede_social"
+                app:layout_constraintStart_toStartOf="@+id/text_rede_social"
+                app:layout_constraintTop_toBottomOf="@+id/text_rede_social" />
+
+            <ScrollView
+                android:id="@+id/scrollView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_acompanhe_rede"
+                tools:ignore="NestedScrolling">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp">
+
+                    <TextView
+                        android:id="@+id/text_information_rede"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Não informou suas redes sociais"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constraint1"
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/red"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="MissingConstraints" >
+
+                        <ImageView
+                            android:id="@+id/image_facebook"
+                            android:layout_width="40dp"
+                            android:layout_height="50dp"
+                            android:layout_marginStart="4dp"
+                            android:layout_marginTop="4dp"
+                            android:visibility="gone"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="4dp"
+                            android:layout_marginTop="6dp"
+                            android:layout_marginBottom="4dp"
+                            android:visibility="gone"
+                            android:text="Facebook"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/image_facebook" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constraint2"
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/constraint1"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="MissingConstraints" >
+
+                        <ImageView
+                            android:id="@+id/image_instagram"
+                            android:layout_width="40dp"
+                            android:layout_height="50dp"
+                            android:layout_marginStart="4dp"
+                            android:layout_marginTop="4dp"
+                            android:visibility="gone"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="4dp"
+                            android:layout_marginTop="6dp"
+                            android:layout_marginBottom="4dp"
+                            android:visibility="gone"
+                            android:text="Instagram"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/image_instagram" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constraint3"
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/constraint2"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="MissingConstraints" >
+
+                        <ImageView
+                            android:id="@+id/image_twiter"
+                            android:layout_width="40dp"
+                            android:layout_height="50dp"
+                            android:layout_marginStart="4dp"
+                            android:layout_marginTop="4dp"
+                            android:visibility="gone"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="4dp"
+                            android:layout_marginTop="6dp"
+                            android:layout_marginBottom="4dp"
+                            android:visibility="gone"
+                            android:text="Twiter"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/image_twiter" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constraint4"
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/constraint3"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="ContentDescription,MissingConstraints" >
+
+                        <ImageView
+                            android:id="@+id/image_youtube"
+                            android:layout_width="40dp"
+                            android:layout_height="50dp"
+                            android:layout_marginStart="4dp"
+                            android:layout_marginTop="4dp"
+                            android:visibility="gone"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="4dp"
+                            android:layout_marginTop="6dp"
+                            android:layout_marginBottom="4dp"
+                            android:visibility="gone"
+                            android:text="Youtube"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/image_youtube" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </ScrollView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
 
 </LinearLayout>
