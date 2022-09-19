@@ -36,10 +36,10 @@
 
             <ImageView
                 android:id="@+id/icon_deputado_geral"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16sp"
+                android:layout_width="52dp"
+                android:layout_height="52dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="18sp"
                 android:src="@drawable/ic_avatar"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -49,6 +49,7 @@
                 android:id="@+id/text_geral_information"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="-4dp"
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="16dp"
                 android:text="Informações gerais..."
@@ -62,6 +63,7 @@
                 android:layout_width="0dp"
                 android:layout_height="1.2dp"
                 android:background="@color/purple_500"
+                android:layout_marginBottom="4dp"
                 app:layout_constraintBottom_toTopOf="@+id/text_gabinete"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -83,10 +85,10 @@
 
             <ImageView
                 android:id="@+id/icon_predio"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
                 android:layout_marginTop="8dp"
-                android:src="@drawable/ic_avatar"
+                android:src="@drawable/ic_corporate"
                 app:layout_constraintStart_toStartOf="@+id/text_gabinete"
                 app:layout_constraintTop_toBottomOf="@+id/text_gabinete"
                 tools:ignore="ContentDescription" />
@@ -99,7 +101,7 @@
                 android:layout_marginEnd="16dp"
                 android:text="Predio: 0"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="@+id/icon_predio"
                 app:layout_constraintEnd_toEndOf="@+id/constraint_valor_notes"
                 app:layout_constraintStart_toEndOf="@+id/icon_predio"
@@ -107,10 +109,11 @@
 
             <ImageView
                 android:id="@+id/icon_andar"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/ic_avatar"
-                app:layout_constraintStart_toStartOf="@+id/icon_predio"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="2dp"
+                android:src="@drawable/floor"
+                app:layout_constraintEnd_toEndOf="@+id/icon_predio"
                 app:layout_constraintTop_toBottomOf="@+id/icon_predio"
                 tools:ignore="ContentDescription" />
 
@@ -122,7 +125,7 @@
                 android:layout_marginEnd="16dp"
                 android:text="Andar: 0"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="@+id/icon_andar"
                 app:layout_constraintEnd_toEndOf="@+id/constraint_valor_notes"
                 app:layout_constraintStart_toEndOf="@+id/icon_andar"
@@ -130,10 +133,11 @@
 
             <ImageView
                 android:id="@+id/icon_sala"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/ic_avatar"
-                app:layout_constraintStart_toStartOf="@+id/icon_andar"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:layout_marginTop="2dp"
+                android:src="@drawable/door"
+                app:layout_constraintEnd_toEndOf="@+id/icon_andar"
                 app:layout_constraintTop_toBottomOf="@+id/icon_andar"
                 tools:ignore="ContentDescription" />
 
@@ -145,7 +149,7 @@
                 android:layout_marginEnd="16dp"
                 android:text="Sala: 0"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="@+id/icon_sala"
                 app:layout_constraintEnd_toEndOf="@+id/constraint_valor_notes"
                 app:layout_constraintStart_toEndOf="@+id/icon_sala"
@@ -153,10 +157,11 @@
 
             <ImageView
                 android:id="@+id/icon_phone"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/ic_avatar"
-                app:layout_constraintStart_toStartOf="@+id/icon_sala"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:layout_marginTop="2dp"
+                android:src="@drawable/phone"
+                app:layout_constraintEnd_toEndOf="@+id/icon_sala"
                 app:layout_constraintTop_toBottomOf="@+id/icon_sala"
                 tools:ignore="ContentDescription" />
 
@@ -168,7 +173,7 @@
                 android:layout_marginEnd="16dp"
                 android:text="Telefone: 0000-0000"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="@+id/icon_phone"
                 app:layout_constraintEnd_toEndOf="@+id/constraint_valor_notes"
                 app:layout_constraintStart_toEndOf="@+id/icon_phone"
@@ -178,6 +183,7 @@
                 android:layout_width="0dp"
                 android:layout_height="1.2dp"
                 android:background="@color/purple_500"
+                android:layout_marginBottom="4dp"
                 app:layout_constraintBottom_toTopOf="@+id/text_occupation"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -213,6 +219,7 @@
                 android:layout_width="0dp"
                 android:layout_height="1.2dp"
                 android:background="@color/purple_500"
+                android:layout_marginBottom="4dp"
                 app:layout_constraintBottom_toTopOf="@+id/text_rede_social"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -266,6 +273,7 @@
                         android:text="Não informou suas redes sociais"
                         android:textSize="18sp"
                         android:textStyle="bold"
+                        android:visibility="invisible"
                         android:textColor="@color/black"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -275,8 +283,7 @@
                         android:id="@+id/constraint1"
                         android:layout_width="80dp"
                         android:layout_height="wrap_content"
-                        android:backgroundTint="@color/red"
-                        android:visibility="gone"
+                        android:background="#385DAC"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -288,7 +295,7 @@
                             android:layout_height="50dp"
                             android:layout_marginStart="4dp"
                             android:layout_marginTop="4dp"
-                            android:visibility="gone"
+                            android:src="@drawable/face"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             tools:ignore="ContentDescription" />
@@ -299,8 +306,8 @@
                             android:layout_marginStart="4dp"
                             android:layout_marginTop="6dp"
                             android:layout_marginBottom="4dp"
-                            android:visibility="gone"
                             android:text="Facebook"
+                            android:textColor="@color/write_2"
                             android:textStyle="bold"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -313,7 +320,7 @@
                         android:layout_width="80dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
-                        android:visibility="gone"
+                        android:background="@drawable/instagram"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/constraint1"
                         app:layout_constraintTop_toTopOf="parent"
@@ -325,7 +332,7 @@
                             android:layout_height="50dp"
                             android:layout_marginStart="4dp"
                             android:layout_marginTop="4dp"
-                            android:visibility="gone"
+                            android:src="@drawable/insta"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             tools:ignore="ContentDescription" />
@@ -336,7 +343,7 @@
                             android:layout_marginStart="4dp"
                             android:layout_marginTop="6dp"
                             android:layout_marginBottom="4dp"
-                            android:visibility="gone"
+                            android:textColor="@color/write_2"
                             android:text="Instagram"
                             android:textStyle="bold"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -350,19 +357,19 @@
                         android:layout_width="80dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
-                        android:visibility="gone"
+                        android:background="#00ACEE"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/constraint2"
                         app:layout_constraintTop_toTopOf="parent"
                         tools:ignore="MissingConstraints" >
 
                         <ImageView
-                            android:id="@+id/image_twiter"
+                            android:id="@+id/image_twitter"
                             android:layout_width="40dp"
                             android:layout_height="50dp"
                             android:layout_marginStart="4dp"
                             android:layout_marginTop="4dp"
-                            android:visibility="gone"
+                            android:src="@drawable/twitter"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             tools:ignore="ContentDescription" />
@@ -373,12 +380,12 @@
                             android:layout_marginStart="4dp"
                             android:layout_marginTop="6dp"
                             android:layout_marginBottom="4dp"
-                            android:visibility="gone"
-                            android:text="Twiter"
+                            android:textColor="@color/write_2"
+                            android:text="Twitter"
                             android:textStyle="bold"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/image_twiter" />
+                            app:layout_constraintTop_toBottomOf="@+id/image_twitter" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -387,7 +394,7 @@
                         android:layout_width="80dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
-                        android:visibility="gone"
+                        android:background="#CF0D26"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/constraint3"
                         app:layout_constraintTop_toTopOf="parent"
@@ -399,7 +406,7 @@
                             android:layout_height="50dp"
                             android:layout_marginStart="4dp"
                             android:layout_marginTop="4dp"
-                            android:visibility="gone"
+                            android:src="@drawable/youtube"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             tools:ignore="ContentDescription" />
@@ -410,7 +417,7 @@
                             android:layout_marginStart="4dp"
                             android:layout_marginTop="6dp"
                             android:layout_marginBottom="4dp"
-                            android:visibility="gone"
+                            android:textColor="@color/write_2"
                             android:text="Youtube"
                             android:textStyle="bold"
                             app:layout_constraintBottom_toBottomOf="parent"

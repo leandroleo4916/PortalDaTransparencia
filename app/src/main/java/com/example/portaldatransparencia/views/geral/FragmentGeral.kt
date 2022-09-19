@@ -62,9 +62,11 @@ class FragmentGeral: Fragment(R.layout.fragment_geral) {
         binding?.run {
             (status.nome+", "+age+" anos, nascido na cidade de "+
                     dados.municipioNascimento+" - "+dados.ufNascimento+", é "+
-                    deputado+", filiado ao partido "+ status.siglaPartido+" pelo estado de "+
-                    status.siglaUf+", sua escolaridade atual: " +dados.escolaridade+".")
+                    deputado+" em "+status.situacao+", filiado ao partido "+
+                    status.siglaPartido+" pelo estado de "+ status.siglaUf+
+                    ", sua escolaridade atual é " +dados.escolaridade+".")
                 .also { textGeralInformation.text = it }
+
             textGeralPredio.text = "Predio: "+ (status.gabinete?.predio ?: "Não informado")
             textGeralAndar.text = "Andar: "+ (status.gabinete?.andar ?: "Não informado")
             textGeralSala.text = "Sala: "+ (status.gabinete?.sala ?: "Não informado")
