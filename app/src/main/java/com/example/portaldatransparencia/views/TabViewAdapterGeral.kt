@@ -11,7 +11,7 @@ import com.example.portaldatransparencia.views.proposta.FragmentProposta
 class TabViewAdapterGeral(fa: FragmentActivity): FragmentStateAdapter(fa) {
 
     private val fragments = arrayOf(
-        FragmentGeral(), FragmentGastos(), FragmentFrente(), FragmentProposta()
+        FragmentGeral(), FragmentGastos(), FragmentProposta(), FragmentFrente()
     )
 
     override fun getItemCount() = fragments.size

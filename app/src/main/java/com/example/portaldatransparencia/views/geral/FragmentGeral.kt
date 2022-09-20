@@ -27,7 +27,7 @@ class FragmentGeral: Fragment(R.layout.fragment_geral) {
     private val securityPreferences: SecurityPreferences by inject()
     private val calculateAge: CalculateAge by inject()
     private val statusView: EnableDisableView by inject()
-    private var deputadoOccupation = "deputado"
+    private var sexoDeputado = ""
     private lateinit var id: String
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -68,6 +68,7 @@ class FragmentGeral: Fragment(R.layout.fragment_geral) {
                             statusView.disableProgress(binding!!.progressGeral)
                             addElementView(deputado.dados)
                             addElementRedeSocial(deputado.dados)
+                            sexoDeputado = deputado.dados.sexo
                         }
                     }
                     is ResultIdRequest.Error -> {
@@ -87,11 +88,9 @@ class FragmentGeral: Fragment(R.layout.fragment_geral) {
         if (dados.sexo == "M") {
             deputado = "Deputado Federal"
             oDeputado = "o deputado"
-            deputadoOccupation = "deputado"
         } else {
             deputado = "Deputada Federal"
             oDeputado = "a deputada"
-            deputadoOccupation = "deputada"
         }
         val age = calculateAge.age(dados.dataNascimento)
         val status = dados.ultimoStatus
@@ -119,11 +118,18 @@ class FragmentGeral: Fragment(R.layout.fragment_geral) {
 
     private fun addElementOccupation(dados: List<Occupation>) {
         val occupation = dados[0]
+        val deputadoOccupation = if (sexoDeputado == "M") "deputado" else "deputada"
+
+        val em = " em "
+        val hifen = " - "
+        val uf = occupation.entidadeUF ?: ""
+        val pais = occupation.entidadePais ?: ""
+        val part = if (uf != "") em+uf+hifen+pais else ""
+
         binding?.run {
             "Seu trabalho antes de ser $deputadoOccupation".also { textWork.text = it }
             if (occupation.titulo != null){
-                ("Trabalhou como "+occupation.titulo+" na "+ occupation.entidade+" em "+
-                        occupation.entidadeUF+" - "+occupation.entidadePais+ ", no ano de "+
+                ("Trabalhou como "+occupation.titulo+" na "+ occupation.entidade+part+", no ano de "+
                         occupation.anoInicio+".").also { textOccupationDescription.text = it }
             }
         }

@@ -4,9 +4,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:elevation="10dp"
     android:id="@+id/constraint_deputado"
+    android:layout_marginTop="6dp"
+    android:layout_marginEnd="12dp"
+    android:layout_marginStart="12dp"
+    android:background="@color/white"
+    android:elevation="16dp"
     android:layout_height="wrap_content">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/constraint2"
+        android:layout_width="6dp"
+        android:layout_height="0dp"
+        android:background="@color/teal_700"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
 
     <ImageView
         android:id="@+id/icon_deputado"
@@ -16,6 +30,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:src="@drawable/ic_avatar"
+        android:elevation="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -73,13 +88,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="ContentDescription" />
-
-    <androidx.appcompat.widget.Toolbar
-        android:layout_width="0dp"
-        android:layout_height="1.2dp"
-        android:background="@color/purple_500"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/icon_enter"
-        app:layout_constraintStart_toStartOf="@+id/text_name" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

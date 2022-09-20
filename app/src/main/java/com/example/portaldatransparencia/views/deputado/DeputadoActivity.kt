@@ -39,7 +39,7 @@ class DeputadoActivity : AppCompatActivity() {
     }
 
     private fun setupViewGeral(){
-        val tabs = arrayOf(R.string.geral, R.string.gastos, R.string.frente, R.string.acao)
+        val tabs = arrayOf(R.string.geral, R.string.gastos, R.string.acao, R.string.frente,)
         val tabLayout = binding.tabDeputado
         val pagerGeral = binding.viewPagerDeputado
         val adapter = TabViewAdapterGeral(this)

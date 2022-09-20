@@ -67,12 +67,14 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas {
                                 if (size >= 100) observer(id, year, page)
 
                             }else{
-                                binding?.run {
-                                    statusView.disableProgress(progressDespesas)
-                                    statusView.enableView(textNotValue)
-                                    textNotValue.text = "Não há dados no ano ${year}"
+                                if (numberNote == 0) {
+                                    binding?.run {
+                                        statusView.disableProgress(progressDespesas)
+                                        statusView.enableView(textNotValue)
+                                        textNotValue.text = "Não há dados no ano ${year}"
+                                    }
+                                    adapter.updateData(despesas.dados, page)
                                 }
-                                adapter.updateData(despesas.dados, page)
                             }
                         }
                     }
