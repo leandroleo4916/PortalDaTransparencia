@@ -8,7 +8,7 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -218,7 +218,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12sp"
-                android:text="Seu trabalho antes de ser deputado..."
+                android:text="Não tem informação da última ocupação"
                 android:textColor="@color/purple_700"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="@+id/text_occupation"
@@ -282,7 +282,6 @@
                         android:text="Não informou suas redes sociais"
                         android:textSize="18sp"
                         android:textStyle="bold"
-                        android:visibility="invisible"
                         android:textColor="@color/black"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -293,6 +292,7 @@
                         android:layout_width="80dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/back_face"
+                        android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -329,6 +329,7 @@
                         android:layout_width="80dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
+                        android:visibility="gone"
                         android:background="@drawable/back_insta"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/constraint1"
@@ -366,6 +367,7 @@
                         android:layout_width="80dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
+                        android:visibility="gone"
                         android:background="@drawable/back_twitter"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/constraint2"
@@ -403,6 +405,7 @@
                         android:layout_width="80dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
+                        android:visibility="gone"
                         android:background="@drawable/back_you"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/constraint3"
@@ -441,6 +444,6 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 </LinearLayout>

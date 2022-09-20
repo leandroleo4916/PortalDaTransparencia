@@ -124,7 +124,6 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas {
     }
 
     override fun listenerDespesas(note: DadoDespesas) {
-
         if (note.urlDocumento != null){
             val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(note.urlDocumento))
             startActivity(browserIntent)

@@ -1,5 +1,7 @@
 package com.example.portaldatransparencia.views.geral
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -23,8 +25,8 @@ class FragmentGeral: Fragment(R.layout.fragment_geral) {
     private val viewModelOccupation: OccupationViewModel by viewModel()
     private val securityPreferences: SecurityPreferences by inject()
     private val calculateAge: CalculateAge by inject()
-    private lateinit var id: String
     private var deputadoOccupation = "deputado"
+    private lateinit var id: String
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -63,6 +65,7 @@ class FragmentGeral: Fragment(R.layout.fragment_geral) {
                         result.dado?.let { deputado ->
                             binding?.progressGeral?.visibility = View.GONE
                             addElementView(deputado.dados)
+                            addElementRedeSocial(deputado.dados)
                         }
                     }
                     is ResultIdRequest.Error -> {
@@ -90,10 +93,9 @@ class FragmentGeral: Fragment(R.layout.fragment_geral) {
         }
         val age = calculateAge.age(dados.dataNascimento)
         val status = dados.ultimoStatus
-        val redeSocial = dados.redeSocial
 
         binding?.run {
-            textAcompanheRede.text = "Acompanhe "+oDeputado+" nas redes sociais"
+            ("Acompanhe $oDeputado nas redes sociais").also { textAcompanheRede.text = it }
             (status.nome+", "+age+" anos, nascido na cidade de "+
                     dados.municipioNascimento+" - "+dados.ufNascimento+", é "+
                     deputado+" em "+status.situacao+", filiado ao partido "+
@@ -110,26 +112,53 @@ class FragmentGeral: Fragment(R.layout.fragment_geral) {
                 .load(dados.ultimoStatus.urlFoto)
                 .circleCrop()
                 .into(iconDeputadoGeral)
-
-            if (redeSocial.isNotEmpty()){
-                binding.run {
-
-                }
-            }
         }
     }
 
     private fun addElementOccupation(dados: List<Occupation>) {
         val occupation = dados[0]
-        if (dados.isNotEmpty()){
-            binding?.textOccupationDescription?.text = "Trabalhou como "+occupation.titulo+" na "+
-                    occupation.entidade+" em "+occupation.entidadeUF+" - "+occupation.entidadePais+
-                    ", no ano de "+occupation.anoInicio+"."
-            binding?.textWork?.text = "Seu trabalho antes de ser $deputadoOccupation"
-        }
-        else {
-            binding?.textOccupationDescription?.text = "Não tem informação da última ocupação"
+        "Seu trabalho antes de ser $deputadoOccupation".also { binding?.textWork?.text = it }
+        if (occupation.titulo != null){
+            ("Trabalhou como "+occupation.titulo+" na "+ occupation.entidade+" em "+
+                    occupation.entidadeUF+" - "+occupation.entidadePais+ ", no ano de "+
+                    occupation.anoInicio+".").also { binding?.textOccupationDescription?.text = it }
         }
     }
 
+    private fun addElementRedeSocial(dados: Dados){
+        var facebook = ""
+        var instagram = ""
+        var twitter = ""
+        var youtube = ""
+
+        if (dados.redeSocial.isNotEmpty()){
+            dados.redeSocial.forEach {
+                if (it.contains("facebook")) facebook = it
+                else if (it.contains("instagram")) instagram = it
+                else if (it.contains("twitter")) twitter = it
+                else if (it.contains("youtube")) youtube = it
+            }
+            binding?.textInformationRede?.visibility = View.INVISIBLE
+            listenerRedeSocial(facebook, instagram, twitter, youtube)
+        }
+
+        if (facebook.isNotEmpty()) binding?.constraint1?.visibility = View.VISIBLE
+        if (instagram.isNotEmpty()) binding?.constraint2?.visibility = View.VISIBLE
+        if (twitter.isNotEmpty()) binding?.constraint3?.visibility = View.VISIBLE
+        if (youtube.isNotEmpty()) binding?.constraint4?.visibility = View.VISIBLE
+    }
+
+    private fun listenerRedeSocial(f: String, i: String, t: String, y: String){
+        binding?.run {
+            constraint1.setOnClickListener { choose(f) }
+            constraint2.setOnClickListener { choose(i) }
+            constraint3.setOnClickListener { choose(t) }
+            constraint4.setOnClickListener { choose(y) }
+        }
+    }
+
+    private fun choose(social: String){
+        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(social))
+        startActivity(browserIntent)
+    }
 }
