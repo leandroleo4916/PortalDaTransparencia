@@ -10,6 +10,7 @@ import com.example.portaldatransparencia.dataclass.IdDeputadoDataClass
 import com.example.portaldatransparencia.remote.ResultIdRequest
 import com.example.portaldatransparencia.security.SecurityPreferences
 import com.example.portaldatransparencia.util.CalculateAge
+import com.example.portaldatransparencia.views.EnableDisableView
 import com.example.portaldatransparencia.views.TabViewAdapterGeral
 import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.android.ext.android.inject
@@ -23,6 +24,7 @@ class DeputadoActivity : AppCompatActivity() {
     private val binding by lazy { ActivityDeputadoBinding.inflate(layoutInflater) }
     private val mainViewModel: DeputadoViewModel by viewModel()
     private val securityPreferences: SecurityPreferences by inject()
+    private val statusView: EnableDisableView by inject()
     private val calculateAge: CalculateAge by inject()
     private var id: String = ""
 
@@ -37,7 +39,7 @@ class DeputadoActivity : AppCompatActivity() {
     }
 
     private fun setupViewGeral(){
-        val tabs = arrayOf(R.string.geral, R.string.gastos, R.string.frente, R.string.proposta)
+        val tabs = arrayOf(R.string.geral, R.string.gastos, R.string.frente, R.string.acao)
         val tabLayout = binding.tabDeputado
         val pagerGeral = binding.viewPagerDeputado
         val adapter = TabViewAdapterGeral(this)
@@ -79,9 +81,9 @@ class DeputadoActivity : AppCompatActivity() {
                     "${item.dados.municipioNascimento} - ${item.dados.ufNascimento}. " +
                     "Filiado ao partido ${item.dados.ultimoStatus.siglaPartido}")
                 .also { textDescription.text = it }
-            progressDeputado.visibility = View.GONE
-            textDescription.visibility = View.VISIBLE
-            imageDeputado.visibility = View.VISIBLE
+            statusView.disableProgress(progressDeputado)
+            statusView.enableView(textDescription)
+            statusView.enableView(imageDeputado)
         }
     }
 }

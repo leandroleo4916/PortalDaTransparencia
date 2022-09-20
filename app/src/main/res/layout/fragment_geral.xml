@@ -170,7 +170,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="20dp"
-                android:text="Telefone: 0000-0000"
+                android:text="0000-0000"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="@+id/icon_phone"

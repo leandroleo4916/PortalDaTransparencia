@@ -14,6 +14,7 @@ import com.example.portaldatransparencia.remote.ResultIdRequest
 import com.example.portaldatransparencia.remote.ResultOccupationRequest
 import com.example.portaldatransparencia.security.SecurityPreferences
 import com.example.portaldatransparencia.util.CalculateAge
+import com.example.portaldatransparencia.views.EnableDisableView
 import com.example.portaldatransparencia.views.deputado.DeputadoViewModel
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -25,6 +26,7 @@ class FragmentGeral: Fragment(R.layout.fragment_geral) {
     private val viewModelOccupation: OccupationViewModel by viewModel()
     private val securityPreferences: SecurityPreferences by inject()
     private val calculateAge: CalculateAge by inject()
+    private val statusView: EnableDisableView by inject()
     private var deputadoOccupation = "deputado"
     private lateinit var id: String
 
@@ -63,7 +65,7 @@ class FragmentGeral: Fragment(R.layout.fragment_geral) {
                 when (result) {
                     is ResultIdRequest.Success -> {
                         result.dado?.let { deputado ->
-                            binding?.progressGeral?.visibility = View.GONE
+                            statusView.disableProgress(binding!!.progressGeral)
                             addElementView(deputado.dados)
                             addElementRedeSocial(deputado.dados)
                         }
@@ -106,7 +108,7 @@ class FragmentGeral: Fragment(R.layout.fragment_geral) {
             textGeralPredio.text = "Predio: "+ (status.gabinete?.predio ?: "Não informado")
             textGeralAndar.text = "Andar: "+ (status.gabinete?.andar ?: "Não informado")
             textGeralSala.text = "Sala: "+ (status.gabinete?.sala ?: "Não informado")
-            textGeralPhone.text = "Telefone: "+ (status.gabinete?.telefone ?: "Não informado")
+            textGeralPhone.text = status.gabinete?.telefone ?: "Não informado"
 
             Glide.with(requireContext())
                 .load(dados.ultimoStatus.urlFoto)
@@ -117,11 +119,13 @@ class FragmentGeral: Fragment(R.layout.fragment_geral) {
 
     private fun addElementOccupation(dados: List<Occupation>) {
         val occupation = dados[0]
-        "Seu trabalho antes de ser $deputadoOccupation".also { binding?.textWork?.text = it }
-        if (occupation.titulo != null){
-            ("Trabalhou como "+occupation.titulo+" na "+ occupation.entidade+" em "+
-                    occupation.entidadeUF+" - "+occupation.entidadePais+ ", no ano de "+
-                    occupation.anoInicio+".").also { binding?.textOccupationDescription?.text = it }
+        binding?.run {
+            "Seu trabalho antes de ser $deputadoOccupation".also { textWork.text = it }
+            if (occupation.titulo != null){
+                ("Trabalhou como "+occupation.titulo+" na "+ occupation.entidade+" em "+
+                        occupation.entidadeUF+" - "+occupation.entidadePais+ ", no ano de "+
+                        occupation.anoInicio+".").also { textOccupationDescription.text = it }
+            }
         }
     }
 
@@ -142,10 +146,12 @@ class FragmentGeral: Fragment(R.layout.fragment_geral) {
             listenerRedeSocial(facebook, instagram, twitter, youtube)
         }
 
-        if (facebook.isNotEmpty()) binding?.constraint1?.visibility = View.VISIBLE
-        if (instagram.isNotEmpty()) binding?.constraint2?.visibility = View.VISIBLE
-        if (twitter.isNotEmpty()) binding?.constraint3?.visibility = View.VISIBLE
-        if (youtube.isNotEmpty()) binding?.constraint4?.visibility = View.VISIBLE
+        binding?.run {
+            if (facebook.isNotEmpty()) statusView.enableView(constraint1)
+            if (instagram.isNotEmpty()) statusView.enableView(constraint2)
+            if (twitter.isNotEmpty()) statusView.enableView(constraint3)
+            if (youtube.isNotEmpty()) statusView.enableView(constraint4)
+        }
     }
 
     private fun listenerRedeSocial(f: String, i: String, t: String, y: String){

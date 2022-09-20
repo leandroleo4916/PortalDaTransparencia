@@ -3,7 +3,7 @@ package com.example.portaldatransparencia.di
 import com.example.portaldatransparencia.remote.*
 import com.example.portaldatransparencia.security.SecurityPreferences
 import com.example.portaldatransparencia.util.CalculateAge
-import com.example.portaldatransparencia.views.ProgressBar
+import com.example.portaldatransparencia.views.EnableDisableView
 import com.example.portaldatransparencia.views.deputado.DeputadoViewModel
 import com.example.portaldatransparencia.views.frente.FrenteViewModel
 import com.example.portaldatransparencia.views.gastos.DespesasViewModel
@@ -66,7 +66,7 @@ val repositoryFront = module { single { FrenteRepository(get()) } }
 val repositoryProposta = module { single { PropostaRepository(get()) } }
 val repositoryOccupation = module { single { OccupationRepository(get()) } }
 
-val progressModule = module { factory { ProgressBar() } }
+val progressModule = module { factory { EnableDisableView() } }
 val ageModule = module { factory { CalculateAge() } }
 val securityPreferences = module { single { SecurityPreferences(get()) } }
 

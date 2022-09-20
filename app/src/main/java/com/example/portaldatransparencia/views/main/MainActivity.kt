@@ -12,7 +12,7 @@ import com.example.portaldatransparencia.databinding.ActivityMainBinding
 import com.example.portaldatransparencia.interfaces.IClickDeputado
 import com.example.portaldatransparencia.interfaces.INotification
 import com.example.portaldatransparencia.remote.ResultRequest
-import com.example.portaldatransparencia.views.ProgressBar
+import com.example.portaldatransparencia.views.EnableDisableView
 import com.example.portaldatransparencia.views.deputado.DeputadoActivity
 import com.google.android.material.chip.Chip
 import org.koin.android.ext.android.inject
@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity(), IClickDeputado, INotification {
 
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private val mainViewModel: MainViewModel by viewModel()
-    private val progress: ProgressBar by inject()
+    private val hideView: EnableDisableView by inject()
     private lateinit var adapter: MainAdapter
     private var chipEnabled: Chip? = null
 
@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity(), IClickDeputado, INotification {
                 when (result) {
                     is ResultRequest.Success -> {
                         result.dado?.let { deputados ->
-                            progress.disableProgress(binding.progressMain)
+                            hideView.disableProgress(binding.progressMain)
                             adapter.updateData(deputados.dados)
                         }
                     }

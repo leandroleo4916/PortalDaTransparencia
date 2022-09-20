@@ -9,6 +9,7 @@ import com.example.portaldatransparencia.adapter.PropostaAdapter
 import com.example.portaldatransparencia.databinding.FragmentPropostaBinding
 import com.example.portaldatransparencia.remote.ResultPropostaRequest
 import com.example.portaldatransparencia.security.SecurityPreferences
+import com.example.portaldatransparencia.views.EnableDisableView
 import com.google.android.material.chip.Chip
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -19,6 +20,7 @@ class FragmentProposta: Fragment(R.layout.fragment_proposta) {
     private val viewModel: PropostaViewModel by viewModel()
     private lateinit var adapter: PropostaAdapter
     private val securityPreferences: SecurityPreferences by inject()
+    private val statusView: EnableDisableView by inject()
     private lateinit var id: String
     private lateinit var chipEnabled: Chip
     private var numberProposta = 0
@@ -56,8 +58,8 @@ class FragmentProposta: Fragment(R.layout.fragment_proposta) {
                                 if (size >= 100) observer(year, id, page)
                             }else{
                                 binding?.run {
-                                    progressProposta.visibility = View.GONE
-                                    textPropostaParlamentar.visibility = View.VISIBLE
+                                    statusView.disableProgress(progressProposta)
+                                    statusView.enableView(textPropostaParlamentar)
                                     textPropostaParlamentar.text = "Não há dados para $year"
                                 }
                                 adapter.updateData(proposta.dados, page)
@@ -100,9 +102,11 @@ class FragmentProposta: Fragment(R.layout.fragment_proposta) {
     private fun calculatePropostas(size: Int, pagina: Int){
         if (pagina == 1) numberProposta = 0
         numberProposta += size
-        binding?.progressProposta?.visibility = View.GONE
-        binding?.textPropostaParlamentar?.visibility = View.VISIBLE
-        binding!!.textPropostaParlamentar.text = "$numberProposta propostas parlamentares"
+        binding?.run {
+            statusView.disableProgress(progressProposta)
+            statusView.enableView(textPropostaParlamentar)
+            textPropostaParlamentar.text = "$numberProposta propostas parlamentares"
+        }
     }
 
 }

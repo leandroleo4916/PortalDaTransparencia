@@ -14,6 +14,7 @@ import com.example.portaldatransparencia.dataclass.DadoDespesas
 import com.example.portaldatransparencia.interfaces.INoteDespesas
 import com.example.portaldatransparencia.remote.ResultDespesasRequest
 import com.example.portaldatransparencia.security.SecurityPreferences
+import com.example.portaldatransparencia.views.EnableDisableView
 import com.google.android.material.chip.Chip
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -25,6 +26,7 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas {
     private val viewModel: DespesasViewModel by viewModel()
     private lateinit var adapter: DespesasAdapter
     private val securityPreferences: SecurityPreferences by inject()
+    private val statusView: EnableDisableView by inject()
     private lateinit var chipEnabled: Chip
     private lateinit var id: String
     private var total = 0.0
@@ -65,10 +67,11 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas {
                                 if (size >= 100) observer(id, year, page)
 
                             }else{
-                                binding?.progressDespesas?.visibility = View.GONE
-                                binding?.textNotesSend?.visibility = View.INVISIBLE
-                                binding?.textTotal?.visibility = View.VISIBLE
-                                binding?.textTotal?.text = "Não há dados no ano ${year}"
+                                binding?.run {
+                                    statusView.disableProgress(progressDespesas)
+                                    statusView.enableView(textNotValue)
+                                    textNotValue.text = "Não há dados no ano ${year}"
+                                }
                                 adapter.updateData(despesas.dados, page)
                             }
                         }
@@ -85,7 +88,7 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas {
     }
 
     private fun calculateNumberNote(){
-        binding!!.textNotesSend.text = "$numberNote notas fiscais"
+        binding!!.textNotesSend.text = "$numberNote notas"
     }
 
     private fun calculateTotal(dados: List<DadoDespesas>, page: Int) {
@@ -94,11 +97,14 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas {
 
         val format = DecimalFormat("#.00")
         val formatTotal = format.format(total)
-        ("R$ $formatTotal").also { binding!!.textTotal.text = it }
-
-        binding?.progressDespesas?.visibility = View.GONE
-        binding?.textNotesSend?.visibility = View.VISIBLE
-        binding?.textTotal?.visibility = View.VISIBLE
+        binding?.run {
+            (formatTotal).also { textTotal.text = it }
+            statusView.disableProgress(progressDespesas)
+            statusView.enableView(textNotesSend)
+            statusView.enableView(textTotal)
+            statusView.enableView(imageView1)
+            statusView.enableView(imageView2)
+        }
     }
 
     private fun listenerChip(){

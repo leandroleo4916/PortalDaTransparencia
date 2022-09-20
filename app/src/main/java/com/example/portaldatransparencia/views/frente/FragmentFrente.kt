@@ -2,8 +2,6 @@ package com.example.portaldatransparencia.views.frente
 
 import android.os.Bundle
 import android.view.View
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.portaldatransparencia.R
@@ -13,6 +11,7 @@ import com.example.portaldatransparencia.dataclass.DadoFrente
 import com.example.portaldatransparencia.interfaces.IFront
 import com.example.portaldatransparencia.remote.ResultFrenteRequest
 import com.example.portaldatransparencia.security.SecurityPreferences
+import com.example.portaldatransparencia.views.EnableDisableView
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -21,6 +20,7 @@ class FragmentFrente: Fragment(R.layout.fragment_frente), IFront {
     private var binding: FragmentFrenteBinding? = null
     private val viewModel: FrenteViewModel by viewModel()
     private lateinit var adapter: FrenteAdapter
+    private val statusView: EnableDisableView by inject()
     private val securityPreferences: SecurityPreferences by inject()
     private lateinit var id: String
 
@@ -51,7 +51,7 @@ class FragmentFrente: Fragment(R.layout.fragment_frente), IFront {
                                 calculateFront(size.toString())
                                 adapter.updateData(front.dados)
                             }else{
-                                binding?.progressFront?.visibility = View.GONE
+                                statusView.disableProgress(binding!!.progressFront)
                             }
                         }
                     }
@@ -67,11 +67,13 @@ class FragmentFrente: Fragment(R.layout.fragment_frente), IFront {
     }
 
     private fun calculateFront(front: String){
-        binding?.progressFront?.visibility = View.GONE
-        binding?.textFrenteParlamentar?.visibility = View.VISIBLE
-        binding!!.textFrenteParlamentar.text = "$front frentes parlamentares"
+        binding?.run {
+            statusView.disableProgress(progressFront)
+            statusView.enableView(textFrenteParlamentar)
+            "$front frentes parlamentares".also { textFrenteParlamentar.text = it }
+        }
     }
 
-    override fun listenerFront(note: DadoFrente) {
-    }
+    override fun listenerFront(note: DadoFrente) {}
+
 }
