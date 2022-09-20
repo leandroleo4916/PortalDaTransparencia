@@ -14,9 +14,7 @@ import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.dataclass.Dado
 import com.example.portaldatransparencia.interfaces.IClickDeputado
 import com.example.portaldatransparencia.interfaces.INotification
-import com.example.portaldatransparencia.views.main.MainActivity
 import java.util.*
-import kotlin.collections.ArrayList
 
 class MainAdapter(private val listener: IClickDeputado, private val notify: INotification):
     RecyclerView.Adapter<MainAdapter.MainViewHolder>(), Filterable {

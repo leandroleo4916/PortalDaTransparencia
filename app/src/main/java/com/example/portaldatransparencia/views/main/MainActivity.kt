@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity(), IClickDeputado, INotification {
                 when (result) {
                     is ResultRequest.Success -> {
                         result.dado?.let { deputados ->
-                            hideView.disableProgress(binding.progressMain)
+                            hideView.disableView(binding.progressMain)
                             adapter.updateData(deputados.dados)
                         }
                     }

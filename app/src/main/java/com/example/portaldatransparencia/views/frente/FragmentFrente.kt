@@ -51,7 +51,7 @@ class FragmentFrente: Fragment(R.layout.fragment_frente), IFront {
                                 calculateFront(size.toString())
                                 adapter.updateData(front.dados)
                             }else{
-                                statusView.disableProgress(binding!!.progressFront)
+                                statusView.disableView(binding!!.progressFront)
                             }
                         }
                     }
@@ -68,7 +68,7 @@ class FragmentFrente: Fragment(R.layout.fragment_frente), IFront {
 
     private fun calculateFront(front: String){
         binding?.run {
-            statusView.disableProgress(progressFront)
+            statusView.disableView(progressFront)
             statusView.enableView(textFrenteParlamentar)
             "$front frentes parlamentares".also { textFrenteParlamentar.text = it }
         }

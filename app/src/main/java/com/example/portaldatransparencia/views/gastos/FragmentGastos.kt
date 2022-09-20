@@ -58,6 +58,7 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas {
                     is ResultDespesasRequest.Success -> {
                         result.dado?.let { despesas ->
                             if (despesas.dados.isNotEmpty()){
+                                statusView.disableView(binding!!.textNotValue)
                                 val size = despesas.dados.size
                                 numberNote += size
                                 calculateNumberNote()
@@ -69,7 +70,7 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas {
                             }else{
                                 if (numberNote == 0) {
                                     binding?.run {
-                                        statusView.disableProgress(progressDespesas)
+                                        statusView.disableView(progressDespesas)
                                         statusView.enableView(textNotValue)
                                         textNotValue.text = "Não há dados no ano ${year}"
                                     }
@@ -101,7 +102,7 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas {
         val formatTotal = format.format(total)
         binding?.run {
             (formatTotal).also { textTotal.text = it }
-            statusView.disableProgress(progressDespesas)
+            statusView.disableView(progressDespesas)
             statusView.enableView(textNotesSend)
             statusView.enableView(textTotal)
             statusView.enableView(imageView1)
@@ -128,6 +129,14 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas {
         numberNote = 0
         page = 1
         chipEnabled = viewDisabled
+        binding?.run {
+            statusView.enableView(progressDespesas)
+            statusView.disableView(textNotesSend)
+            statusView.disableView(textTotal)
+            statusView.disableView(imageView1)
+            statusView.disableView(imageView2)
+        }
+        adapter.updateData(deputados = arrayListOf(), 1)
         observer(id, viewDisabled.text as String, page)
     }
 

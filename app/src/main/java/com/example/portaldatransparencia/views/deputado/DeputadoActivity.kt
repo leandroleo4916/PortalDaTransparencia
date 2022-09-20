@@ -1,7 +1,6 @@
 package com.example.portaldatransparencia.views.deputado
 
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.portaldatransparencia.R
@@ -15,11 +14,8 @@ import com.example.portaldatransparencia.views.TabViewAdapterGeral
 import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.time.LocalDate
-import java.time.Period
-import java.time.format.DateTimeFormatter
 
-class DeputadoActivity : AppCompatActivity() {
+class DeputadoActivity: AppCompatActivity() {
 
     private val binding by lazy { ActivityDeputadoBinding.inflate(layoutInflater) }
     private val mainViewModel: DeputadoViewModel by viewModel()
@@ -55,9 +51,7 @@ class DeputadoActivity : AppCompatActivity() {
             it?.let { result ->
                 when (result) {
                     is ResultIdRequest.Success -> {
-                        result.dado?.let { deputado ->
-                            addElementView(deputado)
-                        }
+                        result.dado?.let { deputado -> addElementView(deputado) }
                     }
                     is ResultIdRequest.Error -> {
                         result.exception.message?.let { it -> }
@@ -81,7 +75,7 @@ class DeputadoActivity : AppCompatActivity() {
                     "${item.dados.municipioNascimento} - ${item.dados.ufNascimento}. " +
                     "Filiado ao partido ${item.dados.ultimoStatus.siglaPartido}")
                 .also { textDescription.text = it }
-            statusView.disableProgress(progressDeputado)
+            statusView.disableView(progressDeputado)
             statusView.enableView(textDescription)
             statusView.enableView(imageDeputado)
         }

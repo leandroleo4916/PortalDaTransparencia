@@ -65,7 +65,7 @@ class FragmentGeral: Fragment(R.layout.fragment_geral) {
                 when (result) {
                     is ResultIdRequest.Success -> {
                         result.dado?.let { deputado ->
-                            statusView.disableProgress(binding!!.progressGeral)
+                            statusView.disableView(binding!!.progressGeral)
                             addElementView(deputado.dados)
                             addElementRedeSocial(deputado.dados)
                             sexoDeputado = deputado.dados.sexo

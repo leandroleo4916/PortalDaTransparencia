@@ -32,7 +32,7 @@ class PropostaAdapter: RecyclerView.Adapter<PropostaAdapter.PropostaViewHolder>(
         fun bind(proposta: Proposta){
             itemView.run {
                 val description = findViewById<TextView>(R.id.text_description_proposta)
-                description.text = proposta.ementa ?: "Não foi informado a descrição!"
+                description.text = proposta.ementa ?: context.getString(R.string.nao_informado_descricao)
             }
         }
     }

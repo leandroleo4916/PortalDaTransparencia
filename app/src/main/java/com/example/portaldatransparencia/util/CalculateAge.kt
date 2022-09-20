@@ -8,7 +8,7 @@ class CalculateAge {
     fun age(birth: String): Int {
         val date = LocalDate.parse(birth, DateTimeFormatter.ofPattern("yyyy-MM-dd"))
         val dateCurrent = LocalDate.now()
-        val periodo = Period.between(date, dateCurrent)
-        return periodo.years
+        val period = Period.between(date, dateCurrent)
+        return period.years
     }
 }

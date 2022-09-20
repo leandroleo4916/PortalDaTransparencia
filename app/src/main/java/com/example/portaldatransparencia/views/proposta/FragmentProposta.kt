@@ -58,9 +58,10 @@ class FragmentProposta: Fragment(R.layout.fragment_proposta) {
                                 if (size >= 100) observer(year, id, page)
                             }else{
                                 binding?.run {
-                                    statusView.disableProgress(progressProposta)
-                                    statusView.enableView(textPropostaParlamentar)
-                                    textPropostaParlamentar.text = "Não há dados para $year"
+                                    statusView.disableView(progressProposta)
+                                    statusView.enableView(textNotValue)
+                                    textNotValue.text =
+                                        "Nenhum projeto de lei para $year ou não tinha mandato neste ano."
                                 }
                                 adapter.updateData(proposta.dados, page)
                             }
@@ -96,6 +97,13 @@ class FragmentProposta: Fragment(R.layout.fragment_proposta) {
         numberProposta = 0
         page = 1
         chipEnabled = viewDisabled
+        binding?.run {
+            statusView.enableView(progressProposta)
+            statusView.disableView(textPropostaParlamentar)
+            statusView.disableView(iconProposta)
+            statusView.disableView(textNotValue)
+        }
+        adapter.updateData(arrayListOf(), 1)
         observer(viewDisabled.text as String, id, page)
     }
 
@@ -103,9 +111,10 @@ class FragmentProposta: Fragment(R.layout.fragment_proposta) {
         if (pagina == 1) numberProposta = 0
         numberProposta += size
         binding?.run {
-            statusView.disableProgress(progressProposta)
+            statusView.disableView(progressProposta)
             statusView.enableView(textPropostaParlamentar)
             statusView.enableView(iconProposta)
+            statusView.disableView(textNotValue)
             textPropostaParlamentar.text = "$numberProposta projetos de lei"
         }
     }

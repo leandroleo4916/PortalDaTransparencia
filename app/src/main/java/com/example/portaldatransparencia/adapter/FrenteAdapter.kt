@@ -8,11 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.dataclass.DadoFrente
-import com.example.portaldatransparencia.dataclass.Frente
 import com.example.portaldatransparencia.interfaces.IFront
-import com.example.portaldatransparencia.interfaces.INoteDespesas
-import java.text.DecimalFormat
-import java.util.*
 
 class FrenteAdapter(private val listener: IFront): RecyclerView.Adapter<FrenteAdapter.DespesasViewHolder>() {
 
