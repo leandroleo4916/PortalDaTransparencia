@@ -8,5 +8,8 @@
     <string name="gabinete">Gabinete</string>
     <string name="frente">Frente</string>
     <string name="acao">Ações</string>
+    <string name="deputados">Deputados</string>
+    <string name="senadores">Senadores</string>
+    <string name="mais">Mais</string>
     <string name="nao_informado_descricao">Não foi informado a descrição!</string>
 </resources>

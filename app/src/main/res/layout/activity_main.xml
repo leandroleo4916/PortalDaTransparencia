@@ -1,278 +1,326 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".views.main.MainActivity">
 
-    <EditText
-        android:id="@+id/text_search"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="12dp"
-        android:hint="Digite ou fale o nome do deputado"
-        android:textColor="@color/black"
-        android:textColorHint="@color/purple_500"
-        app:layout_constraintEnd_toStartOf="@+id/ic_voz"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="0dp"
-        android:layout_height="1.2dp"
-        android:background="@color/purple_500"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/scroll_year" />
-
-    <HorizontalScrollView
-        android:id="@+id/scroll_year"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="12dp"
-        android:scrollbars="none"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_search"
-        tools:ignore="MissingConstraints,UselessLeaf">
+        android:background="@color/white"
+        android:gravity="center"
+        app:liftOnScroll="true"
+        tools:ignore="MissingConstraints">
 
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/chipGroup"
-            android:layout_width="wrap_content"
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsing_home"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:contentScrim="@color/white"
+            app:layout_scrollFlags="scroll">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar_registrados"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="MissingConstraints" >
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="20dp">
+
+                        <EditText
+                            android:id="@+id/text_search"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginEnd="12dp"
+                            android:hint="Digite ou fale o nome do deputado"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/purple_500"
+                            app:layout_constraintEnd_toStartOf="@+id/ic_voz"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:id="@+id/ic_voz"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:layout_marginTop="10dp"
+                            android:src="@drawable/ic_voice"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:ignore="ContentDescription,MissingConstraints" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.appcompat.widget.Toolbar>
+            </LinearLayout>
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="0dp"
+            android:layout_height="1.2dp"
+            android:background="@color/purple_500"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_search">
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_avante"
+        <HorizontalScrollView
+            android:id="@+id/scroll_year"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="12dp"
+            android:scrollbars="none"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints,UselessLeaf">
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checkable="true"
-                android:checked="false"
-                android:text="AVANTE"
-                app:chipBackgroundColor="@color/back_chip_select" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_search">
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_cidadania"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:checked="false"
-                android:text="CIDADANIA"
-                app:chipBackgroundColor="@color/back_chip_select" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_avante"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:checked="false"
+                    android:text="AVANTE"
+                    app:chipBackgroundColor="@color/back_chip_select" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_dc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:checked="false"
-                android:text="DC"
-                app:chipBackgroundColor="@color/back_chip_select" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_cidadania"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:checked="false"
+                    android:text="CIDADANIA"
+                    app:chipBackgroundColor="@color/back_chip_select" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_dem"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:checked="false"
-                android:text="DEM"
-                app:chipBackgroundColor="@color/back_chip_select" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_dc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:checked="false"
+                    android:text="DC"
+                    app:chipBackgroundColor="@color/back_chip_select" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_mdb"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:checked="false"
-                android:text="MDB"
-                app:chipBackgroundColor="@color/back_chip_select" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_dem"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:checked="false"
+                    android:text="DEM"
+                    app:chipBackgroundColor="@color/back_chip_select" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_novo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:checked="false"
-                android:text="NOVO"
-                app:chipBackgroundColor="@color/back_chip_select" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_mdb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:checked="false"
+                    android:text="MDB"
+                    app:chipBackgroundColor="@color/back_chip_select" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_patri"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:checked="false"
-                android:text="PATRI"
-                app:chipBackgroundColor="@color/back_chip_select" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_novo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:checked="false"
+                    android:text="NOVO"
+                    app:chipBackgroundColor="@color/back_chip_select" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_patriota"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:checked="false"
-                android:text="PATRIOTA"
-                app:chipBackgroundColor="@color/back_chip_select" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_patri"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:checked="false"
+                    android:text="PATRI"
+                    app:chipBackgroundColor="@color/back_chip_select" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_pcb"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:checked="false"
-                android:text="PCB"
-                app:chipBackgroundColor="@color/back_chip_select" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_patriota"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:checked="false"
+                    android:text="PATRIOTA"
+                    app:chipBackgroundColor="@color/back_chip_select" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_pcdob"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:checked="false"
-                android:text="PCdoB"
-                app:chipBackgroundColor="@color/back_chip_select" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_pcb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:checked="false"
+                    android:text="PCB"
+                    app:chipBackgroundColor="@color/back_chip_select" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_pco"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:checked="false"
-                android:text="PCO"
-                app:chipBackgroundColor="@color/back_chip_select" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_pcdob"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:checked="false"
+                    android:text="PCdoB"
+                    app:chipBackgroundColor="@color/back_chip_select" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_pdt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:checked="false"
-                android:text="PDT"
-                app:chipBackgroundColor="@color/back_chip_select" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_pco"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:checked="false"
+                    android:text="PCO"
+                    app:chipBackgroundColor="@color/back_chip_select" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_phs"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:checked="false"
-                android:text="PHS"
-                app:chipBackgroundColor="@color/back_chip_select" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_pdt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:checked="false"
+                    android:text="PDT"
+                    app:chipBackgroundColor="@color/back_chip_select" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_pl"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:checked="false"
-                android:text="PL"
-                app:chipBackgroundColor="@color/back_chip_select" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_phs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:checked="false"
+                    android:text="PHS"
+                    app:chipBackgroundColor="@color/back_chip_select" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_pmb"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:checked="false"
-                android:text="PMB"
-                app:chipBackgroundColor="@color/back_chip_select" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_pl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:checked="false"
+                    android:text="PL"
+                    app:chipBackgroundColor="@color/back_chip_select" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_pp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:checked="false"
-                android:text="PP"
-                app:chipBackgroundColor="@color/back_chip_select" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_pmb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:checked="false"
+                    android:text="PMB"
+                    app:chipBackgroundColor="@color/back_chip_select" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_pros"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:checked="false"
-                android:text="PROS"
-                app:chipBackgroundColor="@color/back_chip_select" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_pp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:checked="false"
+                    android:text="PP"
+                    app:chipBackgroundColor="@color/back_chip_select" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_psc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:checked="false"
-                android:text="PSC"
-                app:chipBackgroundColor="@color/back_chip_select" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_pros"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:checked="false"
+                    android:text="PROS"
+                    app:chipBackgroundColor="@color/back_chip_select" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_pt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:checked="false"
-                android:text="PT"
-                app:chipBackgroundColor="@color/back_chip_select" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_psc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:checked="false"
+                    android:text="PSC"
+                    app:chipBackgroundColor="@color/back_chip_select" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_uniao"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:checked="false"
-                android:text="UNIÂO"
-                app:chipBackgroundColor="@color/back_chip_select" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_pt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:checked="false"
+                    android:text="PT"
+                    app:chipBackgroundColor="@color/back_chip_select" />
 
-        </com.google.android.material.chip.ChipGroup>
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_uniao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:checked="false"
+                    android:text="UNIÂO"
+                    app:chipBackgroundColor="@color/back_chip_select" />
 
-    </HorizontalScrollView>
+            </com.google.android.material.chip.ChipGroup>
 
-    <ImageView
-        android:id="@+id/ic_voz"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:src="@drawable/ic_voice"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="ContentDescription,MissingConstraints" />
+        </HorizontalScrollView>
 
-    <com.wang.avi.AVLoadingIndicatorView
-        android:id="@+id/progress_main"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="80dp"
-        app:indicatorColor="@color/purple_700"
-        app:indicatorName="BallPulseIndicator"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scroll_year" />
+        <com.wang.avi.AVLoadingIndicatorView
+            android:id="@+id/progress_main"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            app:indicatorColor="@color/purple_700"
+            app:indicatorName="BallPulseIndicator"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/scroll_year" />
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar3"
-        android:layout_width="0dp"
-        android:layout_height="1.2dp"
-        android:background="@color/purple_500"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scroll_year" />
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar3"
+            android:layout_width="0dp"
+            android:layout_height="1.2dp"
+            android:background="@color/purple_500"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/scroll_year" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_deputados"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scroll_year"
-        tools:listitem="@layout/recycler_main" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_deputados"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/scroll_year"
+            tools:listitem="@layout/recycler_main" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

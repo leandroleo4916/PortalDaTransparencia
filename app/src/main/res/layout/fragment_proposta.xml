@@ -167,6 +167,7 @@
             android:textSize="20sp"
             android:textStyle="bold"
             android:gravity="center"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@+id/progress_proposta"
             app:layout_constraintEnd_toEndOf="@+id/constraint_valor_notes"
             app:layout_constraintStart_toEndOf="@+id/icon_proposta"
