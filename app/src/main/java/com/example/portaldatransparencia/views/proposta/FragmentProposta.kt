@@ -54,16 +54,19 @@ class FragmentProposta: Fragment(R.layout.fragment_proposta) {
                                 val size = proposta.dados.size
                                 calculatePropostas(size, page)
                                 adapter.updateData(proposta.dados, page)
+                                numberProposta += size
                                 page += 1
                                 if (size >= 100) observer(year, id, page)
                             }else{
-                                binding?.run {
-                                    statusView.disableView(progressProposta)
-                                    statusView.enableView(textNotValue)
-                                    textNotValue.text =
-                                        "Nenhum projeto de lei para $year ou não tinha mandato neste ano."
+                                if (numberProposta == 0) {
+                                    binding?.run {
+                                        statusView.disableView(progressProposta)
+                                        statusView.enableView(textNotValue)
+                                        textNotValue.text =
+                                            "Nenhum projeto de lei para $year ou não tinha mandato neste ano."
+                                    }
+                                    adapter.updateData(proposta.dados, page)
                                 }
-                                adapter.updateData(proposta.dados, page)
                             }
                         }
                     }
