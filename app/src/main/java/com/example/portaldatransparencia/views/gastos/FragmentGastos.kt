@@ -36,7 +36,7 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentGastosBinding.bind(view)
-        chipEnabled = binding!!.chip2022
+        chipEnabled = binding!!.chipGroupItem.chip2022
         id = securityPreferences.getStoredString("id")
         recyclerView()
         observer(id, "2022", page)
@@ -112,14 +112,16 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas {
 
     private fun listenerChip(){
         binding?.run {
-            chip2022.setOnClickListener { modify(chipEnabled, chip2022) }
-            chip2021.setOnClickListener { modify(chipEnabled, chip2021) }
-            chip2020.setOnClickListener { modify(chipEnabled, chip2020) }
-            chip2019.setOnClickListener { modify(chipEnabled, chip2019) }
-            chip2018.setOnClickListener { modify(chipEnabled, chip2018) }
-            chip2017.setOnClickListener { modify(chipEnabled, chip2017) }
-            chip2016.setOnClickListener { modify(chipEnabled, chip2016) }
-            chip2015.setOnClickListener { modify(chipEnabled, chip2015) }
+            chipGroupItem.run {
+                chip2022.setOnClickListener { modify(chipEnabled, chip2022) }
+                chip2021.setOnClickListener { modify(chipEnabled, chip2021) }
+                chip2020.setOnClickListener { modify(chipEnabled, chip2020) }
+                chip2019.setOnClickListener { modify(chipEnabled, chip2019) }
+                chip2018.setOnClickListener { modify(chipEnabled, chip2018) }
+                chip2017.setOnClickListener { modify(chipEnabled, chip2017) }
+                chip2016.setOnClickListener { modify(chipEnabled, chip2016) }
+                chip2015.setOnClickListener { modify(chipEnabled, chip2015) }
+            }
         }
     }
 

@@ -95,26 +95,28 @@ class MainFragment: Fragment(R.layout.fragment_main), IClickDeputado, INotificat
 
     private fun listener(){
         binding?.run {
-            chipAvante.setOnClickListener { modify(chipEnabled, chipAvante) }
-            chipCidadania.setOnClickListener { modify(chipEnabled, chipCidadania) }
-            chipDc.setOnClickListener { modify(chipEnabled, chipDc) }
-            chipDem.setOnClickListener { modify(chipEnabled, chipDem) }
-            chipMdb.setOnClickListener { modify(chipEnabled, chipMdb) }
-            chipNovo.setOnClickListener { modify(chipEnabled, chipNovo) }
-            chipPatri.setOnClickListener { modify(chipEnabled, chipPatri) }
-            chipPatriota.setOnClickListener { modify(chipEnabled, chipPatriota) }
-            chipPcb.setOnClickListener { modify(chipEnabled, chipPcb) }
-            chipPcdob.setOnClickListener { modify(chipEnabled, chipPcdob) }
-            chipPco.setOnClickListener { modify(chipEnabled, chipPco) }
-            chipPdt.setOnClickListener { modify(chipEnabled, chipPdt) }
-            chipPhs.setOnClickListener { modify(chipEnabled, chipPhs) }
-            chipPl.setOnClickListener { modify(chipEnabled, chipPl) }
-            chipPros.setOnClickListener { modify(chipEnabled, chipPros) }
-            chipPsc.setOnClickListener { modify(chipEnabled, chipPsc) }
-            chipPmb.setOnClickListener { modify(chipEnabled, chipPmb) }
-            chipPp.setOnClickListener { modify(chipEnabled, chipPp) }
-            chipPt.setOnClickListener { modify(chipEnabled, chipPt) }
-            chipUniao.setOnClickListener { modify(chipEnabled, chipUniao) }
+            chipGroupItem.run {
+                chipAvante.setOnClickListener { modify(chipEnabled, chipAvante) }
+                chipCidadania.setOnClickListener { modify(chipEnabled, chipCidadania) }
+                chipDc.setOnClickListener { modify(chipEnabled, chipDc) }
+                chipDem.setOnClickListener { modify(chipEnabled, chipDem) }
+                chipMdb.setOnClickListener { modify(chipEnabled, chipMdb) }
+                chipNovo.setOnClickListener { modify(chipEnabled, chipNovo) }
+                chipPatri.setOnClickListener { modify(chipEnabled, chipPatri) }
+                chipPatriota.setOnClickListener { modify(chipEnabled, chipPatriota) }
+                chipPcb.setOnClickListener { modify(chipEnabled, chipPcb) }
+                chipPcdob.setOnClickListener { modify(chipEnabled, chipPcdob) }
+                chipPco.setOnClickListener { modify(chipEnabled, chipPco) }
+                chipPdt.setOnClickListener { modify(chipEnabled, chipPdt) }
+                chipPhs.setOnClickListener { modify(chipEnabled, chipPhs) }
+                chipPl.setOnClickListener { modify(chipEnabled, chipPl) }
+                chipPros.setOnClickListener { modify(chipEnabled, chipPros) }
+                chipPsc.setOnClickListener { modify(chipEnabled, chipPsc) }
+                chipPmb.setOnClickListener { modify(chipEnabled, chipPmb) }
+                chipPp.setOnClickListener { modify(chipEnabled, chipPp) }
+                chipPt.setOnClickListener { modify(chipEnabled, chipPt) }
+                chipUniao.setOnClickListener { modify(chipEnabled, chipUniao) }
+            }
 
             icVoz.setOnClickListener { permissionVoice() }
             floatingController.setOnClickListener {

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<HorizontalScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/scroll_year"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="12dp"
+    android:scrollbars="none"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chip_filter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_2022"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checkable="true"
+            android:checked="true"
+            android:text="2022"
+            app:chipBackgroundColor="@color/back_chip_select" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_2021"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checkable="true"
+            android:checked="false"
+            android:text="2021"
+            app:chipBackgroundColor="@color/back_chip_select" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_2020"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checkable="true"
+            android:checked="false"
+            android:text="2020"
+            app:chipBackgroundColor="@color/back_chip_select" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_2019"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checkable="true"
+            android:checked="false"
+            android:text="2019"
+            app:chipBackgroundColor="@color/back_chip_select" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_2018"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checkable="true"
+            android:checked="false"
+            android:text="2018"
+            app:chipBackgroundColor="@color/back_chip_select" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_2017"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checkable="true"
+            android:checked="false"
+            android:text="2017"
+            app:chipBackgroundColor="@color/back_chip_select" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_2016"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checkable="true"
+            android:checked="false"
+            android:text="2016"
+            app:chipBackgroundColor="@color/back_chip_select" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_2015"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checkable="true"
+            android:checked="false"
+            android:text="2015"
+            app:chipBackgroundColor="@color/back_chip_select" />
+
+    </com.google.android.material.chip.ChipGroup>
+
+</HorizontalScrollView>
