@@ -11,15 +11,20 @@
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/drawable-v24/ic_voice.xml" value="0.1685" />
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/drawable/ic_check.xml" value="0.165" />
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/drawable/ic_launcher_background.xml" value="0.165" />
+        <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/drawable/ic_top.xml" value="0.167" />
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/layout/activity_controller.xml" value="0.16640625" />
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/layout/activity_deputado.xml" value="0.18545454143492654" />
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/layout/activity_main.xml" value="0.15272726941699832" />
+        <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/layout/app_bar_search.xml" value="0.16640625" />
+        <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/layout/chip_group.xml" value="0.16640625" />
+        <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/layout/chip_group_partidos.xml" value="0.16640625" />
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/layout/chip_select.xml" value="0.1" />
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/layout/fragment_frente.xml" value="0.22909090412549746" />
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/layout/fragment_frente_Id.xml" value="0.19636363210756924" />
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/layout/fragment_frente_id.xml" value="0.16640625" />
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/layout/fragment_gastos.xml" value="0.23999999479814021" />
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/layout/fragment_geral.xml" value="0.19636363210756924" />
+        <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/layout/fragment_main.xml" value="0.16640625" />
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/layout/fragment_proposta.xml" value="0.39242219215155616" />
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/layout/layout_teste.xml" value="0.15625" />
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/layout/recycler_frente.xml" value="0.19636363210756924" />

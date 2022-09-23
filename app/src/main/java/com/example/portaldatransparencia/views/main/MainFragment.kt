@@ -15,23 +15,22 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.adapter.MainAdapter
-import com.example.portaldatransparencia.databinding.ActivityMainBinding
+import com.example.portaldatransparencia.databinding.FragmentMainBinding
 import com.example.portaldatransparencia.interfaces.IClickDeputado
 import com.example.portaldatransparencia.interfaces.IHideViewController
 import com.example.portaldatransparencia.interfaces.INotification
 import com.example.portaldatransparencia.remote.ResultRequest
 import com.example.portaldatransparencia.views.EnableDisableView
 import com.example.portaldatransparencia.views.deputado.DeputadoActivity
-import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.chip.Chip
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
-class MainActivity: Fragment(R.layout.activity_main), IClickDeputado, INotification {
+class MainFragment: Fragment(R.layout.fragment_main), IClickDeputado, INotification {
 
     private lateinit var viewController: IHideViewController
-    private var binding: ActivityMainBinding? = null
+    private var binding: FragmentMainBinding? = null
     private val mainViewModel: MainViewModel by viewModel()
     private val hideView: EnableDisableView by inject()
     private lateinit var adapter: MainAdapter
@@ -41,7 +40,7 @@ class MainActivity: Fragment(R.layout.activity_main), IClickDeputado, INotificat
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = ActivityMainBinding.bind(view)
+        binding = FragmentMainBinding.bind(view)
 
         recycler()
         observer()
@@ -118,6 +117,9 @@ class MainActivity: Fragment(R.layout.activity_main), IClickDeputado, INotificat
             chipUniao.setOnClickListener { modify(chipEnabled, chipUniao) }
 
             icVoz.setOnClickListener { permissionVoice() }
+            floatingController.setOnClickListener {
+                recyclerDeputados.smoothScrollToPosition(0)
+            }
         }
     }
 
@@ -155,6 +157,7 @@ class MainActivity: Fragment(R.layout.activity_main), IClickDeputado, INotificat
         } else openVoice()
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>,
                                             grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
@@ -209,16 +212,26 @@ class MainActivity: Fragment(R.layout.activity_main), IClickDeputado, INotificat
         appBar?.addOnOffsetChangedListener { barLayout, verticalOffset ->
             if (scrollRange == -1) { scrollRange = barLayout?.totalScrollRange!! }
             if (scrollRange + verticalOffset == 0) {
-
-                if (context is IHideViewController) { viewController = context as IHideViewController }
-                viewController.hideNavView(false)
+                visibilityNavViewAndFloating(false)
                 isShow = true
-            } else if (isShow) {
-
-                if (context is IHideViewController) { viewController = context as IHideViewController }
-                viewController.hideNavView(true)
+            }
+            else if (isShow) {
+                visibilityNavViewAndFloating(true)
                 isShow = false
             }
+        }
+    }
+
+    private fun visibilityNavViewAndFloating(value: Boolean){
+        if (context is IHideViewController) { viewController = context as IHideViewController }
+        viewController.hideNavView(value)
+        floatingVisibility(value)
+    }
+
+    private fun floatingVisibility(isVisible: Boolean) {
+        binding?.run {
+            if (isVisible) floatingController.visibility = View.INVISIBLE
+            else floatingController.visibility = View.VISIBLE
         }
     }
 

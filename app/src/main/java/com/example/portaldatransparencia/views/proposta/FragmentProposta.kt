@@ -118,7 +118,7 @@ class FragmentProposta: Fragment(R.layout.fragment_proposta) {
             statusView.enableView(textPropostaParlamentar)
             statusView.enableView(iconProposta)
             statusView.disableView(textNotValue)
-            textPropostaParlamentar.text = "$numberProposta projetos de lei"
+            "$numberProposta projetos de lei".also { textPropostaParlamentar.text = it }
         }
     }
 

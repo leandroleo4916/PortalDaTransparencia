@@ -2,15 +2,12 @@ package com.example.portaldatransparencia.views.controller
 
 import android.animation.ValueAnimator
 import android.os.Bundle
-import android.view.View
 import android.view.animation.DecelerateInterpolator
 import androidx.appcompat.app.AppCompatActivity
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.databinding.ActivityControllerBinding
 import com.example.portaldatransparencia.interfaces.IHideViewController
 import com.example.portaldatransparencia.views.TabViewAdapterController
-import com.example.portaldatransparencia.views.TabViewAdapterGeral
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -28,7 +25,7 @@ class ControllerActivity: AppCompatActivity(), IHideViewController {
     }
 
     private fun setupViewController(){
-        val tabs = arrayOf(R.string.deputados, R.string.senadores, R.string.mais)
+        val tabs = arrayOf(R.string.camara, R.string.senado, R.string.mais)
         val tabLayout = binding.tabController
         val pagerMain = binding.viewPagerController
         val adapter = TabViewAdapterController(this)
@@ -59,10 +56,6 @@ class ControllerActivity: AppCompatActivity(), IHideViewController {
 
     override fun hideNavView(value: Boolean) {
         animateBarVisibility(value)
-    }
-
-    override fun snackBar(child: View, snackBar: Snackbar.SnackbarLayout) {
-        TODO("Not yet implemented")
     }
 
 }

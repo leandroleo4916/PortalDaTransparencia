@@ -98,6 +98,7 @@ class MainAdapter(private val listener: IClickDeputado, private val notify: INot
             return filterResults
         }
 
+        @SuppressLint("NotifyDataSetChanged")
         override fun publishResults(p0: CharSequence?, results: FilterResults) {
             if (results.values is ArrayList<*>) {
                 dataList = results.values as MutableList<Dado>
