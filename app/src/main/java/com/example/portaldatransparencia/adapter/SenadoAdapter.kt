@@ -54,11 +54,13 @@ class SenadoAdapter(private val listener: IClickSenador, private val notify: INo
         @SuppressLint("UseCompatLoadingForDrawables")
         fun bind(senador: Parlamentar) {
             val item = senador.identificacaoParlamentar
-            val foto = item.urlFotoParlamentar
+            val https = "https:/"
+            val urlFoto = item.urlFotoParlamentar.split(":/")
+            val photo = https+urlFoto[1]
             itemView.run {
                 val image = findViewById<ImageView>(R.id.icon_deputado)
                 Glide.with(context)
-                    .load(foto)
+                    .load(photo)
                     .circleCrop()
                     .into(image)
                 findViewById<TextView>(R.id.text_name).text = item.nomeParlamentar

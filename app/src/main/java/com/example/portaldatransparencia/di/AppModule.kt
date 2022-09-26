@@ -4,6 +4,7 @@ import com.example.portaldatransparencia.remote.*
 import com.example.portaldatransparencia.security.SecurityPreferences
 import com.example.portaldatransparencia.util.CalculateAge
 import com.example.portaldatransparencia.views.EnableDisableView
+import com.example.portaldatransparencia.views.ModifyChip
 import com.example.portaldatransparencia.views.VisibilityNavViewAndFloating
 import com.example.portaldatransparencia.views.deputado.DeputadoViewModel
 import com.example.portaldatransparencia.views.frente.FrenteViewModel
@@ -77,15 +78,17 @@ val repositoryFront = module { single { FrenteRepository(get()) } }
 val repositoryProposta = module { single { PropostaRepository(get()) } }
 val repositoryOccupation = module { single { OccupationRepository(get()) } }
 val repositorySenado = module { single { SenadoRepository(get()) } }
+val repositorySenador = module { single { SenadorRepository(get()) } }
 
 val progressModule = module { factory { EnableDisableView() } }
 val ageModule = module { factory { CalculateAge() } }
 val visibilityNavFloating = module { factory { VisibilityNavViewAndFloating() } }
+val modifyChip = module { factory { ModifyChip() } }
 val securityPreferences = module { single { SecurityPreferences(get()) } }
 
 val appModules = listOf( retrofitModule, viewModelModule, repositorySearch, progressModule,
         viewModelDeputado, repositoryIdDeputado, viewModelDespesas, repositoryDespesasDeputado,
         securityPreferences, viewModelFront, repositoryFront, viewModelProposta, repositoryProposta,
         ageModule, viewModelOccupation, repositoryOccupation, repositorySenado, viewModelSenado,
-        viewModelSenador, visibilityNavFloating
+        viewModelSenador, visibilityNavFloating, repositorySenador, modifyChip
 )

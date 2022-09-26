@@ -172,6 +172,15 @@
                 app:chipBackgroundColor="@color/back_chip_select" />
 
             <com.google.android.material.chip.Chip
+                android:id="@+id/chip_podemos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:checked="false"
+                android:text="PODEMOS"
+                app:chipBackgroundColor="@color/back_chip_select" />
+
+            <com.google.android.material.chip.Chip
                 android:id="@+id/chip_pp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -205,6 +214,15 @@
                 android:checkable="true"
                 android:checked="false"
                 android:text="PT"
+                app:chipBackgroundColor="@color/back_chip_select" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_republicanos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:checked="false"
+                android:text="REPUBLICANOS"
                 app:chipBackgroundColor="@color/back_chip_select" />
 
             <com.google.android.material.chip.Chip

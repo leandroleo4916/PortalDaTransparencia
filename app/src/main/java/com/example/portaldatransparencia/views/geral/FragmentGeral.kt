@@ -7,7 +7,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.portaldatransparencia.R
-import com.example.portaldatransparencia.databinding.FragmentGeralBinding
+import com.example.portaldatransparencia.databinding.FragmentGeralDeputadoBinding
 import com.example.portaldatransparencia.dataclass.Dados
 import com.example.portaldatransparencia.dataclass.Occupation
 import com.example.portaldatransparencia.remote.ResultIdRequest
@@ -19,9 +19,9 @@ import com.example.portaldatransparencia.views.deputado.DeputadoViewModel
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class FragmentGeral: Fragment(R.layout.fragment_geral) {
+class FragmentGeral: Fragment(R.layout.fragment_geral_deputado) {
 
-    private var binding: FragmentGeralBinding? = null
+    private var binding: FragmentGeralDeputadoBinding? = null
     private val viewModel: DeputadoViewModel by viewModel()
     private val viewModelOccupation: OccupationViewModel by viewModel()
     private val securityPreferences: SecurityPreferences by inject()
@@ -32,7 +32,7 @@ class FragmentGeral: Fragment(R.layout.fragment_geral) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentGeralBinding.bind(view)
+        binding = FragmentGeralDeputadoBinding.bind(view)
         id = securityPreferences.getStoredString("id")
         observerDeputado()
         observerOccupation()

@@ -65,13 +65,11 @@ interface ApiServiceProposta {
 }
 
 interface ApiServiceSenado {
-    @Headers("Accept: application/json")
     @GET("https://legis.senado.leg.br/dadosabertos/senador/lista/atual.json")
     suspend fun getSenado(): Response<SenadoresDataClass>
 }
 
 interface ApiServiceSenador {
-    @Headers("Accept: application/json")
     @GET("https://legis.senado.leg.br/dadosabertos/senador/{id}.json")
     suspend fun getSenador(
         @Path("id") id: String

@@ -15,12 +15,12 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.adapter.MainAdapter
-import com.example.portaldatransparencia.databinding.FragmentMainBinding
+import com.example.portaldatransparencia.databinding.FragmentCamaraSenadoBinding
 import com.example.portaldatransparencia.interfaces.IClickDeputado
-import com.example.portaldatransparencia.interfaces.IHideViewController
 import com.example.portaldatransparencia.interfaces.INotification
 import com.example.portaldatransparencia.remote.ResultRequest
 import com.example.portaldatransparencia.views.EnableDisableView
+import com.example.portaldatransparencia.views.ModifyChip
 import com.example.portaldatransparencia.views.VisibilityNavViewAndFloating
 import com.example.portaldatransparencia.views.deputado.DeputadoActivity
 import com.google.android.material.chip.Chip
@@ -28,20 +28,21 @@ import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
-class CamaraFragment: Fragment(R.layout.fragment_main), IClickDeputado, INotification {
+class CamaraFragment: Fragment(R.layout.fragment_camara_senado), IClickDeputado, INotification {
 
-    private var binding: FragmentMainBinding? = null
+    private var binding: FragmentCamaraSenadoBinding? = null
     private val mainViewModel: CamaraViewModel by viewModel()
     private val hideView: EnableDisableView by inject()
+    private val modifyChip: ModifyChip by inject()
     private val visibilityNavViewAndFloating: VisibilityNavViewAndFloating by inject()
     private lateinit var adapter: MainAdapter
     private var chipEnabled: Chip? = null
     private val permissionCode = 1000
-    companion object { private const val SPEECH_REQUEST_CODE = 0 }
+    companion object { const val SPEECH_REQUEST_CODE = 0 }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentMainBinding.bind(view)
+        binding = FragmentCamaraSenadoBinding.bind(view)
 
         recycler()
         observer()
@@ -114,8 +115,10 @@ class CamaraFragment: Fragment(R.layout.fragment_main), IClickDeputado, INotific
                 chipPros.setOnClickListener { modify(chipEnabled, chipPros) }
                 chipPsc.setOnClickListener { modify(chipEnabled, chipPsc) }
                 chipPmb.setOnClickListener { modify(chipEnabled, chipPmb) }
+                chipPodemos.setOnClickListener { modify(chipEnabled, chipPodemos) }
                 chipPp.setOnClickListener { modify(chipEnabled, chipPp) }
                 chipPt.setOnClickListener { modify(chipEnabled, chipPt) }
+                chipRepublicanos.setOnClickListener { modify(chipEnabled, chipRepublicanos) }
                 chipUniao.setOnClickListener { modify(chipEnabled, chipUniao) }
             }
 
@@ -127,22 +130,8 @@ class CamaraFragment: Fragment(R.layout.fragment_main), IClickDeputado, INotific
     }
 
     private fun modify(viewEnabled: Chip?, viewDisabled: Chip) {
-        if (viewEnabled != null){
-            viewEnabled.isChecked = false
-            viewDisabled.isChecked = true
 
-            if (viewEnabled != viewDisabled) {
-                chipEnabled = viewDisabled
-            }
-            else {
-                viewDisabled.isChecked = false
-                chipEnabled = null
-            }
-        }
-        else {
-            viewDisabled.isChecked = true
-            chipEnabled = viewDisabled
-        }
+        chipEnabled = modifyChip.modify(viewEnabled, viewDisabled)
         if (!viewDisabled.isChecked) adapter.filter.filter("")
         else adapter.filter.filter(viewDisabled.text as String)
     }
