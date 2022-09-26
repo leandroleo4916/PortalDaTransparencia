@@ -8,7 +8,7 @@ import com.example.portaldatransparencia.views.gastos.FragmentGastos
 import com.example.portaldatransparencia.views.geral.FragmentGeral
 import com.example.portaldatransparencia.views.proposta.FragmentProposta
 
-class TabViewAdapterGeral(fa: FragmentActivity): FragmentStateAdapter(fa) {
+class TabViewAdapterDeputado(fa: FragmentActivity): FragmentStateAdapter(fa) {
 
     private val fragments = arrayOf(
         FragmentGeral(), FragmentGastos(), FragmentProposta(), FragmentFrente()

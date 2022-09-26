@@ -1,4 +1,4 @@
-package com.example.portaldatransparencia.views.main
+package com.example.portaldatransparencia.views.camara
 
 import android.Manifest
 import android.app.Activity
@@ -21,18 +21,19 @@ import com.example.portaldatransparencia.interfaces.IHideViewController
 import com.example.portaldatransparencia.interfaces.INotification
 import com.example.portaldatransparencia.remote.ResultRequest
 import com.example.portaldatransparencia.views.EnableDisableView
+import com.example.portaldatransparencia.views.VisibilityNavViewAndFloating
 import com.example.portaldatransparencia.views.deputado.DeputadoActivity
 import com.google.android.material.chip.Chip
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
-class MainFragment: Fragment(R.layout.fragment_main), IClickDeputado, INotification {
+class CamaraFragment: Fragment(R.layout.fragment_main), IClickDeputado, INotification {
 
-    private lateinit var viewController: IHideViewController
     private var binding: FragmentMainBinding? = null
-    private val mainViewModel: MainViewModel by viewModel()
+    private val mainViewModel: CamaraViewModel by viewModel()
     private val hideView: EnableDisableView by inject()
+    private val visibilityNavViewAndFloating: VisibilityNavViewAndFloating by inject()
     private lateinit var adapter: MainAdapter
     private var chipEnabled: Chip? = null
     private val permissionCode = 1000
@@ -207,33 +208,11 @@ class MainFragment: Fragment(R.layout.fragment_main), IClickDeputado, INotificat
     }
 
     private fun showTabView() {
-
-        var isShow = true
-        var scrollRange = -1
-        val appBar = binding?.appbar
-        appBar?.addOnOffsetChangedListener { barLayout, verticalOffset ->
-            if (scrollRange == -1) { scrollRange = barLayout?.totalScrollRange!! }
-            if (scrollRange + verticalOffset == 0) {
-                visibilityNavViewAndFloating(false)
-                isShow = true
-            }
-            else if (isShow) {
-                visibilityNavViewAndFloating(true)
-                isShow = false
-            }
-        }
-    }
-
-    private fun visibilityNavViewAndFloating(value: Boolean){
-        if (context is IHideViewController) { viewController = context as IHideViewController }
-        viewController.hideNavView(value)
-        floatingVisibility(value)
-    }
-
-    private fun floatingVisibility(isVisible: Boolean) {
         binding?.run {
-            if (isVisible) floatingController.visibility = View.INVISIBLE
-            else floatingController.visibility = View.VISIBLE
+            context?.let {
+                visibilityNavViewAndFloating.showTabView(appbar,
+                    it, floatingController)
+            }
         }
     }
 

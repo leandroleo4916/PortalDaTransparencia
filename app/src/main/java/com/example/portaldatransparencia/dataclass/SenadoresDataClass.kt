@@ -1,34 +1,37 @@
 package com.example.portaldatransparencia.dataclass
+
+import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.*
-import kotlinx.serialization.descriptors.*
-import kotlinx.serialization.encoding.*
+import kotlinx.serialization.descriptors.PrimitiveKind
+import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
+import kotlinx.serialization.descriptors.SerialDescriptor
+import kotlinx.serialization.encoding.Decoder
+import kotlinx.serialization.encoding.Encoder
 
 data class SenadoresDataClass(
-    @SerialName("ListaParlamentarEmExercicio")
+    @SerializedName("ListaParlamentarEmExercicio")
     val listaParlamentarEmExercicio: ListaParlamentarEmExercicio
 )
 
-@Serializable
 data class ListaParlamentarEmExercicio (
-    @SerialName("@xmlns:xsi")
+    @SerializedName("@xmlns:xsi")
     val xmlnsXsi: String,
 
-    @SerialName("@xsi:noNamespaceSchemaLocation")
+    @SerializedName("@xsi:noNamespaceSchemaLocation")
     val xsiNoNamespaceSchemaLocation: String,
 
-    @SerialName("Metadados")
+    @SerializedName("Metadados")
     val metadados: Metadados,
 
-    @SerialName("Parlamentares")
+    @SerializedName("Parlamentares")
     val parlamentares: Parlamentares
 )
 
-@Serializable
 data class Metadados (
-    @SerialName("Versao")
+    @SerializedName("Versao")
     val versao: String,
 
-    @SerialName("VersaoServico")
+    @SerializedName("VersaoServico")
     val versaoServico: String,
 
     @SerialName("DataVersaoServico")
@@ -38,177 +41,100 @@ data class Metadados (
     val descricaoDataSet: String
 )
 
-@Serializable
 data class Parlamentares (
-    @SerialName("Parlamentar")
+    @SerializedName("Parlamentar")
     val parlamentar: List<Parlamentar>
 )
 
-@Serializable
 data class Parlamentar (
-    @SerialName("IdentificacaoParlamentar")
+    @SerializedName("IdentificacaoParlamentar")
     val identificacaoParlamentar: IdentificacaoParlamentar,
 
-    @SerialName("Mandato")
+    @SerializedName("Mandato")
     val mandato: Mandato
 )
 
-@Serializable
 data class IdentificacaoParlamentar (
-    @SerialName("CodigoParlamentar")
+    @SerializedName("CodigoParlamentar")
     val codigoParlamentar: String,
 
-    @SerialName("CodigoPublicoNaLegAtual")
+    @SerializedName("CodigoPublicoNaLegAtual")
     val codigoPublicoNaLegAtual: String,
 
-    @SerialName("NomeParlamentar")
+    @SerializedName("NomeParlamentar")
     val nomeParlamentar: String,
 
-    @SerialName("NomeCompletoParlamentar")
+    @SerializedName("NomeCompletoParlamentar")
     val nomeCompletoParlamentar: String,
 
-    @SerialName("SexoParlamentar")
-    val sexoParlamentar: SexoParlamentar,
+    @SerializedName("SexoParlamentar")
+    val sexoParlamentar: String,
 
-    @SerialName("FormaTratamento")
-    val formaTratamento: FormaTratamento,
+    @SerializedName("FormaTratamento")
+    val formaTratamento: String,
 
-    @SerialName("UrlFotoParlamentar")
+    @SerializedName("UrlFotoParlamentar")
     val urlFotoParlamentar: String,
 
-    @SerialName("UrlPaginaParlamentar")
+    @SerializedName("UrlPaginaParlamentar")
     val urlPaginaParlamentar: String,
 
-    @SerialName("UrlPaginaParticular")
+    @SerializedName("UrlPaginaParticular")
     val urlPaginaParticular: String? = null,
 
-    @SerialName("EmailParlamentar")
+    @SerializedName("EmailParlamentar")
     val emailParlamentar: String? = null,
 
-    @SerialName("Telefones")
-    val telefones: Telefones,
+    @SerializedName("Telefones")
+    val telefones: TelefoneElement? = null,
 
-    @SerialName("SiglaPartidoParlamentar")
+    @SerializedName("SiglaPartidoParlamentar")
     val siglaPartidoParlamentar: String,
 
-    @SerialName("UfParlamentar")
+    @SerializedName("UfParlamentar")
     val ufParlamentar: String,
 
-    @SerialName("MembroMesa")
-    val membroMesa: MembroLideranca,
+    @SerializedName("MembroMesa")
+    val membroMesa: String,
 
-    @SerialName("MembroLideranca")
-    val membroLideranca: MembroLideranca
+    @SerializedName("MembroLideranca")
+    val membroLideranca: String
 )
 
-@Serializable
-enum class FormaTratamento(val value: String) {
-    Senador("Senador "),
-    Senadora("Senadora ");
-
-    companion object : KSerializer<FormaTratamento> {
-        override val descriptor: SerialDescriptor get() {
-            return PrimitiveSerialDescriptor("quicktype.FormaTratamento", PrimitiveKind.STRING)
-        }
-        override fun deserialize(decoder: Decoder): FormaTratamento = when (val value = decoder.decodeString()) {
-            "Senador "  -> Senador
-            "Senadora " -> Senadora
-            else        -> throw IllegalArgumentException("FormaTratamento could not parse: $value")
-        }
-        override fun serialize(encoder: Encoder, value: FormaTratamento) {
-            return encoder.encodeString(value.value)
-        }
-    }
-}
-
-@Serializable
-enum class MembroLideranca(val value: String) {
-    Não("Não"),
-    Sim("Sim");
-
-    companion object : KSerializer<MembroLideranca> {
-        override val descriptor: SerialDescriptor get() {
-            return PrimitiveSerialDescriptor("quicktype.MembroLideranca", PrimitiveKind.STRING)
-        }
-        override fun deserialize(decoder: Decoder): MembroLideranca = when (val value = decoder.decodeString()) {
-            "Não" -> Não
-            "Sim" -> Sim
-            else  -> throw IllegalArgumentException("MembroLideranca could not parse: $value")
-        }
-        override fun serialize(encoder: Encoder, value: MembroLideranca) {
-            return encoder.encodeString(value.value)
-        }
-    }
-}
-
-@Serializable
-enum class SexoParlamentar(val value: String) {
-    Feminino("Feminino"),
-    Masculino("Masculino");
-
-    companion object : KSerializer<SexoParlamentar> {
-        override val descriptor: SerialDescriptor get() {
-            return PrimitiveSerialDescriptor("quicktype.SexoParlamentar", PrimitiveKind.STRING)
-        }
-        override fun deserialize(decoder: Decoder): SexoParlamentar = when (val value = decoder.decodeString()) {
-            "Feminino"  -> Feminino
-            "Masculino" -> Masculino
-            else        -> throw IllegalArgumentException("SexoParlamentar could not parse: $value")
-        }
-        override fun serialize(encoder: Encoder, value: SexoParlamentar) {
-            return encoder.encodeString(value.value)
-        }
-    }
-}
-
-@Serializable
-data class Telefones (
-    @SerialName("Telefone")
-    val telefone: TelefoneUnion
-)
-
-@Serializable
-sealed class TelefoneUnion {
-    class TelefoneElementArrayValue(val value: List<TelefoneElement>) : TelefoneUnion()
-    class TelefoneElementValue(val value: TelefoneElement)            : TelefoneUnion()
-}
-
-@Serializable
 data class TelefoneElement (
-    @SerialName("NumeroTelefone")
+    @SerializedName("NumeroTelefone")
     val numeroTelefone: String,
 
-    @SerialName("OrdemPublicacao")
+    @SerializedName("OrdemPublicacao")
     val ordemPublicacao: String,
 
-    @SerialName("IndicadorFax")
-    val indicadorFax: MembroLideranca
+    @SerializedName("IndicadorFax")
+    val indicadorFax: String
 )
 
-@Serializable
 data class Mandato (
-    @SerialName("CodigoMandato")
+    @SerializedName("CodigoMandato")
     val codigoMandato: String,
 
-    @SerialName("UfParlamentar")
+    @SerializedName("UfParlamentar")
     val ufParlamentar: String,
 
-    @SerialName("PrimeiraLegislaturaDoMandato")
+    @SerializedName("PrimeiraLegislaturaDoMandato")
     val primeiraLegislaturaDoMandato: ALegislaturaDoMandato,
 
-    @SerialName("SegundaLegislaturaDoMandato")
+    @SerializedName("SegundaLegislaturaDoMandato")
     val segundaLegislaturaDoMandato: ALegislaturaDoMandato,
 
-    @SerialName("DescricaoParticipacao")
+    @SerializedName("DescricaoParticipacao")
     val descricaoParticipacao: DescricaoParticipacao,
 
-    @SerialName("Suplentes")
+    @SerializedName("Suplentes")
     val suplentes: Suplentes,
 
-    @SerialName("Exercicios")
+    @SerializedName("Exercicios")
     val exercicios: Exercicios,
 
-    @SerialName("Titular")
+    @SerializedName("Titular")
     val titular: Titular? = null
 )
 
@@ -219,7 +145,8 @@ enum class DescricaoParticipacao(val value: String) {
     Titular("Titular");
 
     companion object : KSerializer<DescricaoParticipacao> {
-        override val descriptor: SerialDescriptor get() {
+        override val descriptor: SerialDescriptor
+            get() {
             return PrimitiveSerialDescriptor("quicktype.DescricaoParticipacao", PrimitiveKind.STRING)
         }
         override fun deserialize(decoder: Decoder): DescricaoParticipacao = when (val value = decoder.decodeString()) {
@@ -234,60 +161,56 @@ enum class DescricaoParticipacao(val value: String) {
     }
 }
 
-@Serializable
 data class Exercicios (
-    @SerialName("Exercicio")
+    @SerializedName("Exercicio")
     val exercicio: List<Exercicio>
 )
 
-@Serializable
 data class Exercicio (
-    @SerialName("CodigoExercicio")
+    @SerializedName("CodigoExercicio")
     val codigoExercicio: String,
 
-    @SerialName("DataInicio")
+    @SerializedName("DataInicio")
     val dataInicio: String,
 
-    @SerialName("DataFim")
+    @SerializedName("DataFim")
     val dataFim: String? = null,
 
-    @SerialName("SiglaCausaAfastamento")
+    @SerializedName("SiglaCausaAfastamento")
     val siglaCausaAfastamento: String? = null,
 
-    @SerialName("DescricaoCausaAfastamento")
+    @SerializedName("DescricaoCausaAfastamento")
     val descricaoCausaAfastamento: String? = null,
 
-    @SerialName("DataLeitura")
+    @SerializedName("DataLeitura")
     val dataLeitura: String? = null
 )
 
-@Serializable
 data class ALegislaturaDoMandato (
-    @SerialName("NumeroLegislatura")
+    @SerializedName("NumeroLegislatura")
     val numeroLegislatura: String,
 
-    @SerialName("DataInicio")
+    @SerializedName("DataInicio")
     val dataInicio: String,
 
-    @SerialName("DataFim")
+    @SerializedName("DataFim")
     val dataFim: String
 )
 
-@Serializable
 data class Suplentes (
-    @SerialName("Suplente")
+    @SerializedName("Suplente")
     val suplente: List<Titular>
 )
 
-@Serializable
 data class Titular (
-    @SerialName("DescricaoParticipacao")
+    @SerializedName("DescricaoParticipacao")
     val descricaoParticipacao: DescricaoParticipacao,
 
-    @SerialName("CodigoParlamentar")
+    @SerializedName("CodigoParlamentar")
     val codigoParlamentar: String,
 
-    @SerialName("NomeParlamentar")
+    @SerializedName("NomeParlamentar")
     val nomeParlamentar: String
 )
+
 
