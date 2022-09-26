@@ -206,7 +206,7 @@ class CamaraFragment: Fragment(R.layout.fragment_camara_senado), IClickDeputado,
     }
 
     override fun notification() {
-        Toast.makeText(context, "Não encontrado deputado com essas iniciais",
+        Toast.makeText(context, "Não encontrado deputado com esse partido",
             Toast.LENGTH_SHORT).show()
     }
 }

@@ -131,8 +131,9 @@ class SenadoFragment: Fragment(R.layout.fragment_camara_senado), IClickSenador, 
     }
 
     override fun notification() {
-        Toast.makeText(context, "Não encontrado deputado com essas iniciais",
+        Toast.makeText(context, "Não encontrado senador com esse partido",
             Toast.LENGTH_SHORT).show()
+        binding?.progressMain?.visibility = View.INVISIBLE
     }
 
     private fun permissionVoice() {
