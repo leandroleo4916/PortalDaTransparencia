@@ -8,6 +8,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.dataclass.DadoDespesas
+import com.example.portaldatransparencia.dataclass.GastosSenador
+import com.example.portaldatransparencia.dataclass.SenadorGastosDataClass
 import com.example.portaldatransparencia.interfaces.INoteDespesas
 import java.text.DecimalFormat
 

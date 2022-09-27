@@ -76,3 +76,12 @@ interface ApiServiceSenador {
     ): Response<SenadorDataClass>
 }
 
+interface ApiServiceGastos {
+    @Headers("Content-Type: application/json")
+    @GET("https://raw.githubusercontent.com/leandroleo4916/API_SENADO/master/{ano}/{nome}")
+    suspend fun getGastos(
+        @Path("ano") ano: String,
+        @Path("nome") nome: String
+    ): Response<SenadorGastosDataClass>
+}
+

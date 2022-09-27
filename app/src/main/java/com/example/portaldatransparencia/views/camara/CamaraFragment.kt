@@ -130,7 +130,6 @@ class CamaraFragment: Fragment(R.layout.fragment_camara_senado), IClickDeputado,
     }
 
     private fun modify(viewEnabled: Chip?, viewDisabled: Chip) {
-
         chipEnabled = modifyChip.modify(viewEnabled, viewDisabled)
         if (!viewDisabled.isChecked) adapter.filter.filter("")
         else adapter.filter.filter(viewDisabled.text as String)

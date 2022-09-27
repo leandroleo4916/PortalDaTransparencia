@@ -1,69 +1,132 @@
 package com.example.portaldatransparencia.dataclass
 
-import kotlinx.serialization.*
+import com.google.gson.annotations.SerializedName
 
 data class SenadorDataClass(
-    @SerialName("DetalheParlamentar")
+    @SerializedName("DetalheParlamentar")
     val detalheParlamentar: DetalheParlamentar
 )
 
-@Serializable
 data class DetalheParlamentar (
-    @SerialName("@xmlns:xsi")
+    @SerializedName("@xmlns:xsi")
     val xmlnsXsi: String,
 
-    @SerialName("@xsi:noNamespaceSchemaLocation")
+    @SerializedName("@xsi:noNamespaceSchemaLocation")
     val xsiNoNamespaceSchemaLocation: String,
 
-    @SerialName("Metadados")
-    val metadados: Metadados,
+    @SerializedName("Metadados")
+    val metadados: MetadadosItem,
 
-    @SerialName("Parlamentar")
-    val parlamentar: Parlamentar
+    @SerializedName("Parlamentar")
+    val parlamentar: ParlamentarItem
 )
 
-@Serializable
+data class MetadadosItem (
+    @SerializedName("Versao")
+    val versao: String,
+
+    @SerializedName("VersaoServico")
+    val versaoServico: String,
+
+    @SerializedName("DataVersaoServico")
+    val dataVersaoServico: String,
+
+    @SerializedName("DescricaoDataSet")
+    val descricaoDataSet: String
+)
+
+data class ParlamentarItem (
+    @SerializedName("IdentificacaoParlamentar")
+    val identificacaoParlamentar: IdentificacaoParlamentarItem,
+
+    @SerializedName("DadosBasicosParlamentar")
+    val dadosBasicosParlamentar: DadosBasicosParlamentar,
+
+    @SerializedName("Telefones")
+    val telefones: Telefones,
+
+    @SerializedName("OutrasInformacoes")
+    val outrasInformacoes: OutrasInformacoes
+)
+
 data class DadosBasicosParlamentar (
-    @SerialName("DataNascimento")
+    @SerializedName("DataNascimento")
     val dataNascimento: String,
 
-    @SerialName("Naturalidade")
+    @SerializedName("Naturalidade")
     val naturalidade: String,
 
-    @SerialName("UfNaturalidade")
+    @SerializedName("UfNaturalidade")
     val ufNaturalidade: String,
 
-    @SerialName("EnderecoParlamentar")
+    @SerializedName("EnderecoParlamentar")
     val enderecoParlamentar: String
 )
 
-@Serializable
+data class IdentificacaoParlamentarItem (
+    @SerializedName("CodigoParlamentar")
+    val codigoParlamentar: String,
+
+    @SerializedName("CodigoPublicoNaLegAtual")
+    val codigoPublicoNaLegAtual: String,
+
+    @SerializedName("NomeParlamentar")
+    val nomeParlamentar: String,
+
+    @SerializedName("NomeCompletoParlamentar")
+    val nomeCompletoParlamentar: String,
+
+    @SerializedName("SexoParlamentar")
+    val sexoParlamentar: String,
+
+    @SerializedName("UrlFotoParlamentar")
+    val urlFotoParlamentar: String,
+
+    @SerializedName("UrlPaginaParlamentar")
+    val urlPaginaParlamentar: String,
+
+    @SerializedName("UrlPaginaParticular")
+    val urlPaginaParticular: String,
+
+    @SerializedName("EmailParlamentar")
+    val emailParlamentar: String,
+
+    @SerializedName("SiglaPartidoParlamentar")
+    val siglaPartidoParlamentar: String,
+
+    @SerializedName("UfParlamentar")
+    val ufParlamentar: String
+)
+
 data class OutrasInformacoes (
-    @SerialName("Servico")
+    @SerializedName("Servico")
     val servico: List<Servico>
 )
 
-@Serializable
 data class Servico (
-    @SerialName("NomeServico")
+    @SerializedName("NomeServico")
     val nomeServico: String,
 
-    @SerialName("DescricaoServico")
+    @SerializedName("DescricaoServico")
     val descricaoServico: String? = null,
 
-    @SerialName("UrlServico")
+    @SerializedName("UrlServico")
     val urlServico: String
 )
 
-@Serializable
+data class Telefones (
+    @SerializedName("Telefone")
+    val telefone: List<Telefone>
+)
+
 data class Telefone (
-    @SerialName("NumeroTelefone")
+    @SerializedName("NumeroTelefone")
     val numeroTelefone: String,
 
-    @SerialName("OrdemPublicacao")
+    @SerializedName("OrdemPublicacao")
     val ordemPublicacao: String,
 
-    @SerialName("IndicadorFax")
+    @SerializedName("IndicadorFax")
     val indicadorFax: String
 )
 

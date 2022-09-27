@@ -117,7 +117,7 @@ class SenadoFragment: Fragment(R.layout.fragment_camara_senado), IClickSenador, 
 
     override fun clickSenador(id: String) {
         val intent = Intent(context, SenadorActivity::class.java)
-        intent.putExtra("senador", id)
+        intent.putExtra("id", id)
         startActivity(intent)
     }
 

@@ -60,6 +60,9 @@ val retrofitModule = module {
         single<ApiServiceSenador> {
                 get<Retrofit>().create(ApiServiceSenador::class.java)
         }
+        single<ApiServiceGastos> {
+                get<Retrofit>().create(ApiServiceGastos::class.java)
+        }
 }
 
 val viewModelModule = module { viewModel { CamaraViewModel(get()) } }
@@ -73,7 +76,7 @@ val viewModelSenador = module { viewModel { SenadorViewModel(get()) } }
 
 val repositorySearch = module { single { SearchRepository(get()) } }
 val repositoryIdDeputado = module { single { IdDeputadoRepository(get()) } }
-val repositoryDespesasDeputado = module { single { IdDespesasRepository(get()) } }
+val repositoryDespesasDeputado = module { single { IdDespesasRepository(get(), get()) } }
 val repositoryFront = module { single { FrenteRepository(get()) } }
 val repositoryProposta = module { single { PropostaRepository(get()) } }
 val repositoryOccupation = module { single { OccupationRepository(get()) } }
