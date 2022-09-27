@@ -1,4 +1,4 @@
-package com.example.portaldatransparencia.views.gastos
+package com.example.portaldatransparencia.views.deputado.gastos_deputado
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel

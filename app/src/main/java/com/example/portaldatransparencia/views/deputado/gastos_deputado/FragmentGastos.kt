@@ -1,4 +1,4 @@
-package com.example.portaldatransparencia.views.gastos_senador
+package com.example.portaldatransparencia.views.deputado.gastos_deputado
 
 import android.content.Intent
 import android.net.Uri
@@ -8,68 +8,81 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.portaldatransparencia.R
-import com.example.portaldatransparencia.adapter.GastorSenadorAdapter
+import com.example.portaldatransparencia.adapter.DespesasAdapter
 import com.example.portaldatransparencia.databinding.FragmentGastosBinding
 import com.example.portaldatransparencia.dataclass.DadoDespesas
-import com.example.portaldatransparencia.dataclass.GastosSenador
 import com.example.portaldatransparencia.interfaces.INoteDespesas
-import com.example.portaldatransparencia.remote.ResultCotaRequest
+import com.example.portaldatransparencia.remote.ResultDespesasRequest
 import com.example.portaldatransparencia.security.SecurityPreferences
 import com.example.portaldatransparencia.views.EnableDisableView
-import com.example.portaldatransparencia.views.gastos.DespesasViewModel
 import com.google.android.material.chip.Chip
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.DecimalFormat
 
-class FragmentGastosSenador: Fragment(R.layout.fragment_gastos), INoteDespesas {
+class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas {
 
     private var binding: FragmentGastosBinding? = null
-    private val viewModelGastos: DespesasViewModel by viewModel()
-    private lateinit var adapter: GastorSenadorAdapter
+    private val viewModel: DespesasViewModel by viewModel()
+    private lateinit var adapter: DespesasAdapter
     private val securityPreferences: SecurityPreferences by inject()
     private val statusView: EnableDisableView by inject()
     private lateinit var chipEnabled: Chip
-    private lateinit var nome: String
+    private lateinit var id: String
+    private var total = 0.0
     private var numberNote = 0
+    private var page = 1
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentGastosBinding.bind(view)
-
         chipEnabled = binding!!.chipGroupItem.chip2022
-        nome = securityPreferences.getStoredString("nome")
+        id = securityPreferences.getStoredString("id")
         recyclerView()
-        observerGastosSenador("2022", nome)
+        observer(id, "2022", page)
         listenerChip()
     }
 
     private fun recyclerView() {
         val recycler = binding!!.recyclerDespesas
-        adapter = GastorSenadorAdapter()
+        adapter = DespesasAdapter(this)
         recycler.layoutManager = LinearLayoutManager(context)
         recycler.adapter = adapter
     }
 
-    private fun observerGastosSenador(year: String, nome: String) {
+    private fun observer(id: String, year: String, pagina: Int) {
 
-        viewModelGastos.searchGastosSenador(year, nome).observe(viewLifecycleOwner){
+        viewModel.searchDespesasDeputado(id, year, pagina).observe(viewLifecycleOwner){
             it?.let { result ->
                 when (result) {
-                    is ResultCotaRequest.Success -> {
-                        result.dado?.let { gastos ->
-                            if (gastos.gastosSenador.isNotEmpty()){
-                                numberNote = gastos.gastosSenador.size
+                    is ResultDespesasRequest.Success -> {
+                        result.dado?.let { despesas ->
+                            if (despesas.dados.isNotEmpty()){
+                                statusView.disableView(binding!!.textNotValue)
+                                val size = despesas.dados.size
+                                numberNote += size
                                 calculateNumberNote()
-                                calculateTotalSenador(gastos.gastosSenador)
-                                adapter.updateDataSenador(gastos.gastosSenador)
+                                calculateTotal(despesas.dados, page)
+                                adapter.updateData(despesas.dados, page)
+                                page += 1
+                                if (size >= 100) observer(id, year, page)
+
+                            }else{
+                                if (numberNote == 0) {
+                                    binding?.run {
+                                        statusView.disableView(progressDespesas)
+                                        statusView.enableView(textNotValue)
+                                        textNotValue.text = "Não há dados no ano ${year}"
+                                    }
+                                    adapter.updateData(despesas.dados, page)
+                                }
                             }
                         }
                     }
-                    is ResultCotaRequest.Error -> {
+                    is ResultDespesasRequest.Error -> {
                         result.exception.message?.let { it -> }
                     }
-                    is ResultCotaRequest.ErrorConnection -> {
+                    is ResultDespesasRequest.ErrorConnection -> {
                         result.exception.message?.let { it -> }
                     }
                 }
@@ -81,25 +94,12 @@ class FragmentGastosSenador: Fragment(R.layout.fragment_gastos), INoteDespesas {
         binding!!.textNotesSend.text = "$numberNote notas"
     }
 
-    private fun calculateTotalSenador(dados: List<GastosSenador>) {
+    private fun calculateTotal(dados: List<DadoDespesas>, page: Int) {
+        if (page == 1) total = 0.0
+        dados.forEach { total = (total+it.valorDocumento) }
 
-        var total = 0.0
-        dados.forEach  {
-            val valor = it.valorReembolsado
-            total += if (valor.contains(",")){
-                val value = valor.split(",")
-                value[0].toFloat()
-            } else {
-                valor.toFloat()
-            }
-        }
-        statusView(total)
-    }
-
-    private fun statusView(total: Double) {
         val format = DecimalFormat("#.00")
         val formatTotal = format.format(total)
-
         binding?.run {
             (formatTotal).also { textTotal.text = it }
             statusView.disableView(progressDespesas)
@@ -128,7 +128,8 @@ class FragmentGastosSenador: Fragment(R.layout.fragment_gastos), INoteDespesas {
     private fun modify(viewEnabled: Chip, viewDisabled: Chip) {
         viewEnabled.isChecked = false
         viewDisabled.isChecked = true
-
+        numberNote = 0
+        page = 1
         chipEnabled = viewDisabled
         binding?.run {
             statusView.enableView(progressDespesas)
@@ -137,6 +138,8 @@ class FragmentGastosSenador: Fragment(R.layout.fragment_gastos), INoteDespesas {
             statusView.disableView(imageView1)
             statusView.disableView(imageView2)
         }
+        adapter.updateData(deputados = arrayListOf(), 1)
+        observer(id, viewDisabled.text as String, page)
     }
 
     override fun listenerDespesas(note: DadoDespesas) {

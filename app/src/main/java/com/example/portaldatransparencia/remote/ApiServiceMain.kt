@@ -85,3 +85,8 @@ interface ApiServiceGastos {
     ): Response<SenadorGastosDataClass>
 }
 
+interface ApiServiceSenadorCargos {
+    @GET("https://legis.senado.leg.br/dadosabertos/senador/5322/cargos.json")
+    suspend fun getCargos(): Response<CargoSenadorDataClass>
+}
+

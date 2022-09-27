@@ -1,4 +1,4 @@
-package com.example.portaldatransparencia.views.proposta
+package com.example.portaldatransparencia.views.deputado.proposta_deputado
 
 import android.os.Bundle
 import android.view.View

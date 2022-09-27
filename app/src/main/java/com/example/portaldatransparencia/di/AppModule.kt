@@ -7,11 +7,12 @@ import com.example.portaldatransparencia.views.EnableDisableView
 import com.example.portaldatransparencia.views.ModifyChip
 import com.example.portaldatransparencia.views.VisibilityNavViewAndFloating
 import com.example.portaldatransparencia.views.deputado.DeputadoViewModel
-import com.example.portaldatransparencia.views.frente.FrenteViewModel
-import com.example.portaldatransparencia.views.gastos.DespesasViewModel
-import com.example.portaldatransparencia.views.geral.OccupationViewModel
+import com.example.portaldatransparencia.views.deputado.frente_deputado.FrenteViewModel
+import com.example.portaldatransparencia.views.deputado.gastos_deputado.DespesasViewModel
+import com.example.portaldatransparencia.views.deputado.geral_deputado.OccupationViewModel
 import com.example.portaldatransparencia.views.camara.CamaraViewModel
-import com.example.portaldatransparencia.views.proposta.PropostaViewModel
+import com.example.portaldatransparencia.views.senador.geral_senador.GeralSenadorViewModel
+import com.example.portaldatransparencia.views.deputado.proposta_deputado.PropostaViewModel
 import com.example.portaldatransparencia.views.senado.SenadoViewModel
 import com.example.portaldatransparencia.views.senador.SenadorViewModel
 import okhttp3.OkHttpClient
@@ -63,6 +64,9 @@ val retrofitModule = module {
         single<ApiServiceGastos> {
                 get<Retrofit>().create(ApiServiceGastos::class.java)
         }
+        single<ApiServiceSenadorCargos> {
+                get<Retrofit>().create(ApiServiceSenadorCargos::class.java)
+        }
 }
 
 val viewModelModule = module { viewModel { CamaraViewModel(get()) } }
@@ -73,6 +77,7 @@ val viewModelProposta = module { viewModel { PropostaViewModel(get()) } }
 val viewModelOccupation = module { viewModel { OccupationViewModel(get()) } }
 val viewModelSenado = module { viewModel { SenadoViewModel(get()) } }
 val viewModelSenador = module { viewModel { SenadorViewModel(get()) } }
+val viewModelSenadorGeral = module { viewModel { GeralSenadorViewModel(get()) } }
 
 val repositorySearch = module { single { SearchRepository(get()) } }
 val repositoryIdDeputado = module { single { IdDeputadoRepository(get()) } }
@@ -82,6 +87,7 @@ val repositoryProposta = module { single { PropostaRepository(get()) } }
 val repositoryOccupation = module { single { OccupationRepository(get()) } }
 val repositorySenado = module { single { SenadoRepository(get()) } }
 val repositorySenador = module { single { SenadorRepository(get()) } }
+val repositorySenadorGeral = module { single { GeralSenadorRepository(get()) } }
 
 val progressModule = module { factory { EnableDisableView() } }
 val ageModule = module { factory { CalculateAge() } }
@@ -93,5 +99,6 @@ val appModules = listOf( retrofitModule, viewModelModule, repositorySearch, prog
         viewModelDeputado, repositoryIdDeputado, viewModelDespesas, repositoryDespesasDeputado,
         securityPreferences, viewModelFront, repositoryFront, viewModelProposta, repositoryProposta,
         ageModule, viewModelOccupation, repositoryOccupation, repositorySenado, viewModelSenado,
-        viewModelSenador, visibilityNavFloating, repositorySenador, modifyChip
+        viewModelSenador, visibilityNavFloating, repositorySenador, modifyChip, viewModelSenadorGeral,
+        repositorySenadorGeral
 )

@@ -1,4 +1,4 @@
-package com.example.portaldatransparencia.views.frente
+package com.example.portaldatransparencia.views.deputado.frente_deputado
 
 import android.os.Bundle
 import android.view.View

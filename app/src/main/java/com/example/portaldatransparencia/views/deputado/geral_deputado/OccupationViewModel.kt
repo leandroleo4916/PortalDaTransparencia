@@ -1,9 +1,7 @@
-package com.example.portaldatransparencia.views.geral
+package com.example.portaldatransparencia.views.deputado.geral_deputado
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.example.portaldatransparencia.dataclass.Despesas
-import com.example.portaldatransparencia.dataclass.IdDeputadoDataClass
 import com.example.portaldatransparencia.dataclass.OccupationDataClass
 import com.example.portaldatransparencia.remote.*
 

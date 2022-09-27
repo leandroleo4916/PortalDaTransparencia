@@ -1,9 +1,7 @@
-package com.example.portaldatransparencia.views.proposta
+package com.example.portaldatransparencia.views.deputado.proposta_deputado
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.example.portaldatransparencia.dataclass.Frente
-import com.example.portaldatransparencia.dataclass.Proposta
 import com.example.portaldatransparencia.dataclass.PropostaDataClass
 import com.example.portaldatransparencia.remote.*
 

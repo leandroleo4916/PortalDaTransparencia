@@ -1,4 +1,4 @@
-package com.example.portaldatransparencia.views.geral
+package com.example.portaldatransparencia.views.senador.geral_senador
 
 import android.content.Intent
 import android.net.Uri
@@ -7,74 +7,50 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.portaldatransparencia.R
-import com.example.portaldatransparencia.databinding.FragmentGeralDeputadoBinding
+import com.example.portaldatransparencia.databinding.FragmentGeralSenadorBinding
+import com.example.portaldatransparencia.dataclass.Cargo
 import com.example.portaldatransparencia.dataclass.Dados
-import com.example.portaldatransparencia.dataclass.Occupation
-import com.example.portaldatransparencia.remote.ResultIdRequest
-import com.example.portaldatransparencia.remote.ResultOccupationRequest
+import com.example.portaldatransparencia.remote.ResultCargosRequest
 import com.example.portaldatransparencia.security.SecurityPreferences
 import com.example.portaldatransparencia.util.CalculateAge
 import com.example.portaldatransparencia.views.EnableDisableView
-import com.example.portaldatransparencia.views.deputado.DeputadoViewModel
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class FragmentGeral: Fragment(R.layout.fragment_geral_deputado) {
+class FragmentGeralSenador: Fragment(R.layout.fragment_geral_senador) {
 
-    private var binding: FragmentGeralDeputadoBinding? = null
-    private val viewModel: DeputadoViewModel by viewModel()
-    private val viewModelOccupation: OccupationViewModel by viewModel()
+    private var binding: FragmentGeralSenadorBinding? = null
+    private val viewModel: GeralSenadorViewModel by viewModel()
     private val securityPreferences: SecurityPreferences by inject()
     private val calculateAge: CalculateAge by inject()
     private val statusView: EnableDisableView by inject()
-    private var sexoDeputado = ""
     private lateinit var id: String
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentGeralDeputadoBinding.bind(view)
+        binding = FragmentGeralSenadorBinding.bind(view)
         id = securityPreferences.getStoredString("id")
-        observerDeputado()
-        observerOccupation()
+        observerSenador()
+        observerDescription()
     }
 
-    private fun observerOccupation() {
-        viewModelOccupation.occupationDeputado(id).observe(viewLifecycleOwner){
+    private fun observerDescription() {}
+
+    private fun observerSenador() {
+
+        viewModel.cargosSenador().observe(viewLifecycleOwner){
             it?.let { result ->
                 when (result) {
-                    is ResultOccupationRequest.Success -> {
-                        result.dado?.let { occupation ->
-                            addElementOccupation(occupation.dados)
-                        }
-                    }
-                    is ResultOccupationRequest.Error -> {
-                        result.exception.message?.let { it -> }
-                    }
-                    is ResultOccupationRequest.ErrorConnection -> {
-                        result.exception.message?.let { it -> }
-                    }
-                }
-            }
-        }
-    }
-
-    private fun observerDeputado() {
-
-        viewModel.searchDataDeputado(id).observe(viewLifecycleOwner){
-            it?.let { result ->
-                when (result) {
-                    is ResultIdRequest.Success -> {
-                        result.dado?.let { deputado ->
+                    is ResultCargosRequest.Success -> {
+                        result.dado?.let { senador ->
                             statusView.disableView(binding!!.progressGeral)
-                            addElementView(deputado.dados)
-                            addElementRedeSocial(deputado.dados)
-                            sexoDeputado = deputado.dados.sexo
+                            addElementCargo(senador.cargoParlamentar.parlamentar.cargos.cargo)
                         }
                     }
-                    is ResultIdRequest.Error -> {
+                    is ResultCargosRequest.Error -> {
                         result.exception.message?.let { it -> }
                     }
-                    is ResultIdRequest.ErrorConnection -> {
+                    is ResultCargosRequest.ErrorConnection -> {
                         result.exception.message?.let { it -> }
                     }
                 }
@@ -116,22 +92,12 @@ class FragmentGeral: Fragment(R.layout.fragment_geral_deputado) {
         }
     }
 
-    private fun addElementOccupation(dados: List<Occupation>) {
-        val occupation = dados[0]
-        val deputadoOccupation = if (sexoDeputado == "M") "deputado" else "deputada"
-
-        val em = " em "
-        val hifen = " - "
-        val uf = occupation.entidadeUF ?: ""
-        val pais = occupation.entidadePais ?: ""
-        val part = if (uf != "") em+uf+hifen+pais else ""
+    private fun addElementCargo(dados: List<Cargo>) {
+        val cargo = dados[0]
 
         binding?.run {
-            "Seu trabalho antes de ser $deputadoOccupation".also { textWork.text = it }
-            if (occupation.titulo != null){
-                ("Trabalhou como "+occupation.titulo+" na "+ occupation.entidade+part+", no ano de "+
-                        occupation.anoInicio+".").also { textOccupationDescription.text = it }
-            }
+            ("Exerceu o cargo de "+cargo.descricaoCargo).also { textCargoSenador.text = it }
+            (cargo.identificacaoComissao.nomeComissao).also { textCargoDescription.text = it }
         }
     }
 
