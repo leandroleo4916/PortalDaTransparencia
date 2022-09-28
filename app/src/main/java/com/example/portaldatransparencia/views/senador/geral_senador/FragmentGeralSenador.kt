@@ -95,7 +95,10 @@ class FragmentGeralSenador: Fragment(R.layout.fragment_geral_senador) {
                 .also { textGeralInformation.text = it }
             statusView.enableView(textGeralInformation)
 
-            textSitePessoal.text = detalhes.urlPaginaParticular+" >"
+            textSitePessoal.text = if (detalhes.urlPaginaParticular != null) {
+                detalhes.urlPaginaParticular+" >"
+            } else "Não informou sua página particular"
+
             textSiteSenado.text = detalhes.urlPaginaParlamentar+" >"
             textGeralPredio.text = dadosBasicos.enderecoParlamentar
             textGeralAndar.text = detalhes.emailParlamentar
@@ -127,7 +130,11 @@ class FragmentGeralSenador: Fragment(R.layout.fragment_geral_senador) {
 
     private fun listenerSite(site: IdentificacaoParlamentarItem){
         binding?.run {
-            textSitePessoal.setOnClickListener { choose(site.urlPaginaParticular) }
+            textSitePessoal.setOnClickListener {
+                if (site.urlPaginaParticular != null){
+                    choose(site.urlPaginaParticular)
+                }
+            }
             textSiteSenado.setOnClickListener { choose(site.urlPaginaParlamentar) }
         }
     }
