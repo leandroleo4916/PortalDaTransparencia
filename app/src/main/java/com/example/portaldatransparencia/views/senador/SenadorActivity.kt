@@ -9,8 +9,8 @@ import com.example.portaldatransparencia.dataclass.ParlamentarItem
 import com.example.portaldatransparencia.remote.ResultSenadorRequest
 import com.example.portaldatransparencia.security.SecurityPreferences
 import com.example.portaldatransparencia.util.CalculateAge
-import com.example.portaldatransparencia.views.EnableDisableView
-import com.example.portaldatransparencia.views.TabViewAdapterSenador
+import com.example.portaldatransparencia.views.view_generics.EnableDisableView
+import com.example.portaldatransparencia.views.view_generics.TabViewAdapterSenador
 import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -22,13 +22,14 @@ class SenadorActivity: AppCompatActivity() {
     private val senadorViewModel: SenadorViewModel by viewModel()
     private val statusView: EnableDisableView by inject()
     private val calculateAge: CalculateAge by inject()
-    private var id = "4981"
+    private var id = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        //id = intent.extras?.getString("id").toString()
+        id = intent.extras?.getString("id").toString()
+        securityPreferences.putString("id", id)
         setupViewGeral()
         observer()
 
@@ -67,9 +68,6 @@ class SenadorActivity: AppCompatActivity() {
     }
 
     private fun addElementView(item: ParlamentarItem) {
-
-        val nome = item.identificacaoParlamentar.nomeParlamentar.split(" ")
-        securityPreferences.storeString("nome", nome[0].uppercase()+nome[1].uppercase())
 
         val itemSenador = item.identificacaoParlamentar
         val itemDados = item.dadosBasicosParlamentar

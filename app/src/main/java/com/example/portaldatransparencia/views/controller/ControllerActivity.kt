@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.databinding.ActivityControllerBinding
 import com.example.portaldatransparencia.interfaces.IHideViewController
-import com.example.portaldatransparencia.views.TabViewAdapterController
+import com.example.portaldatransparencia.views.view_generics.TabViewAdapterController
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 

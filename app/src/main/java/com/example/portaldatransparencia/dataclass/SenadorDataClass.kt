@@ -116,8 +116,13 @@ data class Servico (
 
 data class Telefones (
     @SerializedName("Telefone")
-    val telefone: List<Telefone>
+    val telefone: Any
 )
+
+sealed class TelefoneUnion {
+    class TelefoneElementArrayValue(val value: List<Telefone>) : TelefoneUnion()
+    class TelefoneElementValue(val value: Telefone)            : TelefoneUnion()
+}
 
 data class Telefone (
     @SerializedName("NumeroTelefone")
@@ -129,4 +134,5 @@ data class Telefone (
     @SerializedName("IndicadorFax")
     val indicadorFax: String
 )
+
 

@@ -1,4 +1,4 @@
-package com.example.portaldatransparencia.views
+package com.example.portaldatransparencia.views.view_generics
 
 import com.google.android.material.chip.Chip
 

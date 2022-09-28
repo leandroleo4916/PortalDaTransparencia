@@ -17,8 +17,8 @@ import com.example.portaldatransparencia.databinding.FragmentCamaraSenadoBinding
 import com.example.portaldatransparencia.interfaces.IClickSenador
 import com.example.portaldatransparencia.interfaces.INotificationSenado
 import com.example.portaldatransparencia.remote.ResultSenadoRequest
-import com.example.portaldatransparencia.views.ModifyChip
-import com.example.portaldatransparencia.views.VisibilityNavViewAndFloating
+import com.example.portaldatransparencia.views.view_generics.ModifyChip
+import com.example.portaldatransparencia.views.view_generics.VisibilityNavViewAndFloating
 import com.example.portaldatransparencia.views.camara.CamaraFragment
 import com.example.portaldatransparencia.views.senador.SenadorActivity
 import com.google.android.material.chip.Chip

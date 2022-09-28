@@ -19,9 +19,9 @@ import com.example.portaldatransparencia.databinding.FragmentCamaraSenadoBinding
 import com.example.portaldatransparencia.interfaces.IClickDeputado
 import com.example.portaldatransparencia.interfaces.INotification
 import com.example.portaldatransparencia.remote.ResultRequest
-import com.example.portaldatransparencia.views.EnableDisableView
-import com.example.portaldatransparencia.views.ModifyChip
-import com.example.portaldatransparencia.views.VisibilityNavViewAndFloating
+import com.example.portaldatransparencia.views.view_generics.EnableDisableView
+import com.example.portaldatransparencia.views.view_generics.ModifyChip
+import com.example.portaldatransparencia.views.view_generics.VisibilityNavViewAndFloating
 import com.example.portaldatransparencia.views.deputado.DeputadoActivity
 import com.google.android.material.chip.Chip
 import org.koin.android.ext.android.inject

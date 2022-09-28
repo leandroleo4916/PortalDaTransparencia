@@ -14,7 +14,7 @@ import com.example.portaldatransparencia.remote.ResultIdRequest
 import com.example.portaldatransparencia.remote.ResultOccupationRequest
 import com.example.portaldatransparencia.security.SecurityPreferences
 import com.example.portaldatransparencia.util.CalculateAge
-import com.example.portaldatransparencia.views.EnableDisableView
+import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import com.example.portaldatransparencia.views.deputado.DeputadoViewModel
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -33,7 +33,7 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentGeralDeputadoBinding.bind(view)
-        id = securityPreferences.getStoredString("id")
+        id = securityPreferences.getString("id")
         observerDeputado()
         observerOccupation()
     }

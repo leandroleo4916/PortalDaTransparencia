@@ -11,9 +11,9 @@ sealed class ResultCargosRequest<out R> {
 
 class GeralSenadorRepository(private val serviceCargos: ApiServiceSenadorCargos) {
 
-    fun cargosDataSenador() = liveData {
+    fun cargosDataSenador(id: String) = liveData {
         try {
-            val request = serviceCargos.getCargos()
+            val request = serviceCargos.getCargos(id)
             if(request.isSuccessful){
                 emit(ResultCargosRequest.Success(dado = request.body()))
             } else {

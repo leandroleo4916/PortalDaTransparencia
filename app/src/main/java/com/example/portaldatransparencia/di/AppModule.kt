@@ -3,9 +3,9 @@ package com.example.portaldatransparencia.di
 import com.example.portaldatransparencia.remote.*
 import com.example.portaldatransparencia.security.SecurityPreferences
 import com.example.portaldatransparencia.util.CalculateAge
-import com.example.portaldatransparencia.views.EnableDisableView
-import com.example.portaldatransparencia.views.ModifyChip
-import com.example.portaldatransparencia.views.VisibilityNavViewAndFloating
+import com.example.portaldatransparencia.views.view_generics.EnableDisableView
+import com.example.portaldatransparencia.views.view_generics.ModifyChip
+import com.example.portaldatransparencia.views.view_generics.VisibilityNavViewAndFloating
 import com.example.portaldatransparencia.views.deputado.DeputadoViewModel
 import com.example.portaldatransparencia.views.deputado.frente_deputado.FrenteViewModel
 import com.example.portaldatransparencia.views.deputado.gastos_deputado.DespesasViewModel

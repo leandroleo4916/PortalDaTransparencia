@@ -14,7 +14,7 @@ import com.example.portaldatransparencia.dataclass.DadoDespesas
 import com.example.portaldatransparencia.interfaces.INoteDespesas
 import com.example.portaldatransparencia.remote.ResultDespesasRequest
 import com.example.portaldatransparencia.security.SecurityPreferences
-import com.example.portaldatransparencia.views.EnableDisableView
+import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import com.google.android.material.chip.Chip
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -37,7 +37,7 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentGastosBinding.bind(view)
         chipEnabled = binding!!.chipGroupItem.chip2022
-        id = securityPreferences.getStoredString("id")
+        id = securityPreferences.getString("id")
         recyclerView()
         observer(id, "2022", page)
         listenerChip()

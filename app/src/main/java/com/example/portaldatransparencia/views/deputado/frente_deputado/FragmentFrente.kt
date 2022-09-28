@@ -11,7 +11,7 @@ import com.example.portaldatransparencia.dataclass.DadoFrente
 import com.example.portaldatransparencia.interfaces.IFront
 import com.example.portaldatransparencia.remote.ResultFrenteRequest
 import com.example.portaldatransparencia.security.SecurityPreferences
-import com.example.portaldatransparencia.views.EnableDisableView
+import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -27,7 +27,7 @@ class FragmentFrente: Fragment(R.layout.fragment_frente), IFront {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentFrenteBinding.bind(view)
-        id = securityPreferences.getStoredString("id")
+        id = securityPreferences.getString("id")
         recyclerView()
         observer()
     }

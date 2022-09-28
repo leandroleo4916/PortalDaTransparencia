@@ -9,7 +9,7 @@ import com.example.portaldatransparencia.adapter.PropostaAdapter
 import com.example.portaldatransparencia.databinding.FragmentPropostaBinding
 import com.example.portaldatransparencia.remote.ResultPropostaRequest
 import com.example.portaldatransparencia.security.SecurityPreferences
-import com.example.portaldatransparencia.views.EnableDisableView
+import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import com.google.android.material.chip.Chip
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -30,7 +30,7 @@ class FragmentProposta: Fragment(R.layout.fragment_proposta) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentPropostaBinding.bind(view)
         chipEnabled = binding!!.chipGroupItem.chip2022
-        id = securityPreferences.getStoredString("id")
+        id = securityPreferences.getString("id")
         recyclerView()
         listenerChip()
         observer("2022", id, page)

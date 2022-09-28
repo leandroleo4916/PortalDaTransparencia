@@ -15,7 +15,7 @@ import com.example.portaldatransparencia.dataclass.GastosSenador
 import com.example.portaldatransparencia.interfaces.INoteDespesas
 import com.example.portaldatransparencia.remote.ResultCotaRequest
 import com.example.portaldatransparencia.security.SecurityPreferences
-import com.example.portaldatransparencia.views.EnableDisableView
+import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import com.example.portaldatransparencia.views.deputado.gastos_deputado.DespesasViewModel
 import com.google.android.material.chip.Chip
 import org.koin.android.ext.android.inject
@@ -30,7 +30,7 @@ class FragmentGastosSenador: Fragment(R.layout.fragment_gastos), INoteDespesas {
     private val securityPreferences: SecurityPreferences by inject()
     private val statusView: EnableDisableView by inject()
     private lateinit var chipEnabled: Chip
-    private lateinit var nome: String
+    private lateinit var id: String
     private var numberNote = 0
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -38,9 +38,9 @@ class FragmentGastosSenador: Fragment(R.layout.fragment_gastos), INoteDespesas {
         binding = FragmentGastosBinding.bind(view)
 
         chipEnabled = binding!!.chipGroupItem.chip2022
-        nome = securityPreferences.getStoredString("nome")
+        id = securityPreferences.getString("id")
         recyclerView()
-        observerGastosSenador("2022", nome)
+        observerGastosSenador("2022", id)
         listenerChip()
     }
 
@@ -51,9 +51,9 @@ class FragmentGastosSenador: Fragment(R.layout.fragment_gastos), INoteDespesas {
         recycler.adapter = adapter
     }
 
-    private fun observerGastosSenador(year: String, nome: String) {
+    private fun observerGastosSenador(year: String, id: String) {
 
-        viewModelGastos.searchGastosSenador(year, nome).observe(viewLifecycleOwner){
+        viewModelGastos.searchGastosSenador(year, id).observe(viewLifecycleOwner){
             it?.let { result ->
                 when (result) {
                     is ResultCotaRequest.Success -> {

@@ -7,8 +7,8 @@ import com.example.portaldatransparencia.remote.*
 
 class GeralSenadorViewModel(private val repository: GeralSenadorRepository): ViewModel() {
 
-    fun cargosSenador():
-            LiveData<ResultCargosRequest<CargoSenadorDataClass?>> = repository.cargosDataSenador()
+    fun cargosSenador(id: String):
+            LiveData<ResultCargosRequest<CargoSenadorDataClass?>> = repository.cargosDataSenador(id)
 
 }
 

@@ -42,12 +42,13 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
-                    android:id="@+id/icon_deputado_geral"
+                    android:id="@+id/icon_senador_geral"
                     android:layout_width="52dp"
                     android:layout_height="52dp"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="18sp"
                     android:src="@drawable/ic_avatar"
+                    android:visibility="invisible"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="ContentDescription" />
@@ -63,10 +64,11 @@
                     android:text="Informações gerais...Informações gerais...Informações gerais...Informações gerais...Informações gerais...Informações gerais..."
                     android:textColor="@color/black"
                     android:textSize="18sp"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/icon_deputado_geral"
-                    app:layout_constraintTop_toTopOf="@+id/icon_deputado_geral" />
+                    app:layout_constraintStart_toEndOf="@+id/icon_senador_geral"
+                    app:layout_constraintTop_toTopOf="@+id/icon_senador_geral" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -87,7 +89,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="16sp"
                     android:layout_marginEnd="20dp"
-                    android:text="Redes sociais"
+                    android:text="Sites e Blogs"
                     android:textColor="@color/black"
                     android:textSize="20sp"
                     android:textStyle="bold"
@@ -99,7 +101,7 @@
                     android:id="@+id/text_acompanhe_rede"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Acompanhe o deputado nas redes sociais"
+                    android:text="Site particular e do senado"
                     android:textColor="@color/purple_700"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="@+id/text_rede_social"
@@ -122,6 +124,33 @@
                         android:layout_margin="20dp">
 
                         <TextView
+                            android:id="@+id/text_site_pessoal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="https://www... >"
+                            android:singleLine="true"
+                            android:textColor="@color/teal_700"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/text_site_senado"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:singleLine="true"
+                            android:text="https://www... >"
+                            android:textColor="@color/teal_700"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/text_site_pessoal" />
+
+                        <TextView
                             android:id="@+id/text_information_rede"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -129,160 +158,10 @@
                             android:textColor="@color/black"
                             android:textSize="18sp"
                             android:textStyle="bold"
+                            android:visibility="invisible"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
-
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/constraint1"
-                            android:layout_width="80dp"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/back_face"
-                            android:visibility="gone"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            tools:ignore="MissingConstraints">
-
-                            <ImageView
-                                android:id="@+id/image_facebook"
-                                android:layout_width="40dp"
-                                android:layout_height="50dp"
-                                android:layout_marginStart="4dp"
-                                android:layout_marginTop="4dp"
-                                android:src="@drawable/face"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                tools:ignore="ContentDescription" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="4dp"
-                                android:layout_marginTop="6dp"
-                                android:layout_marginBottom="4dp"
-                                android:text="Facebook"
-                                android:textColor="@color/white"
-                                android:textStyle="bold"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/image_facebook" />
-
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/constraint2"
-                            android:layout_width="80dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="12dp"
-                            android:background="@drawable/back_insta"
-                            android:visibility="gone"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/constraint1"
-                            app:layout_constraintTop_toTopOf="parent"
-                            tools:ignore="MissingConstraints">
-
-                            <ImageView
-                                android:id="@+id/image_instagram"
-                                android:layout_width="40dp"
-                                android:layout_height="50dp"
-                                android:layout_marginStart="4dp"
-                                android:layout_marginTop="4dp"
-                                android:src="@drawable/insta"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                tools:ignore="ContentDescription" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="4dp"
-                                android:layout_marginTop="6dp"
-                                android:layout_marginBottom="4dp"
-                                android:text="Instagram"
-                                android:textColor="@color/white"
-                                android:textStyle="bold"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/image_instagram" />
-
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/constraint3"
-                            android:layout_width="80dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="12dp"
-                            android:background="@drawable/back_twitter"
-                            android:visibility="gone"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/constraint2"
-                            app:layout_constraintTop_toTopOf="parent"
-                            tools:ignore="MissingConstraints">
-
-                            <ImageView
-                                android:id="@+id/image_twitter"
-                                android:layout_width="40dp"
-                                android:layout_height="50dp"
-                                android:layout_marginStart="4dp"
-                                android:layout_marginTop="4dp"
-                                android:src="@drawable/twitter"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                tools:ignore="ContentDescription" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="4dp"
-                                android:layout_marginTop="6dp"
-                                android:layout_marginBottom="4dp"
-                                android:text="Twitter"
-                                android:textColor="@color/white"
-                                android:textStyle="bold"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/image_twitter" />
-
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/constraint4"
-                            android:layout_width="80dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="12dp"
-                            android:background="@drawable/back_you"
-                            android:visibility="gone"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/constraint3"
-                            app:layout_constraintTop_toTopOf="parent"
-                            tools:ignore="ContentDescription,MissingConstraints">
-
-                            <ImageView
-                                android:id="@+id/image_youtube"
-                                android:layout_width="40dp"
-                                android:layout_height="50dp"
-                                android:layout_marginStart="4dp"
-                                android:layout_marginTop="4dp"
-                                android:src="@drawable/youtube"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                tools:ignore="ContentDescription" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="4dp"
-                                android:layout_marginTop="6dp"
-                                android:layout_marginBottom="4dp"
-                                android:text="Youtube"
-                                android:textColor="@color/white"
-                                android:textStyle="bold"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/image_youtube" />
-
-                        </androidx.constraintlayout.widget.ConstraintLayout>
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -333,7 +212,8 @@
                     android:layout_marginTop="12dp"
                     android:text="VICE-PRESIDENTE"
                     android:textColor="@color/purple_700"
-                    android:textSize="18sp"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="@+id/text_occupation"
                     app:layout_constraintStart_toStartOf="@+id/text_occupation"
                     app:layout_constraintTop_toBottomOf="@+id/text_work" />
@@ -357,7 +237,7 @@
                     android:text="Ver mais >"
                     android:textStyle="bold"
                     android:textColor="@color/teal_700"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/text_cargo_description"
                     app:layout_constraintTop_toBottomOf="@+id/text_cargo_description" />
@@ -381,7 +261,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="16sp"
                     android:layout_marginEnd="20dp"
-                    android:text="Gabinete"
+                    android:text="Endereço e Contato"
                     android:textColor="@color/black"
                     android:textSize="20sp"
                     android:textStyle="bold"
@@ -393,7 +273,7 @@
                     android:id="@+id/icon_predio"
                     android:layout_width="25dp"
                     android:layout_height="28dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="12dp"
                     android:src="@drawable/ic_corporate"
                     app:layout_constraintStart_toStartOf="@+id/text_gabinete"
                     app:layout_constraintTop_toBottomOf="@+id/text_gabinete"
@@ -408,7 +288,6 @@
                     android:text="Predio: 0"
                     android:textColor="@color/black"
                     android:textSize="18sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/icon_predio"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/icon_predio"
                     app:layout_constraintTop_toTopOf="@+id/icon_predio" />
@@ -418,9 +297,9 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_marginTop="2dp"
-                    android:src="@drawable/floor"
+                    android:src="@drawable/ic_email"
                     app:layout_constraintEnd_toEndOf="@+id/icon_predio"
-                    app:layout_constraintTop_toBottomOf="@+id/icon_predio"
+                    app:layout_constraintTop_toBottomOf="@+id/text_geral_predio"
                     tools:ignore="ContentDescription" />
 
                 <TextView
@@ -438,37 +317,13 @@
                     app:layout_constraintTop_toTopOf="@+id/icon_andar" />
 
                 <ImageView
-                    android:id="@+id/icon_sala"
-                    android:layout_width="26dp"
-                    android:layout_height="26dp"
-                    android:layout_marginTop="2dp"
-                    android:src="@drawable/door"
-                    app:layout_constraintEnd_toEndOf="@+id/icon_andar"
-                    app:layout_constraintTop_toBottomOf="@+id/icon_andar"
-                    tools:ignore="ContentDescription" />
-
-                <TextView
-                    android:id="@+id/text_geral_sala"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginEnd="20dp"
-                    android:text="Sala: 0"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/icon_sala"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/icon_sala"
-                    app:layout_constraintTop_toTopOf="@+id/icon_sala" />
-
-                <ImageView
                     android:id="@+id/icon_phone"
                     android:layout_width="24dp"
                     android:layout_height="25dp"
-                    android:layout_marginTop="2dp"
+                    android:layout_marginTop="4dp"
                     android:src="@drawable/phone"
-                    app:layout_constraintEnd_toEndOf="@+id/icon_sala"
-                    app:layout_constraintTop_toBottomOf="@+id/icon_sala"
+                    app:layout_constraintEnd_toEndOf="@+id/icon_andar"
+                    app:layout_constraintTop_toBottomOf="@+id/icon_andar"
                     tools:ignore="ContentDescription" />
 
                 <TextView

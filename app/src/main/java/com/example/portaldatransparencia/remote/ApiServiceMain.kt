@@ -78,15 +78,17 @@ interface ApiServiceSenador {
 
 interface ApiServiceGastos {
     @Headers("Content-Type: application/json")
-    @GET("https://raw.githubusercontent.com/leandroleo4916/API_SENADO/master/{ano}/{nome}")
+    @GET("https://raw.githubusercontent.com/leandroleo4916/API_SENADO/master/{ano}/{id}")
     suspend fun getGastos(
         @Path("ano") ano: String,
-        @Path("nome") nome: String
+        @Path("id") id: String
     ): Response<SenadorGastosDataClass>
 }
 
 interface ApiServiceSenadorCargos {
-    @GET("https://legis.senado.leg.br/dadosabertos/senador/5322/cargos.json")
-    suspend fun getCargos(): Response<CargoSenadorDataClass>
+    @GET("https://legis.senado.leg.br/dadosabertos/senador/{id}/cargos.json")
+    suspend fun getCargos(
+        @Path("id") id: String
+    ): Response<CargoSenadorDataClass>
 }
 
