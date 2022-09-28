@@ -119,11 +119,6 @@ data class Telefones (
     val telefone: Any
 )
 
-sealed class TelefoneUnion {
-    class TelefoneElementArrayValue(val value: List<Telefone>) : TelefoneUnion()
-    class TelefoneElementValue(val value: Telefone)            : TelefoneUnion()
-}
-
 data class Telefone (
     @SerializedName("NumeroTelefone")
     val numeroTelefone: String,
