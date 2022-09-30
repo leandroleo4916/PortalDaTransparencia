@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container_chip"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="0dp"
+        android:layout_height="1.2dp"
+        android:background="@color/purple_500"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <HorizontalScrollView
+        android:id="@+id/scroll_year"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="12dp"
+        android:scrollbars="none"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints,UselessLeaf">
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_search">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_janeiro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:checked="false"
+                android:text="Janeiro"
+                app:chipBackgroundColor="@color/back_chip_select" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_fevereiro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:checked="false"
+                android:text="Fevereiro"
+                app:chipBackgroundColor="@color/back_chip_select" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_marco"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:checked="false"
+                android:text="Março"
+                app:chipBackgroundColor="@color/back_chip_select" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_abril"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:checked="false"
+                android:text="Abril"
+                app:chipBackgroundColor="@color/back_chip_select" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_maio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:checked="false"
+                android:text="Maio"
+                app:chipBackgroundColor="@color/back_chip_select" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_junho"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:checked="false"
+                android:text="Junho"
+                app:chipBackgroundColor="@color/back_chip_select" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_julho"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:checked="false"
+                android:text="Julho"
+                app:chipBackgroundColor="@color/back_chip_select" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_agosto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:checked="false"
+                android:text="Agosto"
+                app:chipBackgroundColor="@color/back_chip_select" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_setembro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:checked="false"
+                android:text="Setembro"
+                app:chipBackgroundColor="@color/back_chip_select" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_outubro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:checked="false"
+                android:text="Outubro"
+                app:chipBackgroundColor="@color/back_chip_select" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_novembro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:checked="false"
+                android:text="Novembro"
+                app:chipBackgroundColor="@color/back_chip_select" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_dezembro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:checked="false"
+                android:text="Dezembro"
+                app:chipBackgroundColor="@color/back_chip_select" />
+
+        </com.google.android.material.chip.ChipGroup>
+
+    </HorizontalScrollView>
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="0dp"
+        android:layout_height="1.2dp"
+        android:background="@color/purple_500"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scroll_year" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

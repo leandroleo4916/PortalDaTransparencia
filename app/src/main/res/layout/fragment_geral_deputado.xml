@@ -71,182 +71,6 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraint_gabinete"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="6dp"
-                android:layout_marginEnd="6dp"
-                android:layout_marginTop="8dp"
-                android:background="@color/white"
-                android:elevation="16sp">
-
-                <TextView
-                    android:id="@+id/text_gabinete"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="16sp"
-                    android:layout_marginEnd="20dp"
-                    android:text="Gabinete"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageView
-                    android:id="@+id/icon_predio"
-                    android:layout_width="25dp"
-                    android:layout_height="28dp"
-                    android:layout_marginTop="8dp"
-                    android:src="@drawable/ic_corporate"
-                    app:layout_constraintStart_toStartOf="@+id/text_gabinete"
-                    app:layout_constraintTop_toBottomOf="@+id/text_gabinete"
-                    tools:ignore="ContentDescription" />
-
-                <TextView
-                    android:id="@+id/text_geral_predio"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginEnd="20dp"
-                    android:text="Predio: 0"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/icon_predio"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/icon_predio"
-                    app:layout_constraintTop_toTopOf="@+id/icon_predio" />
-
-                <ImageView
-                    android:id="@+id/icon_andar"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginTop="2dp"
-                    android:src="@drawable/floor"
-                    app:layout_constraintEnd_toEndOf="@+id/icon_predio"
-                    app:layout_constraintTop_toBottomOf="@+id/icon_predio"
-                    tools:ignore="ContentDescription" />
-
-                <TextView
-                    android:id="@+id/text_geral_andar"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginEnd="20dp"
-                    android:text="Andar: 0"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/icon_andar"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/icon_andar"
-                    app:layout_constraintTop_toTopOf="@+id/icon_andar" />
-
-                <ImageView
-                    android:id="@+id/icon_sala"
-                    android:layout_width="26dp"
-                    android:layout_height="26dp"
-                    android:layout_marginTop="2dp"
-                    android:src="@drawable/door"
-                    app:layout_constraintEnd_toEndOf="@+id/icon_andar"
-                    app:layout_constraintTop_toBottomOf="@+id/icon_andar"
-                    tools:ignore="ContentDescription" />
-
-                <TextView
-                    android:id="@+id/text_geral_sala"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginEnd="20dp"
-                    android:text="Sala: 0"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/icon_sala"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/icon_sala"
-                    app:layout_constraintTop_toTopOf="@+id/icon_sala" />
-
-                <ImageView
-                    android:id="@+id/icon_phone"
-                    android:layout_width="24dp"
-                    android:layout_height="25dp"
-                    android:layout_marginTop="2dp"
-                    android:src="@drawable/phone"
-                    app:layout_constraintEnd_toEndOf="@+id/icon_sala"
-                    app:layout_constraintTop_toBottomOf="@+id/icon_sala"
-                    tools:ignore="ContentDescription" />
-
-                <TextView
-                    android:id="@+id/text_geral_phone"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginBottom="15dp"
-                    android:text="0000-0000"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/icon_phone"
-                    app:layout_constraintTop_toTopOf="@+id/icon_phone" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraint_occupation"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="6dp"
-                android:layout_marginEnd="6dp"
-                android:layout_marginTop="8dp"
-                android:background="@color/white"
-                android:elevation="16sp">
-
-                <TextView
-                    android:id="@+id/text_occupation"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="20dp"
-                    android:text="Ocupações"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/text_work"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="Seu trabalho antes de ser deputado"
-                    android:textColor="@color/purple_700"
-                    android:textSize="16sp"
-                    app:layout_constraintEnd_toEndOf="@+id/text_occupation"
-                    app:layout_constraintStart_toStartOf="@+id/text_occupation"
-                    app:layout_constraintTop_toBottomOf="@+id/text_occupation" />
-
-                <TextView
-                    android:id="@+id/text_occupation_description"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12sp"
-                    android:layout_marginBottom="15dp"
-                    android:text="Não tem informação da última ocupação"
-                    android:textColor="@color/purple_700"
-                    android:textSize="18sp"
-                    app:layout_constraintEnd_toEndOf="@+id/text_occupation"
-                    app:layout_constraintStart_toStartOf="@+id/text_occupation"
-                    app:layout_constraintTop_toBottomOf="@+id/text_work"
-                    app:layout_constraintBottom_toBottomOf="parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraint_social_media"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -463,6 +287,182 @@
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </ScrollView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_occupation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_marginEnd="6dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/white"
+                android:elevation="16sp">
+
+                <TextView
+                    android:id="@+id/text_occupation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="20dp"
+                    android:text="Ocupações"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/text_work"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Seu trabalho antes de ser deputado"
+                    android:textColor="@color/purple_700"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="@+id/text_occupation"
+                    app:layout_constraintStart_toStartOf="@+id/text_occupation"
+                    app:layout_constraintTop_toBottomOf="@+id/text_occupation" />
+
+                <TextView
+                    android:id="@+id/text_occupation_description"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12sp"
+                    android:layout_marginBottom="15dp"
+                    android:text="Não tem informação da última ocupação"
+                    android:textColor="@color/purple_700"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="@+id/text_occupation"
+                    app:layout_constraintStart_toStartOf="@+id/text_occupation"
+                    app:layout_constraintTop_toBottomOf="@+id/text_work"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_gabinete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_marginEnd="6dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/white"
+                android:elevation="16sp">
+
+                <TextView
+                    android:id="@+id/text_gabinete"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="16sp"
+                    android:layout_marginEnd="20dp"
+                    android:text="Gabinete"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/icon_predio"
+                    android:layout_width="25dp"
+                    android:layout_height="28dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/ic_corporate"
+                    app:layout_constraintStart_toStartOf="@+id/text_gabinete"
+                    app:layout_constraintTop_toBottomOf="@+id/text_gabinete"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/text_geral_predio"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="20dp"
+                    android:text="Predio: 0"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/icon_predio"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/icon_predio"
+                    app:layout_constraintTop_toTopOf="@+id/icon_predio" />
+
+                <ImageView
+                    android:id="@+id/icon_andar"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginTop="2dp"
+                    android:src="@drawable/floor"
+                    app:layout_constraintEnd_toEndOf="@+id/icon_predio"
+                    app:layout_constraintTop_toBottomOf="@+id/icon_predio"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/text_geral_andar"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="20dp"
+                    android:text="Andar: 0"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/icon_andar"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/icon_andar"
+                    app:layout_constraintTop_toTopOf="@+id/icon_andar" />
+
+                <ImageView
+                    android:id="@+id/icon_sala"
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:layout_marginTop="2dp"
+                    android:src="@drawable/door"
+                    app:layout_constraintEnd_toEndOf="@+id/icon_andar"
+                    app:layout_constraintTop_toBottomOf="@+id/icon_andar"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/text_geral_sala"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="20dp"
+                    android:text="Sala: 0"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/icon_sala"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/icon_sala"
+                    app:layout_constraintTop_toTopOf="@+id/icon_sala" />
+
+                <ImageView
+                    android:id="@+id/icon_phone"
+                    android:layout_width="24dp"
+                    android:layout_height="25dp"
+                    android:layout_marginTop="2dp"
+                    android:src="@drawable/phone"
+                    app:layout_constraintEnd_toEndOf="@+id/icon_sala"
+                    app:layout_constraintTop_toBottomOf="@+id/icon_sala"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/text_geral_phone"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="15dp"
+                    android:text="0000-0000"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/icon_phone"
+                    app:layout_constraintTop_toTopOf="@+id/icon_phone" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

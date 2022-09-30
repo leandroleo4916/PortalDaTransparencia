@@ -49,6 +49,7 @@ class DespesasAdapter(private val listener: INoteDespesas): RecyclerView.Adapter
                 val fornecedor = findViewById<TextView>(R.id.text_nome_fornecedor)
                 val typeDoc = findViewById<TextView>(R.id.text_destination)
                 val valor = findViewById<TextView>(R.id.text_valor_nota)
+                val cnpj = findViewById<TextView>(R.id.text_cnpj_fornecedor)
 
                 if (despesa.dataDocumento != null){
                     val dateDoc = despesa.dataDocumento.split("-")
@@ -57,6 +58,7 @@ class DespesasAdapter(private val listener: INoteDespesas): RecyclerView.Adapter
                 despesa.tipoDespesa.let { typeDespesa.text = it }
                 despesa.nomeFornecedor.let { fornecedor.text = it }
                 despesa.tipoDocumento.let { typeDoc.text = it }
+                despesa.cnpjCpfFornecedor.let { cnpj.text = it }
                 despesa.valorDocumento.let{
                     val format = DecimalFormat("#.00")
                     val formatTotal = format.format(it)

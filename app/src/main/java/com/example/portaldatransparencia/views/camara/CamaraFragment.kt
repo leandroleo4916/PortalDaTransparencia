@@ -125,6 +125,10 @@ class CamaraFragment: Fragment(R.layout.fragment_camara_senado), IClickDeputado,
             icVoz.setOnClickListener { permissionVoice() }
             floatingController.setOnClickListener {
                 recyclerDeputados.smoothScrollToPosition(0)
+                context?.let { it1 ->
+                    visibilityNavViewAndFloating.visibilityNavViewAndFloating(it1, true,
+                        floatingController
+                    )}
             }
         }
     }

@@ -32,6 +32,7 @@ class DeputadoActivity: AppCompatActivity() {
         securityPreferences.putString("id", id)
         setupViewGeral()
         observer()
+        listener()
     }
 
     private fun setupViewGeral(){
@@ -79,5 +80,9 @@ class DeputadoActivity: AppCompatActivity() {
             statusView.enableView(textDescription)
             statusView.enableView(imageDeputado)
         }
+    }
+
+    private fun listener(){
+        binding.imageBack.setOnClickListener { finish() }
     }
 }

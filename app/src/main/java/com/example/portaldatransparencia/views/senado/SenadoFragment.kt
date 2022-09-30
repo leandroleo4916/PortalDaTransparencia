@@ -6,6 +6,8 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.speech.RecognizerIntent
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -14,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.adapter.SenadoAdapter
 import com.example.portaldatransparencia.databinding.FragmentCamaraSenadoBinding
+import com.example.portaldatransparencia.di.visibilityNavFloating
 import com.example.portaldatransparencia.interfaces.IClickSenador
 import com.example.portaldatransparencia.interfaces.INotificationSenado
 import com.example.portaldatransparencia.remote.ResultSenadoRequest
@@ -21,6 +24,7 @@ import com.example.portaldatransparencia.views.view_generics.ModifyChip
 import com.example.portaldatransparencia.views.view_generics.VisibilityNavViewAndFloating
 import com.example.portaldatransparencia.views.camara.CamaraFragment
 import com.example.portaldatransparencia.views.senador.SenadorActivity
+import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import com.google.android.material.chip.Chip
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -31,6 +35,7 @@ class SenadoFragment: Fragment(R.layout.fragment_camara_senado), IClickSenador, 
     private var binding: FragmentCamaraSenadoBinding? = null
     private val senadoViewModel: SenadoViewModel by viewModel()
     private val modifyChip: ModifyChip by inject()
+    private val enableDisableView: EnableDisableView by inject()
     private val visibilityNavViewAndFloating: VisibilityNavViewAndFloating by inject()
     private lateinit var adapter: SenadoAdapter
     private var chipEnabled: Chip? = null
@@ -45,6 +50,7 @@ class SenadoFragment: Fragment(R.layout.fragment_camara_senado), IClickSenador, 
         observer()
         showTabView()
         listener()
+        search()
     }
 
     private fun recycler() {
@@ -60,6 +66,7 @@ class SenadoFragment: Fragment(R.layout.fragment_camara_senado), IClickSenador, 
                 when (result) {
                     is ResultSenadoRequest.Success -> {
                         result.dado?.let { senado ->
+                            enableDisableView.disableView(binding?.progressMain!!)
                             adapter.updateData(
                                 senado.listaParlamentarEmExercicio.parlamentares.parlamentar)
                         }
@@ -73,6 +80,16 @@ class SenadoFragment: Fragment(R.layout.fragment_camara_senado), IClickSenador, 
                 }
             }
         }
+    }
+
+    private fun search() {
+        binding?.textSearch?.addTextChangedListener(object : TextWatcher {
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                adapter.filter.filter(s)
+            }
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+            override fun afterTextChanged(s: Editable) {}
+        })
     }
 
     private fun listener(){
@@ -105,6 +122,10 @@ class SenadoFragment: Fragment(R.layout.fragment_camara_senado), IClickSenador, 
             icVoz.setOnClickListener { permissionVoice() }
             floatingController.setOnClickListener {
                 recyclerDeputados.smoothScrollToPosition(0)
+                context?.let { it1 ->
+                    visibilityNavViewAndFloating.visibilityNavViewAndFloating(it1, true,
+                        floatingController
+                    )}
             }
         }
     }

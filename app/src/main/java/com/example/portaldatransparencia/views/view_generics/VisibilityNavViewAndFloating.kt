@@ -24,8 +24,8 @@ class VisibilityNavViewAndFloating {
         }
     }
 
-    private fun visibilityNavViewAndFloating(context: Context, value: Boolean, view: View){
-        if (context is IHideViewController) { viewController = context as IHideViewController }
+    fun visibilityNavViewAndFloating(context: Context, value: Boolean, view: View){
+        if (context is IHideViewController) { viewController = context }
         viewController.hideNavView(value)
         floatingVisibility(value, view)
     }

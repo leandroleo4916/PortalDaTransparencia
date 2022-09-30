@@ -34,6 +34,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
+                    <ImageView
+                        android:id="@+id/image_back"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="40dp"
+                        android:src="@drawable/ic_back"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="ContentDescription" />
+
                     <com.wang.avi.AVLoadingIndicatorView
                         android:id="@+id/progress_deputado"
                         android:layout_width="wrap_content"

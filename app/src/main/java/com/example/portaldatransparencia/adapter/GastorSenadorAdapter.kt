@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.portaldatransparencia.R
@@ -38,11 +39,17 @@ class GastorSenadorAdapter: RecyclerView.Adapter<GastorSenadorAdapter.DespesasVi
                 val fornecedor = findViewById<TextView>(R.id.text_nome_fornecedor)
                 val typeDoc = findViewById<TextView>(R.id.text_destination)
                 val valor = findViewById<TextView>(R.id.text_valor_nota)
+                val cnpj = findViewById<TextView>(R.id.text_cnpj_fornecedor)
+                val iconRigth = findViewById<ImageView>(R.id.icon_share)
 
                 date.text = despesa.data
-                despesa.tipoDespesa.let { typeDespesa.text = it }
-                despesa.fornecedor.let { fornecedor.text = it }
                 despesa.tipoDespesa.let { typeDoc.text = it }
+                typeDespesa.text = (if (despesa.detalhamento != "") despesa.detalhamento
+                else "Não informado detalhes da nota").toString()
+                despesa.fornecedor.let { fornecedor.text = it }
+                despesa.cnpjCpf.let {
+                    cnpj.text = (if (it.length == 14) "CPF: $it" else "CNPJ: $it").toString()
+                }
                 despesa.valorReembolsado.let{
                     if (it.contains(",")){
                         val value = it.split(",")
@@ -56,6 +63,7 @@ class GastorSenadorAdapter: RecyclerView.Adapter<GastorSenadorAdapter.DespesasVi
                         valor.text = "R$ $formatTotal"
                     }
                 }
+                iconRigth.visibility = View.GONE
             }
         }
     }

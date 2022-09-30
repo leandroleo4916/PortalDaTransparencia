@@ -32,6 +32,7 @@ class SenadorActivity: AppCompatActivity() {
         securityPreferences.putString("id", id)
         setupViewGeral()
         observer()
+        listener()
 
     }
 
@@ -90,5 +91,9 @@ class SenadorActivity: AppCompatActivity() {
             statusView.enableView(textDescription)
             statusView.enableView(imageDeputado)
         }
+    }
+
+    private fun listener(){
+        binding.imageBack.setOnClickListener { finish() }
     }
 }

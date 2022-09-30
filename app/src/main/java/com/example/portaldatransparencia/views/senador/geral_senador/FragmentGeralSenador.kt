@@ -87,9 +87,7 @@ class FragmentGeralSenador: Fragment(R.layout.fragment_geral_senador) {
 
     private fun addElementView() {
 
-        val sexo = if (detalhes.sexoParlamentar == "Masculino") "Senador"
-        else "Senadora"
-
+        val sexo = if (detalhes.sexoParlamentar == "Masculino") "Senador" else "Senadora"
         val age = calculateAge.age(dadosBasicos.dataNascimento)
 
         binding?.run {
