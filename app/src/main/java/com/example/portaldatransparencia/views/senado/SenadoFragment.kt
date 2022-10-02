@@ -20,6 +20,7 @@ import com.example.portaldatransparencia.di.visibilityNavFloating
 import com.example.portaldatransparencia.interfaces.IClickSenador
 import com.example.portaldatransparencia.interfaces.INotificationSenado
 import com.example.portaldatransparencia.remote.ResultSenadoRequest
+import com.example.portaldatransparencia.util.RetiraAcento
 import com.example.portaldatransparencia.views.view_generics.ModifyChip
 import com.example.portaldatransparencia.views.view_generics.VisibilityNavViewAndFloating
 import com.example.portaldatransparencia.views.camara.CamaraFragment
@@ -35,6 +36,7 @@ class SenadoFragment: Fragment(R.layout.fragment_camara_senado), IClickSenador, 
     private var binding: FragmentCamaraSenadoBinding? = null
     private val senadoViewModel: SenadoViewModel by viewModel()
     private val modifyChip: ModifyChip by inject()
+    private val retiraAcento: RetiraAcento by inject()
     private val enableDisableView: EnableDisableView by inject()
     private val visibilityNavViewAndFloating: VisibilityNavViewAndFloating by inject()
     private lateinit var adapter: SenadoAdapter
@@ -136,9 +138,10 @@ class SenadoFragment: Fragment(R.layout.fragment_camara_senado), IClickSenador, 
         else adapter.filter.filter(viewDisabled.text as String)
     }
 
-    override fun clickSenador(id: String) {
+    override fun clickSenador(nome: String) {
+        val name = retiraAcento.deleteAccent(nome)
         val intent = Intent(context, SenadorActivity::class.java)
-        intent.putExtra("id", id)
+        intent.putExtra("nome", name)
         startActivity(intent)
     }
 

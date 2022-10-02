@@ -30,7 +30,8 @@ class FragmentGastosSenador: Fragment(R.layout.fragment_gastos), INoteDespesas {
     private val securityPreferences: SecurityPreferences by inject()
     private val statusView: EnableDisableView by inject()
     private lateinit var chipEnabled: Chip
-    private lateinit var id: String
+    private lateinit var nome: String
+    private var ano = "2022"
     private var numberNote = 0
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -38,9 +39,9 @@ class FragmentGastosSenador: Fragment(R.layout.fragment_gastos), INoteDespesas {
         binding = FragmentGastosBinding.bind(view)
 
         chipEnabled = binding!!.chipGroupItem.chip2022
-        id = securityPreferences.getString("id")
+        nome = securityPreferences.getString("nome")
         recyclerView()
-        observerGastosSenador("2022", id)
+        observerGastosSenador(ano, nome)
         listenerChip()
     }
 
@@ -51,9 +52,9 @@ class FragmentGastosSenador: Fragment(R.layout.fragment_gastos), INoteDespesas {
         recycler.adapter = adapter
     }
 
-    private fun observerGastosSenador(year: String, id: String) {
+    private fun observerGastosSenador(year: String, nome: String) {
 
-        viewModelGastos.searchGastosSenador(year, id).observe(viewLifecycleOwner){
+        viewModelGastos.searchGastosSenador(year, nome).observe(viewLifecycleOwner){
             it?.let { result ->
                 when (result) {
                     is ResultCotaRequest.Success -> {
@@ -126,9 +127,9 @@ class FragmentGastosSenador: Fragment(R.layout.fragment_gastos), INoteDespesas {
     }
 
     private fun modify(viewEnabled: Chip, viewDisabled: Chip) {
+
         viewEnabled.isChecked = false
         viewDisabled.isChecked = true
-
         chipEnabled = viewDisabled
         binding?.run {
             statusView.enableView(progressDespesas)
@@ -137,6 +138,7 @@ class FragmentGastosSenador: Fragment(R.layout.fragment_gastos), INoteDespesas {
             statusView.disableView(imageView1)
             statusView.disableView(imageView2)
         }
+        observerGastosSenador(viewDisabled.text.toString(), nome)
     }
 
     override fun listenerDespesas(note: DadoDespesas) {

@@ -3,6 +3,7 @@ package com.example.portaldatransparencia.di
 import com.example.portaldatransparencia.remote.*
 import com.example.portaldatransparencia.security.SecurityPreferences
 import com.example.portaldatransparencia.util.CalculateAge
+import com.example.portaldatransparencia.util.RetiraAcento
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import com.example.portaldatransparencia.views.view_generics.ModifyChip
 import com.example.portaldatransparencia.views.view_generics.VisibilityNavViewAndFloating
@@ -93,6 +94,7 @@ val progressModule = module { factory { EnableDisableView() } }
 val ageModule = module { factory { CalculateAge() } }
 val visibilityNavFloating = module { factory { VisibilityNavViewAndFloating() } }
 val modifyChip = module { factory { ModifyChip() } }
+val retiraAcento = module { factory { RetiraAcento() } }
 val securityPreferences = module { single { SecurityPreferences(get()) } }
 
 val appModules = listOf( retrofitModule, viewModelModule, repositorySearch, progressModule,
@@ -100,5 +102,5 @@ val appModules = listOf( retrofitModule, viewModelModule, repositorySearch, prog
         securityPreferences, viewModelFront, repositoryFront, viewModelProposta, repositoryProposta,
         ageModule, viewModelOccupation, repositoryOccupation, repositorySenado, viewModelSenado,
         viewModelSenador, visibilityNavFloating, repositorySenador, modifyChip, viewModelSenadorGeral,
-        repositorySenadorGeral
+        repositorySenadorGeral, retiraAcento
 )

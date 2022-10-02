@@ -34,9 +34,9 @@ class IdDespesasRepository(private val serviceApi: ApiServiceIdDespesas,
         }
     }
 
-    fun gastosData(year: String, id: String) = liveData {
+    fun gastosData(year: String, nome: String) = liveData {
         try {
-            val request = service.getGastos(year, id)
+            val request = service.getGastos(year, nome)
             if(request.isSuccessful){
                 emit(ResultCotaRequest.Success(dado = request.body()))
             } else {

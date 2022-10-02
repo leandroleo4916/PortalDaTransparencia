@@ -3,6 +3,7 @@ package com.example.portaldatransparencia.views.deputado.gastos_deputado
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.provider.DocumentsContract
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -32,6 +33,7 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas {
     private var total = 0.0
     private var numberNote = 0
     private var page = 1
+    val PICK_PDF_FILE = 2
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -143,11 +145,20 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas {
     }
 
     override fun listenerDespesas(note: DadoDespesas) {
-        if (note.urlDocumento != null){
+
+
+        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+            addCategory(Intent.CATEGORY_OPENABLE)
+            type = "application/pdf"
+            putExtra(DocumentsContract.EXTRA_INITIAL_URI, note.urlDocumento)
+        }
+        startActivityForResult(intent, PICK_PDF_FILE)
+
+        /*if (note.urlDocumento != null){
             val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(note.urlDocumento))
             startActivity(browserIntent)
         } else {
             Toast.makeText(context, "Comprovante não enviado", Toast.LENGTH_SHORT).show()
-        }
+        }*/
     }
 }
