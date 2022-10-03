@@ -1,5 +1,5 @@
 package com.example.portaldatransparencia.interfaces
 
 interface IClickSenador {
-    fun clickSenador(nome: String)
+    fun clickSenador(id: String, nome:String)
 }

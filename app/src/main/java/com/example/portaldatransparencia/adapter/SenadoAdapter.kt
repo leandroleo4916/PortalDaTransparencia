@@ -47,6 +47,7 @@ class SenadoAdapter(private val listener: IClickSenador, private val notify: INo
             val position = adapterPosition
             when (view) {
                 itemView -> listener.clickSenador(
+                    dataList[position].identificacaoParlamentar.codigoParlamentar,
                     dataList[position].identificacaoParlamentar.nomeParlamentar)
             }
         }

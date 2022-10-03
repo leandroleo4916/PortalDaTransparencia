@@ -23,13 +23,16 @@ class SenadorActivity: AppCompatActivity() {
     private val statusView: EnableDisableView by inject()
     private val calculateAge: CalculateAge by inject()
     private var id = ""
+    private var nome = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
         id = intent.extras?.getString("id").toString()
+        nome = intent.extras?.getString("nome").toString()
         securityPreferences.putString("id", id)
+        securityPreferences.putString("nome", nome)
         setupViewGeral()
         observer()
         listener()

@@ -65,16 +65,29 @@ class FragmentGastosSenador: Fragment(R.layout.fragment_gastos), INoteDespesas {
                                 calculateTotalSenador(gastos.gastosSenador)
                                 adapter.updateDataSenador(gastos.gastosSenador)
                             }
+                            else errorCallApi("Não tem dados para $ano")
                         }
                     }
                     is ResultCotaRequest.Error -> {
-                        result.exception.message?.let { it -> }
+                        result.exception.message?.let { it ->
+                            errorCallApi("Não tem dados para $ano")
+                        }
                     }
                     is ResultCotaRequest.ErrorConnection -> {
-                        result.exception.message?.let { it -> }
+                        result.exception.message?.let { it ->
+                            errorCallApi("Erro ao buscar os dados, tente novamnete mais tarde!")
+                        }
                     }
                 }
             }
+        }
+    }
+
+    private fun errorCallApi(value: String){
+        binding?.run {
+            statusView.disableView(progressDespesas)
+            statusView.enableView(textNotValue)
+            textNotValue.text = value
         }
     }
 
@@ -89,9 +102,14 @@ class FragmentGastosSenador: Fragment(R.layout.fragment_gastos), INoteDespesas {
             val valor = it.valorReembolsado
             total += if (valor.contains(",")){
                 val value = valor.split(",")
-                value[0].toFloat()
-            } else {
-                valor.toFloat()
+                if (value[0].isNotEmpty()){
+                    value[0].toFloat()
+                }
+                else 0.1F
+            }
+            else {
+                if (valor.isNotEmpty()) valor.toFloat()
+                else  0.0F
             }
         }
         statusView(total)
@@ -134,11 +152,14 @@ class FragmentGastosSenador: Fragment(R.layout.fragment_gastos), INoteDespesas {
         binding?.run {
             statusView.enableView(progressDespesas)
             statusView.disableView(textNotesSend)
+            statusView.disableView(textNotValue)
             statusView.disableView(textTotal)
             statusView.disableView(imageView1)
             statusView.disableView(imageView2)
         }
-        observerGastosSenador(viewDisabled.text.toString(), nome)
+        ano = viewDisabled.text.toString()
+        adapter.updateDataSenador(listOf())
+        observerGastosSenador(ano, nome)
     }
 
     override fun listenerDespesas(note: DadoDespesas) {

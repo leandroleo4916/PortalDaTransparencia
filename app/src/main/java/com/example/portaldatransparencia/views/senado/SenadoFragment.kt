@@ -16,16 +16,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.adapter.SenadoAdapter
 import com.example.portaldatransparencia.databinding.FragmentCamaraSenadoBinding
-import com.example.portaldatransparencia.di.visibilityNavFloating
 import com.example.portaldatransparencia.interfaces.IClickSenador
 import com.example.portaldatransparencia.interfaces.INotificationSenado
 import com.example.portaldatransparencia.remote.ResultSenadoRequest
 import com.example.portaldatransparencia.util.RetiraAcento
-import com.example.portaldatransparencia.views.view_generics.ModifyChip
-import com.example.portaldatransparencia.views.view_generics.VisibilityNavViewAndFloating
 import com.example.portaldatransparencia.views.camara.CamaraFragment
 import com.example.portaldatransparencia.views.senador.SenadorActivity
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
+import com.example.portaldatransparencia.views.view_generics.ModifyChip
+import com.example.portaldatransparencia.views.view_generics.VisibilityNavViewAndFloating
 import com.google.android.material.chip.Chip
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -138,9 +137,10 @@ class SenadoFragment: Fragment(R.layout.fragment_camara_senado), IClickSenador, 
         else adapter.filter.filter(viewDisabled.text as String)
     }
 
-    override fun clickSenador(nome: String) {
+    override fun clickSenador(id: String, nome: String) {
         val name = retiraAcento.deleteAccent(nome)
         val intent = Intent(context, SenadorActivity::class.java)
+        intent.putExtra("id", id)
         intent.putExtra("nome", name)
         startActivity(intent)
     }

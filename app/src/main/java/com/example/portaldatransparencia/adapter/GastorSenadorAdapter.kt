@@ -44,8 +44,9 @@ class GastorSenadorAdapter: RecyclerView.Adapter<GastorSenadorAdapter.DespesasVi
 
                 date.text = despesa.data
                 despesa.tipoDespesa.let { typeDoc.text = it }
-                typeDespesa.text = (if (despesa.detalhamento != "") despesa.detalhamento
-                else "Não informado detalhes da nota").toString()
+                typeDespesa.text =
+                    (if (despesa.detalhamento != "Não foi informado") despesa.tipoDespesa
+                    else despesa.detalhamento).toString()
                 despesa.fornecedor.let { fornecedor.text = it }
                 despesa.cnpjCpf.let {
                     cnpj.text = (if (it.length == 14) "CPF: $it" else "CNPJ: $it").toString()
@@ -54,13 +55,19 @@ class GastorSenadorAdapter: RecyclerView.Adapter<GastorSenadorAdapter.DespesasVi
                     if (it.contains(",")){
                         val value = it.split(",")
                         val format = DecimalFormat("#.00")
-                        val formatTotal = format.format(value[0].toFloat())
-                        valor.text = "R$ $formatTotal"
+                        if (value[0].isNotEmpty()){
+                            val formatTotal = format.format(value[0].toFloat())
+                            valor.text = "R$ $formatTotal"
+                        }
+                        else valor.text = "R$ 0,01"
                     }
                     else {
-                        val format = DecimalFormat("#.00")
-                        val formatTotal = format.format(it.toFloat())
-                        valor.text = "R$ $formatTotal"
+                        if (it.isNotEmpty()) {
+                            val format = DecimalFormat("#.00")
+                            val formatTotal = format.format(it.toFloat())
+                            valor.text = "R$ $formatTotal"
+                        }
+                        else valor.text = "Valor não informado"
                     }
                 }
                 iconRigth.visibility = View.GONE
@@ -70,7 +77,8 @@ class GastorSenadorAdapter: RecyclerView.Adapter<GastorSenadorAdapter.DespesasVi
 
     @SuppressLint("NotifyDataSetChanged")
     fun updateDataSenador(senador: List<GastosSenador>) {
-        data = senador as ArrayList<GastosSenador>
+        data = if (senador.isEmpty()) arrayListOf()
+        else senador as ArrayList<GastosSenador>
         notifyDataSetChanged()
     }
 }
