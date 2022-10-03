@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraint_deputado"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:layout_marginEnd="10dp"
+    android:layout_marginStart="10dp"
+    android:background="@color/white"
+    android:elevation="16dp">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/constraint2"
+        android:layout_width="6dp"
+        android:layout_height="0dp"
+        android:background="@color/teal_700"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <ImageView
+        android:id="@+id/icon_check"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="12dp"
+        android:foregroundGravity="center"
+        android:src="@drawable/ic_check_green"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/text_aprovacao"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="6dp"
+        android:singleLine="true"
+        android:text="Aprovado"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/text_date_votacao"
+        app:layout_constraintStart_toEndOf="@+id/icon_check"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text_sessao"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="6dp"
+        android:singleLine="true"
+        android:text="Sessão: 138174 | Não secreta"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toStartOf="@+id/text_date_votacao"
+        app:layout_constraintStart_toEndOf="@+id/icon_check"
+        app:layout_constraintTop_toBottomOf="@+id/text_aprovacao" />
+
+    <TextView
+        android:id="@+id/text_date_votacao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:singleLine="true"
+        android:text="--/--/----"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/text_aprovacao"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/text_aprovacao" />
+
+    <TextView
+        android:id="@+id/text_materia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginStart="20dp"
+        android:singleLine="true"
+        android:text="Matéria:"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_notes_2" />
+
+    <TextView
+        android:id="@+id/text_description_materia"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20sp"
+        android:layout_marginEnd="20sp"
+        android:text="Submete à consideração do Senado Federal, nos termos do art. 84, inciso XIV."
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/text_materia"
+        app:layout_constraintTop_toBottomOf="@+id/text_materia" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_notes"
+        android:layout_width="0dp"
+        android:layout_height="1.2dp"
+        android:layout_marginTop="4dp"
+        android:background="@color/purple_500"
+        app:layout_constraintEnd_toEndOf="@+id/text_description_materia"
+        app:layout_constraintStart_toStartOf="@+id/text_description_materia"
+        app:layout_constraintTop_toBottomOf="@+id/text_description_materia" />
+
+    <TextView
+        android:id="@+id/text_tramitacao"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20sp"
+        android:layout_marginTop="4dp"
+        android:text="Tramitação:"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/text_description_materia"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_notes" />
+
+    <TextView
+        android:id="@+id/text_description_tramitacao"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20sp"
+        android:layout_marginBottom="10dp"
+        android:text="Aprovada a indicação, nos termos do Parecer nº 85"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/text_description_materia"
+        app:layout_constraintStart_toStartOf="@+id/text_tramitacao"
+        app:layout_constraintTop_toBottomOf="@+id/text_tramitacao" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_notes_2"
+        android:layout_width="0dp"
+        android:layout_height="1.2dp"
+        android:layout_marginTop="6dp"
+        android:background="@color/purple_500"
+        app:layout_constraintEnd_toEndOf="@+id/text_description_materia"
+        app:layout_constraintStart_toStartOf="@+id/icon_check_voto"
+        app:layout_constraintTop_toBottomOf="@+id/text_voto" />
+
+    <TextView
+        android:id="@+id/text_voto_s"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginStart="20sp"
+        android:singleLine="true"
+        android:text="Voto do senador:"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/text_description_tramitacao"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_sessao" />
+
+    <ImageView
+        android:id="@+id/icon_check_voto"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginStart="20dp"
+        android:foregroundGravity="center"
+        android:src="@drawable/ic_check_green"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_voto_s"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/text_voto"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Participou e votou"
+        android:layout_marginStart="8dp"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/icon_check_voto"
+        app:layout_constraintEnd_toEndOf="@+id/text_voto_s"
+        app:layout_constraintStart_toEndOf="@+id/icon_check_voto"
+        app:layout_constraintTop_toTopOf="@+id/icon_check_voto" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

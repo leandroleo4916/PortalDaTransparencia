@@ -2,7 +2,7 @@ package com.example.portaldatransparencia.dataclass
 
 import com.google.gson.annotations.SerializedName
 
-data class VotacoesSenador(
+data class DataClassVotacoesSenador(
     @SerializedName("VotacaoParlamentar")
     val votacaoParlamentar: VotacaoParlamentar
 )
@@ -45,7 +45,7 @@ data class Votacao (
     val materia: Materia,
 
     @SerializedName("Tramitacao")
-    val tramitacao: Tramitacao,
+    val tramitacao: Tramitacao?,
 
     @SerializedName("CodigoSessaoVotacao")
     val codigoSessaoVotacao: String,
@@ -63,7 +63,10 @@ data class Votacao (
     val descricaoResultado: String,
 
     @SerializedName("SiglaDescricaoVoto")
-    val siglaDescricaoVoto: String
+    val siglaDescricaoVoto: String,
+
+    @SerializedName("descricaoVoto")
+    val descricaoVoto: String?
 )
 
 data class Materia (
@@ -117,27 +120,27 @@ data class SessaoPlenaria (
 
 data class Tramitacao (
     @SerializedName("IdentificacaoTramitacao")
-    val identificacaoTramitacao: IdentificacaoTramitacao
+    val identificacaoTramitacao: IdentificacaoTramitacao?
 )
 
 data class IdentificacaoTramitacao (
     @SerializedName("CodigoTramitacao")
-    val codigoTramitacao: String,
+    val codigoTramitacao: String?,
 
     @SerializedName("NumeroAutuacao")
-    val numeroAutuacao: String,
+    val numeroAutuacao: String?,
 
     @SerializedName("DataTramitacao")
-    val dataTramitacao: String,
+    val dataTramitacao: String?,
 
     @SerializedName("TextoTramitacao")
-    val textoTramitacao: String,
+    val textoTramitacao: String?,
 
     @SerializedName("OrigemTramitacao")
-    val origemTramitacao: DestinoTramitacaoClass,
+    val origemTramitacao: DestinoTramitacaoClass?,
 
     @SerializedName("DestinoTramitacao")
-    val destinoTramitacao: DestinoTramitacaoClass
+    val destinoTramitacao: DestinoTramitacaoClass?
 )
 
 data class DestinoTramitacaoClass (

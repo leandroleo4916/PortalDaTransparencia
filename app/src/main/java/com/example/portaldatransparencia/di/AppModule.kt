@@ -16,6 +16,7 @@ import com.example.portaldatransparencia.views.senador.geral_senador.GeralSenado
 import com.example.portaldatransparencia.views.deputado.proposta_deputado.PropostaViewModel
 import com.example.portaldatransparencia.views.senado.SenadoViewModel
 import com.example.portaldatransparencia.views.senador.SenadorViewModel
+import com.example.portaldatransparencia.views.senador.votacoes_senador.VotacoesViewModel
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -68,6 +69,9 @@ val retrofitModule = module {
         single<ApiServiceSenadorCargos> {
                 get<Retrofit>().create(ApiServiceSenadorCargos::class.java)
         }
+        single<ApiServiceVotacoes> {
+                get<Retrofit>().create(ApiServiceVotacoes::class.java)
+        }
 }
 
 val viewModelModule = module { viewModel { CamaraViewModel(get()) } }
@@ -79,6 +83,7 @@ val viewModelOccupation = module { viewModel { OccupationViewModel(get()) } }
 val viewModelSenado = module { viewModel { SenadoViewModel(get()) } }
 val viewModelSenador = module { viewModel { SenadorViewModel(get()) } }
 val viewModelSenadorGeral = module { viewModel { GeralSenadorViewModel(get()) } }
+val viewModelVotacoes = module { viewModel { VotacoesViewModel(get()) } }
 
 val repositorySearch = module { single { SearchRepository(get()) } }
 val repositoryIdDeputado = module { single { IdDeputadoRepository(get()) } }
@@ -89,6 +94,7 @@ val repositoryOccupation = module { single { OccupationRepository(get()) } }
 val repositorySenado = module { single { SenadoRepository(get()) } }
 val repositorySenador = module { single { SenadorRepository(get()) } }
 val repositorySenadorGeral = module { single { GeralSenadorRepository(get()) } }
+val repositoryVotacoes = module { single { VotacoesRepository(get()) } }
 
 val progressModule = module { factory { EnableDisableView() } }
 val ageModule = module { factory { CalculateAge() } }
@@ -102,5 +108,5 @@ val appModules = listOf( retrofitModule, viewModelModule, repositorySearch, prog
         securityPreferences, viewModelFront, repositoryFront, viewModelProposta, repositoryProposta,
         ageModule, viewModelOccupation, repositoryOccupation, repositorySenado, viewModelSenado,
         viewModelSenador, visibilityNavFloating, repositorySenador, modifyChip, viewModelSenadorGeral,
-        repositorySenadorGeral, retiraAcento
+        repositorySenadorGeral, retiraAcento, repositoryVotacoes, viewModelVotacoes
 )
