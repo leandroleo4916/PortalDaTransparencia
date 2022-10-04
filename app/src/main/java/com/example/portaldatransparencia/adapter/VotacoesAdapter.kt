@@ -1,6 +1,7 @@
 package com.example.portaldatransparencia.adapter
 
 import android.annotation.SuppressLint
+import android.graphics.Canvas
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,6 +41,10 @@ class VotacoesAdapter : RecyclerView.Adapter<VotacoesAdapter.PropostaViewHolder>
                 val textTramitacao = findViewById<TextView>(R.id.text_description_tramitacao)
                 val votoSenador = findViewById<TextView>(R.id.text_voto)
                 val iconCheckVoto = findViewById<ImageView>(R.id.icon_check_voto)
+                val iconMateria = findViewById<ImageView>(R.id.icon_materia)
+                val iconTramite = findViewById<ImageView>(R.id.icon_tramite)
+                val verMateria = findViewById<TextView>(R.id.text_ver_mais_materia)
+                val verTramite = findViewById<TextView>(R.id.text_ver_mais_tramite)
 
                 votacao.run {
                     if (descricaoResultado == "Rejeitado") {
@@ -56,12 +61,21 @@ class VotacoesAdapter : RecyclerView.Adapter<VotacoesAdapter.PropostaViewHolder>
                         (date[2] + "/" + date[1] + "/" + date[0]).also { textDate.text = it }
                     }
                     textMateria.text =
-                        if (materia.ementa != "") materia.ementa
+                        if (materia.ementa != "") {
+                            if (materia.ementa.length > 100){
+                                materia.ementa.substring(0, 99)+"..."
+                            }
+                            else materia.ementa
+                        }
                         else "Descrição não registrada"
 
                     if (tramitacao != null) {
-                        textTramitacao.text =
-                            tramitacao.identificacaoTramitacao?.textoTramitacao ?: "Não informado"
+                        val tramite = tramitacao.identificacaoTramitacao?.textoTramitacao
+                        textTramitacao.text = if (tramite!!.isNotEmpty() &&
+                            tramite.length > 100){
+                            tramite.substring(0, 99)+"..."
+                        }
+                        else tramite
                     }
 
                     when (siglaDescricaoVoto) {
@@ -88,6 +102,31 @@ class VotacoesAdapter : RecyclerView.Adapter<VotacoesAdapter.PropostaViewHolder>
                         else -> {
                             votoSenador.text = "Não registrado ou não compareceu"
                             iconCheckVoto.setImageResource(R.drawable.ic_close)
+                        }
+                    }
+                    verMateria.setOnClickListener {
+                        if (textMateria.length() <= 103){
+                            textMateria.text = materia.ementa
+                            verMateria.text = "ver menos"
+                            iconMateria.setImageResource(R.drawable.ic_up)
+                        }
+                        else {
+                            textMateria.text = materia.ementa.substring(0, 100)+"..."
+                            verMateria.text = "ver mais"
+                            iconMateria.setImageResource(R.drawable.ic_down)
+                        }
+                    }
+                    verTramite.setOnClickListener {
+                        if (textTramitacao.length() <= 103){
+                            textTramitacao.text = tramitacao?.identificacaoTramitacao?.textoTramitacao
+                            verTramite.text = "ver menos"
+                            iconTramite.setImageResource(R.drawable.ic_up)
+                        }
+                        else {
+                            textTramitacao.text =
+                                tramitacao?.identificacaoTramitacao?.textoTramitacao!!.substring(0, 100)+"..."
+                            verTramite.text = "ver mais"
+                            iconTramite.setImageResource(R.drawable.ic_down)
                         }
                     }
                 }

@@ -54,7 +54,6 @@
         android:id="@+id/text_sessao"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
         android:layout_marginEnd="6dp"
         android:singleLine="true"
         android:text="Sessão: 138174 | Não secreta"
@@ -62,7 +61,7 @@
         android:textSize="12sp"
         android:textStyle="italic"
         app:layout_constraintEnd_toStartOf="@+id/text_date_votacao"
-        app:layout_constraintStart_toEndOf="@+id/icon_check"
+        app:layout_constraintStart_toStartOf="@+id/text_aprovacao"
         app:layout_constraintTop_toBottomOf="@+id/text_aprovacao" />
 
     <TextView
@@ -105,15 +104,38 @@
         app:layout_constraintStart_toStartOf="@+id/text_materia"
         app:layout_constraintTop_toBottomOf="@+id/text_materia" />
 
+    <ImageView
+        android:id="@+id/icon_materia"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="4dp"
+        android:foregroundGravity="center"
+        android:src="@drawable/ic_down"
+        app:layout_constraintBottom_toBottomOf="@+id/text_ver_mais_materia"
+        app:layout_constraintEnd_toStartOf="@+id/text_ver_mais_materia"
+        app:layout_constraintTop_toBottomOf="@+id/text_description_materia"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/text_ver_mais_materia"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="ver mais"
+        android:textColor="@color/teal_700"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/toolbar_notes"
+        app:layout_constraintTop_toBottomOf="@+id/text_description_materia" />
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_notes"
         android:layout_width="0dp"
         android:layout_height="1.2dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="6dp"
         android:background="@color/purple_500"
         app:layout_constraintEnd_toEndOf="@+id/text_description_materia"
-        app:layout_constraintStart_toStartOf="@+id/text_description_materia"
-        app:layout_constraintTop_toBottomOf="@+id/text_description_materia" />
+        app:layout_constraintStart_toStartOf="@+id/text_tramitacao"
+        app:layout_constraintTop_toBottomOf="@+id/text_ver_mais_materia" />
 
     <TextView
         android:id="@+id/text_tramitacao"
@@ -134,14 +156,37 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20sp"
-        android:layout_marginBottom="10dp"
         android:text="Aprovada a indicação, nos termos do Parecer nº 85"
         android:textColor="@color/black"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/text_description_materia"
         app:layout_constraintStart_toStartOf="@+id/text_tramitacao"
         app:layout_constraintTop_toBottomOf="@+id/text_tramitacao" />
+
+    <ImageView
+        android:id="@+id/icon_tramite"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="4dp"
+        android:foregroundGravity="center"
+        android:src="@drawable/ic_down"
+        app:layout_constraintBottom_toBottomOf="@+id/text_ver_mais_tramite"
+        app:layout_constraintEnd_toStartOf="@+id/text_ver_mais_tramite"
+        app:layout_constraintTop_toBottomOf="@+id/text_description_tramitacao"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/text_ver_mais_tramite"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="ver mais"
+        android:textColor="@color/teal_700"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/text_tramitacao"
+        app:layout_constraintTop_toBottomOf="@+id/text_description_tramitacao" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_notes_2"
@@ -150,7 +195,7 @@
         android:layout_marginTop="6dp"
         android:background="@color/purple_500"
         app:layout_constraintEnd_toEndOf="@+id/text_description_materia"
-        app:layout_constraintStart_toStartOf="@+id/icon_check_voto"
+        app:layout_constraintStart_toStartOf="@+id/text_materia"
         app:layout_constraintTop_toBottomOf="@+id/text_voto" />
 
     <TextView
@@ -184,11 +229,10 @@
         android:id="@+id/text_voto"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Participou e votou"
         android:layout_marginStart="8dp"
+        android:text="Participou e votou"
         android:textColor="@color/black"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/icon_check_voto"
         app:layout_constraintEnd_toEndOf="@+id/text_voto_s"
         app:layout_constraintStart_toEndOf="@+id/icon_check_voto"
         app:layout_constraintTop_toTopOf="@+id/icon_check_voto" />
