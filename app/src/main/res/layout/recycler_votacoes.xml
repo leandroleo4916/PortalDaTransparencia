@@ -106,11 +106,10 @@
 
     <ImageView
         android:id="@+id/icon_materia"
-        android:layout_width="18dp"
-        android:layout_height="18dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:layout_marginTop="2dp"
         android:layout_marginEnd="4dp"
-        android:foregroundGravity="center"
         android:src="@drawable/ic_down"
         app:layout_constraintBottom_toBottomOf="@+id/text_ver_mais_materia"
         app:layout_constraintEnd_toStartOf="@+id/text_ver_mais_materia"
@@ -165,11 +164,10 @@
 
     <ImageView
         android:id="@+id/icon_tramite"
-        android:layout_width="18dp"
-        android:layout_height="18dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:layout_marginTop="2dp"
         android:layout_marginEnd="4dp"
-        android:foregroundGravity="center"
         android:src="@drawable/ic_down"
         app:layout_constraintBottom_toBottomOf="@+id/text_ver_mais_tramite"
         app:layout_constraintEnd_toStartOf="@+id/text_ver_mais_tramite"

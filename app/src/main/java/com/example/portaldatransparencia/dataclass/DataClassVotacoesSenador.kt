@@ -1,10 +1,16 @@
 package com.example.portaldatransparencia.dataclass
 
 import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.KSerializer
+import kotlinx.serialization.descriptors.PrimitiveKind
+import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
+import kotlinx.serialization.descriptors.SerialDescriptor
+import kotlinx.serialization.encoding.Decoder
+import kotlinx.serialization.encoding.Encoder
 
 data class DataClassVotacoesSenador(
     @SerializedName("VotacaoParlamentar")
-    val votacaoParlamentar: VotacaoParlamentar
+    val votacaoParlamentar: VotacaoParlamentar?
 )
 
 data class VotacaoParlamentar (
@@ -18,7 +24,7 @@ data class VotacaoParlamentar (
     val metadados: Metadados,
 
     @SerializedName("Parlamentar")
-    val parlamentar: ParlamentarVoto
+    val parlamentar: ParlamentarVoto?
 )
 
 data class ParlamentarVoto (
@@ -29,12 +35,12 @@ data class ParlamentarVoto (
     val nome: String,
 
     @SerializedName("Votacoes")
-    val votacoes: Votacoes
+    val votacoes: Votacoes?
 )
 
 data class Votacoes (
     @SerializedName("Votacao")
-    val votacao: List<Votacao>
+    val votacao: List<Votacao>?
 )
 
 data class Votacao (
@@ -51,19 +57,19 @@ data class Votacao (
     val codigoSessaoVotacao: String,
 
     @SerializedName("Sequencial")
-    val sequencial: String,
+    val sequencial: String?,
 
     @SerializedName("IndicadorVotacaoSecreta")
-    val indicadorVotacaoSecreta: String,
+    val indicadorVotacaoSecreta: String?,
 
     @SerializedName("DescricaoVotacao")
-    val descricaoVotacao: String,
+    val descricaoVotacao: String?,
 
     @SerializedName("DescricaoResultado")
-    val descricaoResultado: String,
+    val descricaoResultado: String?,
 
     @SerializedName("SiglaDescricaoVoto")
-    val siglaDescricaoVoto: String,
+    val siglaDescricaoVoto: String?,
 
     @SerializedName("descricaoVoto")
     val descricaoVoto: String?
@@ -71,28 +77,28 @@ data class Votacao (
 
 data class Materia (
     @SerializedName("Codigo")
-    val codigo: String,
+    val codigo: String?,
 
     @SerializedName("IdentificacaoProcesso")
-    val identificacaoProcesso: String,
+    val identificacaoProcesso: String?,
 
     @SerializedName("DescricaoIdentificacao")
-    val descricaoIdentificacao: String,
+    val descricaoIdentificacao: String?,
 
     @SerializedName("Sigla")
-    val sigla: String,
+    val sigla: String?,
 
     @SerializedName("Numero")
-    val numero: String,
+    val numero: String?,
 
     @SerializedName("Ano")
-    val ano: String,
+    val ano: String?,
 
     @SerializedName("Ementa")
-    val ementa: String,
+    val ementa: String?,
 
     @SerializedName("Data")
-    val data: String
+    val data: String?
 )
 
 data class SessaoPlenaria (

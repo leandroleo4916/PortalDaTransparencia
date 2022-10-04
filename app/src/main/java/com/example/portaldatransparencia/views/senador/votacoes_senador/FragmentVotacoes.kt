@@ -53,8 +53,8 @@ class FragmentVotacoes: Fragment(R.layout.fragment_votacoes_senador) {
                 when (result) {
                     is ResultVotacoesRequest.Success -> {
                         result.dado?.let { votacoes ->
-                            val votacao = votacoes.votacaoParlamentar.parlamentar.votacoes.votacao
-                            if (votacao.isNotEmpty()){
+                            val votacao = votacoes.votacaoParlamentar?.parlamentar?.votacoes?.votacao
+                            if (votacao?.isNotEmpty() == true){
                                 numberVotacoes = votacao.size
                                 calculateVotacoes()
                                 adapter.updateData(votacao)
@@ -70,10 +70,26 @@ class FragmentVotacoes: Fragment(R.layout.fragment_votacoes_senador) {
                         }
                     }
                     is ResultVotacoesRequest.Error -> {
-                        result.exception.message?.let { it -> }
+                        result.exception.message?.let { it ->
+                            binding?.run {
+                                adapter.updateData(listOf())
+                                statusView.disableView(progressVotacoes)
+                                statusView.enableView(textNotValue)
+                                textNotValue.text =
+                                    "Nenhuma votação para $ano ou não tinha mandato neste ano."
+                            }
+                        }
                     }
                     is ResultVotacoesRequest.ErrorConnection -> {
-                        result.exception.message?.let { it -> }
+                        result.exception.message?.let { it ->
+                            binding?.run {
+                                adapter.updateData(listOf())
+                                statusView.disableView(progressVotacoes)
+                                statusView.enableView(textNotValue)
+                                textNotValue.text =
+                                    "Nenhuma votação para $ano ou não tinha mandato neste ano."
+                            }
+                        }
                     }
                 }
             }
