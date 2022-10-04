@@ -94,6 +94,15 @@ interface ApiServiceVotacoes {
     ): Response<DataClassVotacoesSenador>
 }
 
+interface ApiServiceVotacoesItem {
+    @Headers("Content-Type: application/json")
+    @GET("https://legis.senado.leg.br/dadosabertos/senador/{id}/votacoes.json")
+    suspend fun getVotacoesItem(
+        @Path("id") id: String,
+        @Query("ano") ano: String
+    ): Response<DataClassVotacoesItem>
+}
+
 interface ApiServiceSenadorCargos {
     @GET("https://legis.senado.leg.br/dadosabertos/senador/{id}/cargos.json")
     suspend fun getCargos(

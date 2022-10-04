@@ -72,6 +72,9 @@ val retrofitModule = module {
         single<ApiServiceVotacoes> {
                 get<Retrofit>().create(ApiServiceVotacoes::class.java)
         }
+        single<ApiServiceVotacoesItem> {
+                get<Retrofit>().create(ApiServiceVotacoesItem::class.java)
+        }
 }
 
 val viewModelModule = module { viewModel { CamaraViewModel(get()) } }
@@ -83,7 +86,7 @@ val viewModelOccupation = module { viewModel { OccupationViewModel(get()) } }
 val viewModelSenado = module { viewModel { SenadoViewModel(get()) } }
 val viewModelSenador = module { viewModel { SenadorViewModel(get()) } }
 val viewModelSenadorGeral = module { viewModel { GeralSenadorViewModel(get()) } }
-val viewModelVotacoes = module { viewModel { VotacoesViewModel(get()) } }
+val viewModelVotacoes = module { viewModel { VotacoesViewModel(get(), get()) } }
 
 val repositorySearch = module { single { SearchRepository(get()) } }
 val repositoryIdDeputado = module { single { IdDeputadoRepository(get()) } }
@@ -95,6 +98,7 @@ val repositorySenado = module { single { SenadoRepository(get()) } }
 val repositorySenador = module { single { SenadorRepository(get()) } }
 val repositorySenadorGeral = module { single { GeralSenadorRepository(get()) } }
 val repositoryVotacoes = module { single { VotacoesRepository(get()) } }
+val repositoryVotacoesItem = module { single { VotacoesRepositoryItem(get()) } }
 
 val progressModule = module { factory { EnableDisableView() } }
 val ageModule = module { factory { CalculateAge() } }
@@ -108,5 +112,6 @@ val appModules = listOf( retrofitModule, viewModelModule, repositorySearch, prog
         securityPreferences, viewModelFront, repositoryFront, viewModelProposta, repositoryProposta,
         ageModule, viewModelOccupation, repositoryOccupation, repositorySenado, viewModelSenado,
         viewModelSenador, visibilityNavFloating, repositorySenador, modifyChip, viewModelSenadorGeral,
-        repositorySenadorGeral, retiraAcento, repositoryVotacoes, viewModelVotacoes
+        repositorySenadorGeral, retiraAcento, repositoryVotacoes, viewModelVotacoes,
+        repositoryVotacoesItem
 )

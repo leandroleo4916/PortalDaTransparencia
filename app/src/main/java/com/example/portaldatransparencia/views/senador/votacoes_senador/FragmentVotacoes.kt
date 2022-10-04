@@ -5,11 +5,10 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.portaldatransparencia.R
-import com.example.portaldatransparencia.adapter.PropostaAdapter
 import com.example.portaldatransparencia.adapter.VotacoesAdapter
-import com.example.portaldatransparencia.databinding.FragmentPropostaBinding
 import com.example.portaldatransparencia.databinding.FragmentVotacoesSenadorBinding
-import com.example.portaldatransparencia.remote.ResultPropostaRequest
+import com.example.portaldatransparencia.dataclass.Votacao
+import com.example.portaldatransparencia.remote.ResultVotacoesItemRequest
 import com.example.portaldatransparencia.remote.ResultVotacoesRequest
 import com.example.portaldatransparencia.security.SecurityPreferences
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
@@ -71,6 +70,46 @@ class FragmentVotacoes: Fragment(R.layout.fragment_votacoes_senador) {
                     }
                     is ResultVotacoesRequest.Error -> {
                         result.exception.message?.let { it ->
+                            observerItem()
+                        }
+                    }
+                    is ResultVotacoesRequest.ErrorConnection -> {
+                        result.exception.message?.let { it ->
+                            observerItem()
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun observerItem() {
+
+        viewModel.votacoesItem(id, ano).observe(viewLifecycleOwner){
+            it?.let { result ->
+                when (result) {
+                    is ResultVotacoesItemRequest.Success -> {
+                        result.dado?.let { votacoes ->
+                            val votacao = votacoes.votacaoParlamentar?.parlamentar?.votacoes?.votacao
+                            if (votacao != null){
+                                numberVotacoes = 1
+                                calculateVotacoes()
+                                val voto: ArrayList<Votacao> = arrayListOf()
+                                voto.add(votacao)
+                                adapter.updateData(voto)
+                            }
+                            else{
+                                binding?.run {
+                                    statusView.disableView(progressVotacoes)
+                                    statusView.enableView(textNotValue)
+                                    textNotValue.text =
+                                        "Nenhuma votação para $ano ou não tinha mandato neste ano."
+                                }
+                            }
+                        }
+                    }
+                    is ResultVotacoesItemRequest.Error -> {
+                        result.exception.message?.let { it ->
                             binding?.run {
                                 adapter.updateData(listOf())
                                 statusView.disableView(progressVotacoes)
@@ -80,7 +119,7 @@ class FragmentVotacoes: Fragment(R.layout.fragment_votacoes_senador) {
                             }
                         }
                     }
-                    is ResultVotacoesRequest.ErrorConnection -> {
+                    is ResultVotacoesItemRequest.ErrorConnection -> {
                         result.exception.message?.let { it ->
                             binding?.run {
                                 adapter.updateData(listOf())
@@ -133,7 +172,11 @@ class FragmentVotacoes: Fragment(R.layout.fragment_votacoes_senador) {
             statusView.enableView(textTotalVotos)
             statusView.enableView(iconVoto)
             statusView.disableView(textNotValue)
-            "$numberVotacoes Votações".also { textTotalVotos.text = it }
+            if (numberVotacoes == 1){
+                "$numberVotacoes Votação".also { textTotalVotos.text = it }
+            }else {
+                "$numberVotacoes Votações".also { textTotalVotos.text = it }
+            }
         }
     }
 
