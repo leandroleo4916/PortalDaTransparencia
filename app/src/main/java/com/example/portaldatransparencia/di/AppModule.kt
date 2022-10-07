@@ -14,6 +14,7 @@ import com.example.portaldatransparencia.views.deputado.geral_deputado.Occupatio
 import com.example.portaldatransparencia.views.camara.CamaraViewModel
 import com.example.portaldatransparencia.views.senador.geral_senador.GeralSenadorViewModel
 import com.example.portaldatransparencia.views.deputado.proposta_deputado.PropostaViewModel
+import com.example.portaldatransparencia.views.mais.GastoGeralViewModel
 import com.example.portaldatransparencia.views.senado.SenadoViewModel
 import com.example.portaldatransparencia.views.senador.SenadorViewModel
 import com.example.portaldatransparencia.views.senador.votacoes_senador.VotacoesViewModel
@@ -76,6 +77,9 @@ val retrofitModule = module {
         single<ApiServiceVotacoesItem> {
                 get<Retrofit>().create(ApiServiceVotacoesItem::class.java)
         }
+        single<ApiServiceGastoGeral> {
+                get<Retrofit>().create(ApiServiceGastoGeral::class.java)
+        }
 }
 
 val viewModelModule = module { viewModel { CamaraViewModel(get()) } }
@@ -88,6 +92,7 @@ val viewModelSenado = module { viewModel { SenadoViewModel(get()) } }
 val viewModelSenador = module { viewModel { SenadorViewModel(get()) } }
 val viewModelSenadorGeral = module { viewModel { GeralSenadorViewModel(get()) } }
 val viewModelVotacoes = module { viewModel { VotacoesViewModel(get(), get()) } }
+val viewModelGastoGeral = module { viewModel { GastoGeralViewModel(get()) } }
 
 val repositorySearch = module { single { SearchRepository(get()) } }
 val repositoryIdDeputado = module { single { IdDeputadoRepository(get()) } }
@@ -100,6 +105,7 @@ val repositorySenador = module { single { SenadorRepository(get()) } }
 val repositorySenadorGeral = module { single { GeralSenadorRepository(get()) } }
 val repositoryVotacoes = module { single { VotacoesRepository(get()) } }
 val repositoryVotacoesItem = module { single { VotacoesRepositoryItem(get()) } }
+val repositoryGastoGeral = module { single { GastoGeralRepository(get()) } }
 
 val progressModule = module { factory { EnableDisableView() } }
 val ageModule = module { factory { CalculateAge() } }
@@ -115,5 +121,5 @@ val appModules = listOf( retrofitModule, viewModelModule, repositorySearch, prog
         ageModule, viewModelOccupation, repositoryOccupation, repositorySenado, viewModelSenado,
         viewModelSenador, visibilityNavFloating, repositorySenador, modifyChip, viewModelSenadorGeral,
         repositorySenadorGeral, retiraAcento, repositoryVotacoes, viewModelVotacoes,
-        repositoryVotacoesItem, formatValor
+        repositoryVotacoesItem, formatValor, repositoryGastoGeral, viewModelGastoGeral
 )

@@ -5,12 +5,13 @@ import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.portaldatransparencia.views.camara.CamaraFragment
 import com.example.portaldatransparencia.views.deputado.proposta_deputado.FragmentProposta
+import com.example.portaldatransparencia.views.mais.FragmentGastoGeral
 import com.example.portaldatransparencia.views.senado.SenadoFragment
 
 class TabViewAdapterController(fa: FragmentActivity): FragmentStateAdapter(fa) {
 
     private val fragments = arrayOf(
-        CamaraFragment(), SenadoFragment(), FragmentProposta()
+        CamaraFragment(), SenadoFragment(), FragmentGastoGeral()
     )
 
     override fun getItemCount() = fragments.size
