@@ -17,6 +17,7 @@ import com.example.portaldatransparencia.views.deputado.proposta_deputado.Propos
 import com.example.portaldatransparencia.views.senado.SenadoViewModel
 import com.example.portaldatransparencia.views.senador.SenadorViewModel
 import com.example.portaldatransparencia.views.senador.votacoes_senador.VotacoesViewModel
+import com.example.portaldatransparencia.views.view_generics.FormatValor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -106,6 +107,7 @@ val visibilityNavFloating = module { factory { VisibilityNavViewAndFloating() } 
 val modifyChip = module { factory { ModifyChip() } }
 val retiraAcento = module { factory { RetiraAcento() } }
 val securityPreferences = module { single { SecurityPreferences(get()) } }
+val formatValor = module { factory { FormatValor() } }
 
 val appModules = listOf( retrofitModule, viewModelModule, repositorySearch, progressModule,
         viewModelDeputado, repositoryIdDeputado, viewModelDespesas, repositoryDespesasDeputado,
@@ -113,5 +115,5 @@ val appModules = listOf( retrofitModule, viewModelModule, repositorySearch, prog
         ageModule, viewModelOccupation, repositoryOccupation, repositorySenado, viewModelSenado,
         viewModelSenador, visibilityNavFloating, repositorySenador, modifyChip, viewModelSenadorGeral,
         repositorySenadorGeral, retiraAcento, repositoryVotacoes, viewModelVotacoes,
-        repositoryVotacoesItem
+        repositoryVotacoesItem, formatValor
 )

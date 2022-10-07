@@ -8,12 +8,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.dataclass.DadoDespesas
-import com.example.portaldatransparencia.dataclass.GastosSenador
-import com.example.portaldatransparencia.dataclass.SenadorGastosDataClass
 import com.example.portaldatransparencia.interfaces.INoteDespesas
-import java.text.DecimalFormat
+import com.example.portaldatransparencia.views.view_generics.FormatValor
 
-class DespesasAdapter(private val listener: INoteDespesas): RecyclerView.Adapter<DespesasAdapter.DespesasViewHolder>() {
+class DespesasAdapter(private val listener: INoteDespesas, private val formatValor: FormatValor):
+    RecyclerView.Adapter<DespesasAdapter.DespesasViewHolder>() {
 
     private var data: ArrayList<DadoDespesas> = arrayListOf()
 
@@ -60,8 +59,7 @@ class DespesasAdapter(private val listener: INoteDespesas): RecyclerView.Adapter
                 despesa.tipoDocumento.let { typeDoc.text = it }
                 despesa.cnpjCpfFornecedor.let { cnpj.text = it }
                 despesa.valorDocumento.let{
-                    val format = DecimalFormat("#.00")
-                    val formatTotal = format.format(it)
+                    val formatTotal = formatValor.formatValor(it)
                     valor.text = "R$ $formatTotal"
                 }
             }

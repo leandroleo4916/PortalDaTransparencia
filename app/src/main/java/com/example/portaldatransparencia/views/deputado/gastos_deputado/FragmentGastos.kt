@@ -12,10 +12,12 @@ import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.adapter.DespesasAdapter
 import com.example.portaldatransparencia.databinding.FragmentGastosBinding
 import com.example.portaldatransparencia.dataclass.DadoDespesas
+import com.example.portaldatransparencia.di.formatValor
 import com.example.portaldatransparencia.interfaces.INoteDespesas
 import com.example.portaldatransparencia.remote.ResultDespesasRequest
 import com.example.portaldatransparencia.security.SecurityPreferences
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
+import com.example.portaldatransparencia.views.view_generics.FormatValor
 import com.google.android.material.chip.Chip
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -28,6 +30,7 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas {
     private lateinit var adapter: DespesasAdapter
     private val securityPreferences: SecurityPreferences by inject()
     private val statusView: EnableDisableView by inject()
+    private val formatValue: FormatValor by inject()
     private lateinit var chipEnabled: Chip
     private lateinit var id: String
     private var total = 0.0
@@ -47,7 +50,7 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas {
 
     private fun recyclerView() {
         val recycler = binding!!.recyclerDespesas
-        adapter = DespesasAdapter(this)
+        adapter = DespesasAdapter(this, FormatValor())
         recycler.layoutManager = LinearLayoutManager(context)
         recycler.adapter = adapter
     }
@@ -100,8 +103,7 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas {
         if (page == 1) total = 0.0
         dados.forEach { total = (total+it.valorDocumento) }
 
-        val format = DecimalFormat("#.00")
-        val formatTotal = format.format(total)
+        val formatTotal = formatValue.formatValor(total)
         binding?.run {
             (formatTotal).also { textTotal.text = it }
             statusView.disableView(progressDespesas)

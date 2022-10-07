@@ -82,14 +82,34 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <FrameLayout
-            android:id="@+id/frame_chip"
+            android:id="@+id/frame_chip_mais"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             tools:ignore="MissingConstraints">
 
-            <include
-                android:id="@+id/chip_group_item"
-                layout="@layout/chip_group_partidos"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                tools:ignore="UselessParent">
+
+                <com.google.android.material.chip.Chip
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:checkable="true"
+                    android:checked="true"
+                    android:text="Todos"
+                    app:chipBackgroundColor="@color/back_chip_select"/>
+
+                <include
+                    android:id="@+id/chip_group_item"
+                    layout="@layout/chip_group_year" />
+
+            </LinearLayout>
 
         </FrameLayout>
 
@@ -99,19 +119,19 @@
             android:layout_height="40dp"
             app:indicatorColor="@color/purple_700"
             app:indicatorName="BallPulseIndicator"
+            android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/frame_chip" />
+            app:layout_constraintTop_toBottomOf="@+id/frame_chip_mais" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_deputados"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="4dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/frame_chip"
+            app:layout_constraintTop_toBottomOf="@+id/frame_chip_mais"
             tools:listitem="@layout/recycler_main" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton

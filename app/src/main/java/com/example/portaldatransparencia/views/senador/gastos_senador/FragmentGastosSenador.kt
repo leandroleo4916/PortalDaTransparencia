@@ -17,6 +17,7 @@ import com.example.portaldatransparencia.remote.ResultCotaRequest
 import com.example.portaldatransparencia.security.SecurityPreferences
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import com.example.portaldatransparencia.views.deputado.gastos_deputado.DespesasViewModel
+import com.example.portaldatransparencia.views.view_generics.FormatValor
 import com.google.android.material.chip.Chip
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -29,6 +30,7 @@ class FragmentGastosSenador: Fragment(R.layout.fragment_gastos), INoteDespesas {
     private lateinit var adapter: GastorSenadorAdapter
     private val securityPreferences: SecurityPreferences by inject()
     private val statusView: EnableDisableView by inject()
+    private val formatValue: FormatValor by inject()
     private lateinit var chipEnabled: Chip
     private lateinit var nome: String
     private var ano = "2022"
@@ -47,7 +49,7 @@ class FragmentGastosSenador: Fragment(R.layout.fragment_gastos), INoteDespesas {
 
     private fun recyclerView() {
         val recycler = binding!!.recyclerDespesas
-        adapter = GastorSenadorAdapter()
+        adapter = GastorSenadorAdapter(FormatValor())
         recycler.layoutManager = LinearLayoutManager(context)
         recycler.adapter = adapter
     }
@@ -116,9 +118,8 @@ class FragmentGastosSenador: Fragment(R.layout.fragment_gastos), INoteDespesas {
     }
 
     private fun statusView(total: Double) {
-        val format = DecimalFormat("#.00")
-        val formatTotal = format.format(total)
 
+        val formatTotal = formatValue.formatValor(total)
         binding?.run {
             (formatTotal).also { textTotal.text = it }
             statusView.disableView(progressDespesas)

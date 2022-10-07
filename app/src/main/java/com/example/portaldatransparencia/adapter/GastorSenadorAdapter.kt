@@ -4,15 +4,13 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.databinding.RecyclerGastosBinding
 import com.example.portaldatransparencia.dataclass.GastosSenador
-import java.text.DecimalFormat
+import com.example.portaldatransparencia.views.view_generics.FormatValor
 
-class GastorSenadorAdapter: RecyclerView.Adapter<GastorSenadorAdapter.DespesasViewHolder>() {
+class GastorSenadorAdapter(private val formatValor: FormatValor): RecyclerView.Adapter<GastorSenadorAdapter.DespesasViewHolder>() {
 
     private var data: ArrayList<GastosSenador> = arrayListOf()
     private var binding: RecyclerGastosBinding? = null
@@ -49,17 +47,15 @@ class GastorSenadorAdapter: RecyclerView.Adapter<GastorSenadorAdapter.DespesasVi
                 despesa.valorReembolsado.let{
                     if (it.contains(",")){
                         val value = it.split(",")
-                        val format = DecimalFormat("#.00")
                         if (value[0].isNotEmpty()){
-                            val formatTotal = format.format(value[0].toFloat())
+                            val formatTotal = formatValor.formatValor(value[0].toDouble())
                             textValorNota.text = "R$ $formatTotal"
                         }
                         else textValorNota.text = "R$ 0,01"
                     }
                     else {
                         if (it.isNotEmpty()) {
-                            val format = DecimalFormat("#.00")
-                            val formatTotal = format.format(it.toFloat())
+                            val formatTotal = formatValor.formatValor(it.toDouble())
                             textValorNota.text = "R$ $formatTotal"
                         }
                         else textValorNota.text = "Valor não informado"
