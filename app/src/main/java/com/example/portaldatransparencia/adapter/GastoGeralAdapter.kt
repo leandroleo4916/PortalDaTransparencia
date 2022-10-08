@@ -10,12 +10,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.dataclass.ListSenador
-import com.example.portaldatransparencia.interfaces.IClickSenador
 import com.example.portaldatransparencia.views.view_generics.FormatValor
-import java.util.*
-import kotlin.collections.ArrayList
 
-class GastoGeralAdapter(private val formatValor: FormatValor) : RecyclerView.Adapter<GastoGeralAdapter.MainViewHolder>() {
+class GastoGeralAdapter(private val formatValor: FormatValor) :
+    RecyclerView.Adapter<GastoGeralAdapter.MainViewHolder>() {
 
     private var data = arrayListOf<ListSenador>()
 
@@ -41,36 +39,37 @@ class GastoGeralAdapter(private val formatValor: FormatValor) : RecyclerView.Ada
 
         override fun onClick(view: View?) {
             val position = adapterPosition
-            when (view) { }
+            when (view) {
+            }
         }
 
         @SuppressLint("UseCompatLoadingForDrawables")
         fun bind(item: ListSenador) {
-            val https = "https:/"
-            //val urlFoto = item.urlFoto.split(":/")
-            //val photo = https+urlFoto[1]
+
             itemView.run {
                 findViewById<TextView>(R.id.text_name_rancking).text = item.nome
-                findViewById<TextView>(R.id.text_valor_item).text = "R$ ${formatValor.formatValor(item.gasto.toDouble())}"
+                findViewById<TextView>(R.id.text_valor_item).text =
+                    "R$ ${formatValor.formatValor(item.gasto.toDouble())}"
                 val medal = findViewById<ImageView>(R.id.image_medal)
                 val image = findViewById<ImageView>(R.id.icon_image)
                 Glide.with(context)
-                    .load("")
+                    .load(item.urlFoto)
                     .circleCrop()
                     .into(image)
-                when (adapterPosition){
+                when (adapterPosition) {
                     0 -> medal.setImageResource(R.drawable.ic_medal_ouro)
                     1 -> medal.setImageResource(R.drawable.ic_medal_prata)
                     2 -> medal.setImageResource(R.drawable.ic_medal_bronze)
                     else -> medal.visibility = View.GONE
                 }
+
             }
         }
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun updateData(senadores: List<ListSenador>) {
-        data = senadores as ArrayList<ListSenador>
+    fun updateData(senador: ArrayList<ListSenador>) {
+        data = senador
         notifyDataSetChanged()
     }
 }

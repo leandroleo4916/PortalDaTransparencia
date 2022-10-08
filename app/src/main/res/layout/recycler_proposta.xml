@@ -14,9 +14,9 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/constraint2"
-        android:layout_width="6dp"
+        android:layout_width="7dp"
         android:layout_height="0dp"
-        android:background="@color/teal_700"
+        android:background="@drawable/back_teal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

@@ -21,7 +21,7 @@ data class GastoGeral (
 data class ListSenador (
     val nome: String,
     val gasto: String,
-    var urlFoto: String = ""
+    var urlFoto: String? = null
 )
 
 
