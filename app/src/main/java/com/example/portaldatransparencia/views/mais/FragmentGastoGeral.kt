@@ -1,23 +1,24 @@
 package com.example.portaldatransparencia.views.mais
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.adapter.GastoGeralAdapter
+import com.example.portaldatransparencia.adapter.GastoGeralAdapterCamara
 import com.example.portaldatransparencia.databinding.FragmentMaisBinding
-import com.example.portaldatransparencia.dataclass.GastoGeralDataClass
-import com.example.portaldatransparencia.dataclass.ListSenador
-import com.example.portaldatransparencia.dataclass.Parlamentar
+import com.example.portaldatransparencia.dataclass.*
+import com.example.portaldatransparencia.remote.ResultGastoGeralCamara
 import com.example.portaldatransparencia.remote.ResultGastoGeralRequest
+import com.example.portaldatransparencia.remote.ResultRequest
 import com.example.portaldatransparencia.remote.ResultSenadoRequest
 import com.example.portaldatransparencia.security.SecurityPreferences
+import com.example.portaldatransparencia.views.camara.CamaraViewModel
 import com.example.portaldatransparencia.views.senado.SenadoViewModel
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
-import com.example.portaldatransparencia.views.view_generics.FormatValor
+import com.example.portaldatransparencia.util.FormatValor
+import com.example.portaldatransparencia.util.FormaterValueBilhoes
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -26,15 +27,23 @@ class FragmentGastoGeral: Fragment(R.layout.fragment_mais) {
     private var binding: FragmentMaisBinding? = null
     private val viewModel: GastoGeralViewModel by viewModel()
     private val senadoViewModel: SenadoViewModel by viewModel()
+    private val camaraViewModel: CamaraViewModel by viewModel()
     private val hideView: EnableDisableView by inject()
     private val converterValor = FormatValor()
+    private val formatValor = FormaterValueBilhoes()
     private lateinit var adapter: GastoGeralAdapter
+    private lateinit var adapterCamara: GastoGeralAdapterCamara
     private val securityPreferences: SecurityPreferences by inject()
     private lateinit var listSenador: ArrayList<Parlamentar>
+    private lateinit var listDeputados: ArrayList<Dado>
     private lateinit var listGastoGeral: ArrayList<ListSenador>
+    private lateinit var listGastoGeralDeputado: ArrayList<ListDeputado>
     private var listAdpter: ArrayList<ListSenador> = arrayListOf()
+    private var listAdpterDeputado: ArrayList<ListDeputado> = arrayListOf()
     private lateinit var gasto: GastoGeralDataClass
+    private lateinit var gastoCamara: GastoGeralCamara
     private lateinit var sizeSenador: String
+    private lateinit var sizeDeputado: String
     private lateinit var id: String
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -43,15 +52,25 @@ class FragmentGastoGeral: Fragment(R.layout.fragment_mais) {
         id = securityPreferences.getString("id")
 
         recyclerView()
+        recyclerViewCamara()
         observerSenado()
+        observerCamara()
     }
 
     private fun recyclerView() {
-
-        val recyclerSenador = binding!!.recyclerRanckingSenador
+        val recyclerSenador = binding?.layoutSenador!!.recyclerRanckingDeputado
         adapter = GastoGeralAdapter(FormatValor())
-        recyclerSenador.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        recyclerSenador.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         recyclerSenador.adapter = adapter
+    }
+
+    private fun recyclerViewCamara() {
+        val recyclerDeputado = binding?.layoutDeputado!!.recyclerRanckingDeputado
+        adapterCamara = GastoGeralAdapterCamara(FormatValor())
+        recyclerDeputado.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        recyclerDeputado.adapter = adapterCamara
     }
 
     private fun observerSenado(){
@@ -63,7 +82,7 @@ class FragmentGastoGeral: Fragment(R.layout.fragment_mais) {
                             val list = senado.listaParlamentarEmExercicio.parlamentares.parlamentar
                             sizeSenador = list.size.toString()
                             listSenador = list as ArrayList
-                            observer()
+                            observerGastoSenado()
                         }
                     }
                     is ResultSenadoRequest.Error -> {
@@ -77,7 +96,30 @@ class FragmentGastoGeral: Fragment(R.layout.fragment_mais) {
         }
     }
 
-    private fun observer() {
+    private fun observerCamara(){
+        camaraViewModel.searchData(ordenarPor = "nome").observe(viewLifecycleOwner){
+            it?.let { result ->
+                when (result) {
+                    is ResultRequest.Success -> {
+                        result.dado?.let { camara ->
+                            val list = camara.dados
+                            sizeDeputado = list.size.toString()
+                            listDeputados = list as ArrayList
+                            observerGastoCamara()
+                        }
+                    }
+                    is ResultRequest.Error -> {
+                        result.exception.message?.let { it -> }
+                    }
+                    is ResultRequest.ErrorConnection -> {
+                        result.exception.message?.let { it -> }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun observerGastoSenado() {
 
         viewModel.gastoGeral().observe(viewLifecycleOwner){
             it?.let { result ->
@@ -86,7 +128,7 @@ class FragmentGastoGeral: Fragment(R.layout.fragment_mais) {
                         result.dado?.let { gasto ->
                             listGastoGeral = gasto.gastoGeral.listSenador as ArrayList
                             this.gasto = gasto
-                            processList()
+                            processListSenado()
                         }
                     }
                     is ResultGastoGeralRequest.Error -> {
@@ -100,9 +142,32 @@ class FragmentGastoGeral: Fragment(R.layout.fragment_mais) {
         }
     }
 
-    private fun processList(){
+    private fun observerGastoCamara() {
 
-        addElement(gasto)
+        viewModel.gastoGeralCamara().observe(viewLifecycleOwner){
+            it?.let { result ->
+                when (result) {
+                    is ResultGastoGeralCamara.Success -> {
+                        result.dado?.let { gastos ->
+                            listGastoGeralDeputado = gastos.gastoGeral.listDeputado as ArrayList
+                            gastoCamara = gastos
+                            processListCamara()
+                        }
+                    }
+                    is ResultGastoGeralCamara.Error -> {
+                        result.exception.message?.let { it -> }
+                    }
+                    is ResultGastoGeralCamara.ErrorConnection -> {
+                        result.exception.message?.let { it -> }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun processListSenado(){
+
+        addElementSenado(gasto)
         listSenador.forEach { senador ->
             val nome = senador.identificacaoParlamentar.nomeParlamentar
             val urlFoto = senador.identificacaoParlamentar.urlFotoParlamentar
@@ -122,17 +187,52 @@ class FragmentGastoGeral: Fragment(R.layout.fragment_mais) {
                 listAdpter.add(item)
             }
         }
-        binding?.progressRanckingSenador?.let { hideView.disableView(it) }
-        binding?.progressRanckingDeputado?.let { hideView.disableView(it) }
-        binding?.textResultRackingDeputado?.let { hideView.enableView(it) }
+        binding?.layoutSenador?.run {
+            progressRancking.let { hideView.disableView(it) }
+        }
         adapter.updateData(listAdpter)
     }
 
-    private fun addElement(dados: GastoGeralDataClass) {
-        binding?.run {
-            val total = converterValor.formatValor(dados.gastoGeral.totalGeral.toDouble())
-            textViewGastoTotalSenador.text = "R$ ${total}"
-            textViewSenador.text = "$sizeSenador Senadores em exércicio"
+    private fun processListCamara(){
+
+        addElementCamara(gastoCamara)
+        listDeputados.forEach { deputado ->
+            val nome = deputado.nome
+            val urlFoto = deputado.urlFoto
+            listGastoGeralDeputado.forEach{
+                val n = it.nome
+                if (n == nome){
+                    it.urlFoto = urlFoto
+                }
+            }
+        }
+        listGastoGeralDeputado.forEach {
+            val item = it
+            if (item.urlFoto != null){
+                listAdpterDeputado.add(item)
+            }
+        }
+        binding?.layoutDeputado?.run {
+            progressRancking.let { hideView.disableView(it) }
+            textResultRacking.let { hideView.disableView(it) }
+        }
+        adapterCamara.updateData(listAdpterDeputado)
+    }
+
+    private fun addElementSenado(dados: GastoGeralDataClass) {
+        binding?.layoutSenador?.run {
+            val total = formatValor.formatValor(dados.gastoGeral.totalGeral.toDouble())
+            textViewGastoTotal.text = total
+            textViewTotalParlamentar.text = sizeSenador
+            textViewParlamentar.text = "Senadores em exércicio"
+        }
+    }
+
+    private fun addElementCamara(dados: GastoGeralCamara) {
+        binding?.layoutDeputado?.run {
+            val total = formatValor.formatValor(dados.gastoGeral.totalGeral.toDouble())
+            textViewGastoTotal.text = total
+            textViewTotalParlamentar.text = sizeDeputado
         }
     }
 

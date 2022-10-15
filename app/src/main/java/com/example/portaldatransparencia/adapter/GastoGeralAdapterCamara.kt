@@ -9,13 +9,13 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.portaldatransparencia.R
-import com.example.portaldatransparencia.dataclass.ListSenador
+import com.example.portaldatransparencia.dataclass.ListDeputado
 import com.example.portaldatransparencia.util.FormatValor
 
-class GastoGeralAdapter(private val formatValor: FormatValor) :
-    RecyclerView.Adapter<GastoGeralAdapter.MainViewHolder>() {
+class GastoGeralAdapterCamara(private val formatValor: FormatValor) :
+    RecyclerView.Adapter<GastoGeralAdapterCamara.MainViewHolder>() {
 
-    private var data = arrayListOf<ListSenador>()
+    private var data = arrayListOf<ListDeputado>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
         val item = LayoutInflater
@@ -35,7 +35,7 @@ class GastoGeralAdapter(private val formatValor: FormatValor) :
     inner class MainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
 
         @SuppressLint("UseCompatLoadingForDrawables")
-        fun bind(item: ListSenador) {
+        fun bind(item: ListDeputado) {
 
             itemView.run {
                 findViewById<TextView>(R.id.text_name_rancking).text = item.nome
@@ -59,7 +59,7 @@ class GastoGeralAdapter(private val formatValor: FormatValor) :
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun updateData(senador: ArrayList<ListSenador>) {
+    fun updateData(senador: ArrayList<ListDeputado>) {
         data = senador
         notifyDataSetChanged()
     }

@@ -85,10 +85,16 @@ interface ApiServiceGastos {
     ): Response<SenadorGastosDataClass>
 }
 
-interface ApiServiceGastoGeral {
+interface ApiServiceGastoGeralSenador {
     @Headers("Content-Type: application/json")
-    @GET("https://raw.githubusercontent.com/leandroleo4916/API_SENADO/master/geral")
+    @GET("https://raw.githubusercontent.com/leandroleo4916/API_SENADO/master/geralSenador")
     suspend fun getGastoGeral(): Response<GastoGeralDataClass>
+}
+
+interface ApiServiceGastoGeralDeputado {
+    @Headers("Content-Type: application/json")
+    @GET("https://raw.githubusercontent.com/leandroleo4916/API_SENADO/master/geralDeputado")
+    suspend fun getGastoGeral(): Response<GastoGeralCamara>
 }
 
 interface ApiServiceVotacoes {

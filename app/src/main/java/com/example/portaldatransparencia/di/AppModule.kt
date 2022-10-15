@@ -18,7 +18,8 @@ import com.example.portaldatransparencia.views.mais.GastoGeralViewModel
 import com.example.portaldatransparencia.views.senado.SenadoViewModel
 import com.example.portaldatransparencia.views.senador.SenadorViewModel
 import com.example.portaldatransparencia.views.senador.votacoes_senador.VotacoesViewModel
-import com.example.portaldatransparencia.views.view_generics.FormatValor
+import com.example.portaldatransparencia.util.FormatValor
+import com.example.portaldatransparencia.util.FormaterValueBilhoes
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -77,8 +78,11 @@ val retrofitModule = module {
         single<ApiServiceVotacoesItem> {
                 get<Retrofit>().create(ApiServiceVotacoesItem::class.java)
         }
-        single<ApiServiceGastoGeral> {
-                get<Retrofit>().create(ApiServiceGastoGeral::class.java)
+        single<ApiServiceGastoGeralSenador> {
+                get<Retrofit>().create(ApiServiceGastoGeralSenador::class.java)
+        }
+        single<ApiServiceGastoGeralDeputado> {
+                get<Retrofit>().create(ApiServiceGastoGeralDeputado::class.java)
         }
 }
 
@@ -105,7 +109,7 @@ val repositorySenador = module { single { SenadorRepository(get()) } }
 val repositorySenadorGeral = module { single { GeralSenadorRepository(get()) } }
 val repositoryVotacoes = module { single { VotacoesRepository(get()) } }
 val repositoryVotacoesItem = module { single { VotacoesRepositoryItem(get()) } }
-val repositoryGastoGeral = module { single { GastoGeralRepository(get()) } }
+val repositoryGastoGeral = module { single { GastoGeralRepository(get(), get()) } }
 
 val progressModule = module { factory { EnableDisableView() } }
 val ageModule = module { factory { CalculateAge() } }
@@ -114,6 +118,7 @@ val modifyChip = module { factory { ModifyChip() } }
 val retiraAcento = module { factory { RetiraAcento() } }
 val securityPreferences = module { single { SecurityPreferences(get()) } }
 val formatValor = module { factory { FormatValor() } }
+val formatValorBi = module { factory { FormaterValueBilhoes() } }
 
 val appModules = listOf( retrofitModule, viewModelModule, repositorySearch, progressModule,
         viewModelDeputado, repositoryIdDeputado, viewModelDespesas, repositoryDespesasDeputado,
@@ -121,5 +126,6 @@ val appModules = listOf( retrofitModule, viewModelModule, repositorySearch, prog
         ageModule, viewModelOccupation, repositoryOccupation, repositorySenado, viewModelSenado,
         viewModelSenador, visibilityNavFloating, repositorySenador, modifyChip, viewModelSenadorGeral,
         repositorySenadorGeral, retiraAcento, repositoryVotacoes, viewModelVotacoes,
-        repositoryVotacoesItem, formatValor, repositoryGastoGeral, viewModelGastoGeral
+        repositoryVotacoesItem, formatValor, repositoryGastoGeral, viewModelGastoGeral,
+        formatValorBi
 )

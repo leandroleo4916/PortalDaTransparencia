@@ -17,11 +17,10 @@ import com.example.portaldatransparencia.remote.ResultCotaRequest
 import com.example.portaldatransparencia.security.SecurityPreferences
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import com.example.portaldatransparencia.views.deputado.gastos_deputado.DespesasViewModel
-import com.example.portaldatransparencia.views.view_generics.FormatValor
+import com.example.portaldatransparencia.util.FormatValor
 import com.google.android.material.chip.Chip
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.text.DecimalFormat
 
 class FragmentGastosSenador: Fragment(R.layout.fragment_gastos), INoteDespesas {
 

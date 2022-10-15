@@ -1,4 +1,4 @@
-package com.example.portaldatransparencia.views.view_generics
+package com.example.portaldatransparencia.util
 
 class FormatValor {
 

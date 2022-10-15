@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.dataclass.DadoDespesas
 import com.example.portaldatransparencia.interfaces.INoteDespesas
-import com.example.portaldatransparencia.views.view_generics.FormatValor
+import com.example.portaldatransparencia.util.FormatValor
 
 class DespesasAdapter(private val listener: INoteDespesas, private val formatValor: FormatValor):
     RecyclerView.Adapter<DespesasAdapter.DespesasViewHolder>() {

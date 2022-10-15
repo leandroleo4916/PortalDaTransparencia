@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.databinding.RecyclerGastosBinding
 import com.example.portaldatransparencia.dataclass.GastosSenador
-import com.example.portaldatransparencia.views.view_generics.FormatValor
+import com.example.portaldatransparencia.util.FormatValor
 
 class GastorSenadorAdapter(private val formatValor: FormatValor): RecyclerView.Adapter<GastorSenadorAdapter.DespesasViewHolder>() {
 

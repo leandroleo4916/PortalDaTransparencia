@@ -2,6 +2,7 @@ package com.example.portaldatransparencia.views.mais
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import com.example.portaldatransparencia.dataclass.GastoGeralCamara
 import com.example.portaldatransparencia.dataclass.GastoGeralDataClass
 import com.example.portaldatransparencia.dataclass.OccupationDataClass
 import com.example.portaldatransparencia.remote.*
@@ -10,6 +11,9 @@ class GastoGeralViewModel(private val repository: GastoGeralRepository): ViewMod
 
     fun gastoGeral():
             LiveData<ResultGastoGeralRequest<GastoGeralDataClass?>> = repository.gastoGeralData()
+
+    fun gastoGeralCamara():
+            LiveData<ResultGastoGeralCamara<GastoGeralCamara?>> = repository.gastoGeralCamara()
 
 }
 
