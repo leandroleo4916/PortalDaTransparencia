@@ -11,8 +11,9 @@ import com.bumptech.glide.Glide
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.dataclass.ListDeputado
 import com.example.portaldatransparencia.util.FormatValor
+import com.example.portaldatransparencia.util.FormaterValueBilhoes
 
-class GastoGeralAdapterCamara(private val formatValor: FormatValor) :
+class GastoGeralAdapterCamara(private val formatValor: FormaterValueBilhoes) :
     RecyclerView.Adapter<GastoGeralAdapterCamara.MainViewHolder>() {
 
     private var data = arrayListOf<ListDeputado>()
@@ -40,7 +41,7 @@ class GastoGeralAdapterCamara(private val formatValor: FormatValor) :
             itemView.run {
                 findViewById<TextView>(R.id.text_name_rancking).text = item.nome
                 findViewById<TextView>(R.id.text_valor_item).text =
-                    "R$ ${formatValor.formatValor(item.gasto.toDouble())}"
+                    "${formatValor.formatValor(item.gasto.toDouble())}"
                 val medal = findViewById<ImageView>(R.id.image_medal)
                 val image = findViewById<ImageView>(R.id.icon_image)
                 Glide.with(context)
@@ -59,8 +60,11 @@ class GastoGeralAdapterCamara(private val formatValor: FormatValor) :
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun updateData(senador: ArrayList<ListDeputado>) {
-        data = senador
+    fun updateData(deputado: ArrayList<ListDeputado>) {
+        deputado.sortByDescending {
+            it.gasto.toInt()
+        }
+        data = deputado
         notifyDataSetChanged()
     }
 }

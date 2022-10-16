@@ -1,11 +1,23 @@
 package com.example.portaldatransparencia.util
 
-class FormaterValueBilhoes {
+class FormaterValueBilhoes(private val format: FormatValor) {
 
     fun formatValor(valor: Double): String {
         val s = valor.toInt().toString()
 
         return when (s.length){
+            4 -> {
+                val value = format.formatValor(valor)
+                "R$ $value"
+            }
+            5 -> {
+                val value = format.formatValor(valor)
+                "R$ $value"
+            }
+            6 -> {
+                val sub = s.substring(0, 3)
+                "R$ $sub mil"
+            }
             7 -> {
                 val sub1 = s.substring(0, 1)
                 val sub2 = s.substring(1, 3)

@@ -118,7 +118,7 @@ val modifyChip = module { factory { ModifyChip() } }
 val retiraAcento = module { factory { RetiraAcento() } }
 val securityPreferences = module { single { SecurityPreferences(get()) } }
 val formatValor = module { factory { FormatValor() } }
-val formatValorBi = module { factory { FormaterValueBilhoes() } }
+val formatValorBi = module { factory { FormaterValueBilhoes(get()) } }
 
 val appModules = listOf( retrofitModule, viewModelModule, repositorySearch, progressModule,
         viewModelDeputado, repositoryIdDeputado, viewModelDespesas, repositoryDespesasDeputado,

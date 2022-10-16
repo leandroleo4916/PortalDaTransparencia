@@ -14,10 +14,10 @@ import com.example.portaldatransparencia.remote.ResultGastoGeralRequest
 import com.example.portaldatransparencia.remote.ResultRequest
 import com.example.portaldatransparencia.remote.ResultSenadoRequest
 import com.example.portaldatransparencia.security.SecurityPreferences
+import com.example.portaldatransparencia.util.FormatValor
 import com.example.portaldatransparencia.views.camara.CamaraViewModel
 import com.example.portaldatransparencia.views.senado.SenadoViewModel
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
-import com.example.portaldatransparencia.util.FormatValor
 import com.example.portaldatransparencia.util.FormaterValueBilhoes
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -29,8 +29,8 @@ class FragmentGastoGeral: Fragment(R.layout.fragment_mais) {
     private val senadoViewModel: SenadoViewModel by viewModel()
     private val camaraViewModel: CamaraViewModel by viewModel()
     private val hideView: EnableDisableView by inject()
-    private val converterValor = FormatValor()
-    private val formatValor = FormaterValueBilhoes()
+    private val formatValor: FormaterValueBilhoes by inject()
+    private val format: FormatValor by inject()
     private lateinit var adapter: GastoGeralAdapter
     private lateinit var adapterCamara: GastoGeralAdapterCamara
     private val securityPreferences: SecurityPreferences by inject()
@@ -59,7 +59,7 @@ class FragmentGastoGeral: Fragment(R.layout.fragment_mais) {
 
     private fun recyclerViewSenado() {
         val recyclerSenador = binding?.layoutUnic!!.recyclerRanckingSenado
-        adapter = GastoGeralAdapter(FormatValor())
+        adapter = GastoGeralAdapter(FormaterValueBilhoes(format))
         recyclerSenador.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         recyclerSenador.adapter = adapter
@@ -67,7 +67,7 @@ class FragmentGastoGeral: Fragment(R.layout.fragment_mais) {
 
     private fun recyclerViewCamara() {
         val recyclerDeputado = binding?.layoutUnic!!.recyclerRanckingDeputado
-        adapterCamara = GastoGeralAdapterCamara(FormatValor())
+        adapterCamara = GastoGeralAdapterCamara(FormaterValueBilhoes(format))
         recyclerDeputado.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         recyclerDeputado.adapter = adapterCamara

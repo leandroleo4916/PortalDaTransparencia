@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:id="@+id/constraint_deputado"
-    android:layout_margin="12dp"
+    android:layout_margin="10dp"
     android:background="@drawable/back_white"
     android:elevation="6dp"
     android:layout_height="wrap_content">
@@ -35,8 +35,8 @@
 
     <ImageView
         android:id="@+id/image_medal"
-        android:layout_width="22dp"
-        android:layout_height="24dp"
+        android:layout_width="24dp"
+        android:layout_height="28dp"
         android:layout_marginEnd="12dp"
         android:background="@color/white"
         android:elevation="10dp"
@@ -50,30 +50,30 @@
         android:id="@+id/text_name_rancking"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginTop="2dp"
         android:singleLine="true"
         android:text="Nome"
         android:textColor="@color/black"
         android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="@+id/icon_image"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/icon_image"
-        app:layout_constraintTop_toTopOf="@+id/icon_image" />
+        app:layout_constraintStart_toStartOf="@+id/icon_image"
+        app:layout_constraintTop_toBottomOf="@+id/icon_image" />
 
     <TextView
         android:id="@+id/text_valor_item"
-        android:layout_width="0dp"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:gravity="center"
+        android:layout_marginTop="2dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="8dp"
+        android:singleLine="true"
         android:text="R$ 0,00"
         android:textColor="@color/teal_700"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/icon_image" />
+        app:layout_constraintStart_toStartOf="@+id/text_name_rancking"
+        app:layout_constraintTop_toBottomOf="@+id/text_name_rancking" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
