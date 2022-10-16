@@ -51,14 +51,14 @@ class FragmentGastoGeral: Fragment(R.layout.fragment_mais) {
         binding = FragmentMaisBinding.bind(view)
         id = securityPreferences.getString("id")
 
-        recyclerView()
+        recyclerViewSenado()
         recyclerViewCamara()
         observerSenado()
         observerCamara()
     }
 
-    private fun recyclerView() {
-        val recyclerSenador = binding?.layoutSenador!!.recyclerRanckingDeputado
+    private fun recyclerViewSenado() {
+        val recyclerSenador = binding?.layoutUnic!!.recyclerRanckingSenado
         adapter = GastoGeralAdapter(FormatValor())
         recyclerSenador.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -66,7 +66,7 @@ class FragmentGastoGeral: Fragment(R.layout.fragment_mais) {
     }
 
     private fun recyclerViewCamara() {
-        val recyclerDeputado = binding?.layoutDeputado!!.recyclerRanckingDeputado
+        val recyclerDeputado = binding?.layoutUnic!!.recyclerRanckingDeputado
         adapterCamara = GastoGeralAdapterCamara(FormatValor())
         recyclerDeputado.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -187,8 +187,9 @@ class FragmentGastoGeral: Fragment(R.layout.fragment_mais) {
                 listAdpter.add(item)
             }
         }
-        binding?.layoutSenador?.run {
-            progressRancking.let { hideView.disableView(it) }
+        binding?.layoutUnic?.run {
+            progressRanckingSenador.let { hideView.disableView(it) }
+            textResultRackingSenador.let { hideView.disableView(it) }
         }
         adapter.updateData(listAdpter)
     }
@@ -212,27 +213,24 @@ class FragmentGastoGeral: Fragment(R.layout.fragment_mais) {
                 listAdpterDeputado.add(item)
             }
         }
-        binding?.layoutDeputado?.run {
+        binding?.layoutUnic?.run {
             progressRancking.let { hideView.disableView(it) }
-            textResultRacking.let { hideView.disableView(it) }
+            textResultRackingDeputado.let { hideView.disableView(it) }
         }
         adapterCamara.updateData(listAdpterDeputado)
     }
 
     private fun addElementSenado(dados: GastoGeralDataClass) {
-        binding?.layoutSenador?.run {
+        binding?.layoutUnic?.run {
             val total = formatValor.formatValor(dados.gastoGeral.totalGeral.toDouble())
-            textViewGastoTotal.text = total
-            textViewTotalParlamentar.text = sizeSenador
-            textViewParlamentar.text = "Senadores em exércicio"
+            textViewGastoSenadores.text = total
         }
     }
 
     private fun addElementCamara(dados: GastoGeralCamara) {
-        binding?.layoutDeputado?.run {
+        binding?.layoutUnic?.run {
             val total = formatValor.formatValor(dados.gastoGeral.totalGeral.toDouble())
-            textViewGastoTotal.text = total
-            textViewTotalParlamentar.text = sizeDeputado
+            textViewGastoDeputados.text = total
         }
     }
 

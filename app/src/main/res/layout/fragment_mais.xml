@@ -19,31 +19,17 @@
             android:layout_height="match_parent">
 
             <FrameLayout
-                android:id="@+id/frame_deputado"
+                android:id="@+id/frame_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                app:layout_constraintEnd_toEndOf="@+id/frame_senador"
+                android:layout_margin="6dp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="MissingConstraints">
 
                 <include
-                    android:id="@+id/layout_deputado"
-                    layout="@layout/layout_dados_gerais" />
-
-            </FrameLayout>
-
-            <FrameLayout
-                android:id="@+id/frame_senador"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                app:layout_constraintTop_toBottomOf="@+id/frame_deputado"
-                tools:ignore="MissingConstraints">
-
-                <include
-                    android:id="@+id/layout_senador"
+                    android:id="@+id/layout_unic"
                     layout="@layout/layout_dados_gerais" />
 
             </FrameLayout>
