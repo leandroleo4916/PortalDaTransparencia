@@ -9,13 +9,14 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.adapter.DespesasAdapter
+import com.example.portaldatransparencia.adapter.DimensionAdapter
 import com.example.portaldatransparencia.databinding.FragmentGastosBinding
 import com.example.portaldatransparencia.dataclass.DadoDespesas
 import com.example.portaldatransparencia.interfaces.INoteDespesas
 import com.example.portaldatransparencia.remote.ResultDespesasRequest
 import com.example.portaldatransparencia.security.SecurityPreferences
-import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import com.example.portaldatransparencia.util.FormatValor
+import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import com.google.android.material.chip.Chip
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -25,6 +26,7 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas {
     private var binding: FragmentGastosBinding? = null
     private val viewModel: DespesasViewModel by viewModel()
     private lateinit var adapter: DespesasAdapter
+    private lateinit var adapterDimension: DimensionAdapter
     private val securityPreferences: SecurityPreferences by inject()
     private val statusView: EnableDisableView by inject()
     private val formatValue: FormatValor by inject()
@@ -37,6 +39,7 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentGastosBinding.bind(view)
+
         chipEnabled = binding!!.chipGroupItem.chip2022
         id = securityPreferences.getString("id")
         recyclerView()
@@ -49,6 +52,11 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas {
         adapter = DespesasAdapter(this, FormatValor())
         recycler.layoutManager = LinearLayoutManager(context)
         recycler.adapter = adapter
+
+        val recyclerDimension = binding!!.frameRecyclerDimension.recyclerDimension
+        adapterDimension = DimensionAdapter(FormatValor(), context!!)
+        recyclerDimension.layoutManager = LinearLayoutManager(context)
+        recyclerDimension.adapter = adapterDimension
     }
 
     private fun observer(id: String, year: String, pagina: Int) {

@@ -8,16 +8,19 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.portaldatransparencia.R
+import com.example.portaldatransparencia.adapter.DimensionAdapter
 import com.example.portaldatransparencia.adapter.GastorSenadorAdapter
 import com.example.portaldatransparencia.databinding.FragmentGastosBinding
 import com.example.portaldatransparencia.dataclass.DadoDespesas
 import com.example.portaldatransparencia.dataclass.GastosSenador
+import com.example.portaldatransparencia.dataclass.SublistDataClass
 import com.example.portaldatransparencia.interfaces.INoteDespesas
 import com.example.portaldatransparencia.remote.ResultCotaRequest
 import com.example.portaldatransparencia.security.SecurityPreferences
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import com.example.portaldatransparencia.views.deputado.gastos_deputado.DespesasViewModel
 import com.example.portaldatransparencia.util.FormatValor
+import com.example.portaldatransparencia.util.FormatValueFloat
 import com.google.android.material.chip.Chip
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -27,13 +30,16 @@ class FragmentGastosSenador: Fragment(R.layout.fragment_gastos), INoteDespesas {
     private var binding: FragmentGastosBinding? = null
     private val viewModelGastos: DespesasViewModel by viewModel()
     private lateinit var adapter: GastorSenadorAdapter
+    private lateinit var adapterDimension: DimensionAdapter
     private val securityPreferences: SecurityPreferences by inject()
     private val statusView: EnableDisableView by inject()
     private val formatValue: FormatValor by inject()
+    private val formatFloat: FormatValueFloat by inject()
     private lateinit var chipEnabled: Chip
     private lateinit var nome: String
     private var ano = "2022"
     private var numberNote = 0
+    private var dados: List<GastosSenador> = listOf()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -51,6 +57,11 @@ class FragmentGastosSenador: Fragment(R.layout.fragment_gastos), INoteDespesas {
         adapter = GastorSenadorAdapter(FormatValor())
         recycler.layoutManager = LinearLayoutManager(context)
         recycler.adapter = adapter
+
+        val recyclerDimension = binding!!.frameRecyclerDimension.recyclerDimension
+        adapterDimension = DimensionAdapter(FormatValor(), requireContext())
+        recyclerDimension.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        recyclerDimension.adapter = adapterDimension
     }
 
     private fun observerGastosSenador(year: String, nome: String) {
@@ -63,8 +74,10 @@ class FragmentGastosSenador: Fragment(R.layout.fragment_gastos), INoteDespesas {
                             if (gastos.gastosSenador.isNotEmpty()){
                                 numberNote = gastos.gastosSenador.size
                                 calculateNumberNote()
-                                calculateTotalSenador(gastos.gastosSenador)
-                                adapter.updateDataSenador(gastos.gastosSenador)
+                                dados = gastos.gastosSenador
+                                calculateTotalSenador()
+                                adapter.updateDataSenador(dados)
+                                captureDataNotes()
                             }
                             else errorCallApi("Não tem dados para $ano")
                         }
@@ -84,6 +97,66 @@ class FragmentGastosSenador: Fragment(R.layout.fragment_gastos), INoteDespesas {
         }
     }
 
+    private fun captureDataNotes(){
+
+        val subList: ArrayList<SublistDataClass> = arrayListOf()
+        var aluguel = 0.0F
+        var divulgacao = 0.0F
+        var passagens = 0.0F
+        var contratacao = 0.0F
+        var locomocao = 0.0F
+        var aquisicao = 0.0F
+        var servico = 0.0F
+        var outros = 0.0F
+        dados.forEach {
+            val value = formatFloat.formatFloat(it.valorReembolsado)
+            when (it.tipoDespesa.substring(0,5)){
+                "Alugu" -> aluguel += value
+                "Divul" -> divulgacao += value
+                "Passa" -> passagens += value
+                "Contr" -> contratacao += value
+                "Locom" -> locomocao += value
+                "Aquis" -> aquisicao += value
+                "Servi" -> servico += value
+                else -> outros += value
+            }
+        }
+        if (aluguel.toInt() != 0){
+            subList.add(SublistDataClass(aluguel.toInt(), "Aluguel", R.drawable.back_1,
+                "https://cdn-icons-png.flaticon.com/512/1971/1971020.png"))
+        }
+        if (divulgacao.toInt() != 0){
+            subList.add(SublistDataClass(divulgacao.toInt(), "Divulgação", R.drawable.back_2,
+                "https://cdn-icons-png.flaticon.com/512/1971/1971020.png"))
+        }
+        if (passagens.toInt() != 0){
+            subList.add(SublistDataClass(passagens.toInt(), "Passagens", R.drawable.back_3,
+                "https://cdn-icons-png.flaticon.com/512/1971/1971020.png"))
+        }
+        if (contratacao.toInt() != 0){
+            subList.add(SublistDataClass(contratacao.toInt(), "Contratação", R.drawable.back_4,
+                "https://cdn-icons-png.flaticon.com/512/1971/1971020.png"))
+        }
+        if (locomocao.toInt() != 0){
+            subList.add(SublistDataClass(locomocao.toInt(), "Locomoção", R.drawable.back_5,
+                "https://cdn-icons-png.flaticon.com/512/1971/1971020.png"))
+        }
+        if (aquisicao.toInt() != 0){
+            subList.add(SublistDataClass(aquisicao.toInt(), "Aquisição", R.drawable.back_6,
+                "https://cdn-icons-png.flaticon.com/512/1971/1971020.png"))
+        }
+        if (servico.toInt() != 0){
+            subList.add(SublistDataClass(servico.toInt(), "Serviços", R.drawable.back_7,
+                "https://cdn-icons-png.flaticon.com/512/1971/1971020.png"))
+        }
+        if (outros.toInt() != 0){
+            subList.add(SublistDataClass(outros.toInt(), "Outros", R.drawable.back_1,
+                "https://cdn-icons-png.flaticon.com/512/1971/1971020.png"))
+        }
+
+        adapterDimension.updateData(subList)
+    }
+
     private fun errorCallApi(value: String){
         binding?.run {
             statusView.disableView(progressDespesas)
@@ -96,22 +169,12 @@ class FragmentGastosSenador: Fragment(R.layout.fragment_gastos), INoteDespesas {
         binding!!.textNotesSend.text = "$numberNote notas"
     }
 
-    private fun calculateTotalSenador(dados: List<GastosSenador>) {
+    private fun calculateTotalSenador() {
 
         var total = 0.0
         dados.forEach  {
             val valor = it.valorReembolsado
-            total += if (valor.contains(",")){
-                val value = valor.split(",")
-                if (value[0].isNotEmpty()){
-                    value[0].toFloat()
-                }
-                else 0.1F
-            }
-            else {
-                if (valor.isNotEmpty()) valor.toFloat()
-                else  0.0F
-            }
+            total += formatFloat.formatFloat(valor)
         }
         statusView(total)
     }

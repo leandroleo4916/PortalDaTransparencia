@@ -135,6 +135,16 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include
+            android:id="@+id/frame_recycler_dimension"
+            layout="@layout/simple_recycler_dimension"/>
+
+    </FrameLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_despesas"
         android:layout_width="match_parent"

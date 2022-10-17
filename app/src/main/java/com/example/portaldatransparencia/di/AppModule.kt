@@ -2,8 +2,7 @@ package com.example.portaldatransparencia.di
 
 import com.example.portaldatransparencia.remote.*
 import com.example.portaldatransparencia.security.SecurityPreferences
-import com.example.portaldatransparencia.util.CalculateAge
-import com.example.portaldatransparencia.util.RetiraAcento
+import com.example.portaldatransparencia.util.*
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import com.example.portaldatransparencia.views.view_generics.ModifyChip
 import com.example.portaldatransparencia.views.view_generics.VisibilityNavViewAndFloating
@@ -18,8 +17,6 @@ import com.example.portaldatransparencia.views.mais.GastoGeralViewModel
 import com.example.portaldatransparencia.views.senado.SenadoViewModel
 import com.example.portaldatransparencia.views.senador.SenadorViewModel
 import com.example.portaldatransparencia.views.senador.votacoes_senador.VotacoesViewModel
-import com.example.portaldatransparencia.util.FormatValor
-import com.example.portaldatransparencia.util.FormaterValueBilhoes
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -119,6 +116,7 @@ val retiraAcento = module { factory { RetiraAcento() } }
 val securityPreferences = module { single { SecurityPreferences(get()) } }
 val formatValor = module { factory { FormatValor() } }
 val formatValorBi = module { factory { FormaterValueBilhoes(get()) } }
+val formatValorFloat = module { factory { FormatValueFloat() } }
 
 val appModules = listOf( retrofitModule, viewModelModule, repositorySearch, progressModule,
         viewModelDeputado, repositoryIdDeputado, viewModelDespesas, repositoryDespesasDeputado,
@@ -127,5 +125,5 @@ val appModules = listOf( retrofitModule, viewModelModule, repositorySearch, prog
         viewModelSenador, visibilityNavFloating, repositorySenador, modifyChip, viewModelSenadorGeral,
         repositorySenadorGeral, retiraAcento, repositoryVotacoes, viewModelVotacoes,
         repositoryVotacoesItem, formatValor, repositoryGastoGeral, viewModelGastoGeral,
-        formatValorBi
+        formatValorBi, formatValorFloat
 )
