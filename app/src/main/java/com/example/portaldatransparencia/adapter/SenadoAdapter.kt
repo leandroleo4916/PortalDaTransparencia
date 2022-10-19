@@ -4,16 +4,14 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Filter
-import android.widget.Filterable
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.dataclass.Parlamentar
 import com.example.portaldatransparencia.interfaces.IClickSenador
 import com.example.portaldatransparencia.interfaces.INotificationSenado
+import kotlinx.coroutines.*
 import java.util.*
 
 class SenadoAdapter(private val listener: IClickSenador, private val notify: INotificationSenado):
@@ -59,6 +57,7 @@ class SenadoAdapter(private val listener: IClickSenador, private val notify: INo
             val urlFoto = item.urlFotoParlamentar.split(":/")
             val photo = https+urlFoto[1]
             itemView.run {
+                val progress= findViewById<ProgressBar>(R.id.progress_list)
                 val image = findViewById<ImageView>(R.id.icon_deputado)
                 Glide.with(context)
                     .load(photo)
@@ -67,6 +66,19 @@ class SenadoAdapter(private val listener: IClickSenador, private val notify: INo
                 findViewById<TextView>(R.id.text_name).text = item.nomeParlamentar
                 findViewById<TextView>(R.id.text_partido).text = item.siglaPartidoParlamentar
                 findViewById<TextView>(R.id.text_state).text = " - ${item.ufParlamentar}"
+
+                var value = 0
+                CoroutineScope(Dispatchers.Main).launch {
+                    withContext(Dispatchers.Default) {
+                        while (value <= 20) {
+                            withContext(Dispatchers.Main) {
+                                progress.progress = value
+                            }
+                            delay(5)
+                            value++
+                        }
+                    }
+                }
             }
         }
     }

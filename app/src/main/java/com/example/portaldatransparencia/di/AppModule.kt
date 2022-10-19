@@ -1,5 +1,6 @@
 package com.example.portaldatransparencia.di
 
+import com.example.portaldatransparencia.adapter.DimensionAdapter
 import com.example.portaldatransparencia.remote.*
 import com.example.portaldatransparencia.security.SecurityPreferences
 import com.example.portaldatransparencia.util.*
@@ -19,6 +20,7 @@ import com.example.portaldatransparencia.views.senador.SenadorViewModel
 import com.example.portaldatransparencia.views.senador.votacoes_senador.VotacoesViewModel
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -85,7 +87,7 @@ val retrofitModule = module {
 
 val viewModelModule = module { viewModel { CamaraViewModel(get()) } }
 val viewModelDeputado = module { viewModel { DeputadoViewModel(get()) } }
-val viewModelDespesas = module { viewModel { DespesasViewModel(get()) } }
+val viewModelDespesas = module { viewModel { DespesasViewModel(get(), get()) } }
 val viewModelFront = module { viewModel { FrenteViewModel(get()) } }
 val viewModelProposta = module { viewModel { PropostaViewModel(get()) } }
 val viewModelOccupation = module { viewModel { OccupationViewModel(get()) } }
@@ -118,6 +120,8 @@ val formatValor = module { factory { FormatValor() } }
 val formatValorBi = module { factory { FormaterValueBilhoes(get()) } }
 val formatValorFloat = module { factory { FormatValueFloat() } }
 
+val dimensionAdapter = module { factory { DimensionAdapter(get(), androidContext()) } }
+
 val appModules = listOf( retrofitModule, viewModelModule, repositorySearch, progressModule,
         viewModelDeputado, repositoryIdDeputado, viewModelDespesas, repositoryDespesasDeputado,
         securityPreferences, viewModelFront, repositoryFront, viewModelProposta, repositoryProposta,
@@ -125,5 +129,5 @@ val appModules = listOf( retrofitModule, viewModelModule, repositorySearch, prog
         viewModelSenador, visibilityNavFloating, repositorySenador, modifyChip, viewModelSenadorGeral,
         repositorySenadorGeral, retiraAcento, repositoryVotacoes, viewModelVotacoes,
         repositoryVotacoesItem, formatValor, repositoryGastoGeral, viewModelGastoGeral,
-        formatValorBi, formatValorFloat
+        formatValorBi, formatValorFloat, dimensionAdapter
 )

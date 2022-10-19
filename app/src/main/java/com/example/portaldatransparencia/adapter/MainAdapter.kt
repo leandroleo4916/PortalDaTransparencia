@@ -4,16 +4,14 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Filter
-import android.widget.Filterable
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.dataclass.Dado
 import com.example.portaldatransparencia.interfaces.IClickDeputado
 import com.example.portaldatransparencia.interfaces.INotification
+import kotlinx.coroutines.*
 import java.util.*
 
 class MainAdapter(private val listener: IClickDeputado, private val notify: INotification):
@@ -53,6 +51,8 @@ class MainAdapter(private val listener: IClickDeputado, private val notify: INot
         @SuppressLint("UseCompatLoadingForDrawables")
         fun bind(deputado: Dado) {
             itemView.run {
+
+                val progress= findViewById<ProgressBar>(R.id.progress_list)
                 val image = findViewById<ImageView>(R.id.icon_deputado)
                 Glide.with(context)
                     .load(deputado.urlFoto)
@@ -61,6 +61,19 @@ class MainAdapter(private val listener: IClickDeputado, private val notify: INot
                 findViewById<TextView>(R.id.text_name).text = deputado.nome
                 findViewById<TextView>(R.id.text_partido).text = deputado.siglaPartido
                 findViewById<TextView>(R.id.text_state).text = " - ${deputado.siglaUf}"
+
+                var value = 0
+                CoroutineScope(Dispatchers.Main).launch {
+                    withContext(Dispatchers.Default) {
+                        while (value <= 20) {
+                            withContext(Dispatchers.Main) {
+                                progress.progress = value
+                            }
+                            delay(5)
+                            value++
+                        }
+                    }
+                }
             }
         }
     }

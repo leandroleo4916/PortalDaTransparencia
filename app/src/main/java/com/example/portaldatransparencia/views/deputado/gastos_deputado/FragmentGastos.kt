@@ -26,7 +26,7 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas {
     private var binding: FragmentGastosBinding? = null
     private val viewModel: DespesasViewModel by viewModel()
     private lateinit var adapter: DespesasAdapter
-    private lateinit var adapterDimension: DimensionAdapter
+    private val adapterDimension: DimensionAdapter by inject()
     private val securityPreferences: SecurityPreferences by inject()
     private val statusView: EnableDisableView by inject()
     private val formatValue: FormatValor by inject()
@@ -35,6 +35,7 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas {
     private var total = 0.0
     private var numberNote = 0
     private var page = 1
+    private var listDadosDimension: ArrayList<DadoDespesas> = arrayListOf()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -54,8 +55,8 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas {
         recycler.adapter = adapter
 
         val recyclerDimension = binding!!.frameRecyclerDimension.recyclerDimension
-        adapterDimension = DimensionAdapter(FormatValor(), context!!)
-        recyclerDimension.layoutManager = LinearLayoutManager(context)
+        recyclerDimension.layoutManager = LinearLayoutManager(context,
+            LinearLayoutManager.HORIZONTAL, false)
         recyclerDimension.adapter = adapterDimension
     }
 
@@ -67,6 +68,10 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas {
                     is ResultDespesasRequest.Success -> {
                         result.dado?.let { despesas ->
                             if (despesas.dados.isNotEmpty()){
+
+                                if (page == 1) listDadosDimension = arrayListOf()
+                                listDadosDimension += despesas.dados
+
                                 statusView.disableView(binding!!.textNotValue)
                                 val size = despesas.dados.size
                                 numberNote += size
@@ -74,7 +79,9 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas {
                                 calculateTotal(despesas.dados, page)
                                 adapter.updateData(despesas.dados, page)
                                 page += 1
+
                                 if (size >= 100) observer(id, year, page)
+                                else viewModel.captureDataNotes(listDadosDimension, adapterDimension)
 
                             }else{
                                 if (numberNote == 0) {
@@ -147,6 +154,7 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas {
             statusView.disableView(imageView2)
         }
         adapter.updateData(deputados = arrayListOf(), 1)
+        adapterDimension.updateData(arrayListOf())
         observer(id, viewDisabled.text as String, page)
     }
 

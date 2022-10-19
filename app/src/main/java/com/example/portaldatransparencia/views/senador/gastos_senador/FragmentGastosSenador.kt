@@ -30,7 +30,7 @@ class FragmentGastosSenador: Fragment(R.layout.fragment_gastos), INoteDespesas {
     private var binding: FragmentGastosBinding? = null
     private val viewModelGastos: DespesasViewModel by viewModel()
     private lateinit var adapter: GastorSenadorAdapter
-    private lateinit var adapterDimension: DimensionAdapter
+    private val adapterDimension: DimensionAdapter by inject()
     private val securityPreferences: SecurityPreferences by inject()
     private val statusView: EnableDisableView by inject()
     private val formatValue: FormatValor by inject()
@@ -59,8 +59,8 @@ class FragmentGastosSenador: Fragment(R.layout.fragment_gastos), INoteDespesas {
         recycler.adapter = adapter
 
         val recyclerDimension = binding!!.frameRecyclerDimension.recyclerDimension
-        adapterDimension = DimensionAdapter(FormatValor(), requireContext())
-        recyclerDimension.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        recyclerDimension.layoutManager = LinearLayoutManager(context,
+            LinearLayoutManager.HORIZONTAL, false)
         recyclerDimension.adapter = adapterDimension
     }
 
@@ -144,7 +144,7 @@ class FragmentGastosSenador: Fragment(R.layout.fragment_gastos), INoteDespesas {
         }
         if (aquisicao.toInt() != 0){
             subList.add(SublistDataClass(aquisicao.toInt(), "Aquisição de materiais", R.drawable.back_2,
-                "https://cdn-icons-png.flaticon.com/512/4135/4135635.png"))
+                "https://cdn-icons-png.flaticon.com/512/6169/6169675.png"))
         }
         if (servico.toInt() != 0){
             subList.add(SublistDataClass(servico.toInt(), "Serviços postais", R.drawable.back_1,
