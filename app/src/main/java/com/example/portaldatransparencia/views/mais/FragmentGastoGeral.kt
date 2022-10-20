@@ -1,5 +1,6 @@
 package com.example.portaldatransparencia.views.mais
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -15,10 +16,12 @@ import com.example.portaldatransparencia.remote.ResultRequest
 import com.example.portaldatransparencia.remote.ResultSenadoRequest
 import com.example.portaldatransparencia.security.SecurityPreferences
 import com.example.portaldatransparencia.util.FormatValor
+import com.example.portaldatransparencia.util.FormaterValueBilhoes
 import com.example.portaldatransparencia.views.camara.CamaraViewModel
 import com.example.portaldatransparencia.views.senado.SenadoViewModel
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
-import com.example.portaldatransparencia.util.FormaterValueBilhoes
+import kotlinx.serialization.builtins.serializer
+import org.eazegraph.lib.models.PieModel
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -55,6 +58,7 @@ class FragmentGastoGeral: Fragment(R.layout.fragment_mais) {
         recyclerViewCamara()
         observerSenado()
         observerCamara()
+        buildGraph()
     }
 
     private fun recyclerViewSenado() {
@@ -234,4 +238,21 @@ class FragmentGastoGeral: Fragment(R.layout.fragment_mais) {
         }
     }
 
+    private fun buildGraph(){
+        addElementGraph(getString(R.string.manutencao_escritorio), 1200.00F, "#D50000")
+        addElementGraph(getString(R.string.divulgacao_parlamentar), 200.00F, "#2467AA")
+        addElementGraph(getString(R.string.passagens_aereas), 2200.00F, "#37505C")
+        addElementGraph(getString(R.string.servicos_telefonicos), 2200.00F, "#F47B37")
+        addElementGraph(getString(R.string.hospedagem_alimentacao), 2200.00F, "#17DC1B")
+        addElementGraph(getString(R.string.combustivel_lubrificante), 2200.00F, "#6378AF")
+        addElementGraph(getString(R.string.servico_postal), 2200.00F, "#40A89A")
+        addElementGraph(getString(R.string.outros_servicos), 2200.00F, "#08197A")
+    }
+
+    private fun addElementGraph(title: String, value: Float, color: String){
+        binding?.layoutUnic?.run {
+            piechart.addPieSlice(PieModel(title, value, Color.parseColor(color)))
+            piechart.startAnimation().serializer()
+        }
+    }
 }

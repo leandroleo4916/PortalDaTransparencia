@@ -100,7 +100,7 @@ class DespesasViewModel(private val repository: IdDespesasRepository,
         if (servico.toInt() != 0) {
             subList.add(
                 SublistDataClass(
-                    servico.toInt(), "Serviços postais", R.drawable.back_1,
+                    servico.toInt(), "Serviços postais, correios", R.drawable.back_1,
                     "https://cdn-icons-png.flaticon.com/512/4280/4280211.png"
                 )
             )
@@ -108,7 +108,7 @@ class DespesasViewModel(private val repository: IdDespesasRepository,
         if (outros.toInt() != 0) {
             subList.add(
                 SublistDataClass(
-                    outros.toInt(), "Outros serviços", R.drawable.back_7,
+                    outros.toInt(), "Outros serviços e produtos", R.drawable.back_7,
                     "https://cdn-icons-png.flaticon.com/512/4692/4692103.png"
                 )
             )

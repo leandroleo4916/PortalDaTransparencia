@@ -22,8 +22,8 @@
 
     <ImageView
         android:id="@+id/icon_image"
-        android:layout_width="65dp"
-        android:layout_height="65dp"
+        android:layout_width="66dp"
+        android:layout_height="66dp"
         android:background="@drawable/back_white_cyrcle"
         android:elevation="16dp"
         android:src="@drawable/ic_avatar"
@@ -35,7 +35,7 @@
 
     <TextView
         android:id="@+id/text_name_rancking"
-        android:layout_width="100dp"
+        android:layout_width="96dp"
         android:layout_height="wrap_content"
         android:elevation="15dp"
         android:layout_marginTop="6dp"
@@ -51,11 +51,10 @@
 
     <TextView
         android:id="@+id/text_valor_item"
-        android:layout_width="100dp"
+        android:layout_width="96dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginBottom="8dp"
         android:layout_marginEnd="5dp"
+        android:layout_marginBottom="8dp"
         android:gravity="center"
         android:singleLine="true"
         android:text="R$ 0,00"
@@ -64,7 +63,7 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/text_name_rancking"
         app:layout_constraintTop_toBottomOf="@+id/text_name_rancking" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

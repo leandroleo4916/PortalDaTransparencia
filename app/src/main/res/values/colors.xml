@@ -14,11 +14,12 @@
     <color name="you">#CF0D26</color>
     <color name="green">#36AF02</color>
 
-    <color name="rox">#9F81CD</color>
-    <color name="goi">#EBB2D6</color>
-    <color name="azu">#766DC1</color>
-    <color name="lar">#F198AF</color>
-    <color name="lig">#CCABD8</color>
-    <color name="az2">#6378af</color>
-    <color name="az3">#40A89A</color>
+    <color name="color1">#D50000</color>
+    <color name="color2">#2467AA</color>
+    <color name="color3">#37505C</color>
+    <color name="color4">#F47B37</color>
+    <color name="color5">#17DC1B</color>
+    <color name="color6">#6378AF</color>
+    <color name="color7">#40A89A</color>
+    <color name="color8">#08197A</color>
 </resources>
