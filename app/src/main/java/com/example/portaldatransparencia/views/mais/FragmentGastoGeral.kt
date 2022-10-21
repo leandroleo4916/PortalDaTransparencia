@@ -58,7 +58,6 @@ class FragmentGastoGeral: Fragment(R.layout.fragment_mais) {
         recyclerViewCamara()
         observerSenado()
         observerCamara()
-        buildGraph()
     }
 
     private fun recyclerViewSenado() {
@@ -156,6 +155,7 @@ class FragmentGastoGeral: Fragment(R.layout.fragment_mais) {
                             listGastoGeralDeputado = gastos.gastoGeral.listDeputado as ArrayList
                             gastoCamara = gastos
                             processListCamara()
+                            buildGraph()
                         }
                     }
                     is ResultGastoGeralCamara.Error -> {
@@ -239,14 +239,16 @@ class FragmentGastoGeral: Fragment(R.layout.fragment_mais) {
     }
 
     private fun buildGraph(){
-        addElementGraph(getString(R.string.manutencao_escritorio), 1200.00F, "#D50000")
-        addElementGraph(getString(R.string.divulgacao_parlamentar), 200.00F, "#2467AA")
-        addElementGraph(getString(R.string.passagens_aereas), 2200.00F, "#37505C")
-        addElementGraph(getString(R.string.servicos_telefonicos), 2200.00F, "#F47B37")
-        addElementGraph(getString(R.string.hospedagem_alimentacao), 2200.00F, "#17DC1B")
-        addElementGraph(getString(R.string.combustivel_lubrificante), 2200.00F, "#6378AF")
-        addElementGraph(getString(R.string.servico_postal), 2200.00F, "#40A89A")
-        addElementGraph(getString(R.string.outros_servicos), 2200.00F, "#08197A")
+        gastoCamara.gastoGeral.run {
+            addElementGraph(getString(R.string.manutencao_escritorio), this.manutencao.toFloat(), "#D50000")
+            addElementGraph(getString(R.string.divulgacao_parlamentar), this.divulgacao.toFloat(), "#2467AA")
+            addElementGraph(getString(R.string.passagens_aereas), this.passagens.toFloat(), "#37505C")
+            addElementGraph(getString(R.string.servicos_telefonicos), this.telefonia.toFloat(), "#F47B37")
+            addElementGraph(getString(R.string.hospedagem_alimentacao), this.alimentacao.toFloat(), "#17DC1B")
+            addElementGraph(getString(R.string.combustivel_lubrificante), this.combustivel.toFloat(), "#6378AF")
+            addElementGraph(getString(R.string.servico_postal), this.servicos.toFloat(), "#40A89A")
+            addElementGraph(getString(R.string.outros_servicos), this.outros.toFloat(), "#08197A")
+        }
     }
 
     private fun addElementGraph(title: String, value: Float, color: String){
