@@ -39,7 +39,7 @@ interface ApiServiceFrente {
 }
 
 interface ApiServiceFrenteId {
-    @GET("/api/v2/deputados/{id}/frentes")
+    @GET("/api/v2/frentes/{id}")
     suspend fun getFrenteId(
         @Path("id") id: String
     ): Response<FrenteId>

@@ -1,8 +1,8 @@
 package com.example.portaldatransparencia.dataclass
 
 data class FrenteId(
-val dados: FrontId,
-val links: List<Link>
+    val dados: FrontId,
+    val links: List<Link>
 )
 
 data class FrontId (

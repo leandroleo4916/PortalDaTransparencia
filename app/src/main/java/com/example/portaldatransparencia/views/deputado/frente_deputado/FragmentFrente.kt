@@ -1,5 +1,6 @@
 package com.example.portaldatransparencia.views.deputado.frente_deputado
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -11,6 +12,7 @@ import com.example.portaldatransparencia.dataclass.DadoFrente
 import com.example.portaldatransparencia.interfaces.IFront
 import com.example.portaldatransparencia.remote.ResultFrenteRequest
 import com.example.portaldatransparencia.security.SecurityPreferences
+import com.example.portaldatransparencia.views.senador.SenadorActivity
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -74,6 +76,10 @@ class FragmentFrente: Fragment(R.layout.fragment_frente), IFront {
         }
     }
 
-    override fun listenerFront(note: DadoFrente) {}
+    override fun listenerFront(note: DadoFrente) {
+        val intent = Intent(context, FragmentFrenteId::class.java)
+        intent.putExtra("id", note.id.toString())
+        startActivity(intent)
+    }
 
 }

@@ -252,7 +252,7 @@ class FragmentGastoGeral: Fragment(R.layout.fragment_mais) {
     private fun addElementGraph(title: String, value: Float, color: String){
         binding?.layoutUnic?.run {
             piechart.addPieSlice(PieModel(title, value, Color.parseColor(color)))
-            piechart.startAnimation().serializer()
+            piechart.startAnimation()
         }
     }
 }

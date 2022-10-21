@@ -35,6 +35,10 @@
             android:name=".views.senador.SenadorActivity"
             android:exported="true">
         </activity>
+        <activity
+            android:name=".views.deputado.frente_deputado.FragmentFrenteId"
+            android:exported="true">
+        </activity>
     </application>
 
 </manifest>
