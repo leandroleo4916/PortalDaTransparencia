@@ -18,18 +18,155 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_number_parlamentar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:elevation="12dp"
+                android:backgroundTint="@color/color6"
+                android:background="@drawable/back_white"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" >
+
+                <TextView
+                    android:id="@+id/textView_total_deputados"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginStart="12dp"
+                    android:gravity="center"
+                    android:text="513"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textViewDeputados"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="12dp"
+                    android:text="Deputados"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView_total_deputados"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/textView_total_deputados"
+                    app:layout_constraintTop_toTopOf="@+id/textView_total_deputados" />
+
+                <TextView
+                    android:id="@+id/textView_gasto_deputados"
+                    style="@style/TextAppearance.AppCompat.Body2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="R$ 0.000,00"
+                    android:textColor="@color/white"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView_total_deputados" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_number_senadores"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16sp"
+                android:background="@drawable/back_white"
+                android:backgroundTint="@color/color7"
+                android:elevation="12dp"
+                android:gravity="center"
+                app:layout_constraintBottom_toBottomOf="@+id/constraint_number_parlamentar"
+                app:layout_constraintStart_toEndOf="@+id/constraint_number_parlamentar"
+                app:layout_constraintTop_toTopOf="@+id/constraint_number_parlamentar">
+
+                <TextView
+                    android:id="@+id/textView_total_senadores"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginStart="12dp"
+                    android:gravity="center"
+                    android:text="81"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textViewSenadores"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Senadores"
+                    android:layout_marginStart="10dp"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView_total_senadores"
+                    app:layout_constraintStart_toEndOf="@+id/textView_total_senadores"
+                    app:layout_constraintTop_toTopOf="@+id/textView_total_senadores" />
+
+                <TextView
+                    android:id="@+id/textView_gasto_senadores"
+                    style="@style/TextAppearance.AppCompat.Body2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="R$ 0.000,00"
+                    android:textColor="@color/white"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView_total_senadores" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
             <FrameLayout
                 android:id="@+id/frame_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="6dp"
+                android:layout_marginTop="12dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraint_number_parlamentar"
                 tools:ignore="MissingConstraints">
 
                 <include
-                    android:id="@+id/layout_unic"
+                    android:id="@+id/layout_unic_camara"
+                    layout="@layout/layout_dados_gerais" />
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/frame_layout_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/frame_layout"
+                tools:ignore="MissingConstraints">
+
+                <include
+                    android:id="@+id/layout_unic_senado"
                     layout="@layout/layout_dados_gerais" />
 
             </FrameLayout>

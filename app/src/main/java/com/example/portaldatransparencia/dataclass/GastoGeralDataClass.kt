@@ -9,7 +9,7 @@ data class GastoGeral (
     val totalGeral: String,
     val totalNotas: String,
     val aluguel: String,
-    val divuldacao: String,
+    val divulgacao: String,
     val passagens: String,
     val contratacao: String,
     val locomocao: String,

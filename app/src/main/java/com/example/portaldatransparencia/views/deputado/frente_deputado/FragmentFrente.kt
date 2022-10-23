@@ -53,7 +53,11 @@ class FragmentFrente: Fragment(R.layout.fragment_frente), IFront {
                                 calculateFront(size.toString())
                                 adapter.updateData(front.dados)
                             }else{
-                                statusView.disableView(binding!!.progressFront)
+                                binding?.run {
+                                    statusView.disableView(progressFront)
+                                    statusView.enableView(textFrenteParlamentar)
+                                    textFrenteParlamentar.text = "Nenhuma frente parlamentar"
+                                }
                             }
                         }
                     }
