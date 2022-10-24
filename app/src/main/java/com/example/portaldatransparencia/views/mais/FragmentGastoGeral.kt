@@ -153,7 +153,7 @@ class FragmentGastoGeral: Fragment(R.layout.fragment_mais) {
         binding?.run {
             val total = formatValor.formatValor(dados.gastoGeral.totalGeral.toDouble())
             textViewGastoSenadores.text = total
-            layoutUnicSenado.tvGastoTotal.text = total.split("R$ ")[1]
+            layoutUnicSenado.tvGastoTotal.text = total
         }
     }
 
@@ -262,7 +262,7 @@ class FragmentGastoGeral: Fragment(R.layout.fragment_mais) {
         binding?.run {
             val total = formatValor.formatValor(dados.gastoGeral.totalGeral.toDouble())
             textViewGastoDeputados.text = total
-            layoutUnicCamara.tvGastoTotal.text = total.split("R$ ")[1]
+            layoutUnicCamara.tvGastoTotal.text = total
         }
     }
 

@@ -16,11 +16,11 @@ import com.example.portaldatransparencia.dataclass.SublistDataClass
 import com.example.portaldatransparencia.util.FormatValor
 import kotlin.coroutines.coroutineContext
 
-class DimensionAdapter(private val formatValor: FormatValor, val context: Context):
+class DimensionAdapter(private val formatValor: FormatValor):
     RecyclerView.Adapter<DimensionAdapter.DespesasViewHolder>() {
 
-    private var data: ArrayList<SublistDataClass> = arrayListOf()
     private var binding: RecyclerDimensionBinding? = null
+    private var data: ArrayList<SublistDataClass> = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DespesasViewHolder {
         val item = LayoutInflater
@@ -45,7 +45,7 @@ class DimensionAdapter(private val formatValor: FormatValor, val context: Contex
                 textViewDescription.text = despesa.description
                 textViewGasto.text = formatValor.formatValor(despesa.value.toDouble())
                 constraintRecycler.setBackgroundResource(despesa.color)
-                Glide.with(context)
+                Glide.with(itemView)
                     .load(despesa.icon)
                     .circleCrop()
                     .into(icon)

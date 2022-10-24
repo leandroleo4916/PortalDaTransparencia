@@ -11,8 +11,8 @@ import com.example.portaldatransparencia.dataclass.Votacao
 
 class VotacoesAdapter : RecyclerView.Adapter<VotacoesAdapter.PropostaViewHolder>() {
 
-    private var data: ArrayList<Votacao> = arrayListOf()
     private var binding: RecyclerVotacoesBinding? = null
+    private var data: ArrayList<Votacao> = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PropostaViewHolder {
         val item = LayoutInflater

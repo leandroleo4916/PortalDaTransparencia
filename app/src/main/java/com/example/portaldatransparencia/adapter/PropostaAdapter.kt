@@ -7,10 +7,12 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.portaldatransparencia.R
+import com.example.portaldatransparencia.databinding.RecyclerPropostaBinding
 import com.example.portaldatransparencia.dataclass.Proposta
 
 class PropostaAdapter: RecyclerView.Adapter<PropostaAdapter.PropostaViewHolder>() {
 
+    private var binding: RecyclerPropostaBinding? = null
     private var data: ArrayList<Proposta> = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PropostaViewHolder {
@@ -30,9 +32,10 @@ class PropostaAdapter: RecyclerView.Adapter<PropostaAdapter.PropostaViewHolder>(
     inner class PropostaViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
 
         fun bind(proposta: Proposta){
-            itemView.run {
-                val description = findViewById<TextView>(R.id.text_description_proposta)
-                description.text = proposta.ementa ?: context.getString(R.string.nao_informado_descricao)
+            binding = RecyclerPropostaBinding.bind(itemView)
+            binding?.run {
+                textDescriptionProposta.text =
+                    (proposta.ementa ?: R.string.nao_informado_descricao) as CharSequence?
             }
         }
     }

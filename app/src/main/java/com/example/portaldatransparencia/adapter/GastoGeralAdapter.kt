@@ -4,12 +4,10 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.ProgressBar
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.portaldatransparencia.R
+import com.example.portaldatransparencia.databinding.RecyclerRanckingBinding
 import com.example.portaldatransparencia.dataclass.ListSenador
 import com.example.portaldatransparencia.util.FormaterValueBilhoes
 import kotlinx.coroutines.*
@@ -17,6 +15,7 @@ import kotlinx.coroutines.*
 class GastoGeralAdapter(private val formatValor: FormaterValueBilhoes) :
     RecyclerView.Adapter<GastoGeralAdapter.MainViewHolder>() {
 
+    private var binding: RecyclerRanckingBinding? = null
     private var data = arrayListOf<ListSenador>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
@@ -36,31 +35,32 @@ class GastoGeralAdapter(private val formatValor: FormaterValueBilhoes) :
 
     inner class MainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
 
-        @SuppressLint("UseCompatLoadingForDrawables")
         fun bind(item: ListSenador) {
 
-            itemView.run {
-                val progress = findViewById<ProgressBar>(R.id.progress_circular_rancking)
-                findViewById<TextView>(R.id.text_name_rancking).text = item.nome
-                findViewById<TextView>(R.id.text_valor_item).text =
-                    "${formatValor.formatValor(item.gasto.toDouble())}"
-                val image = findViewById<ImageView>(R.id.icon_image)
-                Glide.with(context)
-                    .load(item.urlFoto)
-                    .circleCrop()
-                    .into(image)
+            binding = RecyclerRanckingBinding.bind(itemView)
+            binding?.run {
+                textNameRancking.text = item.nome
+                textValorItem.text = formatValor.formatValor(item.gasto.toDouble())
 
                 var value = 0
                 CoroutineScope(Dispatchers.Main).launch {
                     withContext(Dispatchers.Default) {
                         while (value <= 20) {
                             withContext(Dispatchers.Main) {
-                                progress.progress = value
+                                progressCircularRancking.progress = value
                             }
                             delay(5)
                             value++
                         }
                     }
+                }
+                Glide.with(itemView)
+                    .load(item.urlFoto)
+                    .circleCrop()
+                    .into(iconImage)
+
+                itemView.setOnClickListener {
+
                 }
             }
         }

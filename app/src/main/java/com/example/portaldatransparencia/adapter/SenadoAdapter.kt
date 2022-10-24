@@ -8,6 +8,7 @@ import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.portaldatransparencia.R
+import com.example.portaldatransparencia.databinding.RecyclerMainBinding
 import com.example.portaldatransparencia.dataclass.Parlamentar
 import com.example.portaldatransparencia.interfaces.IClickSenador
 import com.example.portaldatransparencia.interfaces.INotificationSenado
@@ -17,6 +18,7 @@ import java.util.*
 class SenadoAdapter(private val listener: IClickSenador, private val notify: INotificationSenado):
     RecyclerView.Adapter<SenadoAdapter.MainViewHolder>(), Filterable {
 
+    private var binding: RecyclerMainBinding? = null
     private var data = mutableListOf<Parlamentar>()
     private var dataList = mutableListOf<Parlamentar>()
     private var filter: ListItemFilter = ListItemFilter()
@@ -36,48 +38,40 @@ class SenadoAdapter(private val listener: IClickSenador, private val notify: INo
 
     override fun getItemCount() = dataList.size
 
-    inner class MainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
-        View.OnClickListener {
+    inner class MainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        init { itemView.setOnClickListener(this) }
-
-        override fun onClick(view: View?) {
-            val position = adapterPosition
-            when (view) {
-                itemView -> listener.clickSenador(
-                    dataList[position].identificacaoParlamentar.codigoParlamentar,
-                    dataList[position].identificacaoParlamentar.nomeParlamentar)
-            }
-        }
-
-        @SuppressLint("UseCompatLoadingForDrawables")
         fun bind(senador: Parlamentar) {
             val item = senador.identificacaoParlamentar
             val https = "https:/"
             val urlFoto = item.urlFotoParlamentar.split(":/")
             val photo = https+urlFoto[1]
-            itemView.run {
-                val progress= findViewById<ProgressBar>(R.id.progress_list)
-                val image = findViewById<ImageView>(R.id.icon_deputado)
-                Glide.with(context)
+
+            binding = RecyclerMainBinding.bind(itemView)
+            binding?.run {
+                Glide.with(itemView)
                     .load(photo)
                     .circleCrop()
-                    .into(image)
-                findViewById<TextView>(R.id.text_name).text = item.nomeParlamentar
-                findViewById<TextView>(R.id.text_partido).text = item.siglaPartidoParlamentar
-                findViewById<TextView>(R.id.text_state).text = " - ${item.ufParlamentar}"
+                    .into(iconDeputado)
+                textName.text = item.nomeParlamentar
+                textPartido.text = item.siglaPartidoParlamentar
+                textState.text = " - ${item.ufParlamentar}"
 
                 var value = 0
                 CoroutineScope(Dispatchers.Main).launch {
                     withContext(Dispatchers.Default) {
                         while (value <= 20) {
                             withContext(Dispatchers.Main) {
-                                progress.progress = value
+                                progressList.progress = value
                             }
                             delay(5)
                             value++
                         }
                     }
+                }
+                itemView.setOnClickListener {
+                    listener.clickSenador(
+                        dataList[adapterPosition].identificacaoParlamentar.codigoParlamentar,
+                        dataList[adapterPosition].identificacaoParlamentar.nomeParlamentar)
                 }
             }
         }

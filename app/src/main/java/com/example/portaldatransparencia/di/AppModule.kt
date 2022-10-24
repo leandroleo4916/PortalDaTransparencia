@@ -4,23 +4,22 @@ import com.example.portaldatransparencia.adapter.DimensionAdapter
 import com.example.portaldatransparencia.remote.*
 import com.example.portaldatransparencia.security.SecurityPreferences
 import com.example.portaldatransparencia.util.*
-import com.example.portaldatransparencia.views.view_generics.EnableDisableView
-import com.example.portaldatransparencia.views.view_generics.ModifyChip
-import com.example.portaldatransparencia.views.view_generics.VisibilityNavViewAndFloating
+import com.example.portaldatransparencia.views.camara.CamaraViewModel
 import com.example.portaldatransparencia.views.deputado.DeputadoViewModel
 import com.example.portaldatransparencia.views.deputado.frente_deputado.FrenteViewModel
 import com.example.portaldatransparencia.views.deputado.gastos_deputado.DespesasViewModel
 import com.example.portaldatransparencia.views.deputado.geral_deputado.OccupationViewModel
-import com.example.portaldatransparencia.views.camara.CamaraViewModel
-import com.example.portaldatransparencia.views.senador.geral_senador.GeralSenadorViewModel
 import com.example.portaldatransparencia.views.deputado.proposta_deputado.PropostaViewModel
 import com.example.portaldatransparencia.views.mais.GastoGeralViewModel
 import com.example.portaldatransparencia.views.senado.SenadoViewModel
 import com.example.portaldatransparencia.views.senador.SenadorViewModel
+import com.example.portaldatransparencia.views.senador.geral_senador.GeralSenadorViewModel
 import com.example.portaldatransparencia.views.senador.votacoes_senador.VotacoesViewModel
+import com.example.portaldatransparencia.views.view_generics.EnableDisableView
+import com.example.portaldatransparencia.views.view_generics.ModifyChip
+import com.example.portaldatransparencia.views.view_generics.VisibilityNavViewAndFloating
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -122,8 +121,7 @@ val securityPreferences = module { single { SecurityPreferences(get()) } }
 val formatValor = module { factory { FormatValor() } }
 val formatValorBi = module { factory { FormaterValueBilhoes(get()) } }
 val formatValorFloat = module { factory { FormatValueFloat() } }
-
-val dimensionAdapter = module { factory { DimensionAdapter(get(), androidContext()) } }
+val dimensionAdapter = module { factory { DimensionAdapter(get()) } }
 
 val appModules = listOf( retrofitModule, viewModelModule, repositorySearch, progressModule,
         viewModelDeputado, repositoryIdDeputado, viewModelDespesas, repositoryDespesasDeputado,

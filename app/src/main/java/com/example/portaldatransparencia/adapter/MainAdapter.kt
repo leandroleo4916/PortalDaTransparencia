@@ -8,6 +8,7 @@ import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.portaldatransparencia.R
+import com.example.portaldatransparencia.databinding.RecyclerMainBinding
 import com.example.portaldatransparencia.dataclass.Dado
 import com.example.portaldatransparencia.interfaces.IClickDeputado
 import com.example.portaldatransparencia.interfaces.INotification
@@ -17,6 +18,7 @@ import java.util.*
 class MainAdapter(private val listener: IClickDeputado, private val notify: INotification):
     RecyclerView.Adapter<MainAdapter.MainViewHolder>(), Filterable {
 
+    private var binding: RecyclerMainBinding? = null
     private var data = mutableListOf<Dado>()
     private var dataList = mutableListOf<Dado>()
     private var filter: ListItemFilter = ListItemFilter()
@@ -36,43 +38,33 @@ class MainAdapter(private val listener: IClickDeputado, private val notify: INot
 
     override fun getItemCount() = dataList.size
 
-    inner class MainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
-        View.OnClickListener {
+    inner class MainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        init { itemView.setOnClickListener(this) }
-
-        override fun onClick(view: View?) {
-            val position = adapterPosition
-            when (view) {
-                itemView -> listener.clickDeputado(dataList[position].id.toString())
-            }
-        }
-
-        @SuppressLint("UseCompatLoadingForDrawables")
         fun bind(deputado: Dado) {
-            itemView.run {
-
-                val progress= findViewById<ProgressBar>(R.id.progress_list)
-                val image = findViewById<ImageView>(R.id.icon_deputado)
-                Glide.with(context)
+            binding = RecyclerMainBinding.bind(itemView)
+            binding?.run {
+                Glide.with(itemView)
                     .load(deputado.urlFoto)
                     .circleCrop()
-                    .into(image)
-                findViewById<TextView>(R.id.text_name).text = deputado.nome
-                findViewById<TextView>(R.id.text_partido).text = deputado.siglaPartido
-                findViewById<TextView>(R.id.text_state).text = " - ${deputado.siglaUf}"
+                    .into(iconDeputado)
+                textName.text = deputado.nome
+                textPartido.text = deputado.siglaPartido
+                textState.text = " - ${deputado.siglaUf}"
 
                 var value = 0
                 CoroutineScope(Dispatchers.Main).launch {
                     withContext(Dispatchers.Default) {
                         while (value <= 20) {
                             withContext(Dispatchers.Main) {
-                                progress.progress = value
+                                progressList.progress = value
                             }
                             delay(5)
                             value++
                         }
                     }
+                }
+                itemView.setOnClickListener {
+                    listener.clickDeputado(dataList[adapterPosition].id.toString())
                 }
             }
         }
