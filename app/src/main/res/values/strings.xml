@@ -20,4 +20,5 @@
     <string name="combustivel_lubrificante">Combustíveis e lubrificantes</string>
     <string name="servico_postal">Serviços postais, correios</string>
     <string name="outros_servicos">Outros serviços e produtos</string>
+    <string name="value">R$ 0.000,00</string>
 </resources>

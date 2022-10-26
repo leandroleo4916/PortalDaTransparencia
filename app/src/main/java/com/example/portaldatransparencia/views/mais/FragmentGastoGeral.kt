@@ -53,15 +53,25 @@ class FragmentGastoGeral: Fragment(R.layout.fragment_mais) {
 
         binding = FragmentMaisBinding.bind(view)
         id = securityPreferences.getString("id")
-        binding!!.layoutUnicSenado.run {
-            textViewTitle.text = "Senado"
-            laytouServicosPostais.visibility = View.GONE
-        }
 
+        modifyItemGraph()
         recyclerViewSenado()
         recyclerViewCamara()
         observerSenado()
         observerCamara()
+    }
+
+    private fun modifyItemGraph() {
+        binding!!.layoutUnicSenado.run {
+            textViewTitle.text = "Senado - últimos 8 anos"
+            hideView.disableView(layoutServicosPostais)
+            hideView.disableView(layoutOutrosServicos)
+            hideView.disableView(toolbarAquisicao)
+            hideView.disableView(toolbarOutrosServicos)
+            textAluguel.text = "Aluguel de imóveis"
+            textServicosTelefonicos.text = "Consultoria, assessoria"
+            textAquisicao.text = "Aquisição de materiais"
+        }
     }
 
     // Dados gerais Senado
@@ -150,10 +160,21 @@ class FragmentGastoGeral: Fragment(R.layout.fragment_mais) {
     }
 
     private fun addElementSenado(dados: GastoGeralDataClass) {
-        binding?.run {
-            val total = formatValor.formatValor(dados.gastoGeral.totalGeral.toDouble())
-            textViewGastoSenadores.text = total
-            layoutUnicSenado.tvGastoTotal.text = total
+        binding?.layoutUnicSenado?.run {
+            dados.gastoGeral.run {
+                val total = formatValor.formatValor(totalGeral.toDouble())
+                textViewParlamentar.text = "Senadores"
+                textViewTotalParlamentar.text = "81"
+                textViewGastoParlamentar.text = total
+                textViewTotalNotas.text = totalNotas
+
+                textAluguelValue.text = formatValor.formatValor(aluguel.toDouble())
+                textDivulgacaoValue.text = formatValor.formatValor(divulgacao.toDouble())
+                textPassagensValue.text = formatValor.formatValor(passagens.toDouble())
+                textTelefonicosValue.text = formatValor.formatValor(contratacao.toDouble())
+                textHospedagensValue.text = formatValor.formatValor(locomocao.toDouble())
+                textCombustiveisValue.text = formatValor.formatValor(aquisicao.toDouble())
+            }
         }
     }
 
@@ -165,7 +186,6 @@ class FragmentGastoGeral: Fragment(R.layout.fragment_mais) {
             addGraphSenado(getString(R.string.servicos_telefonicos), this.contratacao.toFloat(), "#F47B37")
             addGraphSenado(getString(R.string.hospedagem_alimentacao), this.locomocao.toFloat(), "#17DC1B")
             addGraphSenado(getString(R.string.combustivel_lubrificante), this.aquisicao.toFloat(), "#6378AF")
-            addGraphSenado(getString(R.string.outros_servicos), this.outros.toFloat(), "#08197A")
         }
     }
 
@@ -259,10 +279,21 @@ class FragmentGastoGeral: Fragment(R.layout.fragment_mais) {
     }
 
     private fun addElementCamara(dados: GastoGeralCamara) {
-        binding?.run {
-            val total = formatValor.formatValor(dados.gastoGeral.totalGeral.toDouble())
-            textViewGastoDeputados.text = total
-            layoutUnicCamara.tvGastoTotal.text = total
+        binding?.layoutUnicCamara?.run {
+            dados.gastoGeral.run {
+                val total = formatValor.formatValor(totalGeral.toDouble())
+                textViewGastoParlamentar.text = total
+                textViewTotalNotas.text = dados.gastoGeral.totalNotas
+
+                textAluguelValue.text = formatValor.formatValor(manutencao.toDouble())
+                textDivulgacaoValue.text = formatValor.formatValor(divulgacao.toDouble())
+                textPassagensValue.text = formatValor.formatValor(passagens.toDouble())
+                textTelefonicosValue.text = formatValor.formatValor(telefonia.toDouble())
+                textHospedagensValue.text = formatValor.formatValor(alimentacao.toDouble())
+                textCombustiveisValue.text = formatValor.formatValor(combustivel.toDouble())
+                textPostaisValue.text = formatValor.formatValor(servicos.toDouble())
+                textOutrosServicosValue.text = formatValor.formatValor(outros.toDouble())
+            }
         }
     }
 

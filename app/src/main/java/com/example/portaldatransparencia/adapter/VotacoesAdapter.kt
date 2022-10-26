@@ -31,6 +31,7 @@ class VotacoesAdapter : RecyclerView.Adapter<VotacoesAdapter.PropostaViewHolder>
     inner class PropostaViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bind(votacao: Votacao) {
+
             binding = RecyclerVotacoesBinding.bind(itemView)
             binding?.run {
                 votacao.run {
@@ -56,11 +57,11 @@ class VotacoesAdapter : RecyclerView.Adapter<VotacoesAdapter.PropostaViewHolder>
 
                     if (tramitacao != null) {
                         val tramite = tramitacao.identificacaoTramitacao?.textoTramitacao
-                        textDescriptionTramitacao.text = if (tramite!!.isNotEmpty() &&
-                            tramite.length > 100
-                        ) {
-                            tramite.substring(0, 99) + "..."
-                        } else tramite
+                        textDescriptionTramitacao.text =
+                            if (tramite!!.isNotEmpty() && tramite.length > 100) {
+                                tramite.substring(0, 99) + "..."
+                            }
+                            else tramite
                     }
 
                     when (siglaDescricaoVoto) {
