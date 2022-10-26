@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_register"
+        android:icon="@drawable/ic_medal_ouro"
+        android:title="@string/deputados" />
+
+    <item
+        android:id="@+id/navigation_dashboard"
+        android:icon="@drawable/ic_medal_prata"
+        android:title="@string/senadores" />
+
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/ic_medal_bronze"
+        android:title="@string/mais" />
+
+</menu>

@@ -38,7 +38,7 @@ class DimensionAdapter(private val formatValor: FormatValor):
             binding = RecyclerDimensionBinding.bind(itemView)
             binding?.run {
                 textViewDescription.text = despesa.description
-                textViewGasto.text = formatValor.formatValor(despesa.value.toDouble())
+                textViewGasto.text = "R$ ${formatValor.formatValor(despesa.value.toDouble())}"
                 constraintRecycler.setBackgroundResource(despesa.color)
                 Glide.with(itemView)
                     .load(despesa.icon)

@@ -52,7 +52,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
                             android:layout_marginEnd="12dp"
-                            android:hint="Digite ou fale o nome do deputado"
+                            android:hint="@string/digite_ou_fale_o_nome_do_deputado"
                             android:minHeight="48dp"
                             android:textColor="@color/black"
                             android:textColorHint="@color/purple_500"
@@ -85,6 +85,9 @@
             android:id="@+id/frame_chip"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             tools:ignore="MissingConstraints">
 
             <include
@@ -97,11 +100,27 @@
             android:id="@+id/progress_main"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_marginTop="80dp"
             app:indicatorColor="@color/purple_700"
             app:indicatorName="BallPulseIndicator"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/frame_chip" />
+
+        <FrameLayout
+            android:id="@+id/frame_validation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/progress_main">
+
+            <include
+                android:id="@+id/layout_validation"
+                layout="@layout/layout_validation_internet"/>
+
+        </FrameLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_deputados"
@@ -122,6 +141,7 @@
             android:layout_marginBottom="20dp"
             android:foreground="@drawable/ic_top"
             app:backgroundTint="@color/black"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             tools:ignore="ContentDescription" />

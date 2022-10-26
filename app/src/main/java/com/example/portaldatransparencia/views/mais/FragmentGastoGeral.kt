@@ -63,7 +63,7 @@ class FragmentGastoGeral: Fragment(R.layout.fragment_mais) {
 
     private fun modifyItemGraph() {
         binding!!.layoutUnicSenado.run {
-            textViewTitle.text = getString(R.string.senado+R.string.ultimos8anos)
+            textViewTitle.text = "Senado - últimos 8 anos"
             hideView.disableView(layoutServicosPostais)
             hideView.disableView(layoutOutrosServicos)
             hideView.disableView(toolbarAquisicao)
