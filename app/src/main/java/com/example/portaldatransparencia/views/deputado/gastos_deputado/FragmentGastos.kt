@@ -96,10 +96,10 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas {
                         }
                     }
                     is ResultDespesasRequest.Error -> {
-                        result.exception.message?.let { it -> }
+                        result.exception.message?.let {  }
                     }
                     is ResultDespesasRequest.ErrorConnection -> {
-                        result.exception.message?.let { it -> }
+                        result.exception.message?.let {  }
                     }
                 }
             }

@@ -73,10 +73,10 @@ class SenadoFragment: Fragment(R.layout.fragment_camara_senado), IClickSenador, 
                         }
                     }
                     is ResultSenadoRequest.Error -> {
-                        result.exception.message?.let { it -> }
+                        result.exception.message?.let {  }
                     }
                     is ResultSenadoRequest.ErrorConnection -> {
-                        result.exception.message?.let { it -> }
+                        result.exception.message?.let {  }
                     }
                 }
             }

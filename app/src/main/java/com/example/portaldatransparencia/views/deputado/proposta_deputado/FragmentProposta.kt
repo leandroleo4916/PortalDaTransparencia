@@ -71,10 +71,10 @@ class FragmentProposta: Fragment(R.layout.fragment_proposta) {
                         }
                     }
                     is ResultPropostaRequest.Error -> {
-                        result.exception.message?.let { it -> }
+                        result.exception.message?.let {  }
                     }
                     is ResultPropostaRequest.ErrorConnection -> {
-                        result.exception.message?.let { it -> }
+                        result.exception.message?.let {  }
                     }
                 }
             }

@@ -53,10 +53,10 @@ class FragmentGeralSenador: Fragment(R.layout.fragment_geral_senador) {
                         }
                     }
                     is ResultSenadorRequest.Error -> {
-                        result.exception.message?.let { it -> }
+                        result.exception.message?.let {  }
                     }
                     is ResultSenadorRequest.ErrorConnection -> {
-                        result.exception.message?.let { it -> }
+                        result.exception.message?.let {  }
                     }
                 }
             }
@@ -75,10 +75,10 @@ class FragmentGeralSenador: Fragment(R.layout.fragment_geral_senador) {
                         }
                     }
                     is ResultCargosRequest.Error -> {
-                        result.exception.message?.let { it -> }
+                        result.exception.message?.let {  }
                     }
                     is ResultCargosRequest.ErrorConnection -> {
-                        result.exception.message?.let { it -> }
+                        result.exception.message?.let {  }
                     }
                 }
             }

@@ -61,10 +61,10 @@ class SenadorActivity: AppCompatActivity() {
                         }
                     }
                     is ResultSenadorRequest.Error -> {
-                        result.exception.message?.let { it -> }
+                        result.exception.message?.let {  }
                     }
                     is ResultSenadorRequest.ErrorConnection -> {
-                        result.exception.message?.let { it -> }
+                        result.exception.message?.let {  }
                     }
                 }
             }

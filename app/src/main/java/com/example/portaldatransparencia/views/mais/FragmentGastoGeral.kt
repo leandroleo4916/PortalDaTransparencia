@@ -63,14 +63,14 @@ class FragmentGastoGeral: Fragment(R.layout.fragment_mais) {
 
     private fun modifyItemGraph() {
         binding!!.layoutUnicSenado.run {
-            textViewTitle.text = "Senado - últimos 8 anos"
+            textViewTitle.text = getString(R.string.senado+R.string.ultimos8anos)
             hideView.disableView(layoutServicosPostais)
             hideView.disableView(layoutOutrosServicos)
             hideView.disableView(toolbarAquisicao)
             hideView.disableView(toolbarOutrosServicos)
-            textAluguel.text = "Aluguel de imóveis"
-            textServicosTelefonicos.text = "Consultoria, assessoria"
-            textAquisicao.text = "Aquisição de materiais"
+            textAluguel.text = getString(R.string.alugueDeImoveis)
+            textServicosTelefonicos.text = getString(R.string.consultoriaAcessoria)
+            textAquisicao.text = getString(R.string.aquisicaoDeMateriais)
         }
     }
 
@@ -96,10 +96,10 @@ class FragmentGastoGeral: Fragment(R.layout.fragment_mais) {
                         }
                     }
                     is ResultSenadoRequest.Error -> {
-                        result.exception.message?.let { it -> }
+                        result.exception.message?.let { }
                     }
                     is ResultSenadoRequest.ErrorConnection -> {
-                        result.exception.message?.let { it -> }
+                        result.exception.message?.let { }
                     }
                 }
             }
@@ -120,10 +120,10 @@ class FragmentGastoGeral: Fragment(R.layout.fragment_mais) {
                         }
                     }
                     is ResultGastoGeralRequest.Error -> {
-                        result.exception.message?.let { it -> }
+                        result.exception.message?.let { }
                     }
                     is ResultGastoGeralRequest.ErrorConnection -> {
-                        result.exception.message?.let { it -> }
+                        result.exception.message?.let { }
                     }
                 }
             }
@@ -163,8 +163,8 @@ class FragmentGastoGeral: Fragment(R.layout.fragment_mais) {
         binding?.layoutUnicSenado?.run {
             dados.gastoGeral.run {
                 val total = formatValor.formatValor(totalGeral.toDouble())
-                textViewParlamentar.text = "Senadores"
-                textViewTotalParlamentar.text = "81"
+                textViewParlamentar.text = getString(R.string.senadores)
+                textViewTotalParlamentar.text = sizeSenador
                 textViewGastoParlamentar.text = total
                 textViewTotalNotas.text = totalNotas
 
@@ -218,10 +218,10 @@ class FragmentGastoGeral: Fragment(R.layout.fragment_mais) {
                         }
                     }
                     is ResultRequest.Error -> {
-                        result.exception.message?.let { it -> }
+                        result.exception.message?.let { }
                     }
                     is ResultRequest.ErrorConnection -> {
-                        result.exception.message?.let { it -> }
+                        result.exception.message?.let { }
                     }
                 }
             }
@@ -242,10 +242,10 @@ class FragmentGastoGeral: Fragment(R.layout.fragment_mais) {
                         }
                     }
                     is ResultGastoGeralCamara.Error -> {
-                        result.exception.message?.let { it -> }
+                        result.exception.message?.let { }
                     }
                     is ResultGastoGeralCamara.ErrorConnection -> {
-                        result.exception.message?.let { it -> }
+                        result.exception.message?.let { }
                     }
                 }
             }

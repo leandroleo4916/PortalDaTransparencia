@@ -41,14 +41,10 @@ class FragmentFrenteId: AppCompatActivity() {
                         }
                     }
                     is ResultFrenteIdRequest.Error -> {
-                        result.exception.message?.let { it ->
-
-                        }
+                        result.exception.message?.let {}
                     }
                     is ResultFrenteIdRequest.ErrorConnection -> {
-                        result.exception.message?.let { it ->
-
-                        }
+                        result.exception.message?.let {}
                     }
                 }
             }

@@ -48,10 +48,10 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
                         }
                     }
                     is ResultOccupationRequest.Error -> {
-                        result.exception.message?.let { it -> }
+                        result.exception.message?.let {  }
                     }
                     is ResultOccupationRequest.ErrorConnection -> {
-                        result.exception.message?.let { it -> }
+                        result.exception.message?.let {  }
                     }
                 }
             }
@@ -72,10 +72,10 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
                         }
                     }
                     is ResultIdRequest.Error -> {
-                        result.exception.message?.let { it -> }
+                        result.exception.message?.let {  }
                     }
                     is ResultIdRequest.ErrorConnection -> {
-                        result.exception.message?.let { it -> }
+                        result.exception.message?.let {  }
                     }
                 }
             }

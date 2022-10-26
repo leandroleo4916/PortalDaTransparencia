@@ -12,7 +12,6 @@ import com.example.portaldatransparencia.dataclass.DadoFrente
 import com.example.portaldatransparencia.interfaces.IFront
 import com.example.portaldatransparencia.remote.ResultFrenteRequest
 import com.example.portaldatransparencia.security.SecurityPreferences
-import com.example.portaldatransparencia.views.senador.SenadorActivity
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -56,16 +55,16 @@ class FragmentFrente: Fragment(R.layout.fragment_frente), IFront {
                                 binding?.run {
                                     statusView.disableView(progressFront)
                                     statusView.enableView(textFrenteParlamentar)
-                                    textFrenteParlamentar.text = "Nenhuma frente parlamentar"
+                                    textFrenteParlamentar.text = getString(R.string.nenhuma_frente_parlamentar)
                                 }
                             }
                         }
                     }
                     is ResultFrenteRequest.Error -> {
-                        result.exception.message?.let { it -> }
+                        result.exception.message?.let {  }
                     }
                     is ResultFrenteRequest.ErrorConnection -> {
-                        result.exception.message?.let { it -> }
+                        result.exception.message?.let {  }
                     }
                 }
             }

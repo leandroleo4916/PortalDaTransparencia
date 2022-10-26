@@ -21,4 +21,14 @@
     <string name="servico_postal">Serviços postais, correios</string>
     <string name="outros_servicos">Outros serviços e produtos</string>
     <string name="value">R$ 0.000,00</string>
+    <string name="ultimos8anos"> - últimos 8 anos</string>
+    <string name="alugueDeImoveis">Aluguel de imóveis</string>
+    <string name="consultoriaAcessoria">Consultoria, assessoria</string>
+    <string name="aquisicaoDeMateriais">Aquisição de materiais</string>
+    <string name="senadores">Senadores</string>
+    <string name="deputados">Deputados</string>
+    <string name="notas">Notas</string>
+    <string name="rancking_de_gastos">Rancking de gastos - últimos 8 anos</string>
+    <string name="sem_dados_para_exibir_no_momento">Sem dados para exibir no momento.</string>
+    <string name="nenhuma_frente_parlamentar">Nenhuma frente parlamentar</string>
 </resources>

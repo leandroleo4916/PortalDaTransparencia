@@ -83,12 +83,12 @@ class FragmentGastosSenador: Fragment(R.layout.fragment_gastos), INoteDespesas {
                         }
                     }
                     is ResultCotaRequest.Error -> {
-                        result.exception.message?.let { it ->
+                        result.exception.message?.let {
                             errorCallApi("Não tem dados para $ano")
                         }
                     }
                     is ResultCotaRequest.ErrorConnection -> {
-                        result.exception.message?.let { it ->
+                        result.exception.message?.let {
                             errorCallApi("Erro ao buscar os dados, tente novamnete mais tarde!")
                         }
                     }

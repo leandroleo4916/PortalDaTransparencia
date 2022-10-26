@@ -4,8 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.example.portaldatransparencia.dataclass.GastoGeralCamara
 import com.example.portaldatransparencia.dataclass.GastoGeralDataClass
-import com.example.portaldatransparencia.dataclass.OccupationDataClass
-import com.example.portaldatransparencia.remote.*
+import com.example.portaldatransparencia.remote.GastoGeralRepository
+import com.example.portaldatransparencia.remote.ResultGastoGeralCamara
+import com.example.portaldatransparencia.remote.ResultGastoGeralRequest
 
 class GastoGeralViewModel(private val repository: GastoGeralRepository): ViewModel() {
 

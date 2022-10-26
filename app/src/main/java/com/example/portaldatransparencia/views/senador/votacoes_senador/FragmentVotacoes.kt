@@ -69,12 +69,12 @@ class FragmentVotacoes: Fragment(R.layout.fragment_votacoes_senador) {
                         }
                     }
                     is ResultVotacoesRequest.Error -> {
-                        result.exception.message?.let { it ->
+                        result.exception.message?.let {
                             observerItem()
                         }
                     }
                     is ResultVotacoesRequest.ErrorConnection -> {
-                        result.exception.message?.let { it ->
+                        result.exception.message?.let {
                             observerItem()
                         }
                     }
@@ -109,7 +109,7 @@ class FragmentVotacoes: Fragment(R.layout.fragment_votacoes_senador) {
                         }
                     }
                     is ResultVotacoesItemRequest.Error -> {
-                        result.exception.message?.let { it ->
+                        result.exception.message?.let {
                             binding?.run {
                                 adapter.updateData(listOf())
                                 statusView.disableView(progressVotacoes)
@@ -120,7 +120,7 @@ class FragmentVotacoes: Fragment(R.layout.fragment_votacoes_senador) {
                         }
                     }
                     is ResultVotacoesItemRequest.ErrorConnection -> {
-                        result.exception.message?.let { it ->
+                        result.exception.message?.let {
                             binding?.run {
                                 adapter.updateData(listOf())
                                 statusView.disableView(progressVotacoes)

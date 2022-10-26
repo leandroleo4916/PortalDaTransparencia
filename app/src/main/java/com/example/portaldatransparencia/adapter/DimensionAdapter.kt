@@ -1,20 +1,15 @@
 package com.example.portaldatransparencia.adapter
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.marginEnd
-import androidx.core.view.setPadding
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.databinding.RecyclerDimensionBinding
-import com.example.portaldatransparencia.databinding.RecyclerGastosBinding
 import com.example.portaldatransparencia.dataclass.SublistDataClass
 import com.example.portaldatransparencia.util.FormatValor
-import kotlin.coroutines.coroutineContext
 
 class DimensionAdapter(private val formatValor: FormatValor):
     RecyclerView.Adapter<DimensionAdapter.DespesasViewHolder>() {
