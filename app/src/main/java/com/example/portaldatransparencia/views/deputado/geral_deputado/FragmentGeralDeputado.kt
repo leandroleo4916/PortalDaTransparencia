@@ -65,7 +65,6 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
                 when (result) {
                     is ResultIdRequest.Success -> {
                         result.dado?.let { deputado ->
-                            statusView.disableView(binding!!.progressGeral)
                             addElementView(deputado.dados)
                             addElementRedeSocial(deputado.dados)
                             sexoDeputado = deputado.dados.sexo
@@ -113,6 +112,10 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
                 .load(dados.ultimoStatus.urlFoto)
                 .circleCrop()
                 .into(iconDeputadoGeral)
+
+            statusView.disableView(progressGeral)
+            statusView.enableView(iconDeputadoGeral)
+            statusView.enableView(textGeralInformation)
         }
     }
 

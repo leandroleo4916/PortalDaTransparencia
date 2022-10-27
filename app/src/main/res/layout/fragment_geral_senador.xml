@@ -48,7 +48,9 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="18sp"
                     android:src="@drawable/ic_avatar"
-                    android:visibility="invisible"
+                    android:background="@drawable/back_white_cyrcle"
+                    android:elevation="12dp"
+                    android:visibility="gone"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="ContentDescription" />

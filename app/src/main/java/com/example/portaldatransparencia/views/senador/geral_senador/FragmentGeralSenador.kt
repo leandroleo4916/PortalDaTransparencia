@@ -70,7 +70,6 @@ class FragmentGeralSenador: Fragment(R.layout.fragment_geral_senador) {
                 when (result) {
                     is ResultCargosRequest.Success -> {
                         result.dado?.let { senador ->
-                            statusView.disableView(binding!!.progressGeral)
                             addElementCargo(senador.cargoParlamentar.parlamentar.cargos.cargo)
                         }
                     }
@@ -96,7 +95,6 @@ class FragmentGeralSenador: Fragment(R.layout.fragment_geral_senador) {
                     sexo+" em exércicio, filiado ao partido "+ detalhes.siglaPartidoParlamentar+
                     " pelo estado de "+ detalhes.ufParlamentar+".")
                 .also { textGeralInformation.text = it }
-            statusView.enableView(textGeralInformation)
 
             val https = "https:/"
             val urlFoto = detalhes.urlFotoParlamentar.split(":/")
@@ -105,20 +103,25 @@ class FragmentGeralSenador: Fragment(R.layout.fragment_geral_senador) {
                 .load(photo)
                 .circleCrop()
                 .into(iconSenadorGeral)
+
+            statusView.disableView(progressGeral)
             statusView.enableView(iconSenadorGeral)
+            statusView.enableView(textGeralInformation)
         }
     }
 
     private fun addElementSiteBlog() {
 
         binding?.run {
-            textSitePessoal.text = if (detalhes.urlPaginaParticular != null) {
-                detalhes.urlPaginaParticular+" >"
-            } else "Não informou sua página particular"
+            textSitePessoal.text =
+                if (detalhes.urlPaginaParticular != null) {
+                    detalhes.urlPaginaParticular+" >"
+                } else "Não informou sua página particular"
 
-            textSiteSenado.text = if (detalhes.urlPaginaParlamentar != null) {
-                detalhes.urlPaginaParlamentar+" >"
-            } else "Não foi informado página pelo senado"
+            textSiteSenado.text =
+                if (detalhes.urlPaginaParlamentar != null) {
+                    detalhes.urlPaginaParlamentar+" >"
+                } else "Não foi informado página pelo senado"
         }
         listenerSite(detalhes)
     }

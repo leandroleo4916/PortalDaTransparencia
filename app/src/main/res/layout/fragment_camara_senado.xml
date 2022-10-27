@@ -36,6 +36,8 @@
                     android:id="@+id/toolbar_registrados"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/purple_700"
+                    android:backgroundTint="@color/purple_700"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -46,26 +48,29 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="20dp">
 
-                        <EditText
+                        <androidx.appcompat.widget.AppCompatEditText
                             android:id="@+id/text_search"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
                             android:layout_marginEnd="12dp"
                             android:hint="@string/digite_ou_fale_o_nome_do_deputado"
                             android:minHeight="48dp"
-                            android:textColor="@color/black"
+                            android:textColor="@color/white"
+                            android:textColorHighlight="@color/white"
                             android:textColorHint="@color/purple_500"
+                            android:textColorLink="@color/white"
+                            android:shadowColor="@color/white"
+                            app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@+id/ic_voz"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <ImageView
                             android:id="@+id/ic_voz"
-                            android:layout_width="36dp"
-                            android:layout_height="36dp"
-                            android:layout_marginTop="10dp"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
                             android:src="@drawable/ic_voice"
+                            app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             tools:ignore="ContentDescription,MissingConstraints" />
@@ -140,7 +145,7 @@
             android:layout_marginEnd="20sp"
             android:layout_marginBottom="20dp"
             android:foreground="@drawable/ic_top"
-            app:backgroundTint="@color/black"
+            app:backgroundTint="@color/purple_700"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

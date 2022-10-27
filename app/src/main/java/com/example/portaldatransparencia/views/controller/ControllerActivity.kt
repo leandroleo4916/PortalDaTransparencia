@@ -15,6 +15,7 @@ import com.example.portaldatransparencia.interfaces.IHideViewController
 import com.example.portaldatransparencia.views.view_generics.TabViewAdapterController
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import java.lang.Float.*
 
 class ControllerActivity: AppCompatActivity(), IHideViewController {
 
@@ -62,9 +63,9 @@ class ControllerActivity: AppCompatActivity(), IHideViewController {
     override fun hideNavView(value: Boolean) {
         animateBarVisibility(value)
     }
-
 }
 
+// esconde e mostra tablayout com scroll up ou down
 class BottomNavigationBehavior<V : View>(context: Context, attrs: AttributeSet) :
     CoordinatorLayout.Behavior<V>(context, attrs) {
 
@@ -87,28 +88,21 @@ class BottomNavigationBehavior<V : View>(context: Context, attrs: AttributeSet) 
         target: View, dx: Int, dy: Int, consumed: IntArray, type: Int) {
 
         super.onNestedPreScroll(coordinatorLayout, child, target, dx, dy, consumed, type)
-        child.translationY = java.lang.Float.max(0f, java.lang.Float.min(child.height.toFloat(),
-            child.translationY + dy))
+        child.translationY = max(0f, min(child.height.toFloat(), child.translationY + dy))
     }
 
     override fun onStopNestedScroll(coordinatorLayout: CoordinatorLayout, child: V,
                                     target: View, type: Int) {
 
         if (!isSnappingEnabled) return
-
         if (lastStartedType == ViewCompat.TYPE_TOUCH || type == ViewCompat.TYPE_NON_TOUCH) {
 
             val currTranslation = child.translationY
             val childHalfHeight = child.height * 0.5f
-
             // translate down
-            if (currTranslation >= childHalfHeight) {
-                animateBarVisibility(child, isVisible = false)
-            }
+            if (currTranslation >= childHalfHeight) animateBarVisibility(child, isVisible = false)
             // translate up
-            else {
-                animateBarVisibility(child, isVisible = true)
-            }
+            else animateBarVisibility(child, isVisible = true)
         }
     }
 
