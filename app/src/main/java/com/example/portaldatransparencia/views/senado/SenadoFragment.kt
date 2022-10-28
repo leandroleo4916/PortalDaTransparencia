@@ -36,7 +36,7 @@ class SenadoFragment: Fragment(R.layout.fragment_camara_senado), IClickSenador, 
     private val senadoViewModel: SenadoViewModel by viewModel()
     private val modifyChip: ModifyChip by inject()
     private val retiraAcento: RetiraAcento by inject()
-    private val enableDisableView: EnableDisableView by inject()
+    private val hideView: EnableDisableView by inject()
     private val visibilityNavViewAndFloating: VisibilityNavViewAndFloating by inject()
     private lateinit var adapter: SenadoAdapter
     private var chipEnabled: Chip? = null
@@ -46,7 +46,6 @@ class SenadoFragment: Fragment(R.layout.fragment_camara_senado), IClickSenador, 
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentCamaraSenadoBinding.bind(view)
 
-        binding!!.textSearch.hint = "Digite ou fale o nome do senador"
         recycler()
         observer()
         showTabView()
@@ -67,7 +66,7 @@ class SenadoFragment: Fragment(R.layout.fragment_camara_senado), IClickSenador, 
                 when (result) {
                     is ResultSenadoRequest.Success -> {
                         result.dado?.let { senado ->
-                            enableDisableView.disableView(binding?.progressMain!!)
+                            hideView.disableView(binding?.progressMain!!)
                             adapter.updateData(
                                 senado.listaParlamentarEmExercicio.parlamentares.parlamentar)
                         }
@@ -84,7 +83,7 @@ class SenadoFragment: Fragment(R.layout.fragment_camara_senado), IClickSenador, 
     }
 
     private fun search() {
-        binding?.textSearch?.addTextChangedListener(object : TextWatcher {
+        binding?.textSearch?.editText?.addTextChangedListener(object : TextWatcher {
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 adapter.filter.filter(s)
             }
@@ -121,14 +120,20 @@ class SenadoFragment: Fragment(R.layout.fragment_camara_senado), IClickSenador, 
             }
 
             icVoz.setOnClickListener { permissionVoice() }
+            icFilter.setOnClickListener { showFilterIcons() }
+
             floatingController.setOnClickListener {
                 recyclerDeputados.smoothScrollToPosition(0)
                 context?.let { it1 ->
-                    visibilityNavViewAndFloating.visibilityNavViewAndFloating(it1, true,
-                        floatingController
+                    visibilityNavViewAndFloating.visibilityNavViewAndFloating(
+                        it1, true, floatingController
                     )}
             }
         }
+    }
+
+    private fun showFilterIcons(){
+        binding?.frameChip?.let { hideView.enableView(it) }
     }
 
     private fun modify(viewEnabled: Chip?, viewDisabled: Chip) {
@@ -148,8 +153,7 @@ class SenadoFragment: Fragment(R.layout.fragment_camara_senado), IClickSenador, 
     private fun showTabView() {
         binding?.run {
             context?.let {
-                visibilityNavViewAndFloating.showTabView(appbar,
-                    it, floatingController)
+                visibilityNavViewAndFloating.showTabView(appbar, it, floatingController)
             }
         }
     }
@@ -182,7 +186,8 @@ class SenadoFragment: Fragment(R.layout.fragment_camara_senado), IClickSenador, 
                 if (grantResults.isNotEmpty() && grantResults[0] ==
                     PackageManager.PERMISSION_GRANTED) {
                     openVoice()
-                } else {
+                }
+                else {
                     Toast.makeText(context, "Permissão negada", Toast.LENGTH_SHORT).show()
                 }
             }
@@ -213,10 +218,10 @@ class SenadoFragment: Fragment(R.layout.fragment_camara_senado), IClickSenador, 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == CamaraFragment.SPEECH_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             val spokenText: String? =
-                data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS).let { results ->
-                    results?.get(0)
+                data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS).let {
+                        results -> results?.get(0)
                 }
-            binding?.textSearch?.setText(spokenText)
+            binding?.textSearch?.editText?.setText(spokenText)
         }
         super.onActivityResult(requestCode, resultCode, data)
     }

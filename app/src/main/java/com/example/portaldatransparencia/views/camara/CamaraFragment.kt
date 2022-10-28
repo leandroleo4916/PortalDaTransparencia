@@ -106,7 +106,7 @@ class CamaraFragment: Fragment(R.layout.fragment_camara_senado), IClickDeputado,
     }
 
     private fun search() {
-        binding?.textSearch?.addTextChangedListener(object : TextWatcher {
+        binding?.textSearch?.editText?.addTextChangedListener(object : TextWatcher {
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 adapter.filter.filter(s)
             }
@@ -149,11 +149,13 @@ class CamaraFragment: Fragment(R.layout.fragment_camara_senado), IClickDeputado,
             }
 
             icVoz.setOnClickListener { permissionVoice() }
+            icFilter.setOnClickListener { showFilterIcons() }
+
             floatingController.setOnClickListener {
                 recyclerDeputados.smoothScrollToPosition(0)
                 context?.let { it1 ->
-                    visibilityNavViewAndFloating.visibilityNavViewAndFloating(it1, true,
-                        floatingController
+                    visibilityNavViewAndFloating.visibilityNavViewAndFloating(
+                        it1, true, floatingController
                     )}
             }
             layoutValidation.buttonAgain.setOnClickListener {
@@ -161,6 +163,10 @@ class CamaraFragment: Fragment(R.layout.fragment_camara_senado), IClickDeputado,
                 observer()
             }
         }
+    }
+
+    private fun showFilterIcons(){
+        binding?.frameChip?.let { hideView.enableView(it) }
     }
 
     private fun modify(viewEnabled: Chip?, viewDisabled: Chip) {
@@ -224,7 +230,7 @@ class CamaraFragment: Fragment(R.layout.fragment_camara_senado), IClickDeputado,
                 data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS).let { results ->
                     results?.get(0)
                 }
-            binding?.textSearch?.setText(spokenText)
+            binding?.textSearch?.editText?.setText(spokenText)
         }
         super.onActivityResult(requestCode, resultCode, data)
     }
