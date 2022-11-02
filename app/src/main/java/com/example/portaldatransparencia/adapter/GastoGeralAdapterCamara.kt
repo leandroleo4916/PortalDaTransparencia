@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.portaldatransparencia.R
-import com.example.portaldatransparencia.databinding.RecyclerRanckingBinding
+import com.example.portaldatransparencia.databinding.RecyclerRankingBinding
 import com.example.portaldatransparencia.dataclass.ListDeputado
 import com.example.portaldatransparencia.util.FormaterValueBilhoes
 import kotlinx.coroutines.*
@@ -15,13 +15,13 @@ import kotlinx.coroutines.*
 class GastoGeralAdapterCamara(private val formatValor: FormaterValueBilhoes) :
     RecyclerView.Adapter<GastoGeralAdapterCamara.MainViewHolder>() {
 
-    private var binding: RecyclerRanckingBinding? = null
+    private var binding: RecyclerRankingBinding? = null
     private var data = arrayListOf<ListDeputado>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
         val item = LayoutInflater
             .from(parent.context)
-            .inflate(R.layout.recycler_rancking, parent, false)
+            .inflate(R.layout.recycler_ranking, parent, false)
 
         return MainViewHolder(item)
     }
@@ -37,7 +37,7 @@ class GastoGeralAdapterCamara(private val formatValor: FormaterValueBilhoes) :
 
         fun bind(item: ListDeputado) {
 
-            binding = RecyclerRanckingBinding.bind(itemView)
+            binding = RecyclerRankingBinding.bind(itemView)
             binding?.run {
                 textNameRancking.text = item.nome
                 textValorItem.text = formatValor.formatValor(item.gasto.toDouble())

@@ -619,7 +619,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="22dp"
         android:layout_marginStart="8dp"
-        android:text="@string/rancking_de_gastos"
+        android:text="@string/ranking_de_gastos"
         android:textColor="@color/purple_700"
         android:textStyle="bold"
         android:textSize="16sp"
@@ -638,7 +638,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4"
-        tools:listitem="@layout/recycler_rancking" />
+        tools:listitem="@layout/recycler_ranking" />
 
     <com.wang.avi.AVLoadingIndicatorView
         android:id="@+id/progress_rancking"

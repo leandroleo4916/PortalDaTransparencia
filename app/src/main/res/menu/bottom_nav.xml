@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_register"
-        android:icon="@drawable/ic_medal_ouro"
-        android:title="@string/deputados" />
+        android:id="@+id/navigation_camara"
+        android:icon="@drawable/ic_group"
+        android:title="@string/camara" />
 
     <item
-        android:id="@+id/navigation_dashboard"
-        android:icon="@drawable/ic_medal_prata"
-        android:title="@string/senadores" />
+        android:id="@+id/navigation_senado"
+        android:icon="@drawable/ic_group_2"
+        android:title="@string/senado" />
 
     <item
-        android:id="@+id/navigation_home"
-        android:icon="@drawable/ic_medal_bronze"
+        android:id="@+id/navigation_mais"
+        android:icon="@drawable/ic_money_w"
         android:title="@string/mais" />
 
 </menu>

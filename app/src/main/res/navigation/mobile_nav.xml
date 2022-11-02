@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_camara">
+
+    <fragment
+        android:id="@+id/navigation_camara"
+        android:name="com.example.portaldatransparencia.views.camara.CamaraFragment"
+        android:label="@string/camara"
+        tools:layout="@layout/fragment_camara_senado" />
+
+    <fragment
+        android:id="@+id/navigation_senado"
+        android:name="com.example.portaldatransparencia.views.senado.SenadoFragment"
+        android:label="@string/senado"
+        tools:layout="@layout/fragment_camara_senado" />
+
+    <fragment
+        android:id="@+id/navigation_mais"
+        android:name="com.example.portaldatransparencia.views.mais.FragmentGastoGeral"
+        android:label="@string/mais"
+        tools:layout="@layout/fragment_mais" />
+
+</navigation>

@@ -15,29 +15,30 @@ import com.example.portaldatransparencia.interfaces.IHideViewController
 import com.example.portaldatransparencia.views.view_generics.TabViewAdapterController
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import java.lang.Float.*
+import java.lang.Float.max
+import java.lang.Float.min
 
 class ControllerActivity: AppCompatActivity(), IHideViewController {
 
     private val binding by lazy { ActivityControllerBinding.inflate(layoutInflater) }
-    private lateinit var tabView: TabLayout
+    private lateinit var navView: TabLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        tabView = binding.tabController
+        navView = binding.tabController
         setupViewController()
     }
 
     private fun setupViewController(){
         val tabs = arrayOf(R.string.camara, R.string.senado, R.string.mais)
-        val tabLayout = binding.tabController
         val pagerMain = binding.viewPagerController
+        pagerMain.isNestedScrollingEnabled = false
         val adapter = TabViewAdapterController(this)
         pagerMain.adapter = adapter
 
-        TabLayoutMediator(tabLayout, pagerMain){ tab, position ->
+        TabLayoutMediator(navView, pagerMain){ tab, position ->
             tab.text = getString(tabs[position]) }.attach()
     }
 
@@ -51,12 +52,12 @@ class ControllerActivity: AppCompatActivity(), IHideViewController {
                 duration = 150L
             }
             offsetAnimator.addUpdateListener {
-                tabView.translationY = it.animatedValue as Float
+                navView.translationY = it.animatedValue as Float
             }
         } else { offsetAnimator.cancel() }
 
-        val targetTranslation = if (isVisible) 0f else tabView.height.toFloat()
-        offsetAnimator.setFloatValues(tabView.translationY, targetTranslation)
+        val targetTranslation = if (isVisible) 0f else navView.height.toFloat()
+        offsetAnimator.setFloatValues(navView.translationY, targetTranslation)
         offsetAnimator.start()
     }
 
@@ -65,7 +66,7 @@ class ControllerActivity: AppCompatActivity(), IHideViewController {
     }
 }
 
-// esconde e mostra tablayout com scroll up ou down
+// hide and show tablayout with scroll up or down
 class BottomNavigationBehavior<V : View>(context: Context, attrs: AttributeSet) :
     CoordinatorLayout.Behavior<V>(context, attrs) {
 

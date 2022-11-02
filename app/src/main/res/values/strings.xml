@@ -28,7 +28,7 @@
     <string name="senadores">Senadores</string>
     <string name="deputados">Deputados</string>
     <string name="notas">Notas</string>
-    <string name="rancking_de_gastos">Rancking de gastos - últimos 8 anos</string>
+    <string name="ranking_de_gastos">Ranking de gastos - últimos 8 anos</string>
     <string name="sem_dados_para_exibir_no_momento">Sem dados para exibir no momento.</string>
     <string name="nenhuma_frente_parlamentar">Nenhuma frente parlamentar</string>
     <string name="digite_ou_fale_o_nome_do_deputado">Digite ou fale o nome do deputado</string>
@@ -36,4 +36,5 @@
     <string name="tentar_novamente">Tentar novamente</string>
     <string name="nao_recebeu_dados">Não conseguiu receber os dados!</string>
     <string name="falha_no_servidor">Falha na resposta do servidor!</string>
+    <string name="senado_8anos">Senado - últimos 8 anos</string>
 </resources>
