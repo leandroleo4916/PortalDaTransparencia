@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.databinding.RecyclerRankingBinding
-import com.example.portaldatransparencia.dataclass.ListSenador
+import com.example.portaldatransparencia.dataclass.ListParlamentar
 import com.example.portaldatransparencia.util.FormaterValueBilhoes
 import kotlinx.coroutines.*
 
@@ -16,7 +16,7 @@ class GastoGeralAdapter(private val formatValor: FormaterValueBilhoes) :
     RecyclerView.Adapter<GastoGeralAdapter.MainViewHolder>() {
 
     private var binding: RecyclerRankingBinding? = null
-    private var data = arrayListOf<ListSenador>()
+    private var data = arrayListOf<ListParlamentar>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
         val item = LayoutInflater
@@ -35,11 +35,12 @@ class GastoGeralAdapter(private val formatValor: FormaterValueBilhoes) :
 
     inner class MainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
 
-        fun bind(item: ListSenador) {
+        fun bind(item: ListParlamentar) {
 
             binding = RecyclerRankingBinding.bind(itemView)
             binding?.run {
                 textNameRancking.text = item.nome
+                textPartidoUf.text = "${item.partido}"+" - "+"${item.uf}"
                 textValorItem.text = formatValor.formatValor(item.gasto.toDouble())
 
                 var value = 0
@@ -67,11 +68,11 @@ class GastoGeralAdapter(private val formatValor: FormaterValueBilhoes) :
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun updateData(senador: ArrayList<ListSenador>) {
-        senador.sortByDescending {
+    fun updateData(parlamentar: ArrayList<ListParlamentar>) {
+        parlamentar.sortByDescending {
             it.gasto.toInt()
         }
-        data = senador
+        data = parlamentar
         notifyDataSetChanged()
     }
 }

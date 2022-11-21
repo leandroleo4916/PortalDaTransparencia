@@ -39,6 +39,22 @@
             android:name=".views.deputado.frente_deputado.FragmentFrenteId"
             android:exported="true">
         </activity>
+        <activity
+            android:name=".views.activity.gastogeral.camara.ActivityGastoGeralCamara"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".views.activity.gastogeral.senado.ActivityGastoGeralSenado"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".views.activity.ranking.camara.ActivityRankingCamara"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".views.activity.ranking.senado.ActivityRankingSenado"
+            android:exported="true">
+        </activity>
     </application>
 
 </manifest>

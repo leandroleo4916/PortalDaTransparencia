@@ -20,6 +20,8 @@ import com.example.portaldatransparencia.interfaces.IClickSenador
 import com.example.portaldatransparencia.interfaces.INotificationSenado
 import com.example.portaldatransparencia.remote.ResultSenadoRequest
 import com.example.portaldatransparencia.util.RetiraAcento
+import com.example.portaldatransparencia.views.activity.gastogeral.senado.ActivityGastoGeralSenado
+import com.example.portaldatransparencia.views.activity.ranking.senado.ActivityRankingSenado
 import com.example.portaldatransparencia.views.camara.CamaraFragment
 import com.example.portaldatransparencia.views.senador.SenadorActivity
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
@@ -128,6 +130,19 @@ class SenadoFragment: Fragment(R.layout.fragment_camara_senado), IClickSenador, 
                     visibilityNavViewAndFloating.visibilityNavViewAndFloating(
                         it1, true, floatingController
                     )}
+            }
+            layoutItemParlamento.run {
+                constraintLayout1.setOnClickListener {
+                    val intent = Intent(context, ActivityGastoGeralSenado::class.java)
+                    startActivity(intent)
+                }
+                constraintLayout2.setOnClickListener {
+                    val intent = Intent(context, ActivityRankingSenado::class.java)
+                    startActivity(intent)
+                }
+                constraintLayout3.setOnClickListener {
+
+                }
             }
         }
     }

@@ -114,12 +114,11 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:visibility="gone"
-            tools:ignore="MissingConstraints">
+            android:visibility="gone">
 
             <include
                 android:id="@+id/chip_group_item"
-                layout="@layout/chip_group_partidos"/>
+                layout="@layout/chip_group_partidos" />
 
         </FrameLayout>
 
@@ -127,18 +126,18 @@
             android:id="@+id/progress_main"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginTop="80dp"
             app:indicatorColor="@color/purple_700"
             app:indicatorName="BallPulseIndicator"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/frame_chip" />
+            app:layout_constraintTop_toBottomOf="@+id/frame_item_parlamento" />
 
         <FrameLayout
             android:id="@+id/frame_validation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
+            android:elevation="12dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/progress_main">
@@ -149,15 +148,29 @@
 
         </FrameLayout>
 
+        <FrameLayout
+            android:id="@+id/frame_item_parlamento"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/frame_chip">
+
+            <include
+                android:id="@+id/layout_item_parlamento"
+                layout="@layout/view_item_parlamento" />
+
+        </FrameLayout>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_deputados"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="4dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/frame_chip"
+            app:layout_constraintTop_toBottomOf="@+id/frame_item_parlamento"
             tools:listitem="@layout/recycler_main" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton

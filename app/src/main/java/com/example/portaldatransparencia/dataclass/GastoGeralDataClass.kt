@@ -1,6 +1,5 @@
 package com.example.portaldatransparencia.dataclass
 
-
 data class GastoGeralDataClass(
     val gastoGeral: GastoGeral
 )
@@ -15,10 +14,13 @@ data class GastoGeral (
     val locomocao: String,
     val aquisicao: String,
     val outros: String,
-    val listSenador: List<ListSenador>
+    val listSenador: List<ListParlamentar>
 )
 
-data class ListSenador (
+data class ListParlamentar (
+    var id: String,
+    var partido: String,
+    var uf: String,
     val nome: String,
     val gasto: String,
     var urlFoto: String? = null

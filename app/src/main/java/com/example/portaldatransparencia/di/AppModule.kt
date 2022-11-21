@@ -10,7 +10,10 @@ import com.example.portaldatransparencia.views.deputado.frente_deputado.FrenteVi
 import com.example.portaldatransparencia.views.deputado.gastos_deputado.DespesasViewModel
 import com.example.portaldatransparencia.views.deputado.geral_deputado.OccupationViewModel
 import com.example.portaldatransparencia.views.deputado.proposta_deputado.PropostaViewModel
-import com.example.portaldatransparencia.views.mais.GastoGeralViewModel
+import com.example.portaldatransparencia.views.activity.gastogeral.camara.GastoGeralViewModelCamara
+import com.example.portaldatransparencia.views.activity.gastogeral.senado.GastoGeralViewModelSenado
+import com.example.portaldatransparencia.views.activity.ranking.camara.RankingViewModelCamara
+import com.example.portaldatransparencia.views.activity.ranking.senado.RankingViewModelSenado
 import com.example.portaldatransparencia.views.senado.SenadoViewModel
 import com.example.portaldatransparencia.views.senador.SenadorViewModel
 import com.example.portaldatransparencia.views.senador.geral_senador.GeralSenadorViewModel
@@ -97,7 +100,10 @@ val viewModelSenado = module { viewModel { SenadoViewModel(get()) } }
 val viewModelSenador = module { viewModel { SenadorViewModel(get()) } }
 val viewModelSenadorGeral = module { viewModel { GeralSenadorViewModel(get()) } }
 val viewModelVotacoes = module { viewModel { VotacoesViewModel(get(), get()) } }
-val viewModelGastoGeral = module { viewModel { GastoGeralViewModel(get()) } }
+val viewModelGastoGeral = module { viewModel { GastoGeralViewModelCamara(get()) } }
+val viewModelRankingCamara = module { viewModel { RankingViewModelCamara(get()) } }
+val viewModelRankingSenado = module { viewModel { RankingViewModelSenado(get()) } }
+val viewModelGastoGeralSenado = module { viewModel { GastoGeralViewModelSenado(get()) } }
 
 val repositorySearch = module { single { SearchRepository(get()) } }
 val repositoryIdDeputado = module { single { IdDeputadoRepository(get()) } }
@@ -131,5 +137,6 @@ val appModules = listOf( retrofitModule, viewModelModule, repositorySearch, prog
         viewModelSenador, visibilityNavFloating, repositorySenador, modifyChip, viewModelSenadorGeral,
         repositorySenadorGeral, retiraAcento, repositoryVotacoes, viewModelVotacoes,
         repositoryVotacoesItem, formatValor, repositoryGastoGeral, viewModelGastoGeral,
-        formatValorBi, formatValorFloat, dimensionAdapter, validationInternet
+        formatValorBi, formatValorFloat, dimensionAdapter, validationInternet,
+        viewModelRankingCamara, viewModelRankingSenado, viewModelGastoGeralSenado
 )

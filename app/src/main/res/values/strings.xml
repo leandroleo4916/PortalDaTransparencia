@@ -37,4 +37,5 @@
     <string name="nao_recebeu_dados">Não conseguiu receber os dados!</string>
     <string name="falha_no_servidor">Falha na resposta do servidor!</string>
     <string name="senado_8anos">Senado - últimos 8 anos</string>
+    <string name="senado_federal">Senado Federal</string>
 </resources>

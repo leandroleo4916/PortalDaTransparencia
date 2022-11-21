@@ -8,8 +8,8 @@ import com.example.portaldatransparencia.remote.SearchRepository
 
 class CamaraViewModel(private val repository: SearchRepository): ViewModel() {
 
-    fun searchData(ordenarPor: String):
-            LiveData<ResultRequest<MainDataClass?>> = repository.searchData(ordenarPor)
+    fun searchData():
+            LiveData<ResultRequest<MainDataClass?>> = repository.searchData()
 
 }
 

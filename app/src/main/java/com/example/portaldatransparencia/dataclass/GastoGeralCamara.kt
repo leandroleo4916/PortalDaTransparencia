@@ -15,11 +15,5 @@ data class GeralCamara (
     val servicos: String,
     val alimentacao: String,
     val outros: String,
-    val listDeputado: List<ListDeputado>
-)
-
-data class ListDeputado (
-    val nome: String,
-    val gasto: String,
-    var urlFoto: String? = null
+    val listDeputado: List<ListParlamentar>
 )

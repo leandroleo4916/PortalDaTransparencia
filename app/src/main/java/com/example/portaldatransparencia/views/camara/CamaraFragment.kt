@@ -20,6 +20,10 @@ import com.example.portaldatransparencia.interfaces.IClickDeputado
 import com.example.portaldatransparencia.interfaces.INotification
 import com.example.portaldatransparencia.remote.ResultRequest
 import com.example.portaldatransparencia.util.ValidationInternet
+import com.example.portaldatransparencia.views.activity.gastogeral.camara.ActivityGastoGeralCamara
+import com.example.portaldatransparencia.views.activity.gastogeral.senado.ActivityGastoGeralSenado
+import com.example.portaldatransparencia.views.activity.ranking.camara.ActivityRankingCamara
+import com.example.portaldatransparencia.views.activity.ranking.senado.ActivityRankingSenado
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import com.example.portaldatransparencia.views.view_generics.ModifyChip
 import com.example.portaldatransparencia.views.view_generics.VisibilityNavViewAndFloating
@@ -64,7 +68,7 @@ class CamaraFragment: Fragment(R.layout.fragment_camara_senado), IClickDeputado,
 
         val internet = context?.let { validationInternet.validationInternet(it) }
         if (internet == true){
-            mainViewModel.searchData(ordenarPor = "nome").observe(viewLifecycleOwner) {
+            mainViewModel.searchData().observe(viewLifecycleOwner) {
                 it?.let { result ->
                     when (result) {
                         is ResultRequest.Success -> {
@@ -161,6 +165,19 @@ class CamaraFragment: Fragment(R.layout.fragment_camara_senado), IClickDeputado,
             layoutValidation.buttonAgain.setOnClickListener {
                 hideView.enableView(binding!!.progressMain)
                 observer()
+            }
+            layoutItemParlamento.run {
+                constraintLayout1.setOnClickListener {
+                    val intent = Intent(context, ActivityGastoGeralCamara::class.java)
+                    startActivity(intent)
+                }
+                constraintLayout2.setOnClickListener {
+                    val intent = Intent(context, ActivityRankingCamara::class.java)
+                    startActivity(intent)
+                }
+                constraintLayout3.setOnClickListener {
+
+                }
             }
         }
     }

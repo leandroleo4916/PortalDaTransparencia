@@ -3,10 +3,10 @@ package com.example.portaldatransparencia.remote
 import androidx.lifecycle.liveData
 import java.net.ConnectException
 
-sealed class ResultGastoGeralRequest<out R> {
-    data class Success<out T>(val dado: T?) : ResultGastoGeralRequest<T?>()
-    data class Error(val exception: Exception) : ResultGastoGeralRequest<Nothing>()
-    data class ErrorConnection(val exception: Exception) : ResultGastoGeralRequest<Nothing>()
+sealed class ResultGastoGeralSenado<out R> {
+    data class Success<out T>(val dado: T?) : ResultGastoGeralSenado<T?>()
+    data class Error(val exception: Exception) : ResultGastoGeralSenado<Nothing>()
+    data class ErrorConnection(val exception: Exception) : ResultGastoGeralSenado<Nothing>()
 }
 
 sealed class ResultGastoGeralCamara<out R> {
@@ -18,19 +18,19 @@ sealed class ResultGastoGeralCamara<out R> {
 class GastoGeralRepository(private val serviceApi: ApiServiceGastoGeralSenador,
                            private val serviceApiCamara: ApiServiceGastoGeralDeputado) {
 
-    fun gastoGeralData() = liveData {
+    fun gastoGeralSenado() = liveData {
         try {
             val request = serviceApi.getGastoGeral()
             if(request.isSuccessful){
-                emit(ResultGastoGeralRequest.Success(dado = request.body()))
+                emit(ResultGastoGeralSenado.Success(dado = request.body()))
             } else {
-                emit(ResultGastoGeralRequest.Error(exception = Exception("Não foi possível conectar!")))
+                emit(ResultGastoGeralSenado.Error(exception = Exception("Não foi possível conectar!")))
             }
         } catch (e: ConnectException) {
-            emit(ResultGastoGeralRequest.ErrorConnection(exception = Exception("Falha na comunicação com API")))
+            emit(ResultGastoGeralSenado.ErrorConnection(exception = Exception("Falha na comunicação com API")))
         }
         catch (e: Exception) {
-            emit(ResultGastoGeralRequest.Error(exception = e))
+            emit(ResultGastoGeralSenado.Error(exception = e))
         }
     }
 
