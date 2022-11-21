@@ -20,7 +20,6 @@ class ActivityGastoGeralSenado: AppCompatActivity() {
     private val hideView: EnableDisableView by inject()
     private val formatValor: FormaterValueBilhoes by inject()
     private lateinit var gastoSenado: GastoGeralDataClass
-    private lateinit var sizeSenador: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +31,7 @@ class ActivityGastoGeralSenado: AppCompatActivity() {
 
     private fun modifyItemGraph() {
         binding.layoutUnic.run {
-            textViewTitle.text = getString(R.string.senado_8anos)
+            textViewParlamento.text = getString(R.string.senado_federal)
             hideView.disableView(layoutServicosPostais)
             hideView.disableView(layoutOutrosServicos)
             hideView.disableView(toolbarAquisicao)
@@ -51,7 +50,7 @@ class ActivityGastoGeralSenado: AppCompatActivity() {
                     is ResultGastoGeralSenado.Success -> {
                         result.dado?.let { gasto ->
                             gastoSenado = gasto
-                            addElementSenado(gastoSenado)
+                            addElementSenado()
                             buildGraphSenado()
                         }
                     }
@@ -66,14 +65,20 @@ class ActivityGastoGeralSenado: AppCompatActivity() {
         }
     }
 
-    private fun addElementSenado(dados: GastoGeralDataClass) {
+    private fun addElementSenado() {
         binding.layoutUnic.run {
-            dados.gastoGeral.run {
+            gastoSenado.gastoGeral.run {
                 val total = formatValor.formatValor(totalGeral.toDouble())
                 textViewParlamentar.text = getString(R.string.senadores)
-                textViewTotalParlamentar.text = sizeSenador
+                textViewTotalParlamentar.text = "83"
                 textViewGastoParlamentar.text = total
                 textViewTotalNotas.text = totalNotas
+                hideView.disableView(progressGastoGeral)
+                hideView.enableView(constraintNumberParlamentar)
+                hideView.enableView(constraintNumberTotal)
+                hideView.enableView(constraintNumberNotas)
+                hideView.enableView(linearLayout2)
+                hideView.enableView(toolbarSeparate)
 
                 textAluguelValue.text = formatValor.formatValor(aluguel.toDouble())
                 textDivulgacaoValue.text = formatValor.formatValor(divulgacao.toDouble())
