@@ -95,9 +95,9 @@ class SenadoAdapter(private val listener: IClickSenador, private val notify: INo
                 val list = ArrayList<Parlamentar>()
 
                 for (senadores in data) {
-                    if (senadores.identificacaoParlamentar.nomeParlamentar.lowercase(Locale.ROOT)
-                            .contains(constraint.toString().lowercase(Locale.ROOT)) ||
-                        senadores.identificacaoParlamentar.siglaPartidoParlamentar.contains(constraint)) {
+                    if (senadores.identificacaoParlamentar.nomeParlamentar.contains(constraint) ||
+                        senadores.identificacaoParlamentar.siglaPartidoParlamentar.contains(constraint) ||
+                        senadores.identificacaoParlamentar.ufParlamentar.contains(constraint)) {
                         list.add(senadores)
                     }
                 }

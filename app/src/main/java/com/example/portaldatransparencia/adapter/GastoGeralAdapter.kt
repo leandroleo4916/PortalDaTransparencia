@@ -38,6 +38,13 @@ class GastoGeralAdapter(private val formatValor: FormaterValueBilhoes) :
         fun bind(item: ListParlamentar) {
 
             binding = RecyclerRankingBinding.bind(itemView)
+            val photo =
+                if (item.urlFoto?.contains("https") != true){
+                    val sub = item.urlFoto?.split("http")
+                    "https${sub?.get(1)}"
+                }
+                else item.urlFoto
+
             binding?.run {
                 textNameRancking.text = item.nome
                 textPartidoUf.text = "${item.partido}"+" - "+"${item.uf}"
@@ -56,7 +63,7 @@ class GastoGeralAdapter(private val formatValor: FormaterValueBilhoes) :
                     }
                 }
                 Glide.with(itemView)
-                    .load(item.urlFoto)
+                    .load(photo)
                     .circleCrop()
                     .into(iconImage)
 

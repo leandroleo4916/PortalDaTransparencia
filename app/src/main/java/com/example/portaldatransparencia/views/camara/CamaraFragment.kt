@@ -21,13 +21,11 @@ import com.example.portaldatransparencia.interfaces.INotification
 import com.example.portaldatransparencia.remote.ResultRequest
 import com.example.portaldatransparencia.util.ValidationInternet
 import com.example.portaldatransparencia.views.activity.gastogeral.camara.ActivityGastoGeralCamara
-import com.example.portaldatransparencia.views.activity.gastogeral.senado.ActivityGastoGeralSenado
 import com.example.portaldatransparencia.views.activity.ranking.camara.ActivityRankingCamara
-import com.example.portaldatransparencia.views.activity.ranking.senado.ActivityRankingSenado
+import com.example.portaldatransparencia.views.deputado.DeputadoActivity
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import com.example.portaldatransparencia.views.view_generics.ModifyChip
 import com.example.portaldatransparencia.views.view_generics.VisibilityNavViewAndFloating
-import com.example.portaldatransparencia.views.deputado.DeputadoActivity
 import com.google.android.material.chip.Chip
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -44,6 +42,7 @@ class CamaraFragment: Fragment(R.layout.fragment_camara_senado), IClickDeputado,
     private lateinit var adapter: MainAdapter
     private var chipEnabled: Chip? = null
     private val permissionCode = 1000
+    private var hideFilter = true
     companion object { const val SPEECH_REQUEST_CODE = 0 }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -150,6 +149,34 @@ class CamaraFragment: Fragment(R.layout.fragment_camara_senado), IClickDeputado,
                 chipPt.setOnClickListener { modify(chipEnabled, chipPt) }
                 chipRepublicanos.setOnClickListener { modify(chipEnabled, chipRepublicanos) }
                 chipUniao.setOnClickListener { modify(chipEnabled, chipUniao) }
+
+                chipAc.setOnClickListener { modify(chipEnabled, chipAc) }
+                chipAl.setOnClickListener { modify(chipEnabled, chipAl) }
+                chipAp.setOnClickListener { modify(chipEnabled, chipAp) }
+                chipAm.setOnClickListener { modify(chipEnabled, chipAm) }
+                chipBa.setOnClickListener { modify(chipEnabled, chipBa) }
+                chipCe.setOnClickListener { modify(chipEnabled, chipCe) }
+                chipDf.setOnClickListener { modify(chipEnabled, chipDf) }
+                chipEs.setOnClickListener { modify(chipEnabled, chipEs) }
+                chipGo.setOnClickListener { modify(chipEnabled, chipGo) }
+                chipMa.setOnClickListener { modify(chipEnabled, chipMa) }
+                chipMt.setOnClickListener { modify(chipEnabled, chipMt) }
+                chipMs.setOnClickListener { modify(chipEnabled, chipMs) }
+                chipMg.setOnClickListener { modify(chipEnabled, chipMg) }
+                chipPa.setOnClickListener { modify(chipEnabled, chipPa) }
+                chipPb.setOnClickListener { modify(chipEnabled, chipPb) }
+                chipPr.setOnClickListener { modify(chipEnabled, chipPr) }
+                chipPe.setOnClickListener { modify(chipEnabled, chipPe) }
+                chipPi.setOnClickListener { modify(chipEnabled, chipPi) }
+                chipRj.setOnClickListener { modify(chipEnabled, chipRj) }
+                chipRn.setOnClickListener { modify(chipEnabled, chipRn) }
+                chipRs.setOnClickListener { modify(chipEnabled, chipRs) }
+                chipRo.setOnClickListener { modify(chipEnabled, chipRo) }
+                chipRr.setOnClickListener { modify(chipEnabled, chipRr) }
+                chipSc.setOnClickListener { modify(chipEnabled, chipSc) }
+                chipSp.setOnClickListener { modify(chipEnabled, chipSp) }
+                chipSe.setOnClickListener { modify(chipEnabled, chipSe) }
+                chipTo.setOnClickListener { modify(chipEnabled, chipTo) }
             }
 
             icVoz.setOnClickListener { permissionVoice() }
@@ -183,7 +210,18 @@ class CamaraFragment: Fragment(R.layout.fragment_camara_senado), IClickDeputado,
     }
 
     private fun showFilterIcons(){
-        binding?.frameChip?.let { hideView.enableView(it) }
+        binding?.run {
+            if (hideFilter){
+                icFilter.setImageResource(R.drawable.ic_no_filter)
+                hideFilter = false
+                frameChip.let { hideView.enableView(it) }
+            }
+            else {
+                icFilter.setImageResource(R.drawable.ic_filter)
+                hideFilter = true
+                frameChip.let { hideView.disableView(it) }
+            }
+        }
     }
 
     private fun modify(viewEnabled: Chip?, viewDisabled: Chip) {

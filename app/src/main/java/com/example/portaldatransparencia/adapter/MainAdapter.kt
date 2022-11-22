@@ -88,8 +88,9 @@ class MainAdapter(private val listener: IClickDeputado, private val notify: INot
                 val list = ArrayList<Dado>()
 
                 for (deputado in data) {
-                    if (deputado.nome.lowercase(Locale.ROOT).contains(constraint.toString()
-                            .lowercase(Locale.ROOT)) || deputado.siglaPartido.contains(constraint)) {
+                    if (deputado.nome.contains(constraint)
+                        || deputado.siglaPartido.contains(constraint)
+                        || deputado.siglaUf.contains(constraint)){
                         list.add(deputado)
                     }
                 }

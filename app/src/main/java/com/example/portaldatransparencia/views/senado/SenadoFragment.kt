@@ -42,6 +42,7 @@ class SenadoFragment: Fragment(R.layout.fragment_camara_senado), IClickSenador, 
     private val visibilityNavViewAndFloating: VisibilityNavViewAndFloating by inject()
     private lateinit var adapter: SenadoAdapter
     private var chipEnabled: Chip? = null
+    private var hideFilter = true
     private val permissionCode = 1000
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -119,6 +120,34 @@ class SenadoFragment: Fragment(R.layout.fragment_camara_senado), IClickSenador, 
                 chipPt.setOnClickListener { modify(chipEnabled, chipPt) }
                 chipRepublicanos.setOnClickListener { modify(chipEnabled, chipRepublicanos) }
                 chipUniao.setOnClickListener { modify(chipEnabled, chipUniao) }
+
+                chipAc.setOnClickListener { modify(chipEnabled, chipAc) }
+                chipAl.setOnClickListener { modify(chipEnabled, chipAl) }
+                chipAp.setOnClickListener { modify(chipEnabled, chipAp) }
+                chipAm.setOnClickListener { modify(chipEnabled, chipAm) }
+                chipBa.setOnClickListener { modify(chipEnabled, chipBa) }
+                chipCe.setOnClickListener { modify(chipEnabled, chipCe) }
+                chipDf.setOnClickListener { modify(chipEnabled, chipDf) }
+                chipEs.setOnClickListener { modify(chipEnabled, chipEs) }
+                chipGo.setOnClickListener { modify(chipEnabled, chipGo) }
+                chipMa.setOnClickListener { modify(chipEnabled, chipMa) }
+                chipMt.setOnClickListener { modify(chipEnabled, chipMt) }
+                chipMs.setOnClickListener { modify(chipEnabled, chipMs) }
+                chipMg.setOnClickListener { modify(chipEnabled, chipMg) }
+                chipPa.setOnClickListener { modify(chipEnabled, chipPa) }
+                chipPb.setOnClickListener { modify(chipEnabled, chipPb) }
+                chipPr.setOnClickListener { modify(chipEnabled, chipPr) }
+                chipPe.setOnClickListener { modify(chipEnabled, chipPe) }
+                chipPi.setOnClickListener { modify(chipEnabled, chipPi) }
+                chipRj.setOnClickListener { modify(chipEnabled, chipRj) }
+                chipRn.setOnClickListener { modify(chipEnabled, chipRn) }
+                chipRs.setOnClickListener { modify(chipEnabled, chipRs) }
+                chipRo.setOnClickListener { modify(chipEnabled, chipRo) }
+                chipRr.setOnClickListener { modify(chipEnabled, chipRr) }
+                chipSc.setOnClickListener { modify(chipEnabled, chipSc) }
+                chipSp.setOnClickListener { modify(chipEnabled, chipSp) }
+                chipSe.setOnClickListener { modify(chipEnabled, chipSe) }
+                chipTo.setOnClickListener { modify(chipEnabled, chipTo) }
             }
 
             icVoz.setOnClickListener { permissionVoice() }
@@ -148,7 +177,18 @@ class SenadoFragment: Fragment(R.layout.fragment_camara_senado), IClickSenador, 
     }
 
     private fun showFilterIcons(){
-        binding?.frameChip?.let { hideView.enableView(it) }
+        binding?.run {
+            if (hideFilter){
+                icFilter.setImageResource(R.drawable.ic_no_filter)
+                hideFilter = false
+                frameChip.let { hideView.enableView(it) }
+            }
+            else {
+                icFilter.setImageResource(R.drawable.ic_filter)
+                hideFilter = true
+                frameChip.let { hideView.disableView(it) }
+            }
+        }
     }
 
     private fun modify(viewEnabled: Chip?, viewDisabled: Chip) {

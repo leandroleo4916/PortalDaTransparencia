@@ -11,6 +11,5 @@ class GastoGeralViewModelSenado(private val repository: GastoGeralRepository): V
     fun gastoGeralSenado():
             LiveData<ResultGastoGeralSenado<GastoGeralDataClass?>> = repository.gastoGeralSenado()
 
-
 }
 

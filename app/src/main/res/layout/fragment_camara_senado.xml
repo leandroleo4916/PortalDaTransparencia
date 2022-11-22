@@ -108,13 +108,28 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <FrameLayout
+            android:id="@+id/frame_item_parlamento"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <include
+                android:id="@+id/layout_item_parlamento"
+                layout="@layout/view_item_parlamento" />
+
+        </FrameLayout>
+
+        <FrameLayout
             android:id="@+id/frame_chip"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:visibility="gone">
+            app:layout_constraintTop_toBottomOf="@+id/frame_item_parlamento">
 
             <include
                 android:id="@+id/chip_group_item"
@@ -126,6 +141,7 @@
             android:id="@+id/progress_main"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:elevation="2dp"
             app:indicatorColor="@color/purple_700"
             app:indicatorName="BallPulseIndicator"
             app:layout_constraintEnd_toEndOf="parent"
@@ -148,21 +164,6 @@
 
         </FrameLayout>
 
-        <FrameLayout
-            android:id="@+id/frame_item_parlamento"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:elevation="12dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/frame_chip">
-
-            <include
-                android:id="@+id/layout_item_parlamento"
-                layout="@layout/view_item_parlamento" />
-
-        </FrameLayout>
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_deputados"
             android:layout_width="0dp"
@@ -170,7 +171,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/frame_item_parlamento"
+            app:layout_constraintTop_toBottomOf="@+id/frame_chip"
             tools:listitem="@layout/recycler_main" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
