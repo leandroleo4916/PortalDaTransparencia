@@ -10,15 +10,19 @@
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/drawable-v24/back_5.xml" value="0.163" />
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/drawable-v24/back_6.xml" value="0.163" />
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/drawable-v24/back_7.xml" value="0.163" />
+        <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/drawable-v24/back_black.xml" value="0.165" />
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/drawable-v24/back_dark.xml" value="0.1755" />
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/drawable-v24/back_face.xml" value="0.1645" />
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/drawable-v24/back_insta.xml" value="0.165" />
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/drawable-v24/back_partido.xml" value="0.1755" />
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/drawable-v24/back_teal.xml" value="0.1645" />
+        <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/drawable-v24/back_teal_red.xml" value="0.165" />
+        <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/drawable-v24/back_teal_yellow.xml" value="0.165" />
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/drawable-v24/back_toolbar.xml" value="0.165" />
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/drawable-v24/back_twitter.xml" value="0.165" />
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/drawable-v24/back_white.xml" value="0.1645" />
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/drawable-v24/back_white_cyrcle.xml" value="0.1645" />
+        <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/drawable-v24/back_white_stroke.xml" value="0.165" />
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/drawable-v24/back_you.xml" value="0.165" />
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.165" />
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/drawable-v24/ic_voice.xml" value="0.1685" />
@@ -43,6 +47,7 @@
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/layout/activity_deputado.xml" value="0.18545454143492654" />
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/layout/activity_main.xml" value="0.15272726941699832" />
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/layout/activity_senador.xml" value="0.16640625" />
+        <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/layout/activity_votacoes.xml" value="0.16640625" />
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/layout/app_bar_search.xml" value="0.16640625" />
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/layout/chip_group.xml" value="0.16640625" />
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/layout/chip_group_mes.xml" value="0.16640625" />
@@ -68,12 +73,13 @@
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/layout/layout_validation_internet.xml" value="0.16640625" />
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/layout/recycler_dimension.xml" value="0.23999999479814021" />
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/layout/recycler_frente.xml" value="0.19636363210756924" />
-        <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/layout/recycler_gastos.xml" value="0.21818181345285476" />
+        <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/layout/recycler_gastos.xml" value="0.2727272668160684" />
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/layout/recycler_main.xml" value="0.19636363210756924" />
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/layout/recycler_proposta.xml" value="0.21818181345285476" />
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/layout/recycler_rancking.xml" value="0.35999999219721035" />
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/layout/recycler_ranking.xml" value="0.17454545076228378" />
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/layout/recycler_votacoes.xml" value="0.21818181345285476" />
+        <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/layout/recycler_votacoes_list.xml" value="0.21818181345285476" />
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/layout/simple_grid_item.xml" value="0.1" />
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/layout/simple_recycler_dimension.xml" value="0.16640625" />
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/layout/view_item_parlamento.xml" value="0.21818181345285476" />

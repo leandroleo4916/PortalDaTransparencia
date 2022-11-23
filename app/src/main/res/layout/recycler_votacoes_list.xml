@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraint_deputado"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:layout_marginEnd="10dp"
+    android:layout_marginStart="10dp"
+    android:background="@drawable/back_white"
+    android:elevation="16dp">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/constraint_lateral"
+        android:layout_width="6dp"
+        android:layout_height="0dp"
+        android:background="@drawable/back_teal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <ImageView
+        android:id="@+id/icon_check"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="12dp"
+        android:foregroundGravity="center"
+        android:src="@drawable/ic_check_green"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/text_comissao"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="8dp"
+        android:text="Comissão Direitos da Mulher"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/text_date_votacao"
+        app:layout_constraintStart_toEndOf="@+id/icon_check"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text_id"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:text="Sessão: 43529-90"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="@+id/text_comissao"
+        app:layout_constraintStart_toStartOf="@+id/text_comissao"
+        app:layout_constraintTop_toBottomOf="@+id/text_comissao" />
+
+    <TextView
+        android:id="@+id/text_date_votacao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:singleLine="true"
+        android:text="--/--/----"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/text_comissao"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/text_comissao" />
+
+    <TextView
+        android:id="@+id/text_description_materia"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="6dp"
+        android:text="Aprovado"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/text_date_votacao"
+        app:layout_constraintStart_toStartOf="@+id/icon_check"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_notes_2" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_notes_2"
+        android:layout_width="0dp"
+        android:layout_height="1.2dp"
+        android:layout_marginTop="6dp"
+        android:background="@color/purple_500"
+        app:layout_constraintEnd_toEndOf="@+id/text_id"
+        app:layout_constraintStart_toStartOf="@+id/icon_check"
+        app:layout_constraintTop_toBottomOf="@+id/text_id" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_notes_3"
+        android:layout_width="0dp"
+        android:layout_height="1.2dp"
+        android:layout_marginTop="6dp"
+        android:background="@color/purple_500"
+        app:layout_constraintEnd_toEndOf="@+id/text_date_votacao"
+        app:layout_constraintStart_toStartOf="@+id/icon_check"
+        app:layout_constraintTop_toBottomOf="@+id/text_description_materia" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/view_show_votos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/back_white_stroke"
+        android:textAlignment="center"
+        app:chipStrokeColor="@color/purple_700"
+        app:chipStrokeWidth="1.5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/icon_check"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_notes_3">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="6dp"
+            android:text="Ver votos"
+            android:textColor="@color/purple_700"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/view_show_votos"
+            app:layout_constraintEnd_toEndOf="@+id/view_show_votos"
+            app:layout_constraintStart_toStartOf="@+id/view_show_votos"
+            app:layout_constraintTop_toTopOf="@+id/view_show_votos" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/view_show_video"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/back_white_stroke"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="@+id/view_show_votos"
+        app:layout_constraintEnd_toStartOf="@+id/view_show_detail"
+        app:layout_constraintStart_toEndOf="@+id/view_show_votos"
+        app:layout_constraintTop_toTopOf="@+id/view_show_votos">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="6dp"
+            android:text="Assistir votação"
+            android:textColor="@color/purple_700"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/view_show_video"
+            app:layout_constraintEnd_toEndOf="@+id/view_show_video"
+            app:layout_constraintStart_toStartOf="@+id/view_show_video"
+            app:layout_constraintTop_toTopOf="@+id/view_show_video" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/view_show_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/back_white_stroke"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="@+id/view_show_votos"
+        app:layout_constraintEnd_toEndOf="@+id/toolbar_notes_3"
+        app:layout_constraintTop_toTopOf="@+id/view_show_votos">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="6dp"
+            android:text="Detalhes"
+            android:textColor="@color/purple_700"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/view_show_detail"
+            app:layout_constraintEnd_toEndOf="@+id/view_show_detail"
+            app:layout_constraintStart_toStartOf="@+id/view_show_detail"
+            app:layout_constraintTop_toTopOf="@+id/view_show_detail" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

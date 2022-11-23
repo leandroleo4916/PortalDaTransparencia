@@ -44,6 +44,9 @@
                 android:checkable="true"
                 android:checked="false"
                 android:text="AVANTE"
+                android:textColor="@color/back_chip_select_text"
+                app:chipStrokeColor="@color/purple_700"
+                app:chipStrokeWidth="1.5dp"
                 app:chipBackgroundColor="@color/back_chip_select" />
 
             <com.google.android.material.chip.Chip
@@ -53,6 +56,9 @@
                 android:checkable="true"
                 android:checked="false"
                 android:text="CIDADANIA"
+                android:textColor="@color/back_chip_select_text"
+                app:chipStrokeColor="@color/purple_700"
+                app:chipStrokeWidth="1.5dp"
                 app:chipBackgroundColor="@color/back_chip_select" />
 
             <com.google.android.material.chip.Chip
@@ -62,6 +68,9 @@
                 android:checkable="true"
                 android:checked="false"
                 android:text="DC"
+                android:textColor="@color/back_chip_select_text"
+                app:chipStrokeColor="@color/purple_700"
+                app:chipStrokeWidth="1.5dp"
                 app:chipBackgroundColor="@color/back_chip_select" />
 
             <com.google.android.material.chip.Chip
@@ -71,6 +80,9 @@
                 android:checkable="true"
                 android:checked="false"
                 android:text="DEM"
+                android:textColor="@color/back_chip_select_text"
+                app:chipStrokeColor="@color/purple_700"
+                app:chipStrokeWidth="1.5dp"
                 app:chipBackgroundColor="@color/back_chip_select" />
 
             <com.google.android.material.chip.Chip
@@ -80,6 +92,9 @@
                 android:checkable="true"
                 android:checked="false"
                 android:text="MDB"
+                android:textColor="@color/back_chip_select_text"
+                app:chipStrokeColor="@color/purple_700"
+                app:chipStrokeWidth="1.5dp"
                 app:chipBackgroundColor="@color/back_chip_select" />
 
             <com.google.android.material.chip.Chip
@@ -89,6 +104,9 @@
                 android:checkable="true"
                 android:checked="false"
                 android:text="NOVO"
+                android:textColor="@color/back_chip_select_text"
+                app:chipStrokeColor="@color/purple_700"
+                app:chipStrokeWidth="1.5dp"
                 app:chipBackgroundColor="@color/back_chip_select" />
 
             <com.google.android.material.chip.Chip
@@ -98,6 +116,9 @@
                 android:checkable="true"
                 android:checked="false"
                 android:text="PATRI"
+                android:textColor="@color/back_chip_select_text"
+                app:chipStrokeColor="@color/purple_700"
+                app:chipStrokeWidth="1.5dp"
                 app:chipBackgroundColor="@color/back_chip_select" />
 
             <com.google.android.material.chip.Chip
@@ -107,6 +128,9 @@
                 android:checkable="true"
                 android:checked="false"
                 android:text="PATRIOTA"
+                android:textColor="@color/back_chip_select_text"
+                app:chipStrokeColor="@color/purple_700"
+                app:chipStrokeWidth="1.5dp"
                 app:chipBackgroundColor="@color/back_chip_select" />
 
             <com.google.android.material.chip.Chip
@@ -116,6 +140,9 @@
                 android:checkable="true"
                 android:checked="false"
                 android:text="PCB"
+                android:textColor="@color/back_chip_select_text"
+                app:chipStrokeColor="@color/purple_700"
+                app:chipStrokeWidth="1.5dp"
                 app:chipBackgroundColor="@color/back_chip_select" />
 
             <com.google.android.material.chip.Chip
@@ -125,6 +152,9 @@
                 android:checkable="true"
                 android:checked="false"
                 android:text="PCdoB"
+                android:textColor="@color/back_chip_select_text"
+                app:chipStrokeColor="@color/purple_700"
+                app:chipStrokeWidth="1.5dp"
                 app:chipBackgroundColor="@color/back_chip_select" />
 
             <com.google.android.material.chip.Chip
@@ -134,6 +164,9 @@
                 android:checkable="true"
                 android:checked="false"
                 android:text="PCO"
+                android:textColor="@color/back_chip_select_text"
+                app:chipStrokeColor="@color/purple_700"
+                app:chipStrokeWidth="1.5dp"
                 app:chipBackgroundColor="@color/back_chip_select" />
 
             <com.google.android.material.chip.Chip
@@ -143,6 +176,9 @@
                 android:checkable="true"
                 android:checked="false"
                 android:text="PDT"
+                android:textColor="@color/back_chip_select_text"
+                app:chipStrokeColor="@color/purple_700"
+                app:chipStrokeWidth="1.5dp"
                 app:chipBackgroundColor="@color/back_chip_select" />
 
             <com.google.android.material.chip.Chip
@@ -152,6 +188,9 @@
                 android:checkable="true"
                 android:checked="false"
                 android:text="PHS"
+                android:textColor="@color/back_chip_select_text"
+                app:chipStrokeColor="@color/purple_700"
+                app:chipStrokeWidth="1.5dp"
                 app:chipBackgroundColor="@color/back_chip_select" />
 
             <com.google.android.material.chip.Chip
@@ -161,6 +200,9 @@
                 android:checkable="true"
                 android:checked="false"
                 android:text="PL"
+                android:textColor="@color/back_chip_select_text"
+                app:chipStrokeColor="@color/purple_700"
+                app:chipStrokeWidth="1.5dp"
                 app:chipBackgroundColor="@color/back_chip_select" />
 
             <com.google.android.material.chip.Chip
@@ -170,6 +212,9 @@
                 android:checkable="true"
                 android:checked="false"
                 android:text="PMB"
+                android:textColor="@color/back_chip_select_text"
+                app:chipStrokeColor="@color/purple_700"
+                app:chipStrokeWidth="1.5dp"
                 app:chipBackgroundColor="@color/back_chip_select" />
 
             <com.google.android.material.chip.Chip
@@ -179,6 +224,9 @@
                 android:checkable="true"
                 android:checked="false"
                 android:text="PODEMOS"
+                android:textColor="@color/back_chip_select_text"
+                app:chipStrokeColor="@color/purple_700"
+                app:chipStrokeWidth="1.5dp"
                 app:chipBackgroundColor="@color/back_chip_select" />
 
             <com.google.android.material.chip.Chip
@@ -188,6 +236,9 @@
                 android:checkable="true"
                 android:checked="false"
                 android:text="PP"
+                android:textColor="@color/back_chip_select_text"
+                app:chipStrokeColor="@color/purple_700"
+                app:chipStrokeWidth="1.5dp"
                 app:chipBackgroundColor="@color/back_chip_select" />
 
             <com.google.android.material.chip.Chip
@@ -197,6 +248,9 @@
                 android:checkable="true"
                 android:checked="false"
                 android:text="PROS"
+                android:textColor="@color/back_chip_select_text"
+                app:chipStrokeColor="@color/purple_700"
+                app:chipStrokeWidth="1.5dp"
                 app:chipBackgroundColor="@color/back_chip_select" />
 
             <com.google.android.material.chip.Chip
@@ -206,6 +260,9 @@
                 android:checkable="true"
                 android:checked="false"
                 android:text="PSC"
+                android:textColor="@color/back_chip_select_text"
+                app:chipStrokeColor="@color/purple_700"
+                app:chipStrokeWidth="1.5dp"
                 app:chipBackgroundColor="@color/back_chip_select" />
 
             <com.google.android.material.chip.Chip
@@ -215,6 +272,9 @@
                 android:checkable="true"
                 android:checked="false"
                 android:text="PT"
+                android:textColor="@color/back_chip_select_text"
+                app:chipStrokeColor="@color/purple_700"
+                app:chipStrokeWidth="1.5dp"
                 app:chipBackgroundColor="@color/back_chip_select" />
 
             <com.google.android.material.chip.Chip
@@ -224,6 +284,9 @@
                 android:checkable="true"
                 android:checked="false"
                 android:text="REPUBLICANOS"
+                android:textColor="@color/back_chip_select_text"
+                app:chipStrokeColor="@color/purple_700"
+                app:chipStrokeWidth="1.5dp"
                 app:chipBackgroundColor="@color/back_chip_select" />
 
             <com.google.android.material.chip.Chip
@@ -233,6 +296,9 @@
                 android:checkable="true"
                 android:checked="false"
                 android:text="UNIÂO"
+                android:textColor="@color/back_chip_select_text"
+                app:chipStrokeColor="@color/purple_700"
+                app:chipStrokeWidth="1.5dp"
                 app:chipBackgroundColor="@color/back_chip_select" />
 
         </com.google.android.material.chip.ChipGroup>
@@ -266,6 +332,9 @@
                 android:checkable="true"
                 android:checked="false"
                 android:text="AC"
+                android:textColor="@color/back_chip_select_text"
+                app:chipStrokeColor="@color/purple_700"
+                app:chipStrokeWidth="1.5dp"
                 app:chipBackgroundColor="@color/back_chip_select" />
 
             <com.google.android.material.chip.Chip
@@ -275,6 +344,9 @@
                 android:checkable="true"
                 android:checked="false"
                 android:text="AL"
+                android:textColor="@color/back_chip_select_text"
+                app:chipStrokeColor="@color/purple_700"
+                app:chipStrokeWidth="1.5dp"
                 app:chipBackgroundColor="@color/back_chip_select" />
 
             <com.google.android.material.chip.Chip
@@ -284,6 +356,9 @@
                 android:checkable="true"
                 android:checked="false"
                 android:text="AP"
+                android:textColor="@color/back_chip_select_text"
+                app:chipStrokeColor="@color/purple_700"
+                app:chipStrokeWidth="1.5dp"
                 app:chipBackgroundColor="@color/back_chip_select" />
 
             <com.google.android.material.chip.Chip
@@ -293,6 +368,9 @@
                 android:checkable="true"
                 android:checked="false"
                 android:text="AM"
+                android:textColor="@color/back_chip_select_text"
+                app:chipStrokeColor="@color/purple_700"
+                app:chipStrokeWidth="1.5dp"
                 app:chipBackgroundColor="@color/back_chip_select" />
 
             <com.google.android.material.chip.Chip
@@ -302,6 +380,9 @@
                 android:checkable="true"
                 android:checked="false"
                 android:text="BA"
+                android:textColor="@color/back_chip_select_text"
+                app:chipStrokeColor="@color/purple_700"
+                app:chipStrokeWidth="1.5dp"
                 app:chipBackgroundColor="@color/back_chip_select" />
 
             <com.google.android.material.chip.Chip
@@ -311,6 +392,9 @@
                 android:checkable="true"
                 android:checked="false"
                 android:text="CE"
+                android:textColor="@color/back_chip_select_text"
+                app:chipStrokeColor="@color/purple_700"
+                app:chipStrokeWidth="1.5dp"
                 app:chipBackgroundColor="@color/back_chip_select" />
 
             <com.google.android.material.chip.Chip
@@ -320,6 +404,9 @@
                 android:checkable="true"
                 android:checked="false"
                 android:text="DF"
+                android:textColor="@color/back_chip_select_text"
+                app:chipStrokeColor="@color/purple_700"
+                app:chipStrokeWidth="1.5dp"
                 app:chipBackgroundColor="@color/back_chip_select" />
 
             <com.google.android.material.chip.Chip
@@ -329,6 +416,9 @@
                 android:checkable="true"
                 android:checked="false"
                 android:text="ES"
+                android:textColor="@color/back_chip_select_text"
+                app:chipStrokeColor="@color/purple_700"
+                app:chipStrokeWidth="1.5dp"
                 app:chipBackgroundColor="@color/back_chip_select" />
 
             <com.google.android.material.chip.Chip
@@ -338,6 +428,9 @@
                 android:checkable="true"
                 android:checked="false"
                 android:text="GO"
+                android:textColor="@color/back_chip_select_text"
+                app:chipStrokeColor="@color/purple_700"
+                app:chipStrokeWidth="1.5dp"
                 app:chipBackgroundColor="@color/back_chip_select" />
 
             <com.google.android.material.chip.Chip
@@ -347,6 +440,9 @@
                 android:checkable="true"
                 android:checked="false"
                 android:text="MA"
+                android:textColor="@color/back_chip_select_text"
+                app:chipStrokeColor="@color/purple_700"
+                app:chipStrokeWidth="1.5dp"
                 app:chipBackgroundColor="@color/back_chip_select" />
 
             <com.google.android.material.chip.Chip
@@ -356,6 +452,9 @@
                 android:checkable="true"
                 android:checked="false"
                 android:text="MT"
+                android:textColor="@color/back_chip_select_text"
+                app:chipStrokeColor="@color/purple_700"
+                app:chipStrokeWidth="1.5dp"
                 app:chipBackgroundColor="@color/back_chip_select" />
 
             <com.google.android.material.chip.Chip
@@ -365,6 +464,9 @@
                 android:checkable="true"
                 android:checked="false"
                 android:text="MS"
+                android:textColor="@color/back_chip_select_text"
+                app:chipStrokeColor="@color/purple_700"
+                app:chipStrokeWidth="1.5dp"
                 app:chipBackgroundColor="@color/back_chip_select" />
 
             <com.google.android.material.chip.Chip
@@ -374,6 +476,9 @@
                 android:checkable="true"
                 android:checked="false"
                 android:text="MG"
+                android:textColor="@color/back_chip_select_text"
+                app:chipStrokeColor="@color/purple_700"
+                app:chipStrokeWidth="1.5dp"
                 app:chipBackgroundColor="@color/back_chip_select" />
 
             <com.google.android.material.chip.Chip
@@ -383,6 +488,9 @@
                 android:checkable="true"
                 android:checked="false"
                 android:text="PA"
+                android:textColor="@color/back_chip_select_text"
+                app:chipStrokeColor="@color/purple_700"
+                app:chipStrokeWidth="1.5dp"
                 app:chipBackgroundColor="@color/back_chip_select" />
 
             <com.google.android.material.chip.Chip
@@ -392,6 +500,9 @@
                 android:checkable="true"
                 android:checked="false"
                 android:text="PB"
+                android:textColor="@color/back_chip_select_text"
+                app:chipStrokeColor="@color/purple_700"
+                app:chipStrokeWidth="1.5dp"
                 app:chipBackgroundColor="@color/back_chip_select" />
 
             <com.google.android.material.chip.Chip
@@ -401,6 +512,9 @@
                 android:checkable="true"
                 android:checked="false"
                 android:text="PR"
+                android:textColor="@color/back_chip_select_text"
+                app:chipStrokeColor="@color/purple_700"
+                app:chipStrokeWidth="1.5dp"
                 app:chipBackgroundColor="@color/back_chip_select" />
 
             <com.google.android.material.chip.Chip
@@ -410,6 +524,9 @@
                 android:checkable="true"
                 android:checked="false"
                 android:text="PE"
+                android:textColor="@color/back_chip_select_text"
+                app:chipStrokeColor="@color/purple_700"
+                app:chipStrokeWidth="1.5dp"
                 app:chipBackgroundColor="@color/back_chip_select" />
 
             <com.google.android.material.chip.Chip
@@ -419,6 +536,9 @@
                 android:checkable="true"
                 android:checked="false"
                 android:text="PI"
+                android:textColor="@color/back_chip_select_text"
+                app:chipStrokeColor="@color/purple_700"
+                app:chipStrokeWidth="1.5dp"
                 app:chipBackgroundColor="@color/back_chip_select" />
 
             <com.google.android.material.chip.Chip
@@ -428,6 +548,9 @@
                 android:checkable="true"
                 android:checked="false"
                 android:text="RJ"
+                android:textColor="@color/back_chip_select_text"
+                app:chipStrokeColor="@color/purple_700"
+                app:chipStrokeWidth="1.5dp"
                 app:chipBackgroundColor="@color/back_chip_select" />
 
             <com.google.android.material.chip.Chip
@@ -437,6 +560,9 @@
                 android:checkable="true"
                 android:checked="false"
                 android:text="RN"
+                android:textColor="@color/back_chip_select_text"
+                app:chipStrokeColor="@color/purple_700"
+                app:chipStrokeWidth="1.5dp"
                 app:chipBackgroundColor="@color/back_chip_select" />
 
             <com.google.android.material.chip.Chip
@@ -446,6 +572,9 @@
                 android:checkable="true"
                 android:checked="false"
                 android:text="RS"
+                android:textColor="@color/back_chip_select_text"
+                app:chipStrokeColor="@color/purple_700"
+                app:chipStrokeWidth="1.5dp"
                 app:chipBackgroundColor="@color/back_chip_select" />
 
             <com.google.android.material.chip.Chip
@@ -455,6 +584,9 @@
                 android:checkable="true"
                 android:checked="false"
                 android:text="RO"
+                android:textColor="@color/back_chip_select_text"
+                app:chipStrokeColor="@color/purple_700"
+                app:chipStrokeWidth="1.5dp"
                 app:chipBackgroundColor="@color/back_chip_select" />
 
             <com.google.android.material.chip.Chip
@@ -464,6 +596,9 @@
                 android:checkable="true"
                 android:checked="false"
                 android:text="RR"
+                android:textColor="@color/back_chip_select_text"
+                app:chipStrokeColor="@color/purple_700"
+                app:chipStrokeWidth="1.5dp"
                 app:chipBackgroundColor="@color/back_chip_select" />
 
             <com.google.android.material.chip.Chip
@@ -473,6 +608,9 @@
                 android:checkable="true"
                 android:checked="false"
                 android:text="SC"
+                android:textColor="@color/back_chip_select_text"
+                app:chipStrokeColor="@color/purple_700"
+                app:chipStrokeWidth="1.5dp"
                 app:chipBackgroundColor="@color/back_chip_select" />
 
             <com.google.android.material.chip.Chip
@@ -482,6 +620,9 @@
                 android:checkable="true"
                 android:checked="false"
                 android:text="SP"
+                android:textColor="@color/back_chip_select_text"
+                app:chipStrokeColor="@color/purple_700"
+                app:chipStrokeWidth="1.5dp"
                 app:chipBackgroundColor="@color/back_chip_select" />
 
             <com.google.android.material.chip.Chip
@@ -491,6 +632,9 @@
                 android:checkable="true"
                 android:checked="false"
                 android:text="SE"
+                android:textColor="@color/back_chip_select_text"
+                app:chipStrokeColor="@color/purple_700"
+                app:chipStrokeWidth="1.5dp"
                 app:chipBackgroundColor="@color/back_chip_select" />
 
             <com.google.android.material.chip.Chip
@@ -500,6 +644,9 @@
                 android:checkable="true"
                 android:checked="false"
                 android:text="TO"
+                android:textColor="@color/back_chip_select_text"
+                app:chipStrokeColor="@color/purple_700"
+                app:chipStrokeWidth="1.5dp"
                 app:chipBackgroundColor="@color/back_chip_select" />
 
         </com.google.android.material.chip.ChipGroup>

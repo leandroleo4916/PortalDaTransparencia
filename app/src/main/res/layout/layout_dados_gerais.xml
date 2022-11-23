@@ -369,7 +369,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
                     android:text="@string/value"
-                    android:textColor="@color/purple_700"
+                    android:textColor="@color/teal_700"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="@+id/textView2"

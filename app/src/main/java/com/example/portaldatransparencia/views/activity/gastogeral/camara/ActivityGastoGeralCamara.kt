@@ -26,6 +26,7 @@ class ActivityGastoGeralCamara: AppCompatActivity() {
         setContentView(binding.root)
 
         observerGastoCamara()
+        listener()
     }
 
     private fun observerGastoCamara() {
@@ -93,6 +94,12 @@ class ActivityGastoGeralCamara: AppCompatActivity() {
         binding.layoutUnic.run {
             piechart.addPieSlice(PieModel(title, value, Color.parseColor(color)))
             piechart.startAnimation()
+        }
+    }
+
+    private fun listener(){
+        binding.layoutUnic.imageViewBack.setOnClickListener {
+            finish()
         }
     }
 }

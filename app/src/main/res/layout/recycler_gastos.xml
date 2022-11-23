@@ -104,19 +104,18 @@
         android:id="@+id/toolbar_notes"
         android:layout_width="0dp"
         android:layout_height="1.2dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="6dp"
         android:layout_marginEnd="60dp"
         android:background="@color/purple_500"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/text_nome_fornecedor"
+        app:layout_constraintStart_toStartOf="@+id/text_type_doc"
         app:layout_constraintTop_toBottomOf="@+id/text_type_doc" />
 
     <TextView
         android:id="@+id/text_fornecedor"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginTop="6dp"
         android:text="Fornecedor:"
         android:textColor="@color/black"
         android:textSize="12sp"
@@ -128,10 +127,11 @@
         android:id="@+id/text_nome_fornecedor"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
         android:text="fornecedor"
         android:textColor="@color/black"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="@+id/text_type_doc"
+        app:layout_constraintEnd_toEndOf="@+id/text_fornecedor"
         app:layout_constraintStart_toStartOf="@+id/text_type_doc"
         app:layout_constraintTop_toBottomOf="@+id/text_fornecedor" />
 

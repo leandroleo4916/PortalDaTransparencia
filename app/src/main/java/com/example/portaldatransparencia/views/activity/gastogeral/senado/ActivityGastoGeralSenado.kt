@@ -27,6 +27,7 @@ class ActivityGastoGeralSenado: AppCompatActivity() {
 
         modifyItemGraph()
         observerGastoSenado()
+        listener()
     }
 
     private fun modifyItemGraph() {
@@ -105,6 +106,12 @@ class ActivityGastoGeralSenado: AppCompatActivity() {
         binding.layoutUnic.run {
             piechart.addPieSlice(PieModel(title, value, Color.parseColor(color)))
             piechart.startAnimation()
+        }
+    }
+
+    private fun listener(){
+        binding.layoutUnic.imageViewBack.setOnClickListener {
+            finish()
         }
     }
 }

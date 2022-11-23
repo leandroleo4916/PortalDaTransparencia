@@ -11,6 +11,16 @@ interface ApiServiceMain {
         @Query("ordenarPor") ordenarPor: String
     ): Response<MainDataClass>
 }
+interface ApiVotacoes {
+    @Headers("Content-Type: application/json")
+    @GET("/api/v2/votacoes?")
+    suspend fun getVotacoes(
+        @Query("ordem") ordem: String,
+        @Query("ordenarPor") ordenarPor: String,
+        @Query("pagina") pagina: String,
+        @Query("itens") itens: String,
+    ): Response<VotacoesList>
+}
 
 interface ApiServiceIdDeputado {
     @GET("/api/v2/deputados/{id}")

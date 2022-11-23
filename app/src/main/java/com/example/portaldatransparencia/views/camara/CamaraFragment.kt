@@ -22,6 +22,7 @@ import com.example.portaldatransparencia.remote.ResultRequest
 import com.example.portaldatransparencia.util.ValidationInternet
 import com.example.portaldatransparencia.views.activity.gastogeral.camara.ActivityGastoGeralCamara
 import com.example.portaldatransparencia.views.activity.ranking.camara.ActivityRankingCamara
+import com.example.portaldatransparencia.views.activity.votacoes.ActivityVotacoesCamara
 import com.example.portaldatransparencia.views.deputado.DeputadoActivity
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import com.example.portaldatransparencia.views.view_generics.ModifyChip
@@ -203,7 +204,8 @@ class CamaraFragment: Fragment(R.layout.fragment_camara_senado), IClickDeputado,
                     startActivity(intent)
                 }
                 constraintLayout3.setOnClickListener {
-
+                    val intent = Intent(context, ActivityVotacoesCamara::class.java)
+                    startActivity(intent)
                 }
             }
         }

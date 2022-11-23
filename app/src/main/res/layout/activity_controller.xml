@@ -26,6 +26,9 @@
         app:tabSelectedTextColor="@color/white"
         app:tabIndicatorColor="@color/white"
         app:tabIndicatorAnimationMode="elastic"
+        app:tabIndicatorGravity="top"
+        android:pointerIcon="zoom_in"
+        app:tabIndicatorHeight="@dimen/cardview_default_radius"
         android:layout_gravity="bottom"
         app:layout_behavior="com.example.portaldatransparencia.views.controller.BottomNavigationBehavior"/>
 

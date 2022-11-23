@@ -23,6 +23,9 @@
             android:checkable="true"
             android:checked="true"
             android:text="2022"
+            android:textColor="@color/back_chip_select_text"
+            app:chipStrokeColor="@color/purple_700"
+            app:chipStrokeWidth="1.5dp"
             app:chipBackgroundColor="@color/back_chip_select" />
 
         <com.google.android.material.chip.Chip
@@ -32,6 +35,9 @@
             android:checkable="true"
             android:checked="false"
             android:text="2021"
+            android:textColor="@color/back_chip_select_text"
+            app:chipStrokeColor="@color/purple_700"
+            app:chipStrokeWidth="1.5dp"
             app:chipBackgroundColor="@color/back_chip_select" />
 
         <com.google.android.material.chip.Chip
@@ -41,6 +47,9 @@
             android:checkable="true"
             android:checked="false"
             android:text="2020"
+            android:textColor="@color/back_chip_select_text"
+            app:chipStrokeColor="@color/purple_700"
+            app:chipStrokeWidth="1.5dp"
             app:chipBackgroundColor="@color/back_chip_select" />
 
         <com.google.android.material.chip.Chip
@@ -50,6 +59,9 @@
             android:checkable="true"
             android:checked="false"
             android:text="2019"
+            android:textColor="@color/back_chip_select_text"
+            app:chipStrokeColor="@color/purple_700"
+            app:chipStrokeWidth="1.5dp"
             app:chipBackgroundColor="@color/back_chip_select" />
 
         <com.google.android.material.chip.Chip
@@ -59,6 +71,9 @@
             android:checkable="true"
             android:checked="false"
             android:text="2018"
+            android:textColor="@color/back_chip_select_text"
+            app:chipStrokeColor="@color/purple_700"
+            app:chipStrokeWidth="1.5dp"
             app:chipBackgroundColor="@color/back_chip_select" />
 
         <com.google.android.material.chip.Chip
@@ -68,6 +83,9 @@
             android:checkable="true"
             android:checked="false"
             android:text="2017"
+            android:textColor="@color/back_chip_select_text"
+            app:chipStrokeColor="@color/purple_700"
+            app:chipStrokeWidth="1.5dp"
             app:chipBackgroundColor="@color/back_chip_select" />
 
         <com.google.android.material.chip.Chip
@@ -77,6 +95,9 @@
             android:checkable="true"
             android:checked="false"
             android:text="2016"
+            android:textColor="@color/back_chip_select_text"
+            app:chipStrokeColor="@color/purple_700"
+            app:chipStrokeWidth="1.5dp"
             app:chipBackgroundColor="@color/back_chip_select" />
 
         <com.google.android.material.chip.Chip
@@ -86,6 +107,9 @@
             android:checkable="true"
             android:checked="false"
             android:text="2015"
+            android:textColor="@color/back_chip_select_text"
+            app:chipStrokeColor="@color/purple_700"
+            app:chipStrokeWidth="1.5dp"
             app:chipBackgroundColor="@color/back_chip_select" />
 
     </com.google.android.material.chip.ChipGroup>
