@@ -53,7 +53,7 @@ class ActivityGastoGeralCamara: AppCompatActivity() {
     }
 
     private fun addElementCamara(dados: GastoGeralCamara) {
-        binding.layoutUnic.run {
+        binding.run {
             dados.gastoGeral.run {
                 val total = formatValor.formatValor(totalGeral.toDouble())
                 textViewGastoParlamentar.text = total
@@ -91,15 +91,11 @@ class ActivityGastoGeralCamara: AppCompatActivity() {
     }
 
     private fun addGraphCamara(title: String, value: Float, color: String){
-        binding.layoutUnic.run {
+        binding.run {
             piechart.addPieSlice(PieModel(title, value, Color.parseColor(color)))
             piechart.startAnimation()
         }
     }
 
-    private fun listener(){
-        binding.layoutUnic.imageViewBack.setOnClickListener {
-            finish()
-        }
-    }
+    private fun listener() = binding.layoutTop.imageViewBack.setOnClickListener { finish() }
 }

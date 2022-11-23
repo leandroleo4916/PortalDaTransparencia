@@ -9,6 +9,21 @@
     android:layout_height="match_parent">
 
     <FrameLayout
+        android:id="@+id/frame_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints">
+
+        <include
+            android:id="@+id/layout_top"
+            layout="@layout/layout_top" />
+
+    </FrameLayout>
+
+    <FrameLayout
         android:id="@+id/frame_chip"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -26,7 +41,7 @@
         android:background="@color/purple_500" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraint_valor_notes"
+        android:id="@+id/constraint_number_votacoes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:foregroundGravity="center"
@@ -52,27 +67,25 @@
             android:layout_marginTop="2dp"
             android:layout_marginBottom="3dp"
             android:layout_marginStart="110dp"
-            android:src="@drawable/justice"
-            android:visibility="gone"
+            android:src="@drawable/ic_voto_dark"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="ContentDescription" />
 
         <TextView
-            android:id="@+id/text_proposta_parlamentar"
+            android:id="@+id/text_number_votacoes"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:layout_marginEnd="12dp"
             android:singleLine="true"
-            android:text="0 projetos de lei"
+            android:text="0 Votações"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:visibility="gone"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@+id/icon_proposta"
-            app:layout_constraintEnd_toEndOf="@+id/constraint_valor_notes"
             app:layout_constraintStart_toEndOf="@+id/icon_proposta"
             app:layout_constraintTop_toTopOf="@+id/icon_proposta" />
 
@@ -80,17 +93,15 @@
             android:id="@+id/text_not_value"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="12dp"
+            android:gravity="center"
             android:text="Não encontrado votações..."
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:gravity="center"
             android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="@+id/progress_proposta"
-            app:layout_constraintEnd_toEndOf="@+id/constraint_valor_notes"
-            app:layout_constraintStart_toEndOf="@+id/icon_proposta"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.Toolbar

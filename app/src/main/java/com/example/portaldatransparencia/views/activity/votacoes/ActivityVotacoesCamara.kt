@@ -21,6 +21,14 @@ class ActivityVotacoesCamara: AppCompatActivity() {
 
         recycler()
         observerVotacoesCamara()
+        modifyTitle()
+    }
+
+    private fun modifyTitle() {
+        binding.layoutTop.run {
+            textViewTitleTop.text = "Votacões - Deputados"
+            textViewDescriptionTop.text = "Todas as votações registradas"
+        }
     }
 
     private fun recycler() {

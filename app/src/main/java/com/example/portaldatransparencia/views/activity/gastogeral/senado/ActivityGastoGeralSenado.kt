@@ -31,8 +31,8 @@ class ActivityGastoGeralSenado: AppCompatActivity() {
     }
 
     private fun modifyItemGraph() {
-        binding.layoutUnic.run {
-            textViewParlamento.text = getString(R.string.senado_federal)
+        binding.run {
+            layoutTop.textViewTitleTop.text = getString(R.string.senado_federal)
             hideView.disableView(layoutServicosPostais)
             hideView.disableView(layoutOutrosServicos)
             hideView.disableView(toolbarAquisicao)
@@ -67,7 +67,7 @@ class ActivityGastoGeralSenado: AppCompatActivity() {
     }
 
     private fun addElementSenado() {
-        binding.layoutUnic.run {
+        binding.run {
             gastoSenado.gastoGeral.run {
                 val total = formatValor.formatValor(totalGeral.toDouble())
                 textViewParlamentar.text = getString(R.string.senadores)
@@ -103,15 +103,12 @@ class ActivityGastoGeralSenado: AppCompatActivity() {
     }
 
     private fun addGraphSenado(title: String, value: Float, color: String){
-        binding.layoutUnic.run {
+        binding.run {
             piechart.addPieSlice(PieModel(title, value, Color.parseColor(color)))
             piechart.startAnimation()
         }
     }
 
-    private fun listener(){
-        binding.layoutUnic.imageViewBack.setOnClickListener {
-            finish()
-        }
-    }
+    private fun listener() = binding.layoutTop.imageViewBack.setOnClickListener { finish() }
+
 }

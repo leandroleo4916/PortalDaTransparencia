@@ -44,7 +44,7 @@ class ActivityRankingSenado: AppCompatActivity() {
 
     private fun modifyText() {
         binding.run {
-            textViewParlamento.text = getString(R.string.senado_federal)
+            layoutTop.textViewTitleTop.text = getString(R.string.senado_federal)
         }
     }
 
