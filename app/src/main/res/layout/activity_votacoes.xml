@@ -23,23 +23,6 @@
 
     </FrameLayout>
 
-    <FrameLayout
-        android:id="@+id/frame_chip"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:ignore="MissingConstraints">
-
-        <include
-            android:id="@+id/chip_group_item"
-            layout="@layout/chip_group_year"/>
-
-    </FrameLayout>
-
-    <androidx.appcompat.widget.Toolbar
-        android:layout_width="match_parent"
-        android:layout_height="1.2dp"
-        android:background="@color/purple_500" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraint_number_votacoes"
         android:layout_width="match_parent"
@@ -61,7 +44,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/icon_proposta"
+            android:id="@+id/icon_votacoes"
             android:layout_width="34dp"
             android:layout_height="34dp"
             android:layout_marginTop="2dp"
@@ -85,9 +68,10 @@
             android:textSize="20sp"
             android:textStyle="bold"
             android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="@+id/icon_proposta"
-            app:layout_constraintStart_toEndOf="@+id/icon_proposta"
-            app:layout_constraintTop_toTopOf="@+id/icon_proposta" />
+            app:layout_constraintBottom_toBottomOf="@+id/icon_votacoes"
+            app:layout_constraintEnd_toEndOf="@+id/text_not_value"
+            app:layout_constraintStart_toEndOf="@+id/icon_votacoes"
+            app:layout_constraintTop_toTopOf="@+id/icon_votacoes" />
 
         <TextView
             android:id="@+id/text_not_value"

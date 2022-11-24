@@ -35,8 +35,8 @@ class VotacoesCamaraAdapter:
             binding = RecyclerVotacoesListBinding.bind(itemView)
             binding?.run {
                 votacao.run {
-                    val date = data.split("-")
-                    (date[2] + "/" + date[1] + "/" + date[0]).also { textDateVotacao.text = it }
+                    val date = dataHoraRegistro.split("-")
+                    (date[1] + "/" + date[0]).also { textDateVotacao.text = it }
 
                     textComissao.text = siglaOrgao
                     textId.text = id
