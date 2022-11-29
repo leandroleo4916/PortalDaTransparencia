@@ -11,8 +11,8 @@ import com.example.portaldatransparencia.remote.VotacoesCamaraRepository
 
 class VotacoesViewModelCamara(private val repository: VotacoesCamaraRepository): ViewModel() {
 
-    fun gastoGeralCamara():
-            LiveData<ResultVotacoesCamara<VotacoesList?>> = repository.votacoesData()
+    fun gastoGeralCamara(page: Int):
+            LiveData<ResultVotacoesCamara<VotacoesList?>> = repository.votacoesData(page)
 
 }
 

@@ -38,9 +38,11 @@ class VotacoesAdapter : RecyclerView.Adapter<VotacoesAdapter.PropostaViewHolder>
                     if (descricaoResultado == "Rejeitado") {
                         textAprovacao.text = descricaoResultado
                         iconCheck.setImageResource(R.drawable.ic_close)
+                        constraint2.setBackgroundResource(R.drawable.back_teal_red)
                     } else {
                         textAprovacao.text = descricaoResultado
                         iconCheck.setImageResource(R.drawable.ic_check_green)
+                        constraint2.setBackgroundResource(R.drawable.back_teal)
                     }
                     """Sessão: ${sessaoPlenaria.codigoSessao} | Votação secreta: $indicadorVotacaoSecreta""".trimMargin()
                         .also { textSessao.text = it }
@@ -48,20 +50,31 @@ class VotacoesAdapter : RecyclerView.Adapter<VotacoesAdapter.PropostaViewHolder>
                         val date = sessaoPlenaria.dataSessao.split("-")
                         (date[2] + "/" + date[1] + "/" + date[0]).also { textDateVotacao.text = it }
                     }
-                    textDescriptionMateria.text =
-                        if (materia.ementa != null) {
-                            if (materia.ementa.length > 100) {
-                                materia.ementa.substring(0, 99) + "..."
-                            } else materia.ementa
-                        } else "Descrição não registrada"
+
+                    if (materia.ementa != null) {
+                        if (materia.ementa.length >= 100) {
+                            textDescriptionMateria.text = materia.ementa.substring(0, 99) + "..."
+                        }
+                        else {
+                            textDescriptionMateria.text = materia.ementa
+                            iconMateria.visibility = View.GONE
+                            textVerMaisMateria.visibility = View.GONE
+                        }
+                    } else {
+                        textDescriptionMateria.text = "Descrição não registrada"
+                        iconMateria.visibility = View.GONE
+                        textVerMaisMateria.visibility = View.GONE
+                    }
 
                     if (tramitacao != null) {
                         val tramite = tramitacao.identificacaoTramitacao?.textoTramitacao
-                        textDescriptionTramitacao.text =
-                            if (tramite!!.isNotEmpty() && tramite.length > 100) {
-                                tramite.substring(0, 99) + "..."
-                            }
-                            else tramite
+                        if (tramite!!.isNotEmpty() && tramite.length >= 100) {
+                            textDescriptionTramitacao.text = tramite.substring(0, 99) + "..."
+                        } else {
+                            textDescriptionTramitacao.text = tramite
+                            iconTramite.visibility = View.GONE
+                            textVerMaisTramite.visibility = View.GONE
+                        }
                     }
 
                     when (siglaDescricaoVoto) {
@@ -110,7 +123,9 @@ class VotacoesAdapter : RecyclerView.Adapter<VotacoesAdapter.PropostaViewHolder>
                             iconTramite.setImageResource(R.drawable.ic_up)
                         } else {
                             (tramitacao?.identificacaoTramitacao?.textoTramitacao!!
-                                .substring(0, 100) + "...").also { textDescriptionTramitacao.text = it }
+                                .substring(0, 100) + "...").also {
+                                textDescriptionTramitacao.text = it
+                            }
                             textVerMaisTramite.text = "ver mais"
                             iconTramite.setImageResource(R.drawable.ic_down)
                         }

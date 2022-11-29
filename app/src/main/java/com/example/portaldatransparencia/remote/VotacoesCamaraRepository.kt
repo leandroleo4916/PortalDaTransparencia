@@ -11,9 +11,9 @@ sealed class ResultVotacoesCamara<out R> {
 
 class VotacoesCamaraRepository(private val serviceApi: ApiVotacoes) {
 
-    fun votacoesData() = liveData {
+    fun votacoesData(page: Int) = liveData {
         try {
-            val request = serviceApi.getVotacoes("DESC", "dataHoraRegistro", "1", "200")
+            val request = serviceApi.getVotacoes("DESC", "dataHoraRegistro", page.toString(), "200")
             if(request.isSuccessful){
                 emit(ResultVotacoesCamara.Success(dado = request.body()))
             } else {

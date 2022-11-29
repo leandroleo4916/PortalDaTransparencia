@@ -33,6 +33,7 @@
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/drawable/ic_baseline.xml" value="0.167" />
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/drawable/ic_check.xml" value="0.165" />
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/drawable/ic_check_green.xml" value="0.164" />
+        <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/drawable/ic_close.xml" value="0.1655" />
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/drawable/ic_corporate.xml" value="0.1645" />
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/drawable/ic_down.xml" value="0.1645" />
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/drawable/ic_group.xml" value="0.152" />
@@ -87,6 +88,7 @@
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/layout/simple_recycler_dimension.xml" value="0.16640625" />
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/layout/view_item_parlamento.xml" value="0.21818181345285476" />
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/menu/bottom_nav.xml" value="0.16640625" />
+        <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/soccer-news-app/.gradle/7.3.3/caches/transforms-3/b2404757e6f2fbe97312488423a09d48/transformed/material-1.5.0/res/drawable/ic_m3_chip_close.xml" value="0.1655" />
       </map>
     </option>
   </component>

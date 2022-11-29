@@ -16,6 +16,8 @@ class ActivityVotacoesCamara: AppCompatActivity() {
     private val viewModel: VotacoesViewModelCamara by viewModel()
     private lateinit var adapter: VotacoesCamaraAdapter
     private val statusView: EnableDisableView by inject()
+    private var votaçõesSize = 0
+    private var page = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,19 +51,24 @@ class ActivityVotacoesCamara: AppCompatActivity() {
 
     private fun observerVotacoesCamara() {
 
-        viewModel.gastoGeralCamara().observe(this){
+        viewModel.gastoGeralCamara(page).observe(this){
             it?.let { result ->
                 when (result) {
                     is ResultVotacoesCamara.Success -> {
                         result.dado?.let { votacoes ->
                             adapter.updateData(votacoes.dados)
+                            votaçõesSize += votacoes.dados.size
+                            page += 1
+                            if (votacoes.dados.size == 200){
+                                observerVotacoesCamara()
+                            }
                             binding.run {
                                 statusView.run {
                                     disableView(progressVotacoes)
                                     enableView(iconVotacoes)
                                     enableView(textNumberVotacoes)
                                 }
-                                textNumberVotacoes.text = votacoes.dados.size.toString()+" Votações"
+                                textNumberVotacoes.text = votaçõesSize.toString()+" Votações"
                             }
                         }
                     }

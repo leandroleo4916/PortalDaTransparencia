@@ -40,9 +40,22 @@ class VotacoesCamaraAdapter:
 
                     textComissao.text = siglaOrgao
                     textId.text = id
+                    when (descricao.substring(0, 5)) {
+                        "Aprov" -> {
+                            iconCheck.setImageResource(R.drawable.ic_check_green)
+                            constraintLateral.setBackgroundResource(R.drawable.back_teal)
+                        }
+                        "Rejei" -> {
+                            iconCheck.setImageResource(R.drawable.ic_close)
+                            constraintLateral.setBackgroundResource(R.drawable.back_teal_red)
+                        }
+                        else -> {
+                            iconCheck.setImageResource(R.drawable.ic_atent)
+                            constraintLateral.setBackgroundResource(R.drawable.back_teal_yellow)
+                        }
+                    }
                     textDescriptionMateria.text = descricao
                 }
-
                 viewShowVotos.setOnClickListener {  }
                 viewShowVideo.setOnClickListener {  }
                 viewShowDetail.setOnClickListener {  }
@@ -52,7 +65,7 @@ class VotacoesCamaraAdapter:
 
     @SuppressLint("NotifyDataSetChanged")
     fun updateData(front: List<VotacaoId>) {
-        data = front
+        data = data+front
         notifyDataSetChanged()
     }
 }

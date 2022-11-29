@@ -8,11 +8,12 @@
     <color name="write_2">#FFDFDF</color>
     <color name="black">#000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="red">#CF1111</color>
+    <color name="red">#CC1619</color>
     <color name="face">#385DAC</color>
     <color name="twitter">#00ACEE</color>
     <color name="you">#CF0D26</color>
     <color name="green">#36AF02</color>
+    <color name="yellow">#FFB600</color>
 
     <color name="color1">#D50000</color>
     <color name="color2">#2467AA</color>
