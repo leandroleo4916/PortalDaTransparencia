@@ -1,9 +1,11 @@
 package com.example.portaldatransparencia.adapter
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -15,7 +17,8 @@ import com.example.portaldatransparencia.interfaces.INotificationSenado
 import kotlinx.coroutines.*
 import java.util.*
 
-class SenadoAdapter(private val listener: IClickSenador, private val notify: INotificationSenado):
+class SenadoAdapter(private val listener: IClickSenador, private val notify: INotificationSenado,
+                    private val context: Context):
     RecyclerView.Adapter<SenadoAdapter.MainViewHolder>(), Filterable {
 
     private var binding: RecyclerMainBinding? = null
@@ -68,7 +71,9 @@ class SenadoAdapter(private val listener: IClickSenador, private val notify: INo
                         }
                     }
                 }
-                itemView.setOnClickListener {
+                constraintDeputado.setOnClickListener {
+                    val animFade = AnimationUtils.loadAnimation(context, R.anim.click)
+                    it.startAnimation(animFade)
                     listener.clickSenador(
                         dataList[adapterPosition].identificacaoParlamentar.codigoParlamentar,
                         dataList[adapterPosition].identificacaoParlamentar.nomeParlamentar)

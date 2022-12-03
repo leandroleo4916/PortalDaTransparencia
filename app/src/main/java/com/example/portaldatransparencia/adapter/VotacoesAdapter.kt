@@ -1,15 +1,19 @@
 package com.example.portaldatransparencia.adapter
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.databinding.RecyclerVotacoesBinding
 import com.example.portaldatransparencia.dataclass.Votacao
+import com.example.portaldatransparencia.interfaces.ISmoothPosition
 
-class VotacoesAdapter : RecyclerView.Adapter<VotacoesAdapter.PropostaViewHolder>() {
+class VotacoesAdapter(private val smooth: ISmoothPosition, private val context: Context):
+    RecyclerView.Adapter<VotacoesAdapter.PropostaViewHolder>() {
 
     private var binding: RecyclerVotacoesBinding? = null
     private var data: ArrayList<Votacao> = arrayListOf()
@@ -23,15 +27,16 @@ class VotacoesAdapter : RecyclerView.Adapter<VotacoesAdapter.PropostaViewHolder>
 
     override fun onBindViewHolder(holder: PropostaViewHolder, position: Int) {
         val front = data[position]
-        holder.bind(front)
+        holder.bind(front, position)
     }
 
     override fun getItemCount() = data.size
 
     inner class PropostaViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(votacao: Votacao) {
+        fun bind(votacao: Votacao, position: Int) {
 
+            val animFade = AnimationUtils.loadAnimation(context, R.anim.click_votacao)
             binding = RecyclerVotacoesBinding.bind(itemView)
             binding?.run {
                 votacao.run {
@@ -108,12 +113,15 @@ class VotacoesAdapter : RecyclerView.Adapter<VotacoesAdapter.PropostaViewHolder>
                             textDescriptionMateria.text = materia.ementa
                             textVerMaisMateria.text = "ver menos"
                             iconMateria.setImageResource(R.drawable.ic_up)
-                        } else {
+                        }
+                        else {
                             ((materia.ementa?.substring(0, 100) ?: "Sem descrição") + "...")
                                 .also { textDescriptionMateria.text = it }
                             textVerMaisMateria.text = "ver mais"
                             iconMateria.setImageResource(R.drawable.ic_down)
                         }
+                        smooth.smoothPosition(position)
+                        itemView.startAnimation(animFade)
                     }
                     textVerMaisTramite.setOnClickListener {
                         if (textDescriptionTramitacao.length() <= 103) {
@@ -121,7 +129,8 @@ class VotacoesAdapter : RecyclerView.Adapter<VotacoesAdapter.PropostaViewHolder>
                                 tramitacao?.identificacaoTramitacao?.textoTramitacao
                             textVerMaisTramite.text = "ver menos"
                             iconTramite.setImageResource(R.drawable.ic_up)
-                        } else {
+                        }
+                        else {
                             (tramitacao?.identificacaoTramitacao?.textoTramitacao!!
                                 .substring(0, 100) + "...").also {
                                 textDescriptionTramitacao.text = it
@@ -129,6 +138,8 @@ class VotacoesAdapter : RecyclerView.Adapter<VotacoesAdapter.PropostaViewHolder>
                             textVerMaisTramite.text = "ver mais"
                             iconTramite.setImageResource(R.drawable.ic_down)
                         }
+                        smooth.smoothPosition(position)
+                        itemView.startAnimation(animFade)
                     }
                 }
             }

@@ -59,7 +59,7 @@ class CamaraFragment: Fragment(R.layout.fragment_camara_senado), IClickDeputado,
 
     private fun recycler() {
         val recycler = binding?.recyclerDeputados
-        adapter = MainAdapter(this, this)
+        adapter = MainAdapter(this, this, context!!)
         recycler?.layoutManager = LinearLayoutManager(context)
         recycler?.adapter = adapter
     }

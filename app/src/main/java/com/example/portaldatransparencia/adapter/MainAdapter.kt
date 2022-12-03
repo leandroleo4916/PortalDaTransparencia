@@ -1,9 +1,11 @@
 package com.example.portaldatransparencia.adapter
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -15,8 +17,8 @@ import com.example.portaldatransparencia.interfaces.INotification
 import kotlinx.coroutines.*
 import java.util.*
 
-class MainAdapter(private val listener: IClickDeputado, private val notify: INotification):
-    RecyclerView.Adapter<MainAdapter.MainViewHolder>(), Filterable {
+class MainAdapter(private val listener: IClickDeputado, private val notify: INotification,
+                  private val context: Context): RecyclerView.Adapter<MainAdapter.MainViewHolder>(), Filterable {
 
     private var binding: RecyclerMainBinding? = null
     private var data = mutableListOf<Dado>()
@@ -33,14 +35,14 @@ class MainAdapter(private val listener: IClickDeputado, private val notify: INot
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
         val time = dataList[position]
-        holder.bind(time)
+        holder.bind(time, position)
     }
 
     override fun getItemCount() = dataList.size
 
     inner class MainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(deputado: Dado) {
+        fun bind(deputado: Dado, position: Int) {
             binding = RecyclerMainBinding.bind(itemView)
             binding?.run {
                 Glide.with(itemView)
@@ -63,8 +65,10 @@ class MainAdapter(private val listener: IClickDeputado, private val notify: INot
                         }
                     }
                 }
-                itemView.setOnClickListener {
-                    listener.clickDeputado(dataList[adapterPosition].id.toString())
+                constraintDeputado.setOnClickListener {
+                    val animFade = AnimationUtils.loadAnimation(context, R.anim.click)
+                    it.startAnimation(animFade)
+                    listener.clickDeputado(dataList[position].id.toString())
                 }
             }
         }

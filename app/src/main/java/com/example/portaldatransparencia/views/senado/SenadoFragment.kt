@@ -58,7 +58,7 @@ class SenadoFragment: Fragment(R.layout.fragment_camara_senado), IClickSenador, 
 
     private fun recycler() {
         val recycler = binding?.recyclerDeputados
-        adapter = SenadoAdapter(this, this)
+        adapter = SenadoAdapter(this, this, context!!)
         recycler?.layoutManager = LinearLayoutManager(context)
         recycler?.adapter = adapter
     }
