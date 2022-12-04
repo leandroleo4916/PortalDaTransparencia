@@ -1,16 +1,18 @@
 package com.example.portaldatransparencia.adapter
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.databinding.RecyclerFrenteBinding
 import com.example.portaldatransparencia.dataclass.DadoFrente
 import com.example.portaldatransparencia.interfaces.IFront
 
-class FrenteAdapter(private val listener: IFront):
+class FrenteAdapter(private val listener: IFront, private val context: Context):
     RecyclerView.Adapter<FrenteAdapter.DespesasViewHolder>() {
 
     private var binding: RecyclerFrenteBinding? = null
@@ -37,6 +39,7 @@ class FrenteAdapter(private val listener: IFront):
             binding?.run {
                 textDescriptionTitle.text = front.titulo
                 constraintDeputado.setOnClickListener {
+                    it.startAnimation(AnimationUtils.loadAnimation(context, R.anim.click))
                     listener.listenerFront(data[adapterPosition])
                 }
             }

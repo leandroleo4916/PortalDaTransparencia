@@ -6,6 +6,7 @@ import com.example.portaldatransparencia.interfaces.IHideViewController
 import com.google.android.material.appbar.AppBarLayout
 
 class VisibilityNavViewAndFloating {
+
     private lateinit var viewController: IHideViewController
 
     fun showTabView(appBar: AppBarLayout, context: Context, view: View) {

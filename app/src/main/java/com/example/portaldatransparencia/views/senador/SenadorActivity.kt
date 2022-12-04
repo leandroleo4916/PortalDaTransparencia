@@ -1,6 +1,7 @@
 package com.example.portaldatransparencia.views.senador
 
 import android.os.Bundle
+import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.portaldatransparencia.R
@@ -97,6 +98,9 @@ class SenadorActivity: AppCompatActivity() {
     }
 
     private fun listener(){
-        binding.imageBack.setOnClickListener { finish() }
+        binding.imageBack.setOnClickListener {
+            it.startAnimation(AnimationUtils.loadAnimation(this, R.anim.click))
+            finish()
+        }
     }
 }

@@ -66,8 +66,7 @@ class MainAdapter(private val listener: IClickDeputado, private val notify: INot
                     }
                 }
                 constraintDeputado.setOnClickListener {
-                    val animFade = AnimationUtils.loadAnimation(context, R.anim.click)
-                    it.startAnimation(animFade)
+                    it.startAnimation(AnimationUtils.loadAnimation(context, R.anim.click))
                     listener.clickDeputado(dataList[position].id.toString())
                 }
             }

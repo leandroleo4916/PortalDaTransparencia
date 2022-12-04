@@ -1,8 +1,10 @@
 package com.example.portaldatransparencia.views.deputado.frente_deputado
 
 import android.os.Bundle
+import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
+import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.databinding.FragmentFrenteIdBinding
 import com.example.portaldatransparencia.dataclass.FrenteId
 import com.example.portaldatransparencia.remote.ResultFrenteIdRequest
@@ -73,7 +75,10 @@ class FragmentFrenteId: AppCompatActivity() {
                     .circleCrop()
                     .into(iconCoordinator)
             }
-            iconReturn.setOnClickListener { finish() }
+            iconReturn.setOnClickListener {
+                it.startAnimation(AnimationUtils.loadAnimation(baseContext, R.anim.click))
+                finish()
+            }
         }
     }
 }

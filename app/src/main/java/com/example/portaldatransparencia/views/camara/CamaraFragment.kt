@@ -9,6 +9,7 @@ import android.speech.RecognizerIntent
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -59,7 +60,7 @@ class CamaraFragment: Fragment(R.layout.fragment_camara_senado), IClickDeputado,
 
     private fun recycler() {
         val recycler = binding?.recyclerDeputados
-        adapter = MainAdapter(this, this, context!!)
+        adapter = context?.let { MainAdapter(this, this, it) }!!
         recycler?.layoutManager = LinearLayoutManager(context)
         recycler?.adapter = adapter
     }
@@ -180,9 +181,14 @@ class CamaraFragment: Fragment(R.layout.fragment_camara_senado), IClickDeputado,
                 chipTo.setOnClickListener { modify(chipEnabled, chipTo) }
             }
 
-            icVoz.setOnClickListener { permissionVoice() }
-            icFilter.setOnClickListener { showFilterIcons() }
-
+            icVoz.setOnClickListener {
+                it.startAnimation(AnimationUtils.loadAnimation(context, R.anim.click))
+                permissionVoice()
+            }
+            icFilter.setOnClickListener {
+                it.startAnimation(AnimationUtils.loadAnimation(context, R.anim.click))
+                showFilterIcons()
+            }
             floatingController.setOnClickListener {
                 recyclerDeputados.smoothScrollToPosition(0)
                 context?.let { it1 ->
@@ -191,19 +197,23 @@ class CamaraFragment: Fragment(R.layout.fragment_camara_senado), IClickDeputado,
                     )}
             }
             layoutValidation.buttonAgain.setOnClickListener {
+                it.startAnimation(AnimationUtils.loadAnimation(context, R.anim.click))
                 hideView.enableView(binding!!.progressMain)
                 observer()
             }
             layoutItemParlamento.run {
                 constraintLayout1.setOnClickListener {
+                    it.startAnimation(AnimationUtils.loadAnimation(context, R.anim.click))
                     val intent = Intent(context, ActivityGastoGeralCamara::class.java)
                     startActivity(intent)
                 }
                 constraintLayout2.setOnClickListener {
+                    it.startAnimation(AnimationUtils.loadAnimation(context, R.anim.click))
                     val intent = Intent(context, ActivityRankingCamara::class.java)
                     startActivity(intent)
                 }
                 constraintLayout3.setOnClickListener {
+                    it.startAnimation(AnimationUtils.loadAnimation(context, R.anim.click))
                     val intent = Intent(context, ActivityVotacoesCamara::class.java)
                     startActivity(intent)
                 }
