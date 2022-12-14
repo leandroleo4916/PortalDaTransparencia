@@ -1,17 +1,21 @@
 package com.example.portaldatransparencia.adapter
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.databinding.RecyclerGastosBinding
 import com.example.portaldatransparencia.dataclass.DadoDespesas
 import com.example.portaldatransparencia.interfaces.INoteDespesas
 import com.example.portaldatransparencia.util.FormatValor
+import kotlin.coroutines.coroutineContext
 
-class DespesasAdapter(private val listener: INoteDespesas, private val formatValor: FormatValor):
+class DespesasAdapter(private val listener: INoteDespesas, private val formatValor: FormatValor,
+                      private val context: Context):
     RecyclerView.Adapter<DespesasAdapter.DespesasViewHolder>() {
 
     private var binding: RecyclerGastosBinding? = null
@@ -50,6 +54,7 @@ class DespesasAdapter(private val listener: INoteDespesas, private val formatVal
                     textValorNota.text = "R$ $formatTotal"
                 }
                 itemView.setOnClickListener {
+                    it.startAnimation(AnimationUtils.loadAnimation(context, R.anim.click))
                     listener.listenerDespesas(data[adapterPosition])
                 }
             }

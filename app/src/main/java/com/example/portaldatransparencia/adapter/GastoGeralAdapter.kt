@@ -1,9 +1,11 @@
 package com.example.portaldatransparencia.adapter
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.portaldatransparencia.R
@@ -12,7 +14,7 @@ import com.example.portaldatransparencia.dataclass.ListParlamentar
 import com.example.portaldatransparencia.util.FormaterValueBilhoes
 import kotlinx.coroutines.*
 
-class GastoGeralAdapter(private val formatValor: FormaterValueBilhoes) :
+class GastoGeralAdapter(private val formatValor: FormaterValueBilhoes, private val context: Context) :
     RecyclerView.Adapter<GastoGeralAdapter.MainViewHolder>() {
 
     private var binding: RecyclerRankingBinding? = null
@@ -67,8 +69,8 @@ class GastoGeralAdapter(private val formatValor: FormaterValueBilhoes) :
                     .circleCrop()
                     .into(iconImage)
 
-                itemView.setOnClickListener {
-
+                constraintRancking.setOnClickListener {
+                    it.startAnimation(AnimationUtils.loadAnimation(context, R.anim.click))
                 }
             }
         }

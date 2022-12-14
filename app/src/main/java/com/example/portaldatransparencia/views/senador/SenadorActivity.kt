@@ -75,7 +75,6 @@ class SenadorActivity: AppCompatActivity() {
     private fun addElementView(item: ParlamentarItem) {
 
         val itemSenador = item.identificacaoParlamentar
-        val itemDados = item.dadosBasicosParlamentar
         val itemPhoto = item.identificacaoParlamentar
         val https = "https:/"
         val urlFoto = itemPhoto.urlFotoParlamentar.split(":/")
@@ -86,11 +85,7 @@ class SenadorActivity: AppCompatActivity() {
                 .load(photo)
                 .circleCrop()
                 .into(imageDeputado)
-            val age = calculateAge.age(itemDados.dataNascimento)
-            ("${itemSenador.nomeParlamentar}, $age anos, natutal do " +
-                    "${itemDados.naturalidade} - ${itemDados.ufNaturalidade}. " +
-                    "Filiado ao partido ${itemSenador.siglaPartidoParlamentar}")
-                .also { textDescription.text = it }
+            textDescription.text = itemSenador.nomeParlamentar
             statusView.disableView(progressDeputado)
             statusView.enableView(textDescription)
             statusView.enableView(imageDeputado)

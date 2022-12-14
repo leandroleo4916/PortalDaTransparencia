@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.portaldatransparencia.R
@@ -165,10 +166,18 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
 
     private fun listenerRedeSocial(f: String, i: String, t: String, y: String){
         binding?.run {
-            constraint1.setOnClickListener { choose(f) }
-            constraint2.setOnClickListener { choose(i) }
-            constraint3.setOnClickListener { choose(t) }
-            constraint4.setOnClickListener { choose(y) }
+            constraint1.setOnClickListener {
+                it.startAnimation(AnimationUtils.loadAnimation(context, R.anim.click))
+                choose(f) }
+            constraint2.setOnClickListener {
+                it.startAnimation(AnimationUtils.loadAnimation(context, R.anim.click))
+                choose(i) }
+            constraint3.setOnClickListener {
+                it.startAnimation(AnimationUtils.loadAnimation(context, R.anim.click))
+                choose(t) }
+            constraint4.setOnClickListener {
+                it.startAnimation(AnimationUtils.loadAnimation(context, R.anim.click))
+                choose(y) }
         }
     }
 

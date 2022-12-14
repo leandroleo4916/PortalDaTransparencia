@@ -1,8 +1,10 @@
 package com.example.portaldatransparencia.views.activity.ranking.camara
 
 import android.os.Bundle
+import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.adapter.GastoGeralAdapter
 import com.example.portaldatransparencia.databinding.LayoutRankingBinding
 import com.example.portaldatransparencia.dataclass.Dado
@@ -40,10 +42,21 @@ class ActivityRankingCamara: AppCompatActivity() {
         id = securityPreferences.getString("id")
         recycler()
         observerCamara()
+        listenerBack()
     }
+
+    private fun listenerBack() {
+        binding.layoutTop.run {
+            imageViewBack.setOnClickListener {
+                it.startAnimation(AnimationUtils.loadAnimation(applicationContext, R.anim.click))
+                finish()
+            }
+        }
+    }
+
     private fun recycler(){
         val recycler = binding.recyclerRancking
-        adapter = GastoGeralAdapter(formatValor)
+        adapter = GastoGeralAdapter(formatValor, baseContext)
         recycler.layoutManager = LinearLayoutManager(this)
         recycler.adapter = adapter
     }

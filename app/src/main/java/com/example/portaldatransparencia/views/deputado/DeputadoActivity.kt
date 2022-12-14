@@ -72,11 +72,7 @@ class DeputadoActivity: AppCompatActivity() {
                 .load(item.dados.ultimoStatus.urlFoto)
                 .circleCrop()
                 .into(imageDeputado)
-            val age = calculateAge.age(item.dados.dataNascimento)
-            ("${item.dados.ultimoStatus.nome}, $age anos, nascido em " +
-                    "${item.dados.municipioNascimento} - ${item.dados.ufNascimento}. " +
-                    "Filiado ao partido ${item.dados.ultimoStatus.siglaPartido}")
-                .also { textDescription.text = it }
+            textDescription.text = item.dados.ultimoStatus.nome
             statusView.disableView(progressDeputado)
             statusView.enableView(textDescription)
             statusView.enableView(imageDeputado)

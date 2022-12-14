@@ -1,6 +1,7 @@
 package com.example.portaldatransparencia.views.activity.ranking.senado
 
 import android.os.Bundle
+import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.portaldatransparencia.R
@@ -37,20 +38,24 @@ class ActivityRankingSenado: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        modifyText()
+        modifyTextTitleAndListenerBack()
         recycler()
         observerCamara()
     }
 
-    private fun modifyText() {
-        binding.run {
-            layoutTop.textViewTitleTop.text = getString(R.string.senado_federal)
+    private fun modifyTextTitleAndListenerBack() {
+        binding.layoutTop.run {
+            textViewTitleTop.text = getString(R.string.senado_federal)
+            imageViewBack.setOnClickListener {
+                it.startAnimation(AnimationUtils.loadAnimation(applicationContext, R.anim.click))
+                finish()
+            }
         }
     }
 
     private fun recycler(){
         val recycler = binding.recyclerRancking
-        adapter = GastoGeralAdapter(formatValor)
+        adapter = GastoGeralAdapter(formatValor, applicationContext)
         recycler.layoutManager = LinearLayoutManager(this)
         recycler.adapter = adapter
     }

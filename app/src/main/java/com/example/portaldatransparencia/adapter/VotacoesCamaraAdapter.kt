@@ -1,16 +1,18 @@
 package com.example.portaldatransparencia.adapter
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.databinding.RecyclerVotacoesBinding
 import com.example.portaldatransparencia.databinding.RecyclerVotacoesListBinding
 import com.example.portaldatransparencia.dataclass.VotacaoId
 
-class VotacoesCamaraAdapter:
+class VotacoesCamaraAdapter(private val context: Context):
     RecyclerView.Adapter<VotacoesCamaraAdapter.VotacoesViewHolder>() {
 
     private var binding: RecyclerVotacoesListBinding? = null
@@ -56,9 +58,15 @@ class VotacoesCamaraAdapter:
                     }
                     textDescriptionMateria.text = descricao
                 }
-                viewShowVotos.setOnClickListener {  }
-                viewShowVideo.setOnClickListener {  }
-                viewShowDetail.setOnClickListener {  }
+                viewShowVotos.setOnClickListener {
+                    it.startAnimation(AnimationUtils.loadAnimation(context, R.anim.click))
+                }
+                viewShowVideo.setOnClickListener {
+                    it.startAnimation(AnimationUtils.loadAnimation(context, R.anim.click))
+                }
+                viewShowDetail.setOnClickListener {
+                    it.startAnimation(AnimationUtils.loadAnimation(context, R.anim.click))
+                }
             }
         }
     }

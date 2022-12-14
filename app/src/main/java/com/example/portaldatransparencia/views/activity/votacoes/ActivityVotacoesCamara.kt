@@ -1,8 +1,10 @@
 package com.example.portaldatransparencia.views.activity.votacoes
 
 import android.os.Bundle
+import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.adapter.VotacoesCamaraAdapter
 import com.example.portaldatransparencia.databinding.ActivityVotacoesBinding
 import com.example.portaldatransparencia.remote.ResultVotacoesCamara
@@ -16,7 +18,7 @@ class ActivityVotacoesCamara: AppCompatActivity() {
     private val viewModel: VotacoesViewModelCamara by viewModel()
     private lateinit var adapter: VotacoesCamaraAdapter
     private val statusView: EnableDisableView by inject()
-    private var votaçõesSize = 0
+    private var votacoesSize = 0
     private var page = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,8 +32,11 @@ class ActivityVotacoesCamara: AppCompatActivity() {
     }
 
     private fun listener() {
-        binding.run {
-            layoutTop.imageViewBack.setOnClickListener { finish() }
+        binding.layoutTop.run {
+            imageViewBack.setOnClickListener {
+                it.startAnimation(AnimationUtils.loadAnimation(applicationContext, R.anim.click))
+                finish()
+            }
         }
     }
 
@@ -44,7 +49,7 @@ class ActivityVotacoesCamara: AppCompatActivity() {
 
     private fun recycler() {
         val recycler = binding.recyclerVotacoes
-        adapter = VotacoesCamaraAdapter()
+        adapter = VotacoesCamaraAdapter(baseContext)
         recycler.layoutManager = LinearLayoutManager(this)
         recycler.adapter = adapter
     }
@@ -57,7 +62,7 @@ class ActivityVotacoesCamara: AppCompatActivity() {
                     is ResultVotacoesCamara.Success -> {
                         result.dado?.let { votacoes ->
                             adapter.updateData(votacoes.dados)
-                            votaçõesSize += votacoes.dados.size
+                            votacoesSize += votacoes.dados.size
                             page += 1
                             if (votacoes.dados.size == 200){
                                 observerVotacoesCamara()
@@ -68,7 +73,7 @@ class ActivityVotacoesCamara: AppCompatActivity() {
                                     enableView(iconVotacoes)
                                     enableView(textNumberVotacoes)
                                 }
-                                textNumberVotacoes.text = votaçõesSize.toString()+" Votações"
+                                textNumberVotacoes.text = votacoesSize.toString()+" Votações"
                             }
                         }
                     }

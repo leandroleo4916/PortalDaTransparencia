@@ -2,6 +2,7 @@ package com.example.portaldatransparencia.views.activity.gastogeral.camara
 
 import android.graphics.Color
 import android.os.Bundle
+import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.databinding.FragmentMaisBinding
@@ -97,5 +98,12 @@ class ActivityGastoGeralCamara: AppCompatActivity() {
         }
     }
 
-    private fun listener() = binding.layoutTop.imageViewBack.setOnClickListener { finish() }
+    private fun listener() {
+        binding.layoutTop.run {
+            imageViewBack.setOnClickListener {
+                it.startAnimation(AnimationUtils.loadAnimation(applicationContext, R.anim.click))
+                finish()
+            }
+        }
+    }
 }
