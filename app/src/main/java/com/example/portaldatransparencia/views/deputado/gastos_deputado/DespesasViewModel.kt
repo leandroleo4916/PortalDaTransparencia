@@ -52,7 +52,7 @@ class DespesasViewModel(private val repository: IdDespesasRepository,
         if (aluguel.toInt() != 0) {
             subList.add(
                 SublistDataClass(
-                    aluguel.toInt(), "Manutenção de escritório", R.drawable.back_7,
+                    aluguel.toInt(), "Manutenção de escritório",
                     "https://as2.ftcdn.net/v2/jpg/01/38/80/37/1000_F_138803784_E08XLKKxkMrknHpurwaADXtRcfcpihdm.jpg"
                 )
             )
@@ -60,7 +60,7 @@ class DespesasViewModel(private val repository: IdDespesasRepository,
         if (divulgacao.toInt() != 0) {
             subList.add(
                 SublistDataClass(
-                    divulgacao.toInt(), "Divulgação parlamentar", R.drawable.back_6,
+                    divulgacao.toInt(), "Divulgação parlamentar",
                     "https://cdn-icons-png.flaticon.com/512/6520/6520327.png"
                 )
             )
@@ -68,7 +68,7 @@ class DespesasViewModel(private val repository: IdDespesasRepository,
         if (passagens.toInt() != 0) {
             subList.add(
                 SublistDataClass(
-                    passagens.toInt(), "Passagens aéreas", R.drawable.back_5,
+                    passagens.toInt(), "Passagens aéreas",
                     "https://cdn-icons-png.flaticon.com/512/5014/5014749.png"
                 )
             )
@@ -76,7 +76,7 @@ class DespesasViewModel(private val repository: IdDespesasRepository,
         if (contratacao.toInt() != 0) {
             subList.add(
                 SublistDataClass(
-                    contratacao.toInt(), "Serviços telefônicos", R.drawable.back_4,
+                    contratacao.toInt(), "Serviços telefônicos",
                     "https://cdn-icons-png.flaticon.com/512/1522/1522778.png"
                 )
             )
@@ -84,7 +84,7 @@ class DespesasViewModel(private val repository: IdDespesasRepository,
         if (alimentacao.toInt() != 0) {
             subList.add(
                 SublistDataClass(
-                    alimentacao.toInt(), "Hospedagem, alimentação", R.drawable.back_3,
+                    alimentacao.toInt(), "Hospedagem, alimentação",
                     "https://cdn-icons-png.flaticon.com/512/6799/6799692.png"
                 )
             )
@@ -92,7 +92,7 @@ class DespesasViewModel(private val repository: IdDespesasRepository,
         if (aquisicao.toInt() != 0) {
             subList.add(
                 SublistDataClass(
-                    aquisicao.toInt(), "Combustíveis e lubrificantes", R.drawable.back_2,
+                    aquisicao.toInt(), "Combustíveis e lubrificantes",
                     "https://cdn-icons-png.flaticon.com/512/2311/2311324.png"
                 )
             )
@@ -100,7 +100,7 @@ class DespesasViewModel(private val repository: IdDespesasRepository,
         if (servico.toInt() != 0) {
             subList.add(
                 SublistDataClass(
-                    servico.toInt(), "Serviços postais, correios", R.drawable.back_1,
+                    servico.toInt(), "Serviços postais, correios",
                     "https://cdn-icons-png.flaticon.com/512/4280/4280211.png"
                 )
             )
@@ -108,7 +108,7 @@ class DespesasViewModel(private val repository: IdDespesasRepository,
         if (outros.toInt() != 0) {
             subList.add(
                 SublistDataClass(
-                    outros.toInt(), "Outros serviços e produtos", R.drawable.back_7,
+                    outros.toInt(), "Outros serviços e produtos",
                     "https://cdn-icons-png.flaticon.com/512/4692/4692103.png"
                 )
             )

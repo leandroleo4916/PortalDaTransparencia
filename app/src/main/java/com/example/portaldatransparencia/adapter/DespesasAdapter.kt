@@ -6,20 +6,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import android.widget.Filter
+import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.databinding.RecyclerGastosBinding
 import com.example.portaldatransparencia.dataclass.DadoDespesas
 import com.example.portaldatransparencia.interfaces.INoteDespesas
 import com.example.portaldatransparencia.util.FormatValor
-import kotlin.coroutines.coroutineContext
+import java.util.*
 
 class DespesasAdapter(private val listener: INoteDespesas, private val formatValor: FormatValor,
                       private val context: Context):
-    RecyclerView.Adapter<DespesasAdapter.DespesasViewHolder>() {
+    RecyclerView.Adapter<DespesasAdapter.DespesasViewHolder>(), Filterable {
 
     private var binding: RecyclerGastosBinding? = null
-    private var data: ArrayList<DadoDespesas> = arrayListOf()
+    private var data = mutableListOf<DadoDespesas>()
+    private var dataFilter = mutableListOf<DadoDespesas>()
+    private var filter: ListItemFilter = ListItemFilter()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DespesasViewHolder {
         val item = LayoutInflater
@@ -29,42 +33,94 @@ class DespesasAdapter(private val listener: INoteDespesas, private val formatVal
     }
 
     override fun onBindViewHolder(holder: DespesasViewHolder, position: Int) {
-        val despesa = data[position]
-        holder.bind(despesa)
+        val despesa = dataFilter[position]
+        holder.bind(despesa, position)
     }
 
-    override fun getItemCount() = data.size
+    override fun getItemCount() = dataFilter.size
 
     inner class DespesasViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
-        fun bind(despesa: DadoDespesas){
+        fun bind(despesa: DadoDespesas, position: Int){
 
             binding = RecyclerGastosBinding.bind(itemView)
             binding?.run {
-                if (despesa.dataDocumento != null){
-                    val dateDoc = despesa.dataDocumento.split("-")
-                    (dateDoc[2]+"/"+dateDoc[1]+"/"+dateDoc[0]).also { textDate.text = it }
-                }
-                despesa.tipoDespesa.let { textTypeDoc.text = it }
-                despesa.nomeFornecedor.let { textNomeFornecedor.text = it }
-                despesa.tipoDocumento.let { textDestination.text = it }
-                despesa.cnpjCpfFornecedor.let { textCnpjFornecedor.text = it }
-                despesa.valorDocumento.let{
-                    val formatTotal = formatValor.formatValor(it)
-                    textValorNota.text = "R$ $formatTotal"
+                despesa.run {
+                    if (dataDocumento != null){
+                        val dateDoc = dataDocumento.split("-")
+                        (dateDoc[2]+"/"+dateDoc[1]+"/"+dateDoc[0]).also { textDate.text = it }
+                    }
+                    tipoDespesa.let { textTypeDoc.text = it }
+                    nomeFornecedor.let { textNomeFornecedor.text = it }
+                    tipoDocumento.let { textDestination.text = it }
+
+                    if (cnpjCpfFornecedor != "") {
+                        if (cnpjCpfFornecedor.length == 11){
+                            textCnpjFornecedor.text = "CPF: "+ cnpjCpfFornecedor.substring(0,3)+"..."
+                        }
+                        else {
+                            textCnpjFornecedor.text = "CNPJ: "+ cnpjCpfFornecedor
+                        }
+                    }
+                    else textCnpjFornecedor.text = "CNPJ ou CPF não informado"
+
+                    valorDocumento.let{
+                        val formatTotal = formatValor.formatValor(it)
+                        textValorNota.text = "R$ $formatTotal"
+                    }
                 }
                 itemView.setOnClickListener {
                     it.startAnimation(AnimationUtils.loadAnimation(context, R.anim.click))
-                    listener.listenerDespesas(data[adapterPosition])
+                    listener.listenerDespesas(data[position])
                 }
             }
         }
     }
 
+    override fun getFilter(): Filter = filter
+
     @SuppressLint("NotifyDataSetChanged")
     fun updateData(deputados: List<DadoDespesas>, page: Int) {
-        if (page == 1) { data = arrayListOf() }
-        deputados.forEach { data.add(it) }
+        if (page == 1) {
+            data = arrayListOf()
+            dataFilter = arrayListOf()
+        }
+        deputados.forEach {
+            data.add(it)
+            dataFilter.add(it)
+        }
         notifyDataSetChanged()
+    }
+
+    private inner class ListItemFilter : Filter() {
+
+        override fun performFiltering(constraint: CharSequence?): FilterResults {
+
+            val filterResults = FilterResults()
+            if (constraint != null) {
+                val list = ArrayList<DadoDespesas>()
+
+                for (type in data) {
+                    if (type.tipoDespesa.contains(constraint)) {
+                        list.add(type)
+                    }
+                }
+                filterResults.count = list.size
+                filterResults.values = list
+
+            } else {
+                filterResults.count = data.size
+                filterResults.values = data
+            }
+            return filterResults
+        }
+
+        @SuppressLint("NotifyDataSetChanged")
+        override fun publishResults(p0: CharSequence?, results: FilterResults) {
+            if (results.values is ArrayList<*>) {
+                dataFilter = results.values as ArrayList<DadoDespesas>
+            }
+            notifyDataSetChanged()
+        }
     }
 }

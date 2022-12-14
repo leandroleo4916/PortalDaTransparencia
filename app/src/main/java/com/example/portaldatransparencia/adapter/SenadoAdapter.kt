@@ -89,7 +89,7 @@ class SenadoAdapter(private val listener: IClickSenador, private val notify: INo
         notifyDataSetChanged()
     }
 
-    override fun getFilter(): Filter { return filter }
+    override fun getFilter(): Filter = filter
 
     private inner class ListItemFilter : Filter() {
 

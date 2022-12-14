@@ -12,6 +12,7 @@ import com.example.portaldatransparencia.adapter.DespesasAdapter
 import com.example.portaldatransparencia.adapter.DimensionAdapter
 import com.example.portaldatransparencia.databinding.FragmentGastosBinding
 import com.example.portaldatransparencia.dataclass.DadoDespesas
+import com.example.portaldatransparencia.interfaces.IClickTipoDespesa
 import com.example.portaldatransparencia.interfaces.INoteDespesas
 import com.example.portaldatransparencia.remote.ResultDespesasRequest
 import com.example.portaldatransparencia.security.SecurityPreferences
@@ -20,13 +21,15 @@ import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import com.google.android.material.chip.Chip
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.util.*
+import kotlin.collections.ArrayList
 
-class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas {
+class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas, IClickTipoDespesa {
 
     private var binding: FragmentGastosBinding? = null
     private val viewModel: DespesasViewModel by viewModel()
     private lateinit var adapter: DespesasAdapter
-    private val adapterDimension: DimensionAdapter by inject()
+    private lateinit var adapterDimension: DimensionAdapter
     private val securityPreferences: SecurityPreferences by inject()
     private val statusView: EnableDisableView by inject()
     private val formatValue: FormatValor by inject()
@@ -51,6 +54,7 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas {
     private fun recyclerView() {
         val recycler = binding!!.recyclerDespesas
         adapter = DespesasAdapter(this, FormatValor(), requireContext())
+        adapterDimension = DimensionAdapter(formatValue, requireContext(), this)
         recycler.layoutManager = LinearLayoutManager(context)
         recycler.adapter = adapter
 
@@ -165,5 +169,9 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas {
         } else {
             Toast.makeText(context, "Comprovante não enviado", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    override fun clickTipoDespesa(type: String) {
+        adapter.filter.filter(type.uppercase(Locale.ROOT))
     }
 }

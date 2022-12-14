@@ -134,7 +134,6 @@ val formatValor = module { factory { FormatValor() } }
 val formatValorBi = module { factory { FormaterValueBilhoes(get()) } }
 val formatValorFloat = module { factory { FormatValueFloat() } }
 val validationInternet = module { single { ValidationInternet() } }
-val dimensionAdapter = module { factory { DimensionAdapter(get()) } }
 
 val appModules = listOf( retrofitModule, viewModelModule, repositorySearch, progressModule,
         viewModelDeputado, repositoryIdDeputado, viewModelDespesas, repositoryDespesasDeputado,
@@ -143,7 +142,7 @@ val appModules = listOf( retrofitModule, viewModelModule, repositorySearch, prog
         viewModelSenador, visibilityNavFloating, repositorySenador, modifyChip, viewModelSenadorGeral,
         repositorySenadorGeral, retiraAcento, repositoryVotacoes, viewModelVotacoes,
         repositoryVotacoesItem, formatValor, repositoryGastoGeral, viewModelGastoGeral,
-        formatValorBi, formatValorFloat, dimensionAdapter, validationInternet,
+        formatValorBi, formatValorFloat, validationInternet,
         viewModelRankingCamara, viewModelRankingSenado, viewModelGastoGeralSenado,
         viewModelVotacoesCamara, repositoryVotacoesCamara
 )
