@@ -14,6 +14,7 @@ import com.example.portaldatransparencia.databinding.FragmentGastosBinding
 import com.example.portaldatransparencia.dataclass.DadoDespesas
 import com.example.portaldatransparencia.dataclass.GastosSenador
 import com.example.portaldatransparencia.dataclass.SublistDataClass
+import com.example.portaldatransparencia.interfaces.IClickTipoDespesa
 import com.example.portaldatransparencia.interfaces.INoteDespesas
 import com.example.portaldatransparencia.remote.ResultCotaRequest
 import com.example.portaldatransparencia.security.SecurityPreferences
@@ -25,12 +26,12 @@ import com.google.android.material.chip.Chip
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class FragmentGastosSenador: Fragment(R.layout.fragment_gastos), INoteDespesas {
+class FragmentGastosSenador: Fragment(R.layout.fragment_gastos), INoteDespesas, IClickTipoDespesa {
 
     private var binding: FragmentGastosBinding? = null
     private val viewModelGastos: DespesasViewModel by viewModel()
     private lateinit var adapter: GastorSenadorAdapter
-    private val adapterDimension: DimensionAdapter by inject()
+    private lateinit var adapterDimension: DimensionAdapter
     private val securityPreferences: SecurityPreferences by inject()
     private val statusView: EnableDisableView by inject()
     private val formatValue: FormatValor by inject()
@@ -55,6 +56,7 @@ class FragmentGastosSenador: Fragment(R.layout.fragment_gastos), INoteDespesas {
     private fun recyclerView() {
         val recycler = binding!!.recyclerDespesas
         adapter = GastorSenadorAdapter(FormatValor())
+        adapterDimension = DimensionAdapter(FormatValor(), requireContext(), this)
         recycler.layoutManager = LinearLayoutManager(context)
         recycler.adapter = adapter
 
@@ -234,4 +236,6 @@ class FragmentGastosSenador: Fragment(R.layout.fragment_gastos), INoteDespesas {
             Toast.makeText(context, "Comprovante não enviado", Toast.LENGTH_SHORT).show()
         }
     }
+
+    override fun clickTipoDespesa(type: String) {}
 }
