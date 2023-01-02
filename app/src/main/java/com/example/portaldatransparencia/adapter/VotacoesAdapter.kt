@@ -109,7 +109,7 @@ class VotacoesAdapter(private val smooth: ISmoothPosition, private val context: 
                         }
                     }
                     textVerMaisMateria.setOnClickListener {
-                        if (textDescriptionMateria.length() <= 103) {
+                        if (textDescriptionMateria.text.contains("...")) {
                             textDescriptionMateria.text = materia.ementa
                             textVerMaisMateria.text = "ver menos"
                             iconMateria.setImageResource(R.drawable.ic_up)
@@ -124,7 +124,7 @@ class VotacoesAdapter(private val smooth: ISmoothPosition, private val context: 
                         itemView.startAnimation(animFade)
                     }
                     textVerMaisTramite.setOnClickListener {
-                        if (textDescriptionTramitacao.length() <= 103) {
+                        if (textDescriptionTramitacao.text.contains("...")) {
                             textDescriptionTramitacao.text =
                                 tramitacao?.identificacaoTramitacao?.textoTramitacao
                             textVerMaisTramite.text = "ver menos"

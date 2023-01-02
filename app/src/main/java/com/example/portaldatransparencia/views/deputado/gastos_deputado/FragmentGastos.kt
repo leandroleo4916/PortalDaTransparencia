@@ -44,10 +44,10 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas, IClickT
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentGastosBinding.bind(view)
 
-        chipEnabled = binding!!.chipGroupItem.chip2022
+        chipEnabled = binding!!.chipGroupItem.chip2023
         id = securityPreferences.getString("id")
         recyclerView()
-        observer(id, "2022", page)
+        observer(id, "2023", page)
         listenerChip()
     }
 
@@ -79,13 +79,15 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas, IClickT
                                 statusView.disableView(binding!!.textNotValue)
                                 val size = despesas.dados.size
                                 numberNote += size
-                                calculateNumberNote()
                                 calculateTotal(despesas.dados, page)
                                 adapter.updateData(despesas.dados, page)
                                 page += 1
 
                                 if (size >= 100) observer(id, year, page)
-                                else viewModel.captureDataNotes(listDadosDimension, adapterDimension)
+                                else {
+                                    binding?.run { statusView.disableView(progressDespesas) }
+                                    viewModel.captureDataNotes(listDadosDimension, adapterDimension)
+                                }
 
                             }else{
                                 if (numberNote == 0) {
@@ -110,28 +112,17 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas, IClickT
         }
     }
 
-    private fun calculateNumberNote(){
-        binding!!.textNotesSend.text = "$numberNote notas"
-    }
-
     private fun calculateTotal(dados: List<DadoDespesas>, page: Int) {
         if (page == 1) total = 0.0
         dados.forEach { total = (total+it.valorDocumento) }
 
-        val formatTotal = formatValue.formatValor(total)
-        binding?.run {
-            (formatTotal).also { textTotal.text = it }
-            statusView.disableView(progressDespesas)
-            statusView.enableView(textNotesSend)
-            statusView.enableView(textTotal)
-            statusView.enableView(imageView1)
-            statusView.enableView(imageView2)
-        }
+        binding?.run { statusView.disableView(progressDespesas) }
     }
 
     private fun listenerChip(){
         binding?.run {
             chipGroupItem.run {
+                chip2023.setOnClickListener { modify(chipEnabled, chip2023) }
                 chip2022.setOnClickListener { modify(chipEnabled, chip2022) }
                 chip2021.setOnClickListener { modify(chipEnabled, chip2021) }
                 chip2020.setOnClickListener { modify(chipEnabled, chip2020) }
@@ -152,10 +143,6 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas, IClickT
         chipEnabled = viewDisabled
         binding?.run {
             statusView.enableView(progressDespesas)
-            statusView.disableView(textNotesSend)
-            statusView.disableView(textTotal)
-            statusView.disableView(imageView1)
-            statusView.disableView(imageView2)
         }
         adapter.updateData(deputados = arrayListOf(), 1)
         adapterDimension.updateData(arrayListOf())
@@ -171,7 +158,6 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas, IClickT
         }
     }
 
-    override fun clickTipoDespesa(type: String) {
-        adapter.filter.filter(type.uppercase(Locale.ROOT))
-    }
+    override fun clickTipoDespesa(type: String) = adapter.filter.filter(type)
+
 }

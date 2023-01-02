@@ -38,15 +38,14 @@ class FragmentGastosSenador: Fragment(R.layout.fragment_gastos), INoteDespesas, 
     private val formatFloat: FormatValueFloat by inject()
     private lateinit var chipEnabled: Chip
     private lateinit var nome: String
-    private var ano = "2022"
-    private var numberNote = 0
+    private var ano = "2023"
     private var dados: List<GastosSenador> = listOf()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentGastosBinding.bind(view)
 
-        chipEnabled = binding!!.chipGroupItem.chip2022
+        chipEnabled = binding!!.chipGroupItem.chip2023
         nome = securityPreferences.getString("nome")
         recyclerView()
         observerGastosSenador(ano, nome)
@@ -74,10 +73,7 @@ class FragmentGastosSenador: Fragment(R.layout.fragment_gastos), INoteDespesas, 
                     is ResultCotaRequest.Success -> {
                         result.dado?.let { gastos ->
                             if (gastos.gastosSenador.isNotEmpty()){
-                                numberNote = gastos.gastosSenador.size
-                                calculateNumberNote()
                                 dados = gastos.gastosSenador
-                                calculateTotalSenador()
                                 adapter.updateDataSenador(dados)
                                 captureDataNotes()
                             }
@@ -102,6 +98,8 @@ class FragmentGastosSenador: Fragment(R.layout.fragment_gastos), INoteDespesas, 
     private fun captureDataNotes(){
 
         val subList: ArrayList<SublistDataClass> = arrayListOf()
+        val size = dados.size
+        var total = 0.0F
         var aluguel = 0.0F
         var divulgacao = 0.0F
         var passagens = 0.0F
@@ -113,49 +111,61 @@ class FragmentGastosSenador: Fragment(R.layout.fragment_gastos), INoteDespesas, 
 
         dados.forEach {
             val value = formatFloat.formatFloat(it.valorReembolsado)
-            when (it.tipoDespesa.substring(0,5)){
-                "Alugu" -> aluguel += value
-                "Divul" -> divulgacao += value
-                "Passa" -> passagens += value
-                "Contr" -> contratacao += value
-                "Locom" -> locomocao += value
-                "Aquis" -> aquisicao += value
-                "Servi" -> servico += value
-                else -> outros += value
+            if (value != 0.0F){
+                total += value
+                when (it.tipoDespesa.substring(0,5)){
+                    "Alugu" -> aluguel += value
+                    "Divul" -> divulgacao += value
+                    "Passa" -> passagens += value
+                    "Contr" -> contratacao += value
+                    "Locom" -> locomocao += value
+                    "Aquis" -> aquisicao += value
+                    "Servi" -> servico += value
+                    else -> outros += value
+                }
             }
         }
-        if (aluguel.toInt() != 0){
-            subList.add(SublistDataClass(aluguel.toInt(), "Aluguel de imóveis",
-                "https://as2.ftcdn.net/v2/jpg/01/38/80/37/1000_F_138803784_E08XLKKxkMrknHpurwaADXtRcfcpihdm.jpg"))
+        if (total.toInt() != 0){
+            subList.add(SublistDataClass(total.toInt(), "$size notas",
+                "https://cdn-icons-png.flaticon.com/512/116/116638.png",
+                "Total geral"))
         }
         if (divulgacao.toInt() != 0){
             subList.add(SublistDataClass(divulgacao.toInt(), "Divulgação parlamentar",
-                "https://cdn-icons-png.flaticon.com/512/6520/6520327.png"))
+                "https://cdn-icons-png.flaticon.com/512/6520/6520327.png",
+                "Divulgação"))
         }
         if (passagens.toInt() != 0){
             subList.add(SublistDataClass(passagens.toInt(), "Passagens aéreas",
-                "https://cdn-icons-png.flaticon.com/512/5014/5014749.png"))
+                "https://cdn-icons-png.flaticon.com/512/5014/5014749.png",
+                "Passagens"))
         }
         if (contratacao.toInt() != 0){
             subList.add(SublistDataClass(contratacao.toInt(), "Consultoria, assessoria",
-                "https://cdn-icons-png.flaticon.com/512/1522/1522778.png"))
+                "https://cdn-icons-png.flaticon.com/512/1522/1522778.png",
+                "Contratação"))
         }
         if (locomocao.toInt() != 0){
             subList.add(SublistDataClass(locomocao.toInt(), "Hospedagem, alimentação",
-                "https://cdn-icons-png.flaticon.com/512/6799/6799692.png"))
+                "https://cdn-icons-png.flaticon.com/512/6799/6799692.png",
+                "Locomoção"))
         }
         if (aquisicao.toInt() != 0){
             subList.add(SublistDataClass(aquisicao.toInt(), "Aquisição de materiais",
-                "https://cdn-icons-png.flaticon.com/512/6169/6169675.png"))
+                "https://cdn-icons-png.flaticon.com/512/6169/6169675.png",
+                "Aquisição"))
         }
         if (servico.toInt() != 0){
             subList.add(SublistDataClass(servico.toInt(), "Serviços postais",
-                "https://cdn-icons-png.flaticon.com/512/4280/4280211.png"))
+                "https://cdn-icons-png.flaticon.com/512/4280/4280211.png",
+                "Serviços"))
         }
         if (outros.toInt() != 0){
             subList.add(SublistDataClass(outros.toInt(), "Outros serviços",
-                "https://cdn-icons-png.flaticon.com/512/4692/4692103.png"))
+                "https://cdn-icons-png.flaticon.com/512/4692/4692103.png",
+                "Outros"))
         }
+        binding?.run { statusView.disableView(progressDespesas)}
         adapterDimension.updateData(subList)
     }
 
@@ -167,36 +177,10 @@ class FragmentGastosSenador: Fragment(R.layout.fragment_gastos), INoteDespesas, 
         }
     }
 
-    private fun calculateNumberNote(){
-        binding!!.textNotesSend.text = "$numberNote notas"
-    }
-
-    private fun calculateTotalSenador() {
-
-        var total = 0.0
-        dados.forEach  {
-            val valor = it.valorReembolsado
-            total += formatFloat.formatFloat(valor)
-        }
-        statusView(total)
-    }
-
-    private fun statusView(total: Double) {
-
-        val formatTotal = formatValue.formatValor(total)
-        binding?.run {
-            (formatTotal).also { textTotal.text = it }
-            statusView.disableView(progressDespesas)
-            statusView.enableView(textNotesSend)
-            statusView.enableView(textTotal)
-            statusView.enableView(imageView1)
-            statusView.enableView(imageView2)
-        }
-    }
-
     private fun listenerChip(){
         binding?.run {
             chipGroupItem.run {
+                chip2023.setOnClickListener { modify(chipEnabled, chip2023) }
                 chip2022.setOnClickListener { modify(chipEnabled, chip2022) }
                 chip2021.setOnClickListener { modify(chipEnabled, chip2021) }
                 chip2020.setOnClickListener { modify(chipEnabled, chip2020) }
@@ -216,11 +200,7 @@ class FragmentGastosSenador: Fragment(R.layout.fragment_gastos), INoteDespesas, 
         chipEnabled = viewDisabled
         binding?.run {
             statusView.enableView(progressDespesas)
-            statusView.disableView(textNotesSend)
             statusView.disableView(textNotValue)
-            statusView.disableView(textTotal)
-            statusView.disableView(imageView1)
-            statusView.disableView(imageView2)
         }
         ano = viewDisabled.text.toString()
         adapter.updateDataSenador(listOf())

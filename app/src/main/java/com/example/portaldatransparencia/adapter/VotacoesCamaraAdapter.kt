@@ -47,6 +47,10 @@ class VotacoesCamaraAdapter(private val context: Context):
                             iconCheck.setImageResource(R.drawable.ic_check_green)
                             constraintLateral.setBackgroundResource(R.drawable.back_teal)
                         }
+                        "Aporv" -> {
+                            iconCheck.setImageResource(R.drawable.ic_check_green)
+                            constraintLateral.setBackgroundResource(R.drawable.back_teal)
+                        }
                         "Rejei" -> {
                             iconCheck.setImageResource(R.drawable.ic_close)
                             constraintLateral.setBackgroundResource(R.drawable.back_teal_red)

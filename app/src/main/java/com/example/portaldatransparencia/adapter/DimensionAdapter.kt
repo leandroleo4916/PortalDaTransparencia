@@ -20,6 +20,7 @@ class DimensionAdapter(private val formatValor: FormatValor, private val context
 
     private var binding: RecyclerDimensionBinding? = null
     private var data: ArrayList<SublistDataClass> = arrayListOf()
+    private var value = 0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DespesasViewHolder {
         val item = LayoutInflater
@@ -49,7 +50,7 @@ class DimensionAdapter(private val formatValor: FormatValor, private val context
                     .into(icon)
                 constraintRecycler.setOnClickListener {
                     it.startAnimation(AnimationUtils.loadAnimation(context, R.anim.click))
-                    clickDespesa.clickTipoDespesa(despesa.description.substring(0,5))
+                    clickDespesa.clickTipoDespesa(despesa.tipo)
                 }
             }
         }

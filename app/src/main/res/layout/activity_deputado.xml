@@ -109,14 +109,15 @@
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tab_deputado"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="62dp"
                 android:background="@color/purple_700"
-                app:tabTextColor="@color/purple_500"
-                app:tabSelectedTextColor="@color/white"
-                app:tabIndicatorColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:tabIndicatorColor="@color/white"
+                app:tabSelectedTextColor="@color/white"
+                app:tabTextColor="@color/purple_500"
+                tools:ignore="SpeakableTextPresentCheck" />
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/viewPager_deputado"

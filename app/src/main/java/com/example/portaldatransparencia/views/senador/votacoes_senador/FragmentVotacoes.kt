@@ -25,7 +25,7 @@ class FragmentVotacoes: Fragment(R.layout.fragment_votacoes_senador), ISmoothPos
     private lateinit var adapter: VotacoesAdapter
     private val securityPreferences: SecurityPreferences by inject()
     private val statusView: EnableDisableView by inject()
-    private var ano = "2022"
+    private var ano = "2023"
     private lateinit var id: String
     private lateinit var chipEnabled: Chip
     private var numberVotacoes = 0
@@ -33,7 +33,7 @@ class FragmentVotacoes: Fragment(R.layout.fragment_votacoes_senador), ISmoothPos
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentVotacoesSenadorBinding.bind(view)
-        chipEnabled = binding.chipGroupItem.chip2022
+        chipEnabled = binding.chipGroupItem.chip2023
         id = securityPreferences.getString("id")
         recyclerView()
         listenerChip()
@@ -42,7 +42,7 @@ class FragmentVotacoes: Fragment(R.layout.fragment_votacoes_senador), ISmoothPos
 
     private fun recyclerView() {
         val recycler = binding.recyclerProposta
-        adapter = VotacoesAdapter(this, context!!)
+        adapter = VotacoesAdapter(this, requireContext())
         recycler.layoutManager = LinearLayoutManager(context)
         recycler.adapter = adapter
     }
@@ -140,6 +140,7 @@ class FragmentVotacoes: Fragment(R.layout.fragment_votacoes_senador), ISmoothPos
     private fun listenerChip(){
         binding.run {
             chipGroupItem.run {
+                chip2023.setOnClickListener { modify(chipEnabled, chip2023) }
                 chip2022.setOnClickListener { modify(chipEnabled, chip2022) }
                 chip2021.setOnClickListener { modify(chipEnabled, chip2021) }
                 chip2020.setOnClickListener { modify(chipEnabled, chip2020) }

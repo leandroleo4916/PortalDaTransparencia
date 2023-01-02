@@ -29,11 +29,11 @@ class FragmentProposta: Fragment(R.layout.fragment_proposta) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentPropostaBinding.bind(view)
-        chipEnabled = binding!!.chipGroupItem.chip2022
+        chipEnabled = binding!!.chipGroupItem.chip2023
         id = securityPreferences.getString("id")
         recyclerView()
         listenerChip()
-        observer("2022", id, page)
+        observer("2023", id, page)
     }
 
     private fun recyclerView() {
@@ -84,6 +84,7 @@ class FragmentProposta: Fragment(R.layout.fragment_proposta) {
     private fun listenerChip(){
         binding?.run {
             chipGroupItem.run {
+                chip2023.setOnClickListener { modify(chipEnabled, chip2023) }
                 chip2022.setOnClickListener { modify(chipEnabled, chip2022) }
                 chip2021.setOnClickListener { modify(chipEnabled, chip2021) }
                 chip2020.setOnClickListener { modify(chipEnabled, chip2020) }
