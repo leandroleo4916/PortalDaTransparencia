@@ -34,7 +34,7 @@
     <string name="digite_ou_fale_o_nome_do_deputado">Digite ou fale o nome do deputado</string>
     <string name="verifique_sua_internet">Verifique sua conexão com a internet!</string>
     <string name="tentar_novamente">Tentar novamente</string>
-    <string name="nao_recebeu_dados">Não conseguiu receber os dados!</string>
+    <string name="nao_recebeu_dados">API não respondeu, tente novamente!</string>
     <string name="falha_no_servidor">Falha na resposta do servidor!</string>
     <string name="senado_8anos">Senado - últimos 8 anos</string>
     <string name="senado_federal">Senado Federal</string>

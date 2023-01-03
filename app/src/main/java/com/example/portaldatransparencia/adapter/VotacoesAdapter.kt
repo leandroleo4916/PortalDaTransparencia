@@ -109,7 +109,8 @@ class VotacoesAdapter(private val smooth: ISmoothPosition, private val context: 
                         }
                     }
                     textVerMaisMateria.setOnClickListener {
-                        if (textDescriptionMateria.text.contains("...")) {
+                        val getText = textDescriptionMateria.text
+                        if (getText.contains("...")) {
                             textDescriptionMateria.text = materia.ementa
                             textVerMaisMateria.text = "ver menos"
                             iconMateria.setImageResource(R.drawable.ic_up)
@@ -124,16 +125,16 @@ class VotacoesAdapter(private val smooth: ISmoothPosition, private val context: 
                         itemView.startAnimation(animFade)
                     }
                     textVerMaisTramite.setOnClickListener {
-                        if (textDescriptionTramitacao.text.contains("...")) {
-                            textDescriptionTramitacao.text =
-                                tramitacao?.identificacaoTramitacao?.textoTramitacao
+                        val getText = textDescriptionTramitacao.text
+                        val text = tramitacao?.identificacaoTramitacao?.textoTramitacao
+                        if (getText != null && getText.contains("...")) {
+                            if (text != null) textDescriptionTramitacao.text = text
                             textVerMaisTramite.text = "ver menos"
                             iconTramite.setImageResource(R.drawable.ic_up)
                         }
                         else {
-                            (tramitacao?.identificacaoTramitacao?.textoTramitacao!!
-                                .substring(0, 100) + "...").also {
-                                textDescriptionTramitacao.text = it
+                            if (text != null) {
+                                textDescriptionTramitacao.text = text.substring(0, 99) + "..."
                             }
                             textVerMaisTramite.text = "ver mais"
                             iconTramite.setImageResource(R.drawable.ic_down)

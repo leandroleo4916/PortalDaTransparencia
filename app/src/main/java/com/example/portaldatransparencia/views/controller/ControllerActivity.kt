@@ -32,7 +32,7 @@ class ControllerActivity: AppCompatActivity(), IHideViewController {
     }
 
     private fun setupViewController(){
-        val tabs = arrayOf(R.string.camara, R.string.senado, R.string.mais)
+        val tabs = arrayOf(R.string.camara, R.string.senado)
         val pagerMain = binding.viewPagerController
         pagerMain.isNestedScrollingEnabled = false
         val adapter = TabViewAdapterController(this)

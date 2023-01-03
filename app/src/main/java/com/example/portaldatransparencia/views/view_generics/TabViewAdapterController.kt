@@ -8,9 +8,7 @@ import com.example.portaldatransparencia.views.senado.SenadoFragment
 
 class TabViewAdapterController(fa: FragmentActivity): FragmentStateAdapter(fa) {
 
-    private val fragments = arrayOf(
-        CamaraFragment(), SenadoFragment()
-    )
+    private val fragments = arrayOf(CamaraFragment(), SenadoFragment())
 
     override fun getItemCount() = fragments.size
 
