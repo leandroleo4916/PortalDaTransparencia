@@ -34,14 +34,14 @@ class DespesasAdapter(private val listener: INoteDespesas, private val formatVal
 
     override fun onBindViewHolder(holder: DespesasViewHolder, position: Int) {
         val despesa = dataFilter[position]
-        holder.bind(despesa, position)
+        holder.bind(despesa)
     }
 
     override fun getItemCount() = dataFilter.size
 
     inner class DespesasViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
-        fun bind(despesa: DadoDespesas, position: Int){
+        fun bind(despesa: DadoDespesas){
 
             binding = RecyclerGastosBinding.bind(itemView)
             binding?.run {
@@ -98,11 +98,14 @@ class DespesasAdapter(private val listener: INoteDespesas, private val formatVal
 
             val filterResults = FilterResults()
             if (constraint != null) {
-                val list = ArrayList<DadoDespesas>()
-
-                for (type in data) {
-                    if (type.tipoDespesa.contains(constraint)) {
-                        list.add(type)
+                var list = ArrayList<DadoDespesas>()
+                when (constraint){
+                    "TOTAL GERAL" -> list = data as ArrayList<DadoDespesas>
+                    else ->
+                        for (type in data) {
+                            if (type.tipoDespesa.contains(constraint)) {
+                            list.add(type)
+                        }
                     }
                 }
                 filterResults.count = list.size
