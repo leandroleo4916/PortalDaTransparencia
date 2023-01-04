@@ -7,12 +7,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.adapter.PropostaAdapter
 import com.example.portaldatransparencia.databinding.FragmentPropostaBinding
-import com.example.portaldatransparencia.remote.ResultPropostaRequest
+import com.example.portaldatransparencia.dataclass.PropostaDataClass
+import com.example.portaldatransparencia.remote.ApiServiceProposta
+import com.example.portaldatransparencia.remote.Retrofit
 import com.example.portaldatransparencia.security.SecurityPreferences
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import com.google.android.material.chip.Chip
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class FragmentProposta: Fragment(R.layout.fragment_proposta) {
 
@@ -25,6 +30,7 @@ class FragmentProposta: Fragment(R.layout.fragment_proposta) {
     private lateinit var chipEnabled: Chip
     private var numberProposta = 0
     private var page = 1
+    private var year = "2023"
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -33,7 +39,7 @@ class FragmentProposta: Fragment(R.layout.fragment_proposta) {
         id = securityPreferences.getString("id")
         recyclerView()
         listenerChip()
-        observer("2023", id, page)
+        observer()
     }
 
     private fun recyclerView() {
@@ -43,42 +49,45 @@ class FragmentProposta: Fragment(R.layout.fragment_proposta) {
         recycler.adapter = adapter
     }
 
-    private fun observer(year: String, id: String, pagina: Int) {
+    private fun observer() {
 
-        viewModel.propostaDeputado(year, id, pagina).observe(viewLifecycleOwner){
-            it?.let { result ->
-                when (result) {
-                    is ResultPropostaRequest.Success -> {
-                        result.dado?.let { proposta ->
-                            if (proposta.dados.isNotEmpty()){
-                                val size = proposta.dados.size
-                                calculatePropostas(size, page)
-                                adapter.updateData(proposta.dados, page)
-                                numberProposta += size
-                                page += 1
-                                if (size >= 100) observer(year, id, page)
-                            }else{
-                                if (numberProposta == 0) {
-                                    binding?.run {
-                                        statusView.disableView(progressProposta)
-                                        statusView.enableView(textNotValue)
-                                        textNotValue.text =
-                                            "Nenhum projeto de lei para $year ou não tinha mandato neste ano."
-                                    }
-                                    adapter.updateData(proposta.dados, page)
+        val retrofit = Retrofit.createService(ApiServiceProposta::class.java)
+        val call: Call<PropostaDataClass> = retrofit.getProposta(year, id, page, 100)
+        call.enqueue(object: Callback<PropostaDataClass> {
+            override fun onResponse(call: Call<PropostaDataClass>, res: Response<PropostaDataClass>) {
+                when (res.code()){
+                    200 -> {
+                        if (res.body() != null && res.body()!!.dados.isNotEmpty()){
+                            val size = res.body()!!.dados.size
+                            calculatePropostas(size, page)
+                            adapter.updateData(res.body()!!.dados, page)
+                            numberProposta += size
+                            page += 1
+                            if (size >= 100) observer()
+                        }
+                        else {
+                            if (numberProposta == 0) {
+                                binding?.run {
+                                    statusView.disableView(progressProposta)
+                                    statusView.enableView(textNotValue)
+                                    textNotValue.text =
+                                        "Nenhum projeto de lei para $year"
                                 }
+                                adapter.updateData(res.body()!!.dados, page)
                             }
                         }
                     }
-                    is ResultPropostaRequest.Error -> {
-                        result.exception.message?.let {  }
-                    }
-                    is ResultPropostaRequest.ErrorConnection -> {
-                        result.exception.message?.let {  }
+                    429 -> observer()
+                    else -> {
+
                     }
                 }
             }
-        }
+
+            override fun onFailure(call: Call<PropostaDataClass>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+        })
     }
 
     private fun listenerChip(){
@@ -101,6 +110,7 @@ class FragmentProposta: Fragment(R.layout.fragment_proposta) {
         viewEnabled.isChecked = false
         viewDisabled.isChecked = true
         numberProposta = 0
+        year = viewDisabled.text.toString()
         page = 1
         chipEnabled = viewDisabled
         binding?.run {
@@ -110,7 +120,7 @@ class FragmentProposta: Fragment(R.layout.fragment_proposta) {
             statusView.disableView(textNotValue)
         }
         adapter.updateData(arrayListOf(), 1)
-        observer(viewDisabled.text as String, id, page)
+        observer()
     }
 
     private fun calculatePropostas(size: Int, pagina: Int){

@@ -11,7 +11,7 @@ sealed class ResultIdRequest<out R> {
 
 class IdDeputadoRepository(private val serviceApi: ApiServiceIdDeputado) {
 
-    fun searchIdData(id: String) = liveData {
+    /*fun searchIdData(id: String) = liveData {
         try {
             val request = serviceApi.getIdDeputado(id)
             if(request.isSuccessful){
@@ -25,5 +25,5 @@ class IdDeputadoRepository(private val serviceApi: ApiServiceIdDeputado) {
         catch (e: Exception) {
             emit(ResultIdRequest.Error(exception = e))
         }
-    }
+    }*/
 }

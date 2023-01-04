@@ -18,7 +18,7 @@ sealed class ResultCotaRequest<out R> {
 class IdDespesasRepository(private val serviceApi: ApiServiceIdDespesas,
                            private val service: ApiServiceGastos) {
 
-    fun searchDespesasData(id: String, ano: String, pagina: Int) = liveData {
+    /*fun searchDespesasData(id: String, ano: String, pagina: Int) = liveData {
         try {
             val request = serviceApi.getIdDespesas(id, ano, pagina = pagina)
             if(request.isSuccessful){
@@ -32,7 +32,7 @@ class IdDespesasRepository(private val serviceApi: ApiServiceIdDespesas,
         catch (e: Exception) {
             emit(ResultDespesasRequest.Error(exception = e))
         }
-    }
+    }*/
 
     fun gastosData(year: String, nome: String) = liveData {
         try {

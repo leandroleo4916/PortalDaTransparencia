@@ -9,12 +9,17 @@ import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.adapter.FrenteAdapter
 import com.example.portaldatransparencia.databinding.FragmentFrenteBinding
 import com.example.portaldatransparencia.dataclass.DadoFrente
+import com.example.portaldatransparencia.dataclass.Frente
 import com.example.portaldatransparencia.interfaces.IFront
-import com.example.portaldatransparencia.remote.ResultFrenteRequest
+import com.example.portaldatransparencia.remote.ApiServiceFrente
+import com.example.portaldatransparencia.remote.Retrofit
 import com.example.portaldatransparencia.security.SecurityPreferences
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class FragmentFrente: Fragment(R.layout.fragment_frente), IFront {
 
@@ -42,33 +47,40 @@ class FragmentFrente: Fragment(R.layout.fragment_frente), IFront {
 
     private fun observer() {
 
-        viewModel.frenteDeputado(id).observe(viewLifecycleOwner){
-            it?.let { result ->
-                when (result) {
-                    is ResultFrenteRequest.Success -> {
-                        result.dado?.let { front ->
-                            if (front.dados.isNotEmpty()){
-                                val size = front.dados.size
-                                calculateFront(size.toString())
-                                adapter.updateData(front.dados)
-                            }else{
-                                binding?.run {
-                                    statusView.disableView(progressFront)
-                                    statusView.enableView(textFrenteParlamentar)
-                                    textFrenteParlamentar.text = getString(R.string.nenhuma_frente_parlamentar)
-                                }
+        val retrofit = Retrofit.createService(ApiServiceFrente::class.java)
+        val call: Call<Frente> = retrofit.getFrente(id)
+        call.enqueue(object: Callback<Frente> {
+            override fun onResponse(call: Call<Frente>, res: Response<Frente>) {
+                when (res.code()){
+                    200 -> {
+                        if (res.body() != null){
+                            val size = res.body()!!.dados.size
+                            calculateFront(size.toString())
+                            adapter.updateData(res.body()!!.dados)
+                        }
+                        else {
+                            binding?.run {
+                                statusView.disableView(progressFront)
+                                statusView.enableView(textFrenteParlamentar)
+                                textFrenteParlamentar.text = getString(R.string.nenhuma_frente_parlamentar)
                             }
                         }
                     }
-                    is ResultFrenteRequest.Error -> {
-                        result.exception.message?.let {  }
-                    }
-                    is ResultFrenteRequest.ErrorConnection -> {
-                        result.exception.message?.let {  }
+                    429 -> observer()
+                    else -> {
+                        binding?.run {
+                            statusView.disableView(progressFront)
+                            statusView.enableView(textFrenteParlamentar)
+                            textFrenteParlamentar.text = getString(R.string.nenhuma_frente_parlamentar)
+                        }
                     }
                 }
             }
-        }
+
+            override fun onFailure(call: Call<Frente>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+        })
     }
 
     private fun calculateFront(front: String){

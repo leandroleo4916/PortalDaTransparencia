@@ -18,7 +18,7 @@ sealed class ResultFrenteIdRequest<out R> {
 class FrenteRepository(private val serviceApi: ApiServiceFrente,
                        private val serviceApiId: ApiServiceFrenteId) {
 
-    fun frenteData(id: String) = liveData {
+    /*fun frenteData(id: String) = liveData {
         try {
             val request = serviceApi.getFrente(id)
             if(request.isSuccessful){
@@ -48,5 +48,5 @@ class FrenteRepository(private val serviceApi: ApiServiceFrente,
         catch (e: Exception) {
             emit(ResultFrenteIdRequest.Error(exception = e))
         }
-    }
+    }*/
 }

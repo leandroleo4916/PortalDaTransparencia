@@ -17,9 +17,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.adapter.MainAdapter
 import com.example.portaldatransparencia.databinding.FragmentCamaraSenadoBinding
+import com.example.portaldatransparencia.dataclass.Despesas
+import com.example.portaldatransparencia.dataclass.MainDataClass
 import com.example.portaldatransparencia.interfaces.IClickDeputado
 import com.example.portaldatransparencia.interfaces.INotification
+import com.example.portaldatransparencia.remote.ApiServiceIdDespesas
+import com.example.portaldatransparencia.remote.ApiServiceMain
 import com.example.portaldatransparencia.remote.ResultRequest
+import com.example.portaldatransparencia.remote.Retrofit
 import com.example.portaldatransparencia.util.ValidationInternet
 import com.example.portaldatransparencia.views.activity.gastogeral.camara.ActivityGastoGeralCamara
 import com.example.portaldatransparencia.views.activity.ranking.camara.ActivityRankingCamara
@@ -31,6 +36,9 @@ import com.example.portaldatransparencia.views.view_generics.VisibilityNavViewAn
 import com.google.android.material.chip.Chip
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.util.*
 
 class CamaraFragment: Fragment(R.layout.fragment_camara_senado), IClickDeputado, INotification {
@@ -46,6 +54,7 @@ class CamaraFragment: Fragment(R.layout.fragment_camara_senado), IClickDeputado,
     private val permissionCode = 1000
     private var hideFilter = true
     companion object { const val SPEECH_REQUEST_CODE = 0 }
+    private var countCall = 1
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -68,33 +77,28 @@ class CamaraFragment: Fragment(R.layout.fragment_camara_senado), IClickDeputado,
     private fun observer() {
 
         val internet = context?.let { validationInternet.validationInternet(it) }
+        val retrofit = Retrofit.createService(ApiServiceMain::class.java)
+        val call: Call<MainDataClass> = retrofit.getDeputados(ordem = "ASC", "nome")
         if (internet == true){
-            mainViewModel.searchData().observe(viewLifecycleOwner) {
-                it?.let { result ->
-                    when (result) {
-                        is ResultRequest.Success -> {
-                            result.dado?.let { deputados ->
-                                binding?.run {
-                                    hideView.enableView(recyclerDeputados)
-                                    hideView.disableView(progressMain)
-                                    hideView.disableView(frameValidation)
-                                }
-                                adapter.updateData(deputados.dados)
+            call.enqueue(object: Callback<MainDataClass> {
+                override fun onResponse(call: Call<MainDataClass>, res: Response<MainDataClass>) {
+                    when (res.code()) {
+                        200 -> {
+                            binding?.run {
+                                hideView.enableView(recyclerDeputados)
+                                hideView.disableView(progressMain)
+                                hideView.disableView(frameValidation)
                             }
+                            adapter.updateData(res.body()!!.dados)
                         }
-                        is ResultRequest.Error -> {
-                            result.exception.message?.let {
-                                showValidationInternet(R.string.nao_recebeu_dados)
-                            }
-                        }
-                        is ResultRequest.ErrorConnection -> {
-                            result.exception.message?.let {
-                                showValidationInternet(R.string.falha_no_servidor)
-                            }
-                        }
+                        429 -> observer()
+                        else -> showValidationInternet(R.string.nao_recebeu_dados)
                     }
                 }
-            }
+                override fun onFailure(call: Call<MainDataClass>, t: Throwable) {
+                    showValidationInternet(R.string.falha_no_servidor)
+                }
+            })
         }
         else {
             showValidationInternet(R.string.verifique_sua_internet)

@@ -12,17 +12,20 @@ import com.example.portaldatransparencia.adapter.DespesasAdapter
 import com.example.portaldatransparencia.adapter.DimensionAdapter
 import com.example.portaldatransparencia.databinding.FragmentGastosBinding
 import com.example.portaldatransparencia.dataclass.DadoDespesas
+import com.example.portaldatransparencia.dataclass.Despesas
 import com.example.portaldatransparencia.interfaces.IClickTipoDespesa
 import com.example.portaldatransparencia.interfaces.INoteDespesas
-import com.example.portaldatransparencia.remote.ResultDespesasRequest
+import com.example.portaldatransparencia.remote.ApiServiceIdDespesas
+import com.example.portaldatransparencia.remote.Retrofit
 import com.example.portaldatransparencia.security.SecurityPreferences
 import com.example.portaldatransparencia.util.FormatValor
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import com.google.android.material.chip.Chip
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.util.*
-import kotlin.collections.ArrayList
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas, IClickTipoDespesa {
 
@@ -32,12 +35,11 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas, IClickT
     private lateinit var adapterDimension: DimensionAdapter
     private val securityPreferences: SecurityPreferences by inject()
     private val statusView: EnableDisableView by inject()
-    private val formatValue: FormatValor by inject()
     private lateinit var chipEnabled: Chip
     private lateinit var id: String
-    private var total = 0.0
-    private var numberNote = 0
+    private var ano = "2023"
     private var page = 1
+    private var numberNote = 0
     private var listDadosDimension: ArrayList<DadoDespesas> = arrayListOf()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -47,76 +49,75 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas, IClickT
         chipEnabled = binding!!.chipGroupItem.chip2023
         id = securityPreferences.getString("id")
         recyclerView()
-        observer(id, "2023", page)
+        observer()
         listenerChip()
     }
 
     private fun recyclerView() {
         val recycler = binding!!.recyclerDespesas
         adapter = DespesasAdapter(this, FormatValor(), requireContext())
-        adapterDimension = DimensionAdapter(FormatValor(), requireContext(), this)
         recycler.layoutManager = LinearLayoutManager(context)
         recycler.adapter = adapter
 
         val recyclerDimension = binding!!.frameRecyclerDimension.recyclerDimension
+        adapterDimension = DimensionAdapter(FormatValor(), requireContext(), this)
         recyclerDimension.layoutManager = LinearLayoutManager(context,
             LinearLayoutManager.HORIZONTAL, false)
         recyclerDimension.adapter = adapterDimension
     }
 
-    private fun observer(id: String, year: String, pagina: Int) {
+    private fun observer() {
 
-        viewModel.searchDespesasDeputado(id, year, pagina).observe(viewLifecycleOwner){
-            it?.let { result ->
-                when (result) {
-                    is ResultDespesasRequest.Success -> {
-                        result.dado?.let { despesas ->
-                            if (despesas.dados.isNotEmpty()){
+        val retrofit = Retrofit.createService(ApiServiceIdDespesas::class.java)
+        val call: Call<Despesas> = retrofit.getIdDespesas(id, ano, 100, page)
+        call.enqueue(object: Callback<Despesas> {
+            override fun onResponse(call: Call<Despesas>, despesas: Response<Despesas>){
+                when (despesas.code()){
+                    200 -> {
+                        if (despesas.body()!!.dados.isNotEmpty()){
+                            if (page == 1) listDadosDimension = arrayListOf()
+                            listDadosDimension += despesas.body()!!.dados
 
-                                if (page == 1) listDadosDimension = arrayListOf()
-                                listDadosDimension += despesas.dados
+                            statusView.disableView(binding!!.textNotValue)
+                            val size = despesas.body()!!.dados.size
+                            numberNote += size
+                            adapter.updateData(despesas.body()!!.dados, page)
+                            page += 1
 
-                                statusView.disableView(binding!!.textNotValue)
-                                val size = despesas.dados.size
-                                numberNote += size
-                                calculateTotal(despesas.dados, page)
-                                adapter.updateData(despesas.dados, page)
-                                page += 1
-
-                                if (size >= 100) observer(id, year, page)
-                                else {
-                                    binding?.run { statusView.disableView(progressDespesas) }
-                                    viewModel.captureDataNotes(listDadosDimension, adapterDimension)
-                                }
-
-                            }else{
-                                if (numberNote == 0) {
-                                    binding?.run {
-                                        statusView.disableView(progressDespesas)
-                                        statusView.enableView(textNotValue)
-                                        textNotValue.text = "Não há dados no ano ${year}"
-                                    }
-                                    adapter.updateData(despesas.dados, page)
-                                }
+                            if (size >= 100) {
+                                observer()
+                            }
+                            else {
+                                binding?.run { statusView.disableView(progressDespesas) }
+                                viewModel.captureDataNotes(listDadosDimension, adapterDimension)
+                            }
+                        }
+                        else {
+                            binding?.run {
+                                statusView.disableView(progressDespesas)
+                                statusView.enableView(textNotValue)
+                                textNotValue.text = "Não há dados no ano ${ano}"
                             }
                         }
                     }
-                    is ResultDespesasRequest.Error -> {
-                        result.exception.message?.let {  }
-                    }
-                    is ResultDespesasRequest.ErrorConnection -> {
-                        result.exception.message?.let {  }
+                    429 -> observer()
+                    else -> {
+                        binding?.run {
+                            statusView.disableView(progressDespesas)
+                            statusView.enableView(textNotValue)
+                            textNotValue.text = "Não há dados no ano ${ano}"
+                        }
                     }
                 }
             }
-        }
-    }
-
-    private fun calculateTotal(dados: List<DadoDespesas>, page: Int) {
-        if (page == 1) total = 0.0
-        dados.forEach { total = (total+it.valorDocumento) }
-
-        binding?.run { statusView.disableView(progressDespesas) }
+            override fun onFailure(call: Call<Despesas>, t: Throwable) {
+                binding?.run {
+                    statusView.disableView(progressDespesas)
+                    statusView.enableView(textNotValue)
+                    textNotValue.text = "API não respondeu!"
+                }
+            }
+        })
     }
 
     private fun listenerChip(){
@@ -136,22 +137,24 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas, IClickT
     }
 
     private fun modify(viewEnabled: Chip, viewDisabled: Chip) {
+        ano = viewDisabled.text.toString()
         viewEnabled.isChecked = false
         viewDisabled.isChecked = true
         numberNote = 0
         page = 1
         chipEnabled = viewDisabled
         binding?.run {
+            statusView.disableView(textNotValue)
             statusView.enableView(progressDespesas)
         }
-        adapter.updateData(deputados = arrayListOf(), 1)
+        adapter.updateData(arrayListOf(), 1)
         adapterDimension.updateData(arrayListOf())
-        observer(id, viewDisabled.text as String, page)
+        observer()
     }
 
-    override fun listenerDespesas(note: DadoDespesas) {
-        if (note.urlDocumento != null){
-            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(note.urlDocumento))
+    override fun listenerDespesas(note: String?) {
+        if (note != null){
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(note))
             startActivity(browserIntent)
         } else {
             Toast.makeText(context, "Comprovante não enviado", Toast.LENGTH_SHORT).show()

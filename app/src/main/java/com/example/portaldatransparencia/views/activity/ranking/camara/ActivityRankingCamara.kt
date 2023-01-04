@@ -10,20 +10,29 @@ import com.example.portaldatransparencia.databinding.LayoutRankingBinding
 import com.example.portaldatransparencia.dataclass.Dado
 import com.example.portaldatransparencia.dataclass.GastoGeralCamara
 import com.example.portaldatransparencia.dataclass.ListParlamentar
+import com.example.portaldatransparencia.dataclass.MainDataClass
+import com.example.portaldatransparencia.di.validationInternet
+import com.example.portaldatransparencia.remote.ApiServiceMain
 import com.example.portaldatransparencia.remote.ResultGastoGeralCamara
 import com.example.portaldatransparencia.remote.ResultRequest
+import com.example.portaldatransparencia.remote.Retrofit
 import com.example.portaldatransparencia.security.SecurityPreferences
 import com.example.portaldatransparencia.util.FormaterValueBilhoes
+import com.example.portaldatransparencia.util.ValidationInternet
 import com.example.portaldatransparencia.views.camara.CamaraViewModel
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class ActivityRankingCamara: AppCompatActivity() {
 
     private val binding by lazy { LayoutRankingBinding.inflate(layoutInflater) }
     private val viewModel: RankingViewModelCamara by viewModel()
     private val camaraViewModel: CamaraViewModel by viewModel()
+    private val validationInternet: ValidationInternet by inject()
     private val hideView: EnableDisableView by inject()
     private val securityPreferences: SecurityPreferences by inject()
     private val formatValor: FormaterValueBilhoes by inject()
@@ -62,25 +71,32 @@ class ActivityRankingCamara: AppCompatActivity() {
     }
 
     private fun observerCamara(){
-        camaraViewModel.searchData().observe(this){
-            it?.let { result ->
-                when (result) {
-                    is ResultRequest.Success -> {
-                        result.dado?.let { camara ->
-                            val list = camara.dados
-                            sizeDeputado = list.size.toString()
-                            listDeputados = list as ArrayList
-                            observerGastoCamara()
+
+        val internet = this.let { validationInternet.validationInternet(it) }
+        val retrofit = Retrofit.createService(ApiServiceMain::class.java)
+        val call: Call<MainDataClass> = retrofit.getDeputados(ordem = "ASC", "nome")
+        if (internet){
+            call.enqueue(object: Callback<MainDataClass> {
+                override fun onResponse(call: Call<MainDataClass>, res: Response<MainDataClass>) {
+                    when (res.code()) {
+                        200 -> {
+                            if (res.body()!!.dados.isNotEmpty()){
+                                val list = res.body()!!.dados
+                                sizeDeputado = list.size.toString()
+                                listDeputados = list as ArrayList
+                                observerGastoCamara()
+                            }
                         }
-                    }
-                    is ResultRequest.Error -> {
-                        result.exception.message?.let { }
-                    }
-                    is ResultRequest.ErrorConnection -> {
-                        result.exception.message?.let { }
+                        429 -> observerCamara()
                     }
                 }
-            }
+                override fun onFailure(call: Call<MainDataClass>, t: Throwable) {
+                    TODO("Not yet implemented")
+                }
+            })
+        }
+        else {
+            //showValidationInternet(R.string.verifique_sua_internet)
         }
     }
 
@@ -127,9 +143,7 @@ class ActivityRankingCamara: AppCompatActivity() {
         }
         listGastoGeralDeputado.forEach {
             val item = it
-            if (item.urlFoto != null){
-                listAdpterDeputado.add(item)
-            }
+            if (item.urlFoto != null) listAdpterDeputado.add(item)
         }
         binding.run {
             progressRancking.let { hideView.disableView(it) }

@@ -11,7 +11,7 @@ sealed class ResultOccupationRequest<out R> {
 
 class OccupationRepository(private val serviceApi: ApiServiceOccupation) {
 
-    fun occupationData(id: String) = liveData {
+    /*fun occupationData(id: String) = liveData {
         try {
             val request = serviceApi.getOccupation(id)
             if(request.isSuccessful){
@@ -25,5 +25,5 @@ class OccupationRepository(private val serviceApi: ApiServiceOccupation) {
         catch (e: Exception) {
             emit(ResultOccupationRequest.Error(exception = e))
         }
-    }
+    }*/
 }

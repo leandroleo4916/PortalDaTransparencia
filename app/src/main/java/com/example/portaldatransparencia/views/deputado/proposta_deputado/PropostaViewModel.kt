@@ -7,8 +7,7 @@ import com.example.portaldatransparencia.remote.*
 
 class PropostaViewModel(private val repository: PropostaRepository): ViewModel() {
 
-    fun propostaDeputado(year: String, id: String, page: Int):
-            LiveData<ResultPropostaRequest<PropostaDataClass?>> = repository.propostaData(year, id, page)
+    //fun propostaDeputado(year: String, id: String, page: Int): LiveData<ResultPropostaRequest<PropostaDataClass?>> = repository.propostaData(year, id, page)
 
 }
 

@@ -10,15 +10,22 @@ import com.bumptech.glide.Glide
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.databinding.FragmentGeralDeputadoBinding
 import com.example.portaldatransparencia.dataclass.Dados
+import com.example.portaldatransparencia.dataclass.IdDeputadoDataClass
 import com.example.portaldatransparencia.dataclass.Occupation
-import com.example.portaldatransparencia.remote.ResultIdRequest
+import com.example.portaldatransparencia.dataclass.OccupationDataClass
+import com.example.portaldatransparencia.remote.ApiServiceIdDeputado
+import com.example.portaldatransparencia.remote.ApiServiceOccupation
 import com.example.portaldatransparencia.remote.ResultOccupationRequest
+import com.example.portaldatransparencia.remote.Retrofit
 import com.example.portaldatransparencia.security.SecurityPreferences
 import com.example.portaldatransparencia.util.CalculateAge
-import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import com.example.portaldatransparencia.views.deputado.DeputadoViewModel
+import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
 
@@ -40,46 +47,61 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
     }
 
     private fun observerOccupation() {
-        viewModelOccupation.occupationDeputado(id).observe(viewLifecycleOwner){
-            it?.let { result ->
-                when (result) {
-                    is ResultOccupationRequest.Success -> {
-                        result.dado?.let { occupation ->
-                            addElementOccupation(occupation.dados)
+
+        val retrofit = Retrofit.createService(ApiServiceOccupation::class.java)
+        val call: Call<OccupationDataClass> = retrofit.getOccupation(id)
+        call.enqueue(object: Callback<OccupationDataClass>{
+            override fun onResponse(call: Call<OccupationDataClass>, res: Response<OccupationDataClass>) {
+                when (res.code()){
+                    200 -> {
+                        if (res.body() != null){
+                            addElementOccupation(res.body()!!.dados)
+                        }
+                        else {
+
                         }
                     }
-                    is ResultOccupationRequest.Error -> {
-                        result.exception.message?.let {  }
-                    }
-                    is ResultOccupationRequest.ErrorConnection -> {
-                        result.exception.message?.let {  }
+                    429 -> observerOccupation()
+                    else -> {
+
                     }
                 }
             }
-        }
+
+            override fun onFailure(call: Call<OccupationDataClass>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+        })
     }
 
     private fun observerDeputado() {
 
-        viewModel.searchDataDeputado(id).observe(viewLifecycleOwner){
-            it?.let { result ->
-                when (result) {
-                    is ResultIdRequest.Success -> {
-                        result.dado?.let { deputado ->
-                            addElementView(deputado.dados)
-                            addElementRedeSocial(deputado.dados)
-                            sexoDeputado = deputado.dados.sexo
+        val retrofit = Retrofit.createService(ApiServiceIdDeputado::class.java)
+        val call: Call<IdDeputadoDataClass> = retrofit.getIdDeputado(id)
+        call.enqueue(object: Callback<IdDeputadoDataClass>{
+            override fun onResponse(call: Call<IdDeputadoDataClass>, res: Response<IdDeputadoDataClass>) {
+                when (res.code()){
+                    200 -> {
+                        if (res.body() != null){
+                            addElementView(res.body()!!.dados)
+                            addElementRedeSocial(res.body()!!.dados)
+                            sexoDeputado = res.body()!!.dados.sexo
+                        }
+                        else {
+
                         }
                     }
-                    is ResultIdRequest.Error -> {
-                        result.exception.message?.let {  }
-                    }
-                    is ResultIdRequest.ErrorConnection -> {
-                        result.exception.message?.let {  }
+                    429 -> observerDeputado()
+                    else -> {
+
                     }
                 }
             }
-        }
+
+            override fun onFailure(call: Call<IdDeputadoDataClass>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+        })
     }
 
     private fun addElementView(dados: Dados) {

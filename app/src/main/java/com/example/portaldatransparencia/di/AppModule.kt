@@ -1,6 +1,5 @@
 package com.example.portaldatransparencia.di
 
-import com.example.portaldatransparencia.adapter.DimensionAdapter
 import com.example.portaldatransparencia.remote.*
 import com.example.portaldatransparencia.security.SecurityPreferences
 import com.example.portaldatransparencia.util.*

@@ -15,12 +15,13 @@ import com.example.portaldatransparencia.util.FormatValueFloat
 class DespesasViewModel(private val repository: IdDespesasRepository,
                         private val formatFloat: FormatValueFloat) : ViewModel() {
 
-    fun searchDespesasDeputado(id: String, ano: String, pagina: Int):
+    /*fun searchDespesasDeputado(id: String, ano: String, pagina: Int):
             LiveData<ResultDespesasRequest<Despesas?>> =
-        repository.searchDespesasData(id, ano, pagina)
+        repository.searchDespesasData(id, ano, pagina)*/
 
     fun searchGastosSenador(ano: String, nome: String):
-            LiveData<ResultCotaRequest<SenadorGastosDataClass?>> = repository.gastosData(ano, nome)
+            LiveData<ResultCotaRequest<SenadorGastosDataClass?>> =
+        repository.gastosData(ano, nome)
 
     fun captureDataNotes(dados: List<DadoDespesas>, adapter: DimensionAdapter) {
 
@@ -41,14 +42,12 @@ class DespesasViewModel(private val repository: IdDespesasRepository,
         var seguranca = 0.0F
         var curso = 0.0F
         var outros = 0.0F
-        val listType = mutableListOf<String>()
 
         dados.forEach {
             val valor = formatFloat.formatFloat(it.valorDocumento.toString())
             if (valor != 0.0F) {
                 total += valor
                 when (it.tipoDespesa) {
-
                     "MANUTENÇÃO DE ESCRITÓRIO DE APOIO À ATIVIDADE PARLAMENTAR" -> manutencao += valor
                     "COMBUSTÍVEIS E LUBRIFICANTES." -> combustivel += valor
                     "DIVULGAÇÃO DA ATIVIDADE PARLAMENTAR." -> divulgacao += valor
@@ -69,7 +68,6 @@ class DespesasViewModel(private val repository: IdDespesasRepository,
                     else -> outros += valor
                 }
             }
-            if (!listType.contains(it.tipoDespesa)) listType.add(it.tipoDespesa)
 
         }
 

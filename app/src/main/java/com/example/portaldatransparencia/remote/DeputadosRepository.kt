@@ -11,11 +11,11 @@ sealed class ResultRequest<out R> {
 
 class SearchRepository(private val serviceApi: ApiServiceMain) {
 
-    fun searchData() = liveData {
+    /*fun searchData() = liveData {
         try {
             val request = serviceApi.getDeputados(ordem = "ASC", "nome")
             if(request.isSuccessful){
-                emit(ResultRequest.Success(dado = request.body()))
+                emit(ResultRequest.Success(dado = request))
             } else {
                 emit(ResultRequest.Error(exception = Exception("Não foi possível conectar!")))
             }
@@ -26,5 +26,5 @@ class SearchRepository(private val serviceApi: ApiServiceMain) {
         catch (e: Exception) {
             emit(ResultRequest.Error(exception = e))
         }
-    }
+    }*/
 }

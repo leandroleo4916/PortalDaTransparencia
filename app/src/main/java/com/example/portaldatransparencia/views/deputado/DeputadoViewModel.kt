@@ -8,7 +8,6 @@ import com.example.portaldatransparencia.remote.ResultIdRequest
 
 class DeputadoViewModel(private val repository: IdDeputadoRepository): ViewModel() {
 
-    fun searchDataDeputado(id: String):
-            LiveData<ResultIdRequest<IdDeputadoDataClass?>> = repository.searchIdData(id)
+    //fun searchDataDeputado(id: String): LiveData<ResultIdRequest<IdDeputadoDataClass?>> = repository.searchIdData(id)
 }
 

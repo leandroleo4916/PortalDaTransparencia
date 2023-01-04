@@ -7,10 +7,14 @@ import com.bumptech.glide.Glide
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.databinding.FragmentFrenteIdBinding
 import com.example.portaldatransparencia.dataclass.FrenteId
-import com.example.portaldatransparencia.remote.ResultFrenteIdRequest
+import com.example.portaldatransparencia.remote.ApiServiceFrenteId
+import com.example.portaldatransparencia.remote.Retrofit
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class FragmentFrenteId: AppCompatActivity() {
 
@@ -34,23 +38,30 @@ class FragmentFrenteId: AppCompatActivity() {
 
     private fun observer() {
 
-        viewModel.frenteDeputadoId(id).observe(this){
-            it?.let { result ->
-                when (result) {
-                    is ResultFrenteIdRequest.Success -> {
-                        result.dado?.let { front ->
-                            if (front.dados != null) addElementFront(front)
+        val retrofit = Retrofit.createService(ApiServiceFrenteId::class.java)
+        val call: Call<FrenteId> = retrofit.getFrenteId(id)
+        call.enqueue(object: Callback<FrenteId> {
+            override fun onResponse(call: Call<FrenteId>, res: Response<FrenteId>) {
+                when (res.code()){
+                    200 -> {
+                        if (res.body() != null){
+                            addElementFront(res.body()!!)
+                        }
+                        else {
+
                         }
                     }
-                    is ResultFrenteIdRequest.Error -> {
-                        result.exception.message?.let {}
-                    }
-                    is ResultFrenteIdRequest.ErrorConnection -> {
-                        result.exception.message?.let {}
+                    429 -> observer()
+                    else -> {
+
                     }
                 }
             }
-        }
+
+            override fun onFailure(call: Call<FrenteId>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+        })
     }
 
     private fun addElementFront(front: FrenteId){

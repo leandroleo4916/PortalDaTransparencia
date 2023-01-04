@@ -71,7 +71,7 @@ class DespesasAdapter(private val listener: INoteDespesas, private val formatVal
                 }
                 itemView.setOnClickListener {
                     it.startAnimation(AnimationUtils.loadAnimation(context, R.anim.click))
-                    listener.listenerDespesas(data[position])
+                    listener.listenerDespesas(despesa.urlDocumento!!)
                 }
             }
         }

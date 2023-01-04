@@ -7,7 +7,8 @@ import com.bumptech.glide.Glide
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.databinding.ActivityDeputadoBinding
 import com.example.portaldatransparencia.dataclass.IdDeputadoDataClass
-import com.example.portaldatransparencia.remote.ResultIdRequest
+import com.example.portaldatransparencia.remote.ApiServiceIdDeputado
+import com.example.portaldatransparencia.remote.Retrofit
 import com.example.portaldatransparencia.security.SecurityPreferences
 import com.example.portaldatransparencia.util.CalculateAge
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
@@ -15,6 +16,9 @@ import com.example.portaldatransparencia.views.view_generics.TabViewAdapterDeput
 import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class DeputadoActivity: AppCompatActivity() {
 
@@ -51,21 +55,31 @@ class DeputadoActivity: AppCompatActivity() {
     }
 
     private fun observer() {
-        mainViewModel.searchDataDeputado(id).observe(this) {
-            it?.let { result ->
-                when (result) {
-                    is ResultIdRequest.Success -> {
-                        result.dado?.let { deputado -> addElementView(deputado) }
+
+        val retrofit = Retrofit.createService(ApiServiceIdDeputado::class.java)
+        val call: Call<IdDeputadoDataClass> = retrofit.getIdDeputado(id)
+        call.enqueue(object: Callback<IdDeputadoDataClass> {
+            override fun onResponse(call: Call<IdDeputadoDataClass>, res: Response<IdDeputadoDataClass>) {
+                when (res.code()){
+                    200 -> {
+                        if (res.body() != null){
+                            addElementView(res.body()!!)
+                        }
+                        else {
+
+                        }
                     }
-                    is ResultIdRequest.Error -> {
-                        result.exception.message?.let {  }
-                    }
-                    is ResultIdRequest.ErrorConnection -> {
-                        result.exception.message?.let {  }
+                    429 -> observer()
+                    else -> {
+
                     }
                 }
             }
-        }
+
+            override fun onFailure(call: Call<IdDeputadoDataClass>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+        })
     }
 
     private fun addElementView(item: IdDeputadoDataClass) {

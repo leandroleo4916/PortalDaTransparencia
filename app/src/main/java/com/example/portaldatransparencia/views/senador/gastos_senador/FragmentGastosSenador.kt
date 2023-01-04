@@ -11,17 +11,16 @@ import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.adapter.DimensionAdapter
 import com.example.portaldatransparencia.adapter.GastorSenadorAdapter
 import com.example.portaldatransparencia.databinding.FragmentGastosBinding
-import com.example.portaldatransparencia.dataclass.DadoDespesas
 import com.example.portaldatransparencia.dataclass.GastosSenador
 import com.example.portaldatransparencia.dataclass.SublistDataClass
 import com.example.portaldatransparencia.interfaces.IClickTipoDespesa
 import com.example.portaldatransparencia.interfaces.INoteDespesas
 import com.example.portaldatransparencia.remote.ResultCotaRequest
 import com.example.portaldatransparencia.security.SecurityPreferences
-import com.example.portaldatransparencia.views.view_generics.EnableDisableView
-import com.example.portaldatransparencia.views.deputado.gastos_deputado.DespesasViewModel
 import com.example.portaldatransparencia.util.FormatValor
 import com.example.portaldatransparencia.util.FormatValueFloat
+import com.example.portaldatransparencia.views.deputado.gastos_deputado.DespesasViewModel
+import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import com.google.android.material.chip.Chip
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -208,9 +207,9 @@ class FragmentGastosSenador: Fragment(R.layout.fragment_gastos), INoteDespesas, 
         observerGastosSenador(ano, nome)
     }
 
-    override fun listenerDespesas(note: DadoDespesas) {
-        if (note.urlDocumento != null){
-            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(note.urlDocumento))
+    override fun listenerDespesas(note: String?) {
+        if (note != null){
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(note))
             startActivity(browserIntent)
         } else {
             Toast.makeText(context, "Comprovante não enviado", Toast.LENGTH_SHORT).show()

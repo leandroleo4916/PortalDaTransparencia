@@ -1,15 +1,16 @@
 package com.example.portaldatransparencia.remote
 
 import com.example.portaldatransparencia.dataclass.*
+import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.*
 
 interface ApiServiceMain {
     @GET("/api/v2/deputados?")
-    suspend fun getDeputados(
+    fun getDeputados(
         @Query("ordem") ordem: String,
         @Query("ordenarPor") ordenarPor: String
-    ): Response<MainDataClass>
+    ): Call<MainDataClass>
 }
 interface ApiVotacoes {
     @Headers("Content-Type: application/json")
@@ -24,54 +25,54 @@ interface ApiVotacoes {
 
 interface ApiServiceIdDeputado {
     @GET("/api/v2/deputados/{id}")
-    suspend fun getIdDeputado(
+    fun getIdDeputado(
          @Path("id") id: String
-    ): Response<IdDeputadoDataClass>
+    ): Call<IdDeputadoDataClass>
 }
 
 interface ApiServiceIdDespesas {
     @GET("/api/v2/deputados/{id}/despesas?")
-    suspend fun getIdDespesas(
+    fun getIdDespesas(
          @Path("id") id: String,
          @Query("ano") ano: String,
          @Query("itens") itens: Int = 100,
          @Query("pagina") pagina: Int,
          @Query("ordem") ordem: String = "ASC",
          @Query("ordenarPor") ordenarPor: String = "ano"
-    ): Response<Despesas>
+    ): Call<Despesas>
 }
 
 interface ApiServiceFrente {
     @GET("/api/v2/deputados/{id}/frentes")
-    suspend fun getFrente(
+    fun getFrente(
         @Path("id") id: String
-    ): Response<Frente>
+    ): Call<Frente>
 }
 
 interface ApiServiceFrenteId {
     @GET("/api/v2/frentes/{id}")
-    suspend fun getFrenteId(
+    fun getFrenteId(
         @Path("id") id: String
-    ): Response<FrenteId>
+    ): Call<FrenteId>
 }
 
 interface ApiServiceOccupation {
     @GET("/api/v2/deputados/{id}/ocupacoes")
-    suspend fun getOccupation(
+    fun getOccupation(
         @Path("id") id: String
-    ): Response<OccupationDataClass>
+    ): Call<OccupationDataClass>
 }
 
 interface ApiServiceProposta {
     @GET("/api/v2/proposicoes?")
-    suspend fun getProposta(
+    fun getProposta(
         @Query("ano") ano: String,
         @Query("idDeputadoAutor") id: String,
         @Query("itens") itens: Int = 100,
         @Query("pagina") pagina: Int,
         @Query("ordem") ordem: String = "ASC",
         @Query("ordenarPor") ordenarPor: String = "id"
-    ): Response<PropostaDataClass>
+    ): Call<PropostaDataClass>
 }
 
 interface ApiServiceSenado {

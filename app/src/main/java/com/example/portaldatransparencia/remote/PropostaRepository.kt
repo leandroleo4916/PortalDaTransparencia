@@ -11,7 +11,7 @@ sealed class ResultPropostaRequest<out R> {
 
 class PropostaRepository(private val serviceApi: ApiServiceProposta) {
 
-    fun propostaData(year: String, id: String, page: Int) = liveData {
+    /*fun propostaData(year: String, id: String, page: Int) = liveData {
         try {
             val request = serviceApi.getProposta(year, id, pagina = page)
             if(request.isSuccessful){
@@ -25,5 +25,5 @@ class PropostaRepository(private val serviceApi: ApiServiceProposta) {
         catch (e: Exception) {
             emit(ResultPropostaRequest.Error(exception = e))
         }
-    }
+    }*/
 }

@@ -14,7 +14,8 @@ import com.example.portaldatransparencia.dataclass.SublistDataClass
 import com.example.portaldatransparencia.interfaces.IClickTipoDespesa
 import com.example.portaldatransparencia.util.FormatValor
 
-class DimensionAdapter(private val formatValor: FormatValor, private val context: Context,
+class DimensionAdapter(private val formatValor: FormatValor,
+                       private val context: Context,
                        private val clickDespesa: IClickTipoDespesa):
     RecyclerView.Adapter<DimensionAdapter.DespesasViewHolder>() {
 
