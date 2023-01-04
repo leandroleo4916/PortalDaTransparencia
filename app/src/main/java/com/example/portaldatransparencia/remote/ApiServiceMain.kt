@@ -15,12 +15,12 @@ interface ApiServiceMain {
 interface ApiVotacoes {
     @Headers("Content-Type: application/json")
     @GET("/api/v2/votacoes?")
-    suspend fun getVotacoes(
+    fun getVotacoes(
         @Query("ordem") ordem: String,
         @Query("ordenarPor") ordenarPor: String,
         @Query("pagina") pagina: String,
         @Query("itens") itens: String,
-    ): Response<VotacoesList>
+    ): Call<VotacoesList>
 }
 
 interface ApiServiceIdDeputado {

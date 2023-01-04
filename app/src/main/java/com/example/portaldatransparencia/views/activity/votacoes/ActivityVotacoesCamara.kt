@@ -7,10 +7,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.adapter.VotacoesCamaraAdapter
 import com.example.portaldatransparencia.databinding.ActivityVotacoesBinding
+import com.example.portaldatransparencia.dataclass.MainDataClass
+import com.example.portaldatransparencia.dataclass.VotacoesList
+import com.example.portaldatransparencia.remote.ApiServiceMain
+import com.example.portaldatransparencia.remote.ApiVotacoes
 import com.example.portaldatransparencia.remote.ResultVotacoesCamara
+import com.example.portaldatransparencia.remote.Retrofit
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class ActivityVotacoesCamara: AppCompatActivity() {
 
@@ -56,17 +64,19 @@ class ActivityVotacoesCamara: AppCompatActivity() {
 
     private fun observerVotacoesCamara() {
 
-        viewModel.gastoGeralCamara(page).observe(this){
-            it?.let { result ->
-                when (result) {
-                    is ResultVotacoesCamara.Success -> {
-                        result.dado?.let { votacoes ->
-                            adapter.updateData(votacoes.dados)
-                            votacoesSize += votacoes.dados.size
+        val retrofit = Retrofit.createService(ApiVotacoes::class.java)
+        val call: Call<VotacoesList> = retrofit
+            .getVotacoes("DESC", "dataHoraRegistro", page.toString(), "200")
+        call.enqueue(object: Callback<VotacoesList> {
+            override fun onResponse(call: Call<VotacoesList>, response: Response<VotacoesList>) {
+                when (response.code()){
+                    200 ->
+                        if (response.body() != null && response.body()!!.dados.isNotEmpty()){
+                            adapter.updateData(response.body()!!.dados)
+                            votacoesSize += response.body()!!.dados.size
                             page += 1
-                            if (votacoes.dados.size == 200){
-                                observerVotacoesCamara()
-                            }
+                            if (response.body()!!.dados.size == 200) observerVotacoesCamara()
+
                             binding.run {
                                 statusView.run {
                                     disableView(progressVotacoes)
@@ -76,15 +86,14 @@ class ActivityVotacoesCamara: AppCompatActivity() {
                                 textNumberVotacoes.text = votacoesSize.toString()+" Votações"
                             }
                         }
-                    }
-                    is ResultVotacoesCamara.Error -> {
-                        result.exception.message?.let { }
-                    }
-                    is ResultVotacoesCamara.ErrorConnection -> {
-                        result.exception.message?.let { }
-                    }
+                    429 -> observerVotacoesCamara()
+                    else -> {}
                 }
             }
-        }
+
+            override fun onFailure(call: Call<VotacoesList>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+        })
     }
 }

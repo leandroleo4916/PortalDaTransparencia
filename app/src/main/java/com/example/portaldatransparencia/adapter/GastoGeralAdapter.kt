@@ -11,10 +11,12 @@ import com.bumptech.glide.Glide
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.databinding.RecyclerRankingBinding
 import com.example.portaldatransparencia.dataclass.ListParlamentar
+import com.example.portaldatransparencia.interfaces.IClickOpenDeputadoRanking
 import com.example.portaldatransparencia.util.FormaterValueBilhoes
 import kotlinx.coroutines.*
 
-class GastoGeralAdapter(private val formatValor: FormaterValueBilhoes, private val context: Context) :
+class GastoGeralAdapter(private val formatValor: FormaterValueBilhoes, private val context: Context,
+                        private val clickRanking: IClickOpenDeputadoRanking) :
     RecyclerView.Adapter<GastoGeralAdapter.MainViewHolder>() {
 
     private var binding: RecyclerRankingBinding? = null
@@ -71,6 +73,7 @@ class GastoGeralAdapter(private val formatValor: FormaterValueBilhoes, private v
 
                 constraintRancking.setOnClickListener {
                     it.startAnimation(AnimationUtils.loadAnimation(context, R.anim.click))
+                    clickRanking.clickRanking(item.id)
                 }
             }
         }

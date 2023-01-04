@@ -94,6 +94,7 @@
         android:id="@+id/toolbar6"
         android:layout_width="0dp"
         android:layout_height="1.2dp"
+        android:layout_marginEnd="10dp"
         android:background="@color/purple_500"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/imageView3"

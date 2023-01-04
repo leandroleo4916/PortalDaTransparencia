@@ -1,5 +1,6 @@
 package com.example.portaldatransparencia.views.activity.ranking.camara
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
@@ -11,15 +12,15 @@ import com.example.portaldatransparencia.dataclass.Dado
 import com.example.portaldatransparencia.dataclass.GastoGeralCamara
 import com.example.portaldatransparencia.dataclass.ListParlamentar
 import com.example.portaldatransparencia.dataclass.MainDataClass
-import com.example.portaldatransparencia.di.validationInternet
+import com.example.portaldatransparencia.interfaces.IClickOpenDeputadoRanking
 import com.example.portaldatransparencia.remote.ApiServiceMain
 import com.example.portaldatransparencia.remote.ResultGastoGeralCamara
-import com.example.portaldatransparencia.remote.ResultRequest
 import com.example.portaldatransparencia.remote.Retrofit
 import com.example.portaldatransparencia.security.SecurityPreferences
 import com.example.portaldatransparencia.util.FormaterValueBilhoes
 import com.example.portaldatransparencia.util.ValidationInternet
 import com.example.portaldatransparencia.views.camara.CamaraViewModel
+import com.example.portaldatransparencia.views.deputado.DeputadoActivity
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -27,7 +28,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ActivityRankingCamara: AppCompatActivity() {
+class ActivityRankingCamara: AppCompatActivity(), IClickOpenDeputadoRanking {
 
     private val binding by lazy { LayoutRankingBinding.inflate(layoutInflater) }
     private val viewModel: RankingViewModelCamara by viewModel()
@@ -65,7 +66,7 @@ class ActivityRankingCamara: AppCompatActivity() {
 
     private fun recycler(){
         val recycler = binding.recyclerRancking
-        adapter = GastoGeralAdapter(formatValor, baseContext)
+        adapter = GastoGeralAdapter(formatValor, baseContext, this)
         recycler.layoutManager = LinearLayoutManager(this)
         recycler.adapter = adapter
     }
@@ -150,5 +151,11 @@ class ActivityRankingCamara: AppCompatActivity() {
             textResultRacking.let { hideView.disableView(it) }
         }
         adapter.updateData(listAdpterDeputado)
+    }
+
+    override fun clickRanking(id: String) {
+        val intent = Intent(this, DeputadoActivity::class.java)
+        intent.putExtra("id", id)
+        startActivity(intent)
     }
 }

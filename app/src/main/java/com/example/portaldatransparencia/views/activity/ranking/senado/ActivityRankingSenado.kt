@@ -10,6 +10,7 @@ import com.example.portaldatransparencia.databinding.LayoutRankingBinding
 import com.example.portaldatransparencia.dataclass.GastoGeralDataClass
 import com.example.portaldatransparencia.dataclass.ListParlamentar
 import com.example.portaldatransparencia.dataclass.Parlamentar
+import com.example.portaldatransparencia.interfaces.IClickOpenDeputadoRanking
 import com.example.portaldatransparencia.remote.ResultGastoGeralSenado
 import com.example.portaldatransparencia.remote.ResultSenadoRequest
 import com.example.portaldatransparencia.security.SecurityPreferences
@@ -19,7 +20,7 @@ import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class ActivityRankingSenado: AppCompatActivity() {
+class ActivityRankingSenado: AppCompatActivity(), IClickOpenDeputadoRanking {
 
     private val binding by lazy { LayoutRankingBinding.inflate(layoutInflater) }
     private val viewModel: RankingViewModelSenado by viewModel()
@@ -55,7 +56,7 @@ class ActivityRankingSenado: AppCompatActivity() {
 
     private fun recycler(){
         val recycler = binding.recyclerRancking
-        adapter = GastoGeralAdapter(formatValor, applicationContext)
+        adapter = GastoGeralAdapter(formatValor, applicationContext, this)
         recycler.layoutManager = LinearLayoutManager(this)
         recycler.adapter = adapter
     }
@@ -139,4 +140,6 @@ class ActivityRankingSenado: AppCompatActivity() {
         }
         adapter.updateData(listAdpterSenador)
     }
+
+    override fun clickRanking(id: String) {}
 }
