@@ -67,10 +67,11 @@ class FragmentFrenteId: AppCompatActivity() {
     private fun addElementFront(front: FrenteId){
 
         binding.run {
-            statusView.disableView(progressFrontId)
-            statusView.enableView(constraintLayout)
-            statusView.enableView(constraintLayout2)
-
+            statusView.run {
+                disableView(progressFrontId)
+                enableView(constraintLayout)
+                enableView(constraintLayout2)
+            }
             textFrenteTitle.text = front.dados.titulo
             textFrenteSituation.text = front.dados.situacao
             textNomeCoordinator.text = front.dados.coordenador.nome

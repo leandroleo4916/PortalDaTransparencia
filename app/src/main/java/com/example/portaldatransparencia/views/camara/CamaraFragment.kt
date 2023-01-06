@@ -54,7 +54,6 @@ class CamaraFragment: Fragment(R.layout.fragment_camara_senado), IClickDeputado,
     private val permissionCode = 1000
     private var hideFilter = true
     companion object { const val SPEECH_REQUEST_CODE = 0 }
-    private var countCall = 1
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -85,9 +84,11 @@ class CamaraFragment: Fragment(R.layout.fragment_camara_senado), IClickDeputado,
                     when (res.code()) {
                         200 -> {
                             binding?.run {
-                                hideView.enableView(recyclerDeputados)
-                                hideView.disableView(progressMain)
-                                hideView.disableView(frameValidation)
+                                hideView.run {
+                                    enableView(recyclerDeputados)
+                                    disableView(progressMain)
+                                    disableView(frameValidation)
+                                }
                             }
                             adapter.updateData(res.body()!!.dados)
                         }
@@ -107,9 +108,11 @@ class CamaraFragment: Fragment(R.layout.fragment_camara_senado), IClickDeputado,
 
     private fun showValidationInternet(value: Int){
         binding?.run {
-            hideView.disableView(progressMain)
-            hideView.disableView(recyclerDeputados)
-            hideView.enableView(frameValidation)
+            hideView.run {
+                disableView(progressMain)
+                disableView(recyclerDeputados)
+                enableView(frameValidation)
+            }
             layoutValidation.verifiqueInternet.text = getString(value)
         }
     }
@@ -269,7 +272,8 @@ class CamaraFragment: Fragment(R.layout.fragment_camara_senado), IClickDeputado,
                     PackageManager.PERMISSION_GRANTED) {
                     openVoice()
                 } else {
-                    Toast.makeText(context, "Permissão negada", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, getString(R.string.permissao_negada),
+                        Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -286,7 +290,7 @@ class CamaraFragment: Fragment(R.layout.fragment_camara_senado), IClickDeputado,
             if (intent.`package` == null) {
                 startActivityForResult(intent, SPEECH_REQUEST_CODE)
             } else {
-                Toast.makeText(context, "Erro na captura de voz",
+                Toast.makeText(context, getString(R.string.erro_captura_voz),
                     Toast.LENGTH_SHORT).show()
             }
 
@@ -316,7 +320,7 @@ class CamaraFragment: Fragment(R.layout.fragment_camara_senado), IClickDeputado,
     }
 
     override fun notification() {
-        Toast.makeText(context, "Não encontrado deputado com esse partido",
+        Toast.makeText(context, getString(R.string.nao_encontrado_dep_partido),
             Toast.LENGTH_SHORT).show()
     }
 }

@@ -89,9 +89,11 @@ class DeputadoActivity: AppCompatActivity() {
                 .circleCrop()
                 .into(imageDeputado)
             textDescription.text = item.dados.ultimoStatus.nome
-            statusView.disableView(progressDeputado)
-            statusView.enableView(textDescription)
-            statusView.enableView(imageDeputado)
+            statusView.run {
+                disableView(progressDeputado)
+                enableView(textDescription)
+                enableView(imageDeputado)
+            }
         }
     }
 

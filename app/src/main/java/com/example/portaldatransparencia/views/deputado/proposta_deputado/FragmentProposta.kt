@@ -114,10 +114,12 @@ class FragmentProposta: Fragment(R.layout.fragment_proposta) {
         page = 1
         chipEnabled = viewDisabled
         binding?.run {
-            statusView.enableView(progressProposta)
-            statusView.disableView(textPropostaParlamentar)
-            statusView.disableView(iconProposta)
-            statusView.disableView(textNotValue)
+            statusView.run {
+                enableView(progressProposta)
+                disableView(textPropostaParlamentar)
+                disableView(iconProposta)
+                disableView(textNotValue)
+            }
         }
         adapter.updateData(arrayListOf(), 1)
         observer()
@@ -127,10 +129,12 @@ class FragmentProposta: Fragment(R.layout.fragment_proposta) {
         if (pagina == 1) numberProposta = 0
         numberProposta += size
         binding?.run {
-            statusView.disableView(progressProposta)
-            statusView.enableView(textPropostaParlamentar)
-            statusView.enableView(iconProposta)
-            statusView.disableView(textNotValue)
+            statusView.run {
+                disableView(progressProposta)
+                enableView(textPropostaParlamentar)
+                enableView(iconProposta)
+                disableView(textNotValue)
+            }
             "$numberProposta Projetos".also { textPropostaParlamentar.text = it }
         }
     }

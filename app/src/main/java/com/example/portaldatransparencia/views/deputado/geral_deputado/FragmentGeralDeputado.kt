@@ -136,9 +136,11 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
                 .circleCrop()
                 .into(iconDeputadoGeral)
 
-            statusView.disableView(progressGeral)
-            statusView.enableView(iconDeputadoGeral)
-            statusView.enableView(textGeralInformation)
+            statusView.run {
+                disableView(progressGeral)
+                enableView(iconDeputadoGeral)
+                enableView(textGeralInformation)
+            }
         }
     }
 

@@ -104,9 +104,11 @@ class FragmentGeralSenador: Fragment(R.layout.fragment_geral_senador) {
                 .circleCrop()
                 .into(iconSenadorGeral)
 
-            statusView.disableView(progressGeral)
-            statusView.enableView(iconSenadorGeral)
-            statusView.enableView(textGeralInformation)
+            statusView.run {
+                disableView(progressGeral)
+                enableView(iconSenadorGeral)
+                enableView(textGeralInformation)
+            }
         }
     }
 

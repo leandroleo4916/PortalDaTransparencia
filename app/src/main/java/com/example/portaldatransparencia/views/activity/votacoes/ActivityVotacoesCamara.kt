@@ -161,6 +161,7 @@ class ActivityVotacoesCamara: AppCompatActivity() {
                 if (chipMonth.text != "Todos") {
                     chipMonth.isChecked = false
                     chipMonth = chipAll
+                    month = chipAll.text.toString()
                 }
             }
         }
@@ -203,29 +204,24 @@ class ActivityVotacoesCamara: AppCompatActivity() {
                          else "$sizeVotacoes votações em $monthName de $year").toString()
 
                     statusView.enableView(textNotValue)
-                    textNotValue.startAnimation(AnimationUtils
-                            .loadAnimation(applicationContext, R.anim.click_votacao))
                 }
             }
         }
         else {
             adapter.updateData(votacoes as ArrayList<VotacaoId>)
-            disableProgress()
+            sizeVotacoes = votacoes.size
+            addElement()
         }
     }
 
     private fun addElement(){
+        disableProgress()
         binding.run {
-            statusView.run {
-                disableView(progressVotacoes)
-                disableView(constraintNumberVotacoes)
-                layoutTop.textViewDescriptionTop.run {
-                    text = (if (month == "Todos") "$sizeVotacoes votações em $year"
-                            else "$sizeVotacoes votações em $monthName de $year").toString()
-                    enableView(this)
-                    this.startAnimation(AnimationUtils
-                        .loadAnimation(context, R.anim.click_votacao))
-                }
+            layoutTop.textViewDescriptionTop.run {
+                text = (if (month == "Todos") "$sizeVotacoes votações em $year"
+                else "$sizeVotacoes votações em $monthName de $year").toString()
+                statusView.enableView(this)
+                this.startAnimation(AnimationUtils.loadAnimation(context, R.anim.click_votacao))
             }
         }
     }
@@ -235,6 +231,7 @@ class ActivityVotacoesCamara: AppCompatActivity() {
             statusView.run {
                 disableView(progressVotacoes)
                 disableView(constraintNumberVotacoes)
+                disableView(textNotValue)
             }
         }
     }
@@ -245,7 +242,10 @@ class ActivityVotacoesCamara: AppCompatActivity() {
                 disableView(progressVotacoes)
                 enableView(textNotValue)
             }
+            layoutTop.textViewDescriptionTop.text = getString(R.string.nenhuma_votacao_este_ano)
         }
+        votacoes = arrayListOf()
+        votacoesFilter = arrayListOf()
     }
 
     private fun enableProgressAndDisable(){

@@ -86,9 +86,11 @@ class SenadorActivity: AppCompatActivity() {
                 .circleCrop()
                 .into(imageDeputado)
             textDescription.text = itemSenador.nomeParlamentar
-            statusView.disableView(progressDeputado)
-            statusView.enableView(textDescription)
-            statusView.enableView(imageDeputado)
+            statusView.run {
+                disableView(progressDeputado)
+                enableView(textDescription)
+                enableView(imageDeputado)
+            }
         }
     }
 

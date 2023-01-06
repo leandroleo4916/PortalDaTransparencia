@@ -60,14 +60,7 @@ class FragmentVotacoes: Fragment(R.layout.fragment_votacoes_senador), ISmoothPos
                                 calculateVotacoes()
                                 adapter.updateData(votacao)
                             }
-                            else{
-                                binding.run {
-                                    statusView.disableView(progressVotacoes)
-                                    statusView.enableView(textNotValue)
-                                    textNotValue.text =
-                                        "Nenhuma votação para $ano ou não tinha mandato neste ano."
-                                }
-                            }
+                            else disableProgressAndText()
                         }
                     }
                     is ResultVotacoesRequest.Error -> {
@@ -100,36 +93,17 @@ class FragmentVotacoes: Fragment(R.layout.fragment_votacoes_senador), ISmoothPos
                                 voto.add(votacao)
                                 adapter.updateData(voto)
                             }
-                            else{
-                                binding.run {
-                                    statusView.disableView(progressVotacoes)
-                                    statusView.enableView(textNotValue)
-                                    textNotValue.text =
-                                        "Nenhuma votação para $ano ou não tinha mandato neste ano."
-                                }
-                            }
+                            else disableProgressAndText()
                         }
                     }
                     is ResultVotacoesItemRequest.Error -> {
                         result.exception.message?.let {
-                            binding.run {
-                                adapter.updateData(listOf())
-                                statusView.disableView(progressVotacoes)
-                                statusView.enableView(textNotValue)
-                                textNotValue.text =
-                                    "Nenhuma votação para $ano ou não tinha mandato neste ano."
-                            }
+                            disableProgressAndText()
                         }
                     }
                     is ResultVotacoesItemRequest.ErrorConnection -> {
                         result.exception.message?.let {
-                            binding.run {
-                                adapter.updateData(listOf())
-                                statusView.disableView(progressVotacoes)
-                                statusView.enableView(textNotValue)
-                                textNotValue.text =
-                                    "Nenhuma votação para $ano ou não tinha mandato neste ano."
-                            }
+                            disableProgressAndText()
                         }
                     }
                 }
@@ -159,10 +133,12 @@ class FragmentVotacoes: Fragment(R.layout.fragment_votacoes_senador), ISmoothPos
         ano = viewDisabled.text.toString()
         chipEnabled = viewDisabled
         binding.run {
-            statusView.enableView(progressVotacoes)
-            statusView.disableView(textTotalVotos)
-            statusView.disableView(iconVoto)
-            statusView.disableView(textNotValue)
+            statusView.run {
+                enableView(progressVotacoes)
+                disableView(textTotalVotos)
+                disableView(iconVoto)
+                disableView(textNotValue)
+            }
         }
         adapter.updateData(arrayListOf())
         observer()
@@ -171,15 +147,27 @@ class FragmentVotacoes: Fragment(R.layout.fragment_votacoes_senador), ISmoothPos
     private fun calculateVotacoes(){
 
         binding.run {
-            statusView.disableView(progressVotacoes)
-            statusView.enableView(textTotalVotos)
-            statusView.enableView(iconVoto)
-            statusView.disableView(textNotValue)
+            statusView.run {
+                disableView(progressVotacoes)
+                enableView(textTotalVotos)
+                enableView(iconVoto)
+                disableView(textNotValue)
+            }
             if (numberVotacoes == 1){
                 "$numberVotacoes Votação".also { textTotalVotos.text = it }
             }else {
                 "$numberVotacoes Votações".also { textTotalVotos.text = it }
             }
+        }
+    }
+
+    private fun disableProgressAndText(){
+        binding.run {
+            statusView.run {
+                disableView(progressVotacoes)
+                enableView(textNotValue)
+            }
+            textNotValue.text = "Nenhuma votação para $ano ou não tinha mandato neste ano."
         }
     }
 
