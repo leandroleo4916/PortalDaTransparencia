@@ -38,13 +38,30 @@
             app:layout_constraintTop_toBottomOf="@+id/text_search">
 
             <com.google.android.material.chip.Chip
+                android:id="@+id/chip_all"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/back_chip_select_text"
+                android:checkable="true"
+                android:checked="true"
+                android:text="Todos"
+                android:hint="Todos"
+                app:chipStrokeColor="@color/purple_700"
+                app:chipStrokeWidth="1.5dp"
+                app:chipBackgroundColor="@color/back_chip_select" />
+
+            <com.google.android.material.chip.Chip
                 android:id="@+id/chip_janeiro"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/back_chip_select_text"
                 android:checkable="true"
                 android:checked="false"
                 android:text="Janeiro"
-                app:chipBackgroundColor="@color/back_chip_select" />
+                android:hint="01"
+                app:chipStrokeColor="@color/purple_700"
+                app:chipStrokeWidth="1.5dp"
+                app:chipBackgroundColor="@color/back_chip_select"/>
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_fevereiro"
@@ -53,6 +70,10 @@
                 android:checkable="true"
                 android:checked="false"
                 android:text="Fevereiro"
+                android:hint="02"
+                app:chipStrokeColor="@color/purple_700"
+                app:chipStrokeWidth="1.5dp"
+                android:textColor="@color/back_chip_select_text"
                 app:chipBackgroundColor="@color/back_chip_select" />
 
             <com.google.android.material.chip.Chip
@@ -62,6 +83,10 @@
                 android:checkable="true"
                 android:checked="false"
                 android:text="Março"
+                android:hint="03"
+                app:chipStrokeColor="@color/purple_700"
+                app:chipStrokeWidth="1.5dp"
+                android:textColor="@color/back_chip_select_text"
                 app:chipBackgroundColor="@color/back_chip_select" />
 
             <com.google.android.material.chip.Chip
@@ -71,6 +96,10 @@
                 android:checkable="true"
                 android:checked="false"
                 android:text="Abril"
+                android:hint="04"
+                app:chipStrokeColor="@color/purple_700"
+                app:chipStrokeWidth="1.5dp"
+                android:textColor="@color/back_chip_select_text"
                 app:chipBackgroundColor="@color/back_chip_select" />
 
             <com.google.android.material.chip.Chip
@@ -80,6 +109,10 @@
                 android:checkable="true"
                 android:checked="false"
                 android:text="Maio"
+                android:hint="05"
+                app:chipStrokeColor="@color/purple_700"
+                app:chipStrokeWidth="1.5dp"
+                android:textColor="@color/back_chip_select_text"
                 app:chipBackgroundColor="@color/back_chip_select" />
 
             <com.google.android.material.chip.Chip
@@ -89,6 +122,10 @@
                 android:checkable="true"
                 android:checked="false"
                 android:text="Junho"
+                android:hint="06"
+                app:chipStrokeColor="@color/purple_700"
+                app:chipStrokeWidth="1.5dp"
+                android:textColor="@color/back_chip_select_text"
                 app:chipBackgroundColor="@color/back_chip_select" />
 
             <com.google.android.material.chip.Chip
@@ -98,6 +135,10 @@
                 android:checkable="true"
                 android:checked="false"
                 android:text="Julho"
+                android:hint="07"
+                app:chipStrokeColor="@color/purple_700"
+                app:chipStrokeWidth="1.5dp"
+                android:textColor="@color/back_chip_select_text"
                 app:chipBackgroundColor="@color/back_chip_select" />
 
             <com.google.android.material.chip.Chip
@@ -107,6 +148,10 @@
                 android:checkable="true"
                 android:checked="false"
                 android:text="Agosto"
+                android:hint="08"
+                app:chipStrokeColor="@color/purple_700"
+                app:chipStrokeWidth="1.5dp"
+                android:textColor="@color/back_chip_select_text"
                 app:chipBackgroundColor="@color/back_chip_select" />
 
             <com.google.android.material.chip.Chip
@@ -116,6 +161,10 @@
                 android:checkable="true"
                 android:checked="false"
                 android:text="Setembro"
+                android:hint="09"
+                app:chipStrokeColor="@color/purple_700"
+                app:chipStrokeWidth="1.5dp"
+                android:textColor="@color/back_chip_select_text"
                 app:chipBackgroundColor="@color/back_chip_select" />
 
             <com.google.android.material.chip.Chip
@@ -125,6 +174,10 @@
                 android:checkable="true"
                 android:checked="false"
                 android:text="Outubro"
+                android:hint="10"
+                app:chipStrokeColor="@color/purple_700"
+                app:chipStrokeWidth="1.5dp"
+                android:textColor="@color/back_chip_select_text"
                 app:chipBackgroundColor="@color/back_chip_select" />
 
             <com.google.android.material.chip.Chip
@@ -134,6 +187,10 @@
                 android:checkable="true"
                 android:checked="false"
                 android:text="Novembro"
+                android:hint="11"
+                app:chipStrokeColor="@color/purple_700"
+                app:chipStrokeWidth="1.5dp"
+                android:textColor="@color/back_chip_select_text"
                 app:chipBackgroundColor="@color/back_chip_select" />
 
             <com.google.android.material.chip.Chip
@@ -143,6 +200,10 @@
                 android:checkable="true"
                 android:checked="false"
                 android:text="Dezembro"
+                android:hint="12"
+                app:chipStrokeColor="@color/purple_700"
+                app:chipStrokeWidth="1.5dp"
+                android:textColor="@color/back_chip_select_text"
                 app:chipBackgroundColor="@color/back_chip_select" />
 
         </com.google.android.material.chip.ChipGroup>

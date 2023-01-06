@@ -1,8 +1,7 @@
 package com.example.portaldatransparencia.dataclass
 
 data class VotacoesList(
-    val dados: List<VotacaoId>,
-    val links: List<Link>
+    val dados: List<VotacaoId>
 )
 
 data class VotacaoId (
@@ -10,12 +9,30 @@ data class VotacaoId (
     val uri: String,
     val data: String,
     val dataHoraRegistro: String,
-    val siglaOrgao: String,
+    val idOrgao: Long,
     val uriOrgao: String,
-    val uriEvento: String? = null,
-    val proposicaoObjeto: String? = null,
-    val uriProposicaoObjeto: String? = null,
+    val siglaOrgao: String,
+    val idEvento: Long,
+    val uriEvento: String,
+    val aprovacao: Long? = null,
+    val votosSim: Long,
+    val votosNao: Long,
+    val votosOutros: Long,
     val descricao: String,
-    val aprovacao: Long? = null
+    val ultimaAberturaVotacao: UltimaAberturaVotacao,
+    val ultimaApresentacaoProposicao: UltimaApresentacaoProposicao
 )
+
+data class UltimaAberturaVotacao (
+    val dataHoraRegistro: String,
+    val descricao: String
+)
+
+data class UltimaApresentacaoProposicao (
+    val dataHoraRegistro: String,
+    val descricao: String,
+    val idProposicao: Long,
+    val uriProposicao: String
+)
+
 

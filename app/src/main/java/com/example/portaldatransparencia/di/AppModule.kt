@@ -91,6 +91,9 @@ val retrofitModule = module {
         single<ApiVotacoes> {
                 get<Retrofit>().create(ApiVotacoes::class.java)
         }
+        single<ApiServiceVotacao> {
+                get<Retrofit>().create(ApiServiceVotacao::class.java)
+        }
 }
 
 val viewModelModule = module { viewModel { CamaraViewModel(get()) } }

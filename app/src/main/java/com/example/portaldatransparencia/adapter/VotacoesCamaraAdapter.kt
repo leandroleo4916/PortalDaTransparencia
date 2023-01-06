@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
 import com.example.portaldatransparencia.R
-import com.example.portaldatransparencia.databinding.RecyclerVotacoesBinding
 import com.example.portaldatransparencia.databinding.RecyclerVotacoesListBinding
 import com.example.portaldatransparencia.dataclass.VotacaoId
 
@@ -37,11 +36,16 @@ class VotacoesCamaraAdapter(private val context: Context):
             binding = RecyclerVotacoesListBinding.bind(itemView)
             binding?.run {
                 votacao.run {
-                    val date = dataHoraRegistro.split("-")
-                    (date[1] + "/" + date[0]).also { textDateVotacao.text = it }
+                    val date = data.split("-")
+                    (date[2] + "/" + date[1] + "/" + date[0]).also { textDateVotacao.text = it }
 
-                    textComissao.text = siglaOrgao
-                    textId.text = id
+                    textComissao.text = siglaOrgao.ifEmpty { "Votação sem descrição" }
+                    val text = ultimaAberturaVotacao.descricao
+                    textDescriptionVotacao.text =
+                        if (text.isEmpty()) "Não foi adicionado descrição"
+                        else (if (text.length >= 120) text.substring(0..119)+"..."
+                        else text ).toString()
+
                     when (descricao.substring(0, 5)) {
                         "Aprov" -> {
                             iconCheck.setImageResource(R.drawable.ic_check_green)
@@ -61,6 +65,11 @@ class VotacoesCamaraAdapter(private val context: Context):
                         }
                     }
                     textDescriptionMateria.text = descricao
+                    val txt = ultimaApresentacaoProposicao.descricao
+                    textUltimaPropostaDescription.text =
+                        if (txt.isEmpty()) "Não foi adicionado última proposta"
+                        else (if (txt.length >= 120) txt.substring(0..119)+"..."
+                        else txt).toString()
                 }
                 viewShowVotos.setOnClickListener {
                     it.startAnimation(AnimationUtils.loadAnimation(context, R.anim.click))
@@ -76,8 +85,8 @@ class VotacoesCamaraAdapter(private val context: Context):
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun updateData(front: List<VotacaoId>) {
-        data = data+front
+    fun updateData(front: ArrayList<VotacaoId>) {
+        data = front
         notifyDataSetChanged()
     }
 }

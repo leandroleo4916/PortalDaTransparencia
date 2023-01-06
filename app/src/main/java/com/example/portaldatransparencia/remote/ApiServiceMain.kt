@@ -13,13 +13,9 @@ interface ApiServiceMain {
     ): Call<MainDataClass>
 }
 interface ApiVotacoes {
-    @Headers("Content-Type: application/json")
-    @GET("/api/v2/votacoes?")
+    @GET("https://dadosabertos.camara.leg.br/arquivos/votacoes/json/votacoes-{ano}.json")
     fun getVotacoes(
-        @Query("ordem") ordem: String,
-        @Query("ordenarPor") ordenarPor: String,
-        @Query("pagina") pagina: String,
-        @Query("itens") itens: String,
+        @Path("ano") ano: String
     ): Call<VotacoesList>
 }
 
@@ -131,5 +127,12 @@ interface ApiServiceSenadorCargos {
     suspend fun getCargos(
         @Path("id") id: String
     ): Response<CargoSenadorDataClass>
+}
+
+interface ApiServiceVotacao {
+    @GET("https://dadosabertos.camara.leg.br/api/v2/orgaos/{id}")
+    fun getName(
+        @Path("id") id: String)
+    : Call<NameDataClass>
 }
 
