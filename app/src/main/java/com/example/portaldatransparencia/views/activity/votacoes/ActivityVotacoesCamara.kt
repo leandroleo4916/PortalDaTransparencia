@@ -30,7 +30,7 @@ class ActivityVotacoesCamara: AppCompatActivity() {
     private var votacoes: List<VotacaoId> = arrayListOf()
     private var votacoesFilter: ArrayList<VotacaoId> = arrayListOf()
     private var sizeVotacoes = 0
-    private var value = 1
+    private var value = 0
     private var year = "2023"
     private var month = "Todos"
     private var monthName = ""
@@ -154,12 +154,8 @@ class ActivityVotacoesCamara: AppCompatActivity() {
     }
 
     private fun modify(chip: Chip) {
+        enableProgressAndDisable()
         binding.run {
-            statusView.run {
-                disableView(textNotValue)
-                enableView(constraintNumberVotacoes)
-                enableView(progressVotacoes)
-            }
             layoutMonth.run {
                 chipAll.isChecked = true
                 if (chipMonth.text != "Todos") {
@@ -199,7 +195,8 @@ class ActivityVotacoesCamara: AppCompatActivity() {
             if (sizeVotacoes != 0){
                 adapter.updateData(votacoesFilter)
                 addElement()
-            }else {
+            }
+            else {
                 binding.run {
                     layoutTop.textViewDescriptionTop.text =
                         (if (sizeVotacoes == 0) "Nenhuma votação em $monthName de $year"
@@ -235,23 +232,29 @@ class ActivityVotacoesCamara: AppCompatActivity() {
 
     private fun disableProgress(){
         binding.run {
-            statusView.disableView(progressVotacoes)
-            statusView.disableView(constraintNumberVotacoes)
+            statusView.run {
+                disableView(progressVotacoes)
+                disableView(constraintNumberVotacoes)
+            }
         }
     }
 
     private fun disableProgressAndEnableText(){
         binding.run {
-            statusView.disableView(progressVotacoes)
-            statusView.enableView(textNotValue)
+            statusView.run {
+                disableView(progressVotacoes)
+                enableView(textNotValue)
+            }
         }
     }
 
     private fun enableProgressAndDisable(){
         binding.run {
-            statusView.disableView(textNotValue)
-            statusView.enableView(constraintNumberVotacoes)
-            statusView.enableView(progressVotacoes)
+            statusView.run {
+                disableView(textNotValue)
+                enableView(constraintNumberVotacoes)
+                enableView(progressVotacoes)
+            }
         }
     }
 }

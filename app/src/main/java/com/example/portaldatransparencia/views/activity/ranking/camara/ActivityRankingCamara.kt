@@ -57,6 +57,8 @@ class ActivityRankingCamara: AppCompatActivity(), IClickOpenDeputadoRanking {
 
     private fun listenerBack() {
         binding.layoutTop.run {
+            hideView.disableView(imageViewFilter)
+            hideView.enableView(textViewDescriptionTop)
             imageViewBack.setOnClickListener {
                 it.startAnimation(AnimationUtils.loadAnimation(applicationContext, R.anim.click))
                 finish()

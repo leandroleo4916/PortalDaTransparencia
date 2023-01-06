@@ -46,6 +46,8 @@ class ActivityRankingSenado: AppCompatActivity(), IClickOpenDeputadoRanking {
 
     private fun modifyTextTitleAndListenerBack() {
         binding.layoutTop.run {
+            hideView.disableView(imageViewFilter)
+            hideView.enableView(textViewDescriptionTop)
             textViewTitleTop.text = getString(R.string.senado_federal)
             imageViewBack.setOnClickListener {
                 it.startAnimation(AnimationUtils.loadAnimation(applicationContext, R.anim.click))

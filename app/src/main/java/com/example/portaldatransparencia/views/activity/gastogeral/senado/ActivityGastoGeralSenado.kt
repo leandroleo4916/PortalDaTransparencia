@@ -33,14 +33,21 @@ class ActivityGastoGeralSenado: AppCompatActivity() {
 
     private fun modifyItemGraph() {
         binding.run {
-            layoutTop.textViewTitleTop.text = getString(R.string.senado_federal)
-            hideView.disableView(layoutServicosPostais)
-            hideView.disableView(layoutOutrosServicos)
-            hideView.disableView(toolbarAquisicao)
-            hideView.disableView(toolbarOutrosServicos)
+            hideView.run {
+                disableView(layoutServicosPostais)
+                disableView(layoutOutrosServicos)
+                disableView(toolbarAquisicao)
+                disableView(toolbarOutrosServicos)
+            }
             textAluguel.text = getString(R.string.alugueDeImoveis)
             textServicosTelefonicos.text = getString(R.string.consultoriaAcessoria)
             textAquisicao.text = getString(R.string.aquisicaoDeMateriais)
+            layoutTop.run {
+                textViewTitleTop.text = getString(R.string.senado_federal)
+                textViewDescriptionTop.text = getString(R.string.gastoGeral8Anos)
+                hideView.enableView(textViewDescriptionTop)
+                hideView.disableView(imageViewFilter)
+            }
         }
     }
 
@@ -75,13 +82,14 @@ class ActivityGastoGeralSenado: AppCompatActivity() {
                 textViewTotalParlamentar.text = "83"
                 textViewGastoParlamentar.text = total
                 textViewTotalNotas.text = totalNotas
-                hideView.disableView(progressGastoGeral)
-                hideView.enableView(constraintNumberParlamentar)
-                hideView.enableView(constraintNumberTotal)
-                hideView.enableView(constraintNumberNotas)
-                hideView.enableView(linearLayout2)
-                hideView.enableView(toolbarSeparate)
-
+                hideView.run {
+                    disableView(progressGastoGeral)
+                    enableView(constraintNumberParlamentar)
+                    enableView(constraintNumberTotal)
+                    enableView(constraintNumberNotas)
+                    enableView(linearLayout2)
+                    enableView(toolbarSeparate)
+                }
                 textAluguelValue.text = formatValor.formatValor(aluguel.toDouble())
                 textDivulgacaoValue.text = formatValor.formatValor(divulgacao.toDouble())
                 textPassagensValue.text = formatValor.formatValor(passagens.toDouble())

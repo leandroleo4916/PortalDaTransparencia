@@ -38,4 +38,5 @@
     <string name="falha_no_servidor">Falha na resposta do servidor!</string>
     <string name="senado_8anos">Senado - últimos 8 anos</string>
     <string name="senado_federal">Senado Federal</string>
+    <string name="gastoGeral8Anos">Gasto geral - últimos 8 anos</string>
 </resources>

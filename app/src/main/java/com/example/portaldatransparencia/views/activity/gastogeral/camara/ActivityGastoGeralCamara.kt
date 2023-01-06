@@ -59,13 +59,14 @@ class ActivityGastoGeralCamara: AppCompatActivity() {
                 val total = formatValor.formatValor(totalGeral.toDouble())
                 textViewGastoParlamentar.text = total
                 textViewTotalNotas.text = dados.gastoGeral.totalNotas
-                hideView.disableView(progressGastoGeral)
-                hideView.enableView(constraintNumberParlamentar)
-                hideView.enableView(constraintNumberTotal)
-                hideView.enableView(constraintNumberNotas)
-                hideView.enableView(linearLayout2)
-                hideView.enableView(toolbarSeparate)
-
+                hideView.run {
+                    disableView(progressGastoGeral)
+                    enableView(constraintNumberParlamentar)
+                    enableView(constraintNumberTotal)
+                    enableView(constraintNumberNotas)
+                    enableView(linearLayout2)
+                    enableView(toolbarSeparate)
+                }
                 textAluguelValue.text = formatValor.formatValor(manutencao.toDouble())
                 textDivulgacaoValue.text = formatValor.formatValor(divulgacao.toDouble())
                 textPassagensValue.text = formatValor.formatValor(passagens.toDouble())
@@ -74,6 +75,11 @@ class ActivityGastoGeralCamara: AppCompatActivity() {
                 textCombustiveisValue.text = formatValor.formatValor(combustivel.toDouble())
                 textPostaisValue.text = formatValor.formatValor(servicos.toDouble())
                 textOutrosServicosValue.text = formatValor.formatValor(outros.toDouble())
+            }
+            layoutTop.run {
+                textViewDescriptionTop.text = getString(R.string.gastoGeral8Anos)
+                hideView.enableView(textViewDescriptionTop)
+                hideView.disableView(imageViewFilter)
             }
         }
     }
