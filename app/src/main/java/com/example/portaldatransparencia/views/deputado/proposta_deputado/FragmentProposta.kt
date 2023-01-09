@@ -85,7 +85,7 @@ class FragmentProposta: Fragment(R.layout.fragment_proposta) {
             }
 
             override fun onFailure(call: Call<PropostaDataClass>, t: Throwable) {
-                TODO("Not yet implemented")
+
             }
         })
     }

@@ -9,6 +9,9 @@ import com.example.portaldatransparencia.adapter.VotacoesCamaraAdapter
 import com.example.portaldatransparencia.databinding.ActivityVotacoesBinding
 import com.example.portaldatransparencia.dataclass.VotacaoId
 import com.example.portaldatransparencia.dataclass.VotacoesList
+import com.example.portaldatransparencia.interfaces.IClickSeeDetails
+import com.example.portaldatransparencia.interfaces.IClickSeeVideo
+import com.example.portaldatransparencia.interfaces.IClickSeeVote
 import com.example.portaldatransparencia.remote.ApiVotacoes
 import com.example.portaldatransparencia.remote.Retrofit
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
@@ -19,7 +22,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ActivityVotacoesCamara: AppCompatActivity() {
+class ActivityVotacoesCamara: AppCompatActivity(), IClickSeeVideo, IClickSeeVote, IClickSeeDetails {
 
     private val binding by lazy { ActivityVotacoesBinding.inflate(layoutInflater) }
     private val viewModel: VotacoesViewModelCamara by viewModel()
@@ -51,7 +54,7 @@ class ActivityVotacoesCamara: AppCompatActivity() {
 
     private fun recycler() {
         val recycler = binding.recyclerVotacoes
-        adapter = VotacoesCamaraAdapter(baseContext)
+        adapter = VotacoesCamaraAdapter(baseContext, this, this, this)
         recycler.layoutManager = LinearLayoutManager(this)
         recycler.adapter = adapter
     }
@@ -256,5 +259,17 @@ class ActivityVotacoesCamara: AppCompatActivity() {
                 enableView(progressVotacoes)
             }
         }
+    }
+
+    override fun clickSeeVote(votacao: VotacaoId) {
+
+    }
+
+    override fun clickSeeVideo(votacao: VotacaoId) {
+        TODO("Not yet implemented")
+    }
+
+    override fun clickSeeDetails(votacao: VotacaoId) {
+        TODO("Not yet implemented")
     }
 }

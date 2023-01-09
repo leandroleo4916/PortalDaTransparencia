@@ -153,7 +153,7 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas, IClickT
     }
 
     override fun listenerDespesas(note: String?) {
-        if (note != null){
+        if (note != null && note.isNotEmpty()){
             val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(note))
             startActivity(browserIntent)
         } else {

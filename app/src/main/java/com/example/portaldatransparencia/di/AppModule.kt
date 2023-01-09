@@ -91,8 +91,8 @@ val retrofitModule = module {
         single<ApiVotacoes> {
                 get<Retrofit>().create(ApiVotacoes::class.java)
         }
-        single<ApiServiceVotacao> {
-                get<Retrofit>().create(ApiServiceVotacao::class.java)
+        single<ApiServiceEvento> {
+                get<Retrofit>().create(ApiServiceEvento::class.java)
         }
 }
 
@@ -110,7 +110,7 @@ val viewModelGastoGeral = module { viewModel { GastoGeralViewModelCamara(get()) 
 val viewModelRankingCamara = module { viewModel { RankingViewModelCamara(get()) } }
 val viewModelRankingSenado = module { viewModel { RankingViewModelSenado(get()) } }
 val viewModelGastoGeralSenado = module { viewModel { GastoGeralViewModelSenado(get()) } }
-val viewModelVotacoesCamara = module { viewModel { VotacoesViewModelCamara(get()) } }
+val viewModelVotacoesCamara = module { viewModel { VotacoesViewModelCamara() } }
 
 val repositorySearch = module { single { SearchRepository(get()) } }
 val repositoryIdDeputado = module { single { IdDeputadoRepository(get()) } }

@@ -54,15 +54,13 @@ class DespesasAdapter(private val listener: INoteDespesas, private val formatVal
                     nomeFornecedor.let { textNomeFornecedor.text = it }
                     tipoDocumento.let { textDestination.text = it }
 
-                    if (cnpjCpfFornecedor != "") {
-                        if (cnpjCpfFornecedor.length == 11){
-                            textCnpjFornecedor.text = "CPF: "+ cnpjCpfFornecedor.substring(0,3)+"..."
+                    textCnpjFornecedor.text =
+                        if (cnpjCpfFornecedor != "") {
+                            if (cnpjCpfFornecedor.length == 11)
+                                "CPF: $cnpjCpfFornecedor"
+                            else "CNPJ: $cnpjCpfFornecedor"
                         }
-                        else {
-                            textCnpjFornecedor.text = "CNPJ: "+ cnpjCpfFornecedor
-                        }
-                    }
-                    else textCnpjFornecedor.text = "CNPJ ou CPF não informado"
+                        else "CNPJ ou CPF não informado"
 
                     valorDocumento.let{
                         val formatTotal = formatValor.formatValor(it)
@@ -71,7 +69,7 @@ class DespesasAdapter(private val listener: INoteDespesas, private val formatVal
                 }
                 itemView.setOnClickListener {
                     it.startAnimation(AnimationUtils.loadAnimation(context, R.anim.click))
-                    listener.listenerDespesas(despesa.urlDocumento!!)
+                    listener.listenerDespesas(despesa.urlDocumento)
                 }
             }
         }

@@ -129,10 +129,9 @@ interface ApiServiceSenadorCargos {
     ): Response<CargoSenadorDataClass>
 }
 
-interface ApiServiceVotacao {
-    @GET("https://dadosabertos.camara.leg.br/api/v2/orgaos/{id}")
-    fun getName(
-        @Path("id") id: String)
-    : Call<NameDataClass>
+interface ApiServiceEvento {
+    @GET("https://dadosabertos.camara.leg.br/api/v2/eventos/{id}")
+    fun getEvento(@Path("id") id: String)
+    : Call<EventoDataClass>
 }
 

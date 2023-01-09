@@ -10,8 +10,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.databinding.RecyclerVotacoesListBinding
 import com.example.portaldatransparencia.dataclass.VotacaoId
+import com.example.portaldatransparencia.interfaces.IClickSeeDetails
+import com.example.portaldatransparencia.interfaces.IClickSeeVideo
+import com.example.portaldatransparencia.interfaces.IClickSeeVote
 
-class VotacoesCamaraAdapter(private val context: Context):
+class VotacoesCamaraAdapter(private val context: Context,
+                            private val clickVote: IClickSeeVote,
+                            private val clickVideo: IClickSeeVideo,
+                            private val clickDetail: IClickSeeDetails ):
     RecyclerView.Adapter<VotacoesCamaraAdapter.VotacoesViewHolder>() {
 
     private var binding: RecyclerVotacoesListBinding? = null
@@ -73,12 +79,15 @@ class VotacoesCamaraAdapter(private val context: Context):
                 }
                 viewShowVotos.setOnClickListener {
                     it.startAnimation(AnimationUtils.loadAnimation(context, R.anim.click))
+                    clickVote.clickSeeVote(votacao)
                 }
                 viewShowVideo.setOnClickListener {
                     it.startAnimation(AnimationUtils.loadAnimation(context, R.anim.click))
+                    clickVideo.clickSeeVideo(votacao)
                 }
                 viewShowDetail.setOnClickListener {
                     it.startAnimation(AnimationUtils.loadAnimation(context, R.anim.click))
+                    clickDetail.clickSeeDetails(votacao)
                 }
             }
         }
