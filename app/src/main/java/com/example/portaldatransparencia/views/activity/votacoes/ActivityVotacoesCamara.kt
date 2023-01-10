@@ -266,10 +266,10 @@ class ActivityVotacoesCamara: AppCompatActivity(), IClickSeeVideo, IClickSeeVote
     }
 
     override fun clickSeeVideo(votacao: VotacaoId) {
-        TODO("Not yet implemented")
+
     }
 
     override fun clickSeeDetails(votacao: VotacaoId) {
-        TODO("Not yet implemented")
+        
     }
 }

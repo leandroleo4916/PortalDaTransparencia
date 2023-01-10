@@ -42,7 +42,7 @@ class DeputadoActivity: AppCompatActivity() {
 
     private fun setupViewGeral(){
         val tabs = arrayOf(R.string.geral, R.string.gastos, R.string.acao, R.string.frente)
-        val icons = arrayOf(R.drawable.insta, R.drawable.phone, R.drawable.twitter, R.drawable.voto)
+        val icons = arrayOf(R.drawable.insta, R.drawable.ic_money, R.drawable.twitter, R.drawable.voto)
         val tabLayout = binding.tabDeputado
         val pagerGeral = binding.viewPagerDeputado
         val adapter = TabViewAdapterDeputado(this)

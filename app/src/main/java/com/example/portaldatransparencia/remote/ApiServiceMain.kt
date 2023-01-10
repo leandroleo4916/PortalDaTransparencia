@@ -64,11 +64,18 @@ interface ApiServiceProposta {
     fun getProposta(
         @Query("ano") ano: String,
         @Query("idDeputadoAutor") id: String,
-        @Query("itens") itens: Int = 100,
+        @Query("itens") itens: Int,
         @Query("pagina") pagina: Int,
         @Query("ordem") ordem: String = "ASC",
         @Query("ordenarPor") ordenarPor: String = "id"
     ): Call<PropostaDataClass>
+}
+
+interface ApiServicePropostaItem {
+    @GET("/api/v2/proposicoes/{id}")
+    fun getPropostaItem(
+        @Path("id") id: String
+    ): Call<ProposicaoDataClass>
 }
 
 interface ApiServiceSenado {

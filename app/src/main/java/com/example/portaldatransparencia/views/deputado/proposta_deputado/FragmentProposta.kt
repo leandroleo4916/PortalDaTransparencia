@@ -1,16 +1,20 @@
 package com.example.portaldatransparencia.views.deputado.proposta_deputado
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.adapter.PropostaAdapter
 import com.example.portaldatransparencia.databinding.FragmentPropostaBinding
 import com.example.portaldatransparencia.dataclass.PropostaDataClass
+import com.example.portaldatransparencia.interfaces.IClickItemProposta
 import com.example.portaldatransparencia.remote.ApiServiceProposta
 import com.example.portaldatransparencia.remote.Retrofit
 import com.example.portaldatransparencia.security.SecurityPreferences
+import com.example.portaldatransparencia.views.deputado.frente_deputado.FragmentFrenteId
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import com.google.android.material.chip.Chip
 import org.koin.android.ext.android.inject
@@ -19,7 +23,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class FragmentProposta: Fragment(R.layout.fragment_proposta) {
+class FragmentProposta: Fragment(R.layout.fragment_proposta), IClickItemProposta {
 
     private var binding: FragmentPropostaBinding? = null
     private val viewModel: PropostaViewModel by viewModel()
@@ -44,7 +48,7 @@ class FragmentProposta: Fragment(R.layout.fragment_proposta) {
 
     private fun recyclerView() {
         val recycler = binding!!.recyclerProposta
-        adapter = PropostaAdapter()
+        adapter = PropostaAdapter(context, this)
         recycler.layoutManager = LinearLayoutManager(context)
         recycler.adapter = adapter
     }
@@ -52,7 +56,7 @@ class FragmentProposta: Fragment(R.layout.fragment_proposta) {
     private fun observer() {
 
         val retrofit = Retrofit.createService(ApiServiceProposta::class.java)
-        val call: Call<PropostaDataClass> = retrofit.getProposta(year, id, page, 100)
+        val call: Call<PropostaDataClass> = retrofit.getProposta(year, id, 100, page)
         call.enqueue(object: Callback<PropostaDataClass> {
             override fun onResponse(call: Call<PropostaDataClass>, res: Response<PropostaDataClass>) {
                 when (res.code()){
@@ -67,25 +71,18 @@ class FragmentProposta: Fragment(R.layout.fragment_proposta) {
                         }
                         else {
                             if (numberProposta == 0) {
-                                binding?.run {
-                                    statusView.disableView(progressProposta)
-                                    statusView.enableView(textNotValue)
-                                    textNotValue.text =
-                                        "Nenhum projeto de lei para $year"
-                                }
+                                setTextNoProposta()
                                 adapter.updateData(res.body()!!.dados, page)
                             }
                         }
                     }
                     429 -> observer()
-                    else -> {
-
-                    }
+                    else -> setTextNoProposta()
                 }
             }
 
             override fun onFailure(call: Call<PropostaDataClass>, t: Throwable) {
-
+                setTextNoProposta()
             }
         })
     }
@@ -135,8 +132,23 @@ class FragmentProposta: Fragment(R.layout.fragment_proposta) {
                 enableView(iconProposta)
                 disableView(textNotValue)
             }
-            "$numberProposta Projetos".also { textPropostaParlamentar.text = it }
+            textPropostaParlamentar.text =
+                if (numberProposta == 1) "$numberProposta projeto de lei"
+                else "$numberProposta projetos de lei"
         }
     }
 
+    private fun setTextNoProposta(){
+        binding?.run {
+            statusView.disableView(progressProposta)
+            statusView.enableView(textNotValue)
+            textNotValue.text = "Nenhum projeto de lei para $year"
+        }
+    }
+
+    override fun clickProposta(id: String) {
+        val intent = Intent(context, FragmentPropostaItem::class.java)
+        intent.putExtra("id", id)
+        startActivity(intent)
+    }
 }

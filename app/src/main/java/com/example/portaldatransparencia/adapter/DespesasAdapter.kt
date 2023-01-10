@@ -55,7 +55,7 @@ class DespesasAdapter(private val listener: INoteDespesas, private val formatVal
                     tipoDocumento.let { textDestination.text = it }
 
                     textCnpjFornecedor.text =
-                        if (cnpjCpfFornecedor != "") {
+                        if (cnpjCpfFornecedor.isNotEmpty()) {
                             if (cnpjCpfFornecedor.length == 11)
                                 "CPF: $cnpjCpfFornecedor"
                             else "CNPJ: $cnpjCpfFornecedor"

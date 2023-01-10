@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/white"
     android:orientation="vertical"
+    android:id="@+id/fragment_container_proposta"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -32,7 +33,7 @@
         android:foregroundGravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
+        app:layout_constraintTop_toTopOf="parent">
 
         <com.wang.avi.AVLoadingIndicatorView
             android:id="@+id/progress_proposta"
@@ -49,22 +50,23 @@
             android:id="@+id/icon_proposta"
             android:layout_width="34dp"
             android:layout_height="34dp"
+            android:layout_marginStart="85dp"
             android:layout_marginTop="2dp"
             android:layout_marginBottom="3dp"
-            android:layout_marginStart="110dp"
             android:src="@drawable/justice"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/text_proposta_parlamentar"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/text_proposta_parlamentar"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:layout_marginEnd="12dp"
             android:singleLine="true"
             android:text="0 projetos de lei"
             android:textColor="@color/black"
@@ -72,7 +74,6 @@
             android:textStyle="bold"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/icon_proposta"
-            app:layout_constraintEnd_toEndOf="@+id/constraint_valor_notes"
             app:layout_constraintStart_toEndOf="@+id/icon_proposta"
             app:layout_constraintTop_toTopOf="@+id/icon_proposta" />
 
@@ -80,17 +81,16 @@
             android:id="@+id/text_not_value"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="12dp"
+            android:layout_margin="12dp"
+            android:gravity="center"
             android:text="Nenhum projeto de lei..."
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:gravity="center"
             android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="@+id/progress_proposta"
-            app:layout_constraintEnd_toEndOf="@+id/constraint_valor_notes"
-            app:layout_constraintStart_toEndOf="@+id/icon_proposta"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.Toolbar
