@@ -86,19 +86,15 @@ class FragmentPropostaItem: AppCompatActivity() {
                         if (res.body() != null){
                             addElementViewParlamentar(res.body()!!)
                         }
-                        else {
-                            val w = id
-                        }
+                        else {}
                     }
                     429 -> observerParlamentar()
-                    else -> {
-                        val w = id
-                    }
+                    else -> {}
                 }
             }
 
             override fun onFailure(call: Call<IdDeputadoDataClass>, t: Throwable) {
-                val w = id
+
             }
         })
     }
@@ -126,10 +122,18 @@ class FragmentPropostaItem: AppCompatActivity() {
                 textEmenta.text = ementa
                 textTipoDescricao.text = descricaoTipo
                 statusProposicao.run {
-                    textDescriptionTramitacao.text = descricaoTramitacao
-                    textDescriptionSituacao.text = descricaoSituacao
-                    textDescriptionDespacho.text = despacho
-                    textDescriptionApreciacao.text = apreciacao
+                    textDescriptionTramitacao.text =
+                        if (descricaoTramitacao != "") descricaoTramitacao
+                        else "Tramitação não informada"
+                    textDescriptionSituacao.text =
+                        if (descricaoSituacao != "") descricaoSituacao
+                        else "Situação não informada"
+                    textDescriptionDespacho.text =
+                        if (despacho == "") despacho
+                        else "Despacho não informado"
+                    textDescriptionApreciacao.text =
+                        if (apreciacao != "") apreciacao
+                        else "Preciação não informada"
                 }
                 val date = dataApresentacao.split("T")
                 val dateDiv = date[0].split("-")

@@ -68,301 +68,307 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <LinearLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout_project"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:visibility="gone"
-            android:background="@drawable/back_white"
-            android:elevation="12dp">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/icon_check"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:layout_marginStart="20dp"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout_project"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:foregroundGravity="center"
-                android:src="@drawable/ic_check_green"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/text_date_votacao"
-                tools:ignore="ContentDescription" />
-
-            <TextView
-                android:id="@+id/text_tipo_descricao"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="-2dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginEnd="20dp"
-                android:text="Aprovado"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/icon_check"
-                app:layout_constraintTop_toTopOf="@+id/icon_check" />
+                android:layout_marginEnd="8dp"
+                android:visibility="gone"
+                android:background="@drawable/back_white"
+                android:elevation="12dp">
 
-            <TextView
-                android:id="@+id/text_ementa"
-                android:layout_width="0dp"
+                <ImageView
+                    android:id="@+id/icon_check"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="8dp"
+                    android:foregroundGravity="center"
+                    android:src="@drawable/ic_check_green"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/text_date_votacao"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/text_tipo_descricao"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-2dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="20dp"
+                    android:text="Aprovado"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/icon_check"
+                    app:layout_constraintTop_toTopOf="@+id/icon_check" />
+
+                <TextView
+                    android:id="@+id/text_ementa"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:text="Descrição ..."
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:textStyle="italic"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/text_tipo_descricao"
+                    app:layout_constraintStart_toStartOf="@+id/text_tipo_descricao"
+                    app:layout_constraintTop_toBottomOf="@+id/text_tipo_descricao" />
+
+                <TextView
+                    android:id="@+id/text_date_votacao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="12dp"
+                    android:singleLine="true"
+                    android:text="--/--/----"
+                    android:textStyle="italic|bold"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout_relator"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:text="Descrição ..."
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:textStyle="italic"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/text_tipo_descricao"
-                app:layout_constraintStart_toStartOf="@+id/text_tipo_descricao"
-                app:layout_constraintTop_toBottomOf="@+id/text_tipo_descricao" />
-
-            <TextView
-                android:id="@+id/text_date_votacao"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="12dp"
-                android:singleLine="true"
-                android:text="--/--/----"
-                android:textStyle="italic|bold"
-                android:textColor="@color/black"
-                android:textSize="12sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout_relator"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:visibility="gone"
-            android:background="@drawable/back_white"
-            android:elevation="12dp">
-
-            <com.wang.avi.AVLoadingIndicatorView
-                android:id="@+id/progress_relator"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:indicatorColor="@color/purple_700"
-                app:indicatorName="BallPulseIndicator"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/text_ultimo_relator"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:layout_marginStart="20sp"
-                android:singleLine="true"
-                android:text="Último relator"
-                android:textColor="@color/black"
-                android:textSize="13sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ProgressBar
-                android:id="@+id/progress_list_relator"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="75dp"
-                android:layout_height="75dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginBottom="12dp"
-                android:max="20"
-                android:progress="0"
-                android:progressDrawable="@drawable/progress_hrs"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/text_ultimo_relator"
-                app:layout_constraintTop_toBottomOf="@+id/text_ultimo_relator" />
-
-            <ImageView
-                android:id="@+id/icon_parlamentar"
-                android:layout_width="55dp"
-                android:layout_height="55dp"
-                android:foregroundGravity="center"
-                android:background="@drawable/back_white_cyrcle"
-                android:elevation="12dp"
-                android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="@+id/progress_list_relator"
-                app:layout_constraintEnd_toEndOf="@+id/progress_list_relator"
-                app:layout_constraintStart_toStartOf="@+id/progress_list_relator"
-                app:layout_constraintTop_toTopOf="@+id/progress_list_relator"
-                tools:ignore="ContentDescription" />
-
-            <TextView
-                android:id="@+id/text_name_parlamentar"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="20dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginStart="8dp"
-                android:text="Nome do Parlamentar"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:visibility="invisible"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/progress_list_relator"
-                app:layout_constraintTop_toTopOf="@+id/icon_parlamentar" />
+                android:layout_marginEnd="8dp"
+                android:visibility="gone"
+                android:background="@drawable/back_white"
+                android:elevation="12dp">
 
-            <TextView
-                android:id="@+id/text_partido_e_uf"
-                android:layout_width="0dp"
+                <com.wang.avi.AVLoadingIndicatorView
+                    android:id="@+id/progress_relator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:indicatorColor="@color/purple_700"
+                    app:indicatorName="BallPulseIndicator"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/text_ultimo_relator"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginStart="20sp"
+                    android:singleLine="true"
+                    android:text="Último relator"
+                    android:textColor="@color/black"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ProgressBar
+                    android:id="@+id/progress_list_relator"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="12dp"
+                    android:max="20"
+                    android:progress="0"
+                    android:progressDrawable="@drawable/progress_hrs"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/text_ultimo_relator"
+                    app:layout_constraintTop_toBottomOf="@+id/text_ultimo_relator" />
+
+                <ImageView
+                    android:id="@+id/icon_parlamentar"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:foregroundGravity="center"
+                    android:background="@drawable/back_white_cyrcle"
+                    android:elevation="12dp"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="@+id/progress_list_relator"
+                    app:layout_constraintEnd_toEndOf="@+id/progress_list_relator"
+                    app:layout_constraintStart_toStartOf="@+id/progress_list_relator"
+                    app:layout_constraintTop_toTopOf="@+id/progress_list_relator"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/text_name_parlamentar"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginStart="8dp"
+                    android:text="Nome do Parlamentar"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:visibility="invisible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/progress_list_relator"
+                    app:layout_constraintTop_toTopOf="@+id/icon_parlamentar" />
+
+                <TextView
+                    android:id="@+id/text_partido_e_uf"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="Partido - Estado"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="italic"
+                    android:visibility="invisible"
+                    app:layout_constraintEnd_toEndOf="@+id/text_name_parlamentar"
+                    app:layout_constraintStart_toEndOf="@+id/progress_list_relator"
+                    app:layout_constraintTop_toBottomOf="@+id/text_name_parlamentar" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout_info"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:layout_marginStart="8dp"
-                android:text="Partido - Estado"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:textStyle="italic"
-                android:visibility="invisible"
-                app:layout_constraintEnd_toEndOf="@+id/text_name_parlamentar"
-                app:layout_constraintStart_toEndOf="@+id/progress_list_relator"
-                app:layout_constraintTop_toBottomOf="@+id/text_name_parlamentar" />
+                android:layout_marginEnd="8dp"
+                android:visibility="gone"
+                android:background="@drawable/back_white"
+                android:elevation="12dp">
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/text_tramitacao"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginStart="20sp"
+                    android:text="Tramitação:"
+                    android:textColor="@color/black"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout_info"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:visibility="gone"
-            android:background="@drawable/back_white"
-            android:elevation="12dp">
+                <TextView
+                    android:id="@+id/text_description_tramitacao"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginStart="20sp"
+                    android:text="..."
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/text_tramitacao"
+                    app:layout_constraintTop_toBottomOf="@+id/text_tramitacao" />
 
-            <TextView
-                android:id="@+id/text_tramitacao"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:layout_marginStart="20sp"
-                android:text="Tramitação:"
-                android:textColor="@color/black"
-                android:textSize="13sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/text_situacao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:singleLine="true"
+                    android:text="Situação:"
+                    android:textColor="@color/black"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@+id/text_tramitacao"
+                    app:layout_constraintTop_toBottomOf="@+id/text_description_tramitacao" />
 
-            <TextView
-                android:id="@+id/text_description_tramitacao"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="20dp"
-                android:layout_marginStart="20sp"
-                android:text="..."
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/text_tramitacao"
-                app:layout_constraintTop_toBottomOf="@+id/text_tramitacao" />
+                <TextView
+                    android:id="@+id/text_description_situacao"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20sp"
+                    android:text="..."
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="@+id/text_description_tramitacao"
+                    app:layout_constraintStart_toStartOf="@+id/text_tramitacao"
+                    app:layout_constraintTop_toBottomOf="@+id/text_situacao" />
 
-            <TextView
-                android:id="@+id/text_situacao"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:singleLine="true"
-                android:text="Situação:"
-                android:textColor="@color/black"
-                android:textSize="13sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/text_tramitacao"
-                app:layout_constraintTop_toBottomOf="@+id/text_description_tramitacao" />
+                <TextView
+                    android:id="@+id/text_despacho"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Despacho:"
+                    android:textColor="@color/black"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@+id/text_situacao"
+                    app:layout_constraintTop_toBottomOf="@+id/text_description_situacao" />
 
-            <TextView
-                android:id="@+id/text_description_situacao"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20sp"
-                android:text="..."
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="@+id/text_description_tramitacao"
-                app:layout_constraintStart_toStartOf="@+id/text_tramitacao"
-                app:layout_constraintTop_toBottomOf="@+id/text_situacao" />
+                <TextView
+                    android:id="@+id/text_description_despacho"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20sp"
+                    android:text="..."
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="@+id/text_description_situacao"
+                    app:layout_constraintStart_toStartOf="@+id/text_tramitacao"
+                    app:layout_constraintTop_toBottomOf="@+id/text_despacho" />
 
-            <TextView
-                android:id="@+id/text_despacho"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="Despacho:"
-                android:textColor="@color/black"
-                android:textSize="13sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/text_situacao"
-                app:layout_constraintTop_toBottomOf="@+id/text_description_situacao" />
+                <TextView
+                    android:id="@+id/text_apreciacao"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Apreciacao:"
+                    android:textColor="@color/black"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@+id/text_despacho"
+                    app:layout_constraintTop_toBottomOf="@+id/text_description_despacho" />
 
-            <TextView
-                android:id="@+id/text_description_despacho"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20sp"
-                android:text="..."
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="@+id/text_description_situacao"
-                app:layout_constraintStart_toStartOf="@+id/text_tramitacao"
-                app:layout_constraintTop_toBottomOf="@+id/text_despacho" />
+                <TextView
+                    android:id="@+id/text_description_apreciacao"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20sp"
+                    android:text="..."
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="@+id/text_description_despacho"
+                    app:layout_constraintStart_toStartOf="@+id/text_tramitacao"
+                    app:layout_constraintTop_toBottomOf="@+id/text_apreciacao" />
 
-            <TextView
-                android:id="@+id/text_apreciacao"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="Apreciacao:"
-                android:textColor="@color/black"
-                android:textSize="13sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/text_despacho"
-                app:layout_constraintTop_toBottomOf="@+id/text_description_despacho" />
-
-            <TextView
-                android:id="@+id/text_description_apreciacao"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20sp"
-                android:text="..."
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="@+id/text_description_despacho"
-                app:layout_constraintStart_toStartOf="@+id/text_tramitacao"
-                app:layout_constraintTop_toBottomOf="@+id/text_apreciacao" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/button_see_doc"
-                android:layout_width="220dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:layout_marginBottom="12dp"
-                android:backgroundTint="@color/purple_700"
-                android:text="Ver documento"
-                android:textColor="@color/white"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/text_description_apreciacao" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/button_see_doc"
+                    android:layout_width="220dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="12dp"
+                    android:backgroundTint="@color/purple_700"
+                    android:text="Ver documento"
+                    android:textColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/text_description_apreciacao" />
 
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </LinearLayout>
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
 
 </LinearLayout>
