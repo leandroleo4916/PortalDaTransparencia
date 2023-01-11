@@ -3,20 +3,21 @@ package com.example.portaldatransparencia.views.deputado.proposta_deputado
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.example.portaldatransparencia.R
-import com.example.portaldatransparencia.databinding.FragmentFrenteIdBinding
 import com.example.portaldatransparencia.databinding.FragmentPropostaItemBinding
 import com.example.portaldatransparencia.dataclass.DadosProposicao
+import com.example.portaldatransparencia.dataclass.IdDeputadoDataClass
 import com.example.portaldatransparencia.dataclass.ProposicaoDataClass
+import com.example.portaldatransparencia.remote.ApiServiceIdDeputado
 import com.example.portaldatransparencia.remote.ApiServicePropostaItem
 import com.example.portaldatransparencia.remote.Retrofit
 import com.example.portaldatransparencia.security.SecurityPreferences
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
+import kotlinx.coroutines.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import retrofit2.Call
@@ -30,12 +31,14 @@ class FragmentPropostaItem: AppCompatActivity() {
     private val securityPreferences: SecurityPreferences by inject()
     private val statusView: EnableDisableView by inject()
     private lateinit var id: String
+    private lateinit var idParlamentar: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
         id = intent.extras?.getString("id").toString()
+        idParlamentar = securityPreferences.getString("id")
         modifyTop()
         observer()
     }
@@ -56,7 +59,10 @@ class FragmentPropostaItem: AppCompatActivity() {
             override fun onResponse(call: Call<ProposicaoDataClass>, res: Response<ProposicaoDataClass>) {
                 when (res.code()){
                     200 -> {
-                        if (res.body() != null) addElementToView(res.body()!!.dados)
+                        if (res.body() != null) {
+                            addElementToView(res.body()!!.dados)
+                            observerParlamentar()
+                        }
                         else notValue()
                     }
                     429 -> observer()
@@ -65,6 +71,34 @@ class FragmentPropostaItem: AppCompatActivity() {
             }
             override fun onFailure(call: Call<ProposicaoDataClass>, t: Throwable) {
                 notValue()
+            }
+        })
+    }
+
+    private fun observerParlamentar() {
+
+        val retrofit = Retrofit.createService(ApiServiceIdDeputado::class.java)
+        val call: Call<IdDeputadoDataClass> = retrofit.getIdDeputado(idParlamentar)
+        call.enqueue(object: Callback<IdDeputadoDataClass> {
+            override fun onResponse(call: Call<IdDeputadoDataClass>, res: Response<IdDeputadoDataClass>) {
+                when (res.code()){
+                    200 -> {
+                        if (res.body() != null){
+                            addElementViewParlamentar(res.body()!!)
+                        }
+                        else {
+                            val w = id
+                        }
+                    }
+                    429 -> observerParlamentar()
+                    else -> {
+                        val w = id
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<IdDeputadoDataClass>, t: Throwable) {
+                val w = id
             }
         })
     }
@@ -80,8 +114,14 @@ class FragmentPropostaItem: AppCompatActivity() {
 
     private fun addElementToView(body: DadosProposicao) {
         binding.run {
-            statusView.disableView(progressProposta)
-            statusView.disableView(constraintValorNotes)
+            statusView.run {
+                disableView(progressProposta)
+                disableView(constraintValorNotes)
+                enableView(constraintLayoutProject)
+                enableView(constraintLayoutRelator)
+                enableView(constraintLayoutInfo)
+            }
+
             body.run {
                 textEmenta.text = ementa
                 textTipoDescricao.text = descricaoTipo
@@ -104,6 +144,38 @@ class FragmentPropostaItem: AppCompatActivity() {
                 else {
                     Toast.makeText(baseContext,
                         "Documento não foi anexado", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+    private fun addElementViewParlamentar(item: IdDeputadoDataClass) {
+        binding.run {
+            Glide.with(application)
+                .load(item.dados.ultimoStatus.urlFoto)
+                .circleCrop()
+                .into(iconParlamentar)
+            textNameParlamentar.text = item.dados.ultimoStatus.nome
+            textPartidoEUf.text =
+                "${item.dados.ultimoStatus.siglaPartido} - ${item.dados.ultimoStatus.siglaUf}"
+
+            statusView.run {
+                disableView(progressRelator)
+                enableView(textNameParlamentar)
+                enableView(textPartidoEUf)
+                enableView(iconParlamentar)
+                enableView(progressListRelator)
+            }
+            var value = 0
+            CoroutineScope(Dispatchers.Main).launch {
+                withContext(Dispatchers.Default) {
+                    while (value <= 20) {
+                        withContext(Dispatchers.Main) {
+                            progressListRelator.progress = value
+                        }
+                        delay(5)
+                        value++
+                    }
                 }
             }
         }

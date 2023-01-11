@@ -80,6 +80,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
+            android:visibility="gone"
             android:background="@drawable/back_white"
             android:elevation="12dp">
 
@@ -147,8 +148,20 @@
             android:layout_marginTop="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
+            android:visibility="gone"
             android:background="@drawable/back_white"
             android:elevation="12dp">
+
+            <com.wang.avi.AVLoadingIndicatorView
+                android:id="@+id/progress_relator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:indicatorColor="@color/purple_700"
+                app:indicatorName="BallPulseIndicator"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/text_ultimo_relator"
@@ -165,10 +178,10 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ProgressBar
-                android:id="@+id/progress_list"
+                android:id="@+id/progress_list_relator"
                 style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="12dp"
                 android:max="20"
@@ -179,20 +192,21 @@
                 app:layout_constraintTop_toBottomOf="@+id/text_ultimo_relator" />
 
             <ImageView
-                android:id="@+id/icon_check_voto"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:id="@+id/icon_parlamentar"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
                 android:foregroundGravity="center"
-                android:src="@drawable/ic_check_green"
+                android:background="@drawable/back_white_cyrcle"
                 android:elevation="12dp"
-                app:layout_constraintBottom_toBottomOf="@+id/progress_list"
-                app:layout_constraintEnd_toEndOf="@+id/progress_list"
-                app:layout_constraintStart_toStartOf="@+id/progress_list"
-                app:layout_constraintTop_toTopOf="@+id/progress_list"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@+id/progress_list_relator"
+                app:layout_constraintEnd_toEndOf="@+id/progress_list_relator"
+                app:layout_constraintStart_toStartOf="@+id/progress_list_relator"
+                app:layout_constraintTop_toTopOf="@+id/progress_list_relator"
                 tools:ignore="ContentDescription" />
 
             <TextView
-                android:id="@+id/text_voto"
+                android:id="@+id/text_name_parlamentar"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
@@ -201,9 +215,10 @@
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold"
+                android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/progress_list"
-                app:layout_constraintTop_toTopOf="@+id/icon_check_voto" />
+                app:layout_constraintStart_toEndOf="@+id/progress_list_relator"
+                app:layout_constraintTop_toTopOf="@+id/icon_parlamentar" />
 
             <TextView
                 android:id="@+id/text_partido_e_uf"
@@ -214,9 +229,10 @@
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="italic"
-                app:layout_constraintEnd_toEndOf="@+id/text_voto"
-                app:layout_constraintStart_toEndOf="@+id/progress_list"
-                app:layout_constraintTop_toBottomOf="@+id/text_voto" />
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="@+id/text_name_parlamentar"
+                app:layout_constraintStart_toEndOf="@+id/progress_list_relator"
+                app:layout_constraintTop_toBottomOf="@+id/text_name_parlamentar" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -227,6 +243,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
+            android:visibility="gone"
             android:background="@drawable/back_white"
             android:elevation="12dp">
 
@@ -260,14 +277,13 @@
                 android:id="@+id/text_situacao"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
                 android:layout_marginTop="4dp"
                 android:singleLine="true"
                 android:text="Situação:"
                 android:textColor="@color/black"
                 android:textSize="13sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/text_tramitacao"
                 app:layout_constraintTop_toBottomOf="@+id/text_description_tramitacao" />
 
             <TextView
@@ -286,13 +302,12 @@
                 android:id="@+id/text_despacho"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20sp"
                 android:layout_marginTop="4dp"
                 android:text="Despacho:"
                 android:textColor="@color/black"
                 android:textSize="13sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/text_situacao"
                 app:layout_constraintTop_toBottomOf="@+id/text_description_situacao" />
 
             <TextView
@@ -311,13 +326,12 @@
                 android:id="@+id/text_apreciacao"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20sp"
                 android:layout_marginTop="4dp"
                 android:text="Apreciacao:"
                 android:textColor="@color/black"
                 android:textSize="13sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/text_despacho"
                 app:layout_constraintTop_toBottomOf="@+id/text_description_despacho" />
 
             <TextView

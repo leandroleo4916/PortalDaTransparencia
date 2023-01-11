@@ -92,30 +92,14 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas, IClickT
                                 viewModel.captureDataNotes(listDadosDimension, adapterDimension)
                             }
                         }
-                        else {
-                            binding?.run {
-                                statusView.disableView(progressDespesas)
-                                statusView.enableView(textNotValue)
-                                textNotValue.text = "Não há dados no ano ${ano}"
-                            }
-                        }
+                        else noValue("Não há dados no ano ${ano}")
                     }
                     429 -> observer()
-                    else -> {
-                        binding?.run {
-                            statusView.disableView(progressDespesas)
-                            statusView.enableView(textNotValue)
-                            textNotValue.text = "Não há dados no ano ${ano}"
-                        }
-                    }
+                    else -> noValue("API não respondeu!")
                 }
             }
             override fun onFailure(call: Call<Despesas>, t: Throwable) {
-                binding?.run {
-                    statusView.disableView(progressDespesas)
-                    statusView.enableView(textNotValue)
-                    textNotValue.text = "API não respondeu!"
-                }
+                noValue("API não respondeu!")
             }
         })
     }
@@ -150,6 +134,14 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas, IClickT
         adapter.updateData(arrayListOf(), 1)
         adapterDimension.updateData(arrayListOf())
         observer()
+    }
+
+    private fun noValue(value: String){
+        binding?.run {
+            statusView.disableView(progressDespesas)
+            statusView.enableView(textNotValue)
+            textNotValue.text = value
+        }
     }
 
     override fun listenerDespesas(note: String?) {

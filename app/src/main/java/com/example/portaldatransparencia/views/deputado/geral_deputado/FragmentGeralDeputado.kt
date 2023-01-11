@@ -99,7 +99,7 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
             }
 
             override fun onFailure(call: Call<IdDeputadoDataClass>, t: Throwable) {
-                TODO("Not yet implemented")
+
             }
         })
     }
