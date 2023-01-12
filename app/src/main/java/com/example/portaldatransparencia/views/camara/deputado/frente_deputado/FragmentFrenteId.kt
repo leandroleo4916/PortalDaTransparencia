@@ -1,4 +1,4 @@
-package com.example.portaldatransparencia.views.deputado.frente_deputado
+package com.example.portaldatransparencia.views.camara.deputado.frente_deputado
 
 import android.os.Bundle
 import android.view.animation.AnimationUtils
@@ -10,6 +10,7 @@ import com.example.portaldatransparencia.dataclass.FrenteId
 import com.example.portaldatransparencia.remote.ApiServiceFrenteId
 import com.example.portaldatransparencia.remote.Retrofit
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
+import kotlinx.coroutines.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import retrofit2.Call
@@ -27,14 +28,24 @@ class FragmentFrenteId: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        modifyInfo()
         id = intent.extras?.getString("id").toString()
         observer()
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        finish()
+    private fun modifyInfo(){
+        binding.layoutParlamentar.run {
+            statusView.run {
+                disableView(progressRelator)
+                enableView(iconParlamentar)
+                enableView(textNameParlamentar)
+                enableView(textPartidoEUf)
+                textUltimoRelator.text = "Coordenador"
+            }
+        }
     }
+
+    override fun onBackPressed() = finish()
 
     private fun observer() {
 
@@ -47,19 +58,15 @@ class FragmentFrenteId: AppCompatActivity() {
                         if (res.body() != null){
                             addElementFront(res.body()!!)
                         }
-                        else {
-
-                        }
+                        else {}
                     }
                     429 -> observer()
-                    else -> {
-
-                    }
+                    else -> {}
                 }
             }
 
             override fun onFailure(call: Call<FrenteId>, t: Throwable) {
-                TODO("Not yet implemented")
+
             }
         })
     }
@@ -69,23 +76,35 @@ class FragmentFrenteId: AppCompatActivity() {
         binding.run {
             statusView.run {
                 disableView(progressFrontId)
-                enableView(constraintLayout)
+                enableView(frameParlamentar)
                 enableView(constraintLayout2)
+                enableView(layoutParlamentar.textNameParlamentar)
             }
             textFrenteTitle.text = front.dados.titulo
             textFrenteSituation.text = front.dados.situacao
-            textNomeCoordinator.text = front.dados.coordenador.nome
+            layoutParlamentar.textNameParlamentar.text = front.dados.coordenador.nome
 
-            if (front.dados.coordenador.siglaPartido != null){
-                statusView.enableView(textFrentePartido)
-                (front.dados.coordenador.siglaPartido+" - "+front.dados.coordenador.siglaUf)
-                    .also { textFrentePartido.text = it }
-            }
-            if (front.dados.coordenador.urlFoto != null){
+            layoutParlamentar.run {
+                "${front.dados.coordenador.siglaPartido} - ${front.dados.coordenador.siglaUf}"
+                    .also { textPartidoEUf.text = it }
+
                 Glide.with(applicationContext)
                     .load(front.dados.coordenador.urlFoto)
                     .circleCrop()
-                    .into(iconCoordinator)
+                    .into(iconParlamentar)
+
+                var value = 0
+                CoroutineScope(Dispatchers.Main).launch {
+                    withContext(Dispatchers.Default) {
+                        while (value <= 20) {
+                            withContext(Dispatchers.Main) {
+                                layoutParlamentar.progressListRelator.progress = value
+                            }
+                            delay(5)
+                            value++
+                        }
+                    }
+                }
             }
             iconReturn.setOnClickListener {
                 it.startAnimation(AnimationUtils.loadAnimation(baseContext, R.anim.click))

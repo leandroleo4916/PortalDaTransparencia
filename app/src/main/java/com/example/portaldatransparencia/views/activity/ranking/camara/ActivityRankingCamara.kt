@@ -20,7 +20,7 @@ import com.example.portaldatransparencia.security.SecurityPreferences
 import com.example.portaldatransparencia.util.FormaterValueBilhoes
 import com.example.portaldatransparencia.util.ValidationInternet
 import com.example.portaldatransparencia.views.camara.CamaraViewModel
-import com.example.portaldatransparencia.views.deputado.DeputadoActivity
+import com.example.portaldatransparencia.views.camara.deputado.DeputadoActivity
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel

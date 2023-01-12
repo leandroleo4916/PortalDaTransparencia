@@ -21,52 +21,17 @@
 
     </FrameLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraint_valor_notes"
+    <FrameLayout
+        android:id="@+id/frame_progress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:foregroundGravity="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
+        tools:ignore="MissingConstraints">
 
-        <com.wang.avi.AVLoadingIndicatorView
-            android:id="@+id/progress_proposta"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:indicatorColor="@color/purple_700"
-            app:indicatorName="BallPulseIndicator"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <include
+            android:id="@+id/layout_progress"
+            layout="@layout/layout_progress"/>
 
-        <TextView
-            android:id="@+id/text_not_value"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="12dp"
-            android:gravity="center"
-            android:text="API não respondeu"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar2"
-            android:layout_width="0dp"
-            android:layout_height="1.2dp"
-            android:background="@color/purple_500"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -81,10 +46,10 @@
                 android:id="@+id/constraintLayout_project"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:visibility="gone"
+                android:layout_marginTop="12dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                android:visibility="invisible"
                 android:background="@drawable/back_white"
                 android:elevation="12dp">
 
@@ -145,111 +110,34 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout_relator"
+            <FrameLayout
+                android:id="@+id/frame_parlamentar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_margin="12dp"
                 android:background="@drawable/back_white"
-                android:elevation="12dp">
+                android:elevation="12dp"
+                android:visibility="invisible"
+                app:layout_constraintTop_toBottomOf="@+id/text_frente_title">
 
-                <com.wang.avi.AVLoadingIndicatorView
-                    android:id="@+id/progress_relator"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:indicatorColor="@color/purple_700"
-                    app:indicatorName="BallPulseIndicator"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                <include
+                    android:id="@+id/layout_parlamentar"
+                    layout="@layout/layout_parlamentar"/>
 
-                <TextView
-                    android:id="@+id/text_ultimo_relator"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginStart="20sp"
-                    android:singleLine="true"
-                    android:text="Último relator"
-                    android:textColor="@color/black"
-                    android:textSize="13sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ProgressBar
-                    android:id="@+id/progress_list_relator"
-                    style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="75dp"
-                    android:layout_height="75dp"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginBottom="12dp"
-                    android:max="20"
-                    android:progress="0"
-                    android:progressDrawable="@drawable/progress_hrs"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/text_ultimo_relator"
-                    app:layout_constraintTop_toBottomOf="@+id/text_ultimo_relator" />
-
-                <ImageView
-                    android:id="@+id/icon_parlamentar"
-                    android:layout_width="55dp"
-                    android:layout_height="55dp"
-                    android:foregroundGravity="center"
-                    android:background="@drawable/back_white_cyrcle"
-                    android:elevation="12dp"
-                    android:visibility="invisible"
-                    app:layout_constraintBottom_toBottomOf="@+id/progress_list_relator"
-                    app:layout_constraintEnd_toEndOf="@+id/progress_list_relator"
-                    app:layout_constraintStart_toStartOf="@+id/progress_list_relator"
-                    app:layout_constraintTop_toTopOf="@+id/progress_list_relator"
-                    tools:ignore="ContentDescription" />
-
-                <TextView
-                    android:id="@+id/text_name_parlamentar"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginStart="8dp"
-                    android:text="Nome do Parlamentar"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:visibility="invisible"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/progress_list_relator"
-                    app:layout_constraintTop_toTopOf="@+id/icon_parlamentar" />
-
-                <TextView
-                    android:id="@+id/text_partido_e_uf"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:text="Partido - Estado"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    android:textStyle="italic"
-                    android:visibility="invisible"
-                    app:layout_constraintEnd_toEndOf="@+id/text_name_parlamentar"
-                    app:layout_constraintStart_toEndOf="@+id/progress_list_relator"
-                    app:layout_constraintTop_toBottomOf="@+id/text_name_parlamentar" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </FrameLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:visibility="gone"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginBottom="30dp"
+                android:visibility="invisible"
                 android:background="@drawable/back_white"
-                android:elevation="12dp">
+                android:elevation="10dp">
 
                 <TextView
                     android:id="@+id/text_tramitacao"
@@ -273,6 +161,7 @@
                     android:text="..."
                     android:textColor="@color/black"
                     android:textSize="18sp"
+                    android:textStyle="italic"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/text_tramitacao"
                     app:layout_constraintTop_toBottomOf="@+id/text_tramitacao" />
@@ -298,6 +187,7 @@
                     android:text="..."
                     android:textColor="@color/black"
                     android:textSize="18sp"
+                    android:textStyle="italic"
                     app:layout_constraintEnd_toEndOf="@+id/text_description_tramitacao"
                     app:layout_constraintStart_toStartOf="@+id/text_tramitacao"
                     app:layout_constraintTop_toBottomOf="@+id/text_situacao" />
@@ -322,6 +212,7 @@
                     android:text="..."
                     android:textColor="@color/black"
                     android:textSize="18sp"
+                    android:textStyle="italic"
                     app:layout_constraintEnd_toEndOf="@+id/text_description_situacao"
                     app:layout_constraintStart_toStartOf="@+id/text_tramitacao"
                     app:layout_constraintTop_toBottomOf="@+id/text_despacho" />
@@ -346,6 +237,7 @@
                     android:text="..."
                     android:textColor="@color/black"
                     android:textSize="18sp"
+                    android:textStyle="italic"
                     app:layout_constraintEnd_toEndOf="@+id/text_description_despacho"
                     app:layout_constraintStart_toStartOf="@+id/text_tramitacao"
                     app:layout_constraintTop_toBottomOf="@+id/text_apreciacao" />
@@ -363,7 +255,6 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/text_description_apreciacao" />
-
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

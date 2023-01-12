@@ -109,13 +109,14 @@
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tab_deputado"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:background="@color/purple_700"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:tabIndicatorColor="@color/white"
                 app:tabSelectedTextColor="@color/white"
+                app:tabIconTint="@color/white"
                 app:tabTextColor="@color/purple_500"
                 tools:ignore="SpeakableTextPresentCheck" />
 

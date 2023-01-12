@@ -9,7 +9,6 @@ import android.speech.RecognizerIntent
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -25,7 +24,7 @@ import com.example.portaldatransparencia.util.RetiraAcento
 import com.example.portaldatransparencia.views.activity.gastogeral.senado.ActivityGastoGeralSenado
 import com.example.portaldatransparencia.views.activity.ranking.senado.ActivityRankingSenado
 import com.example.portaldatransparencia.views.camara.CamaraFragment
-import com.example.portaldatransparencia.views.senador.SenadorActivity
+import com.example.portaldatransparencia.views.senado.senador.SenadorActivity
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import com.example.portaldatransparencia.views.view_generics.ModifyChip
 import com.example.portaldatransparencia.views.view_generics.VisibilityNavViewAndFloating

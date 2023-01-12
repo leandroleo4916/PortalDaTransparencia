@@ -11,7 +11,6 @@ import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.databinding.RecyclerPropostaBinding
 import com.example.portaldatransparencia.dataclass.Proposta
 import com.example.portaldatransparencia.interfaces.IClickItemProposta
-import com.example.portaldatransparencia.views.deputado.proposta_deputado.FragmentProposta
 
 class PropostaAdapter(private val context: Context?, private val clickProposta: IClickItemProposta):
     RecyclerView.Adapter<PropostaAdapter.PropostaViewHolder>() {

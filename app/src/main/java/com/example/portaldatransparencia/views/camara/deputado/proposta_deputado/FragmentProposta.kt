@@ -1,10 +1,9 @@
-package com.example.portaldatransparencia.views.deputado.proposta_deputado
+package com.example.portaldatransparencia.views.camara.deputado.proposta_deputado
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.adapter.PropostaAdapter
@@ -14,7 +13,6 @@ import com.example.portaldatransparencia.interfaces.IClickItemProposta
 import com.example.portaldatransparencia.remote.ApiServiceProposta
 import com.example.portaldatransparencia.remote.Retrofit
 import com.example.portaldatransparencia.security.SecurityPreferences
-import com.example.portaldatransparencia.views.deputado.frente_deputado.FragmentFrenteId
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import com.google.android.material.chip.Chip
 import org.koin.android.ext.android.inject

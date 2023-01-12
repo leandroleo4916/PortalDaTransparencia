@@ -1,8 +1,6 @@
-package com.example.portaldatransparencia.views.deputado.geral_deputado
+package com.example.portaldatransparencia.views.camara.deputado.geral_deputado
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.example.portaldatransparencia.dataclass.OccupationDataClass
 import com.example.portaldatransparencia.remote.*
 
 class OccupationViewModel(private val repository: OccupationRepository): ViewModel() {

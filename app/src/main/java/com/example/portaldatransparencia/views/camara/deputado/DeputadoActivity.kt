@@ -1,4 +1,4 @@
-package com.example.portaldatransparencia.views.senador
+package com.example.portaldatransparencia.views.camara.deputado
 
 import android.os.Bundle
 import android.view.animation.AnimationUtils
@@ -6,86 +6,95 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.databinding.ActivityDeputadoBinding
-import com.example.portaldatransparencia.dataclass.ParlamentarItem
-import com.example.portaldatransparencia.remote.ResultSenadorRequest
+import com.example.portaldatransparencia.dataclass.IdDeputadoDataClass
+import com.example.portaldatransparencia.remote.ApiServiceIdDeputado
+import com.example.portaldatransparencia.remote.Retrofit
 import com.example.portaldatransparencia.security.SecurityPreferences
-import com.example.portaldatransparencia.util.CalculateAge
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
-import com.example.portaldatransparencia.views.view_generics.TabViewAdapterSenador
+import com.example.portaldatransparencia.views.view_generics.TabViewAdapterDeputado
 import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-class SenadorActivity: AppCompatActivity() {
+class DeputadoActivity: AppCompatActivity() {
 
     private val binding by lazy { ActivityDeputadoBinding.inflate(layoutInflater) }
+    private val mainViewModel: DeputadoViewModel by viewModel()
     private val securityPreferences: SecurityPreferences by inject()
-    private val senadorViewModel: SenadorViewModel by viewModel()
     private val statusView: EnableDisableView by inject()
-    private val calculateAge: CalculateAge by inject()
-    private var id = ""
-    private var nome = ""
+    private var id: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        binding.viewPagerDeputado.isUserInputEnabled = false
         id = intent.extras?.getString("id").toString()
-        nome = intent.extras?.getString("nome").toString()
         securityPreferences.putString("id", id)
-        securityPreferences.putString("nome", nome)
         setupViewGeral()
         observer()
         listener()
-
     }
 
+    override fun onBackPressed() = finish()
+
     private fun setupViewGeral(){
-        val tabs = arrayOf(R.string.geral, R.string.gastos, R.string.acao)
+        val tabs = arrayOf(R.string.geral, R.string.gastos, R.string.acao, R.string.frente)
+        val icons = arrayOf(
+            R.drawable.ic_avatar,
+            R.drawable.ic_money,
+            R.drawable.ic_project,
+            R.drawable.ic_front
+        )
         val tabLayout = binding.tabDeputado
         val pagerGeral = binding.viewPagerDeputado
-        val adapter = TabViewAdapterSenador(this)
+        val adapter = TabViewAdapterDeputado(this)
         pagerGeral.adapter = adapter
 
         TabLayoutMediator(tabLayout, pagerGeral){ tab, position ->
             tab.text = getString(tabs[position])
+            tab.icon = getDrawable(icons[position])
         }.attach()
     }
 
     private fun observer() {
-        senadorViewModel.searchDataSenador(id).observe(this) {
-            it?.let { result ->
-                when (result) {
-                    is ResultSenadorRequest.Success -> {
-                        result.dado?.let { senador ->
-                             addElementView(senador.detalheParlamentar.parlamentar)
+
+        val retrofit = Retrofit.createService(ApiServiceIdDeputado::class.java)
+        val call: Call<IdDeputadoDataClass> = retrofit.getIdDeputado(id)
+        call.enqueue(object: Callback<IdDeputadoDataClass> {
+            override fun onResponse(call: Call<IdDeputadoDataClass>, res: Response<IdDeputadoDataClass>) {
+                when (res.code()){
+                    200 -> {
+                        if (res.body() != null){
+                            addElementView(res.body()!!)
+                        }
+                        else {
+
                         }
                     }
-                    is ResultSenadorRequest.Error -> {
-                        result.exception.message?.let {  }
-                    }
-                    is ResultSenadorRequest.ErrorConnection -> {
-                        result.exception.message?.let {  }
+                    429 -> observer()
+                    else -> {
+
                     }
                 }
             }
-        }
+
+            override fun onFailure(call: Call<IdDeputadoDataClass>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+        })
     }
 
-    private fun addElementView(item: ParlamentarItem) {
-
-        val itemSenador = item.identificacaoParlamentar
-        val itemPhoto = item.identificacaoParlamentar
-        val https = "https:/"
-        val urlFoto = itemPhoto.urlFotoParlamentar.split(":/")
-        val photo = https+urlFoto[1]
-
+    private fun addElementView(item: IdDeputadoDataClass) {
         binding.run {
             Glide.with(application)
-                .load(photo)
+                .load(item.dados.ultimoStatus.urlFoto)
                 .circleCrop()
                 .into(imageDeputado)
-            textDescription.text = itemSenador.nomeParlamentar
+            textDescription.text = item.dados.ultimoStatus.nome
             statusView.run {
                 disableView(progressDeputado)
                 enableView(textDescription)

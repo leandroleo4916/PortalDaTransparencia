@@ -28,15 +28,15 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".views.deputado.DeputadoActivity"
+            android:name="com.example.portaldatransparencia.views.camara.deputado.DeputadoActivity"
             android:exported="true">
         </activity>
         <activity
-            android:name=".views.senador.SenadorActivity"
+            android:name="com.example.portaldatransparencia.views.senado.senador.SenadorActivity"
             android:exported="true">
         </activity>
         <activity
-            android:name=".views.deputado.frente_deputado.FragmentFrenteId"
+            android:name="com.example.portaldatransparencia.views.camara.deputado.frente_deputado.FragmentFrenteId"
             android:exported="true">
         </activity>
         <activity
@@ -60,7 +60,7 @@
             android:exported="true">
         </activity>
         <activity
-            android:name=".views.deputado.proposta_deputado.FragmentPropostaItem"
+            android:name="com.example.portaldatransparencia.views.camara.deputado.proposta_deputado.FragmentPropostaItem"
             android:exported="true">
         </activity>
     </application>

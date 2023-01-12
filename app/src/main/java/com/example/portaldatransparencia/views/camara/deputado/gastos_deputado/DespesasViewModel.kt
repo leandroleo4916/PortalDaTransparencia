@@ -1,15 +1,13 @@
-package com.example.portaldatransparencia.views.deputado.gastos_deputado
+package com.example.portaldatransparencia.views.camara.deputado.gastos_deputado
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.example.portaldatransparencia.adapter.DimensionAdapter
 import com.example.portaldatransparencia.dataclass.DadoDespesas
-import com.example.portaldatransparencia.dataclass.Despesas
 import com.example.portaldatransparencia.dataclass.SenadorGastosDataClass
 import com.example.portaldatransparencia.dataclass.SublistDataClass
 import com.example.portaldatransparencia.remote.IdDespesasRepository
 import com.example.portaldatransparencia.remote.ResultCotaRequest
-import com.example.portaldatransparencia.remote.ResultDespesasRequest
 import com.example.portaldatransparencia.util.FormatValueFloat
 
 class DespesasViewModel(private val repository: IdDespesasRepository,

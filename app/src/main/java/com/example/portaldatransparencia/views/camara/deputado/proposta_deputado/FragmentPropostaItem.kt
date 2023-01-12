@@ -1,4 +1,4 @@
-package com.example.portaldatransparencia.views.deputado.proposta_deputado
+package com.example.portaldatransparencia.views.camara.deputado.proposta_deputado
 
 import android.content.Intent
 import android.net.Uri
@@ -19,7 +19,6 @@ import com.example.portaldatransparencia.security.SecurityPreferences
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import kotlinx.coroutines.*
 import org.koin.android.ext.android.inject
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -27,7 +26,6 @@ import retrofit2.Response
 class FragmentPropostaItem: AppCompatActivity() {
 
     private val binding by lazy { FragmentPropostaItemBinding.inflate(layoutInflater) }
-    private val viewModel: PropostaViewModel by viewModel()
     private val securityPreferences: SecurityPreferences by inject()
     private val statusView: EnableDisableView by inject()
     private lateinit var id: String
@@ -46,7 +44,10 @@ class FragmentPropostaItem: AppCompatActivity() {
     private fun modifyTop() {
         binding.groupTop.run {
             textViewTitleTop.text = "Projeto de Lei"
-            statusView.disableView(imageViewFilter)
+            statusView.run {
+                disableView(imageViewFilter)
+                disableView(binding.layoutProgress.toolbar4)
+            }
             imageViewBack.setOnClickListener { finish() }
         }
     }
@@ -100,9 +101,9 @@ class FragmentPropostaItem: AppCompatActivity() {
     }
 
     private fun notValue(){
-        binding.run {
+        binding.layoutProgress.run {
             statusView.run {
-                disableView(progressProposta)
+                disableView(progressDespesas)
                 enableView(textNotValue)
             }
         }
@@ -111,10 +112,11 @@ class FragmentPropostaItem: AppCompatActivity() {
     private fun addElementToView(body: DadosProposicao) {
         binding.run {
             statusView.run {
-                disableView(progressProposta)
-                disableView(constraintValorNotes)
+                disableView(layoutProgress.progressDespesas)
+                disableView(layoutProgress.constraintValorNotes)
+                enableView(frameParlamentar)
                 enableView(constraintLayoutProject)
-                enableView(constraintLayoutRelator)
+                enableView(layoutParlamentar.constraintLayoutRelator)
                 enableView(constraintLayoutInfo)
             }
 
@@ -140,13 +142,13 @@ class FragmentPropostaItem: AppCompatActivity() {
                 "${dateDiv[2]}/${dateDiv[1]}/${dateDiv[0]}".also { textDateVotacao.text = it }
             }
             buttonSeeDoc.setOnClickListener {
-                it.startAnimation(AnimationUtils.loadAnimation(baseContext, R.anim.click))
+                it.startAnimation(AnimationUtils.loadAnimation(application, R.anim.click))
                 if (body.urlInteiroTeor != null && body.urlInteiroTeor != "" ) {
                     val intent = Intent(Intent.ACTION_VIEW, Uri.parse(body.urlInteiroTeor))
                     startActivity(intent)
                 }
                 else {
-                    Toast.makeText(baseContext,
+                    Toast.makeText(application,
                         "Documento não foi anexado", Toast.LENGTH_SHORT).show()
                 }
             }
@@ -154,7 +156,7 @@ class FragmentPropostaItem: AppCompatActivity() {
     }
 
     private fun addElementViewParlamentar(item: IdDeputadoDataClass) {
-        binding.run {
+        binding.layoutParlamentar.run {
             Glide.with(application)
                 .load(item.dados.ultimoStatus.urlFoto)
                 .circleCrop()

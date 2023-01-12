@@ -1,4 +1,4 @@
-package com.example.portaldatransparencia.views.deputado.geral_deputado
+package com.example.portaldatransparencia.views.camara.deputado.geral_deputado
 
 import android.content.Intent
 import android.net.Uri
@@ -15,11 +15,10 @@ import com.example.portaldatransparencia.dataclass.Occupation
 import com.example.portaldatransparencia.dataclass.OccupationDataClass
 import com.example.portaldatransparencia.remote.ApiServiceIdDeputado
 import com.example.portaldatransparencia.remote.ApiServiceOccupation
-import com.example.portaldatransparencia.remote.ResultOccupationRequest
 import com.example.portaldatransparencia.remote.Retrofit
 import com.example.portaldatransparencia.security.SecurityPreferences
 import com.example.portaldatransparencia.util.CalculateAge
-import com.example.portaldatransparencia.views.deputado.DeputadoViewModel
+import com.example.portaldatransparencia.views.camara.deputado.DeputadoViewModel
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -131,10 +130,12 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
             textGeralSala.text = "Sala: "+ (status.gabinete?.sala ?: "Não informado")
             textGeralPhone.text = status.gabinete?.telefone ?: "Não informado"
 
-            Glide.with(requireContext())
-                .load(dados.ultimoStatus.urlFoto)
-                .circleCrop()
-                .into(iconDeputadoGeral)
+            context?.let {
+                Glide.with(it)
+                    .load(dados.ultimoStatus.urlFoto)
+                    .circleCrop()
+                    .into(iconDeputadoGeral)
+            }
 
             statusView.run {
                 disableView(progressGeral)

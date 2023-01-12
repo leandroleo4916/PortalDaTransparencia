@@ -1,4 +1,4 @@
-package com.example.portaldatransparencia.views.senador.geral_senador
+package com.example.portaldatransparencia.views.senado.senador.geral_senador
 
 import android.content.Intent
 import android.net.Uri
@@ -13,7 +13,7 @@ import com.example.portaldatransparencia.remote.ResultCargosRequest
 import com.example.portaldatransparencia.remote.ResultSenadorRequest
 import com.example.portaldatransparencia.security.SecurityPreferences
 import com.example.portaldatransparencia.util.CalculateAge
-import com.example.portaldatransparencia.views.senador.SenadorViewModel
+import com.example.portaldatransparencia.views.senado.senador.SenadorViewModel
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -99,10 +99,12 @@ class FragmentGeralSenador: Fragment(R.layout.fragment_geral_senador) {
             val https = "https:/"
             val urlFoto = detalhes.urlFotoParlamentar.split(":/")
             val photo = https+urlFoto[1]
-            Glide.with(requireContext())
-                .load(photo)
-                .circleCrop()
-                .into(iconSenadorGeral)
+            context?.let {
+                Glide.with(it)
+                    .load(photo)
+                    .circleCrop()
+                    .into(iconSenadorGeral)
+            }
 
             statusView.run {
                 disableView(progressGeral)

@@ -57,77 +57,23 @@
                 app:layout_constraintStart_toStartOf="@+id/constraint_valor_notes"
                 app:layout_constraintTop_toBottomOf="@+id/icon_return" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout"
+            <FrameLayout
+                android:id="@+id/frame_parlamentar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="12dp"
-                android:elevation="12dp"
-                android:visibility="gone"
+                android:layout_margin="12dp"
                 android:background="@drawable/back_white"
-                android:layout_marginBottom="200dp"
+                android:elevation="12dp"
+                android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_frente_title">
 
-                <ImageView
-                    android:id="@+id/icon_coordinator"
-                    android:layout_width="55dp"
-                    android:layout_height="55dp"
-                    android:layout_marginStart="4dp"
-                    android:layout_marginTop="10dp"
-                    android:elevation="12dp"
-                    android:src="@drawable/ic_avatar"
-                    android:background="@drawable/back_white_cyrcle"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:ignore="ContentDescription" />
+                <include
+                    android:id="@+id/layout_parlamentar"
+                    layout="@layout/layout_parlamentar"/>
 
-                <TextView
-                    android:id="@+id/text_coordinator"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="20dp"
-                    android:text="Coordenador"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toEndOf="@+id/icon_coordinator"
-                    app:layout_constraintTop_toTopOf="@+id/icon_coordinator" />
-
-                <TextView
-                    android:id="@+id/text_nome_coordinator"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="4dp"
-                    android:singleLine="true"
-                    android:text="Nome do coordenador..."
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/icon_coordinator"
-                    app:layout_constraintTop_toBottomOf="@+id/text_coordinator" />
-
-                <TextView
-                    android:id="@+id/text_frente_partido"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="4dp"
-                    android:layout_marginBottom="12dp"
-                    android:text="PARTIDO - ESTADO"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    android:visibility="invisible"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/text_nome_coordinator"
-                    app:layout_constraintTop_toBottomOf="@+id/text_nome_coordinator" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </FrameLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout2"
@@ -139,11 +85,11 @@
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/back_white"
                 android:elevation="12dp"
-                android:visibility="gone"
+                android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/constraintLayout">
+                app:layout_constraintTop_toBottomOf="@id/frame_parlamentar">
 
                 <ImageView
                     android:id="@+id/icon_deputado_front"
@@ -151,7 +97,7 @@
                     android:layout_height="40dp"
                     android:layout_marginStart="6dp"
                     android:layout_marginTop="12dp"
-                    android:src="@drawable/ic_check"
+                    android:src="@drawable/ic_check_green"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="ContentDescription" />

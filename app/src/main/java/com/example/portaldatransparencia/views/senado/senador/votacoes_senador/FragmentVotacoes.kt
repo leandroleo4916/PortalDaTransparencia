@@ -1,8 +1,7 @@
-package com.example.portaldatransparencia.views.senador.votacoes_senador
+package com.example.portaldatransparencia.views.senado.senador.votacoes_senador
 
 import android.os.Bundle
 import android.view.View
-import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.portaldatransparencia.R

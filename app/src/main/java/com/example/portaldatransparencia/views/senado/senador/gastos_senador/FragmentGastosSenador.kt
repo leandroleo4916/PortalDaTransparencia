@@ -1,4 +1,4 @@
-package com.example.portaldatransparencia.views.senador.gastos_senador
+package com.example.portaldatransparencia.views.senado.senador.gastos_senador
 
 import android.content.Intent
 import android.net.Uri
@@ -19,7 +19,7 @@ import com.example.portaldatransparencia.remote.ResultCotaRequest
 import com.example.portaldatransparencia.security.SecurityPreferences
 import com.example.portaldatransparencia.util.FormatValor
 import com.example.portaldatransparencia.util.FormatValueFloat
-import com.example.portaldatransparencia.views.deputado.gastos_deputado.DespesasViewModel
+import com.example.portaldatransparencia.views.camara.deputado.gastos_deputado.DespesasViewModel
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import com.google.android.material.chip.Chip
 import org.koin.android.ext.android.inject
@@ -33,7 +33,6 @@ class FragmentGastosSenador: Fragment(R.layout.fragment_gastos), INoteDespesas, 
     private lateinit var adapterDimension: DimensionAdapter
     private val securityPreferences: SecurityPreferences by inject()
     private val statusView: EnableDisableView by inject()
-    private val formatValue: FormatValor by inject()
     private val formatFloat: FormatValueFloat by inject()
     private lateinit var chipEnabled: Chip
     private lateinit var nome: String
@@ -164,12 +163,12 @@ class FragmentGastosSenador: Fragment(R.layout.fragment_gastos), INoteDespesas, 
                 "https://cdn-icons-png.flaticon.com/512/4692/4692103.png",
                 "Outros"))
         }
-        binding?.run { statusView.disableView(progressDespesas)}
+        statusView.disableView(binding!!.layoutProgress.progressDespesas)
         adapterDimension.updateData(subList)
     }
 
     private fun errorCallApi(value: String){
-        binding?.run {
+        binding!!.layoutProgress.run {
             statusView.disableView(progressDespesas)
             statusView.enableView(textNotValue)
             textNotValue.text = value
@@ -197,7 +196,7 @@ class FragmentGastosSenador: Fragment(R.layout.fragment_gastos), INoteDespesas, 
         viewEnabled.isChecked = false
         viewDisabled.isChecked = true
         chipEnabled = viewDisabled
-        binding?.run {
+        binding!!.layoutProgress.run {
             statusView.enableView(progressDespesas)
             statusView.disableView(textNotValue)
         }

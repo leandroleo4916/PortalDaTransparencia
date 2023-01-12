@@ -1,4 +1,4 @@
-package com.example.portaldatransparencia.views.deputado.gastos_deputado
+package com.example.portaldatransparencia.views.camara.deputado.gastos_deputado
 
 import android.content.Intent
 import android.net.Uri
@@ -78,17 +78,15 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas, IClickT
                             if (page == 1) listDadosDimension = arrayListOf()
                             listDadosDimension += despesas.body()!!.dados
 
-                            statusView.disableView(binding!!.textNotValue)
+                            statusView.disableView(binding!!.layoutProgress.textNotValue)
                             val size = despesas.body()!!.dados.size
                             numberNote += size
                             adapter.updateData(despesas.body()!!.dados, page)
                             page += 1
 
-                            if (size >= 100) {
-                                observer()
-                            }
+                            if (size >= 100) observer()
                             else {
-                                binding?.run { statusView.disableView(progressDespesas) }
+                                statusView.disableView(binding!!.layoutProgress.progressDespesas)
                                 viewModel.captureDataNotes(listDadosDimension, adapterDimension)
                             }
                         }
@@ -127,7 +125,7 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas, IClickT
         numberNote = 0
         page = 1
         chipEnabled = viewDisabled
-        binding?.run {
+        binding!!.layoutProgress.run {
             statusView.disableView(textNotValue)
             statusView.enableView(progressDespesas)
         }
@@ -137,7 +135,7 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas, IClickT
     }
 
     private fun noValue(value: String){
-        binding?.run {
+        binding!!.layoutProgress.run {
             statusView.disableView(progressDespesas)
             statusView.enableView(textNotValue)
             textNotValue.text = value
