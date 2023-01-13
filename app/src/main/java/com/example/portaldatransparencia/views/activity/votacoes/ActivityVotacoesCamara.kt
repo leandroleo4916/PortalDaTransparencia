@@ -122,24 +122,14 @@ class ActivityVotacoesCamara: AppCompatActivity(), IClickSeeVideo, IClickSeeVote
                                 openVideoVotacao(this.urlRegistro)
                             }
                         }
-                        else {
-                            create.dismiss()
-                            Toast.makeText(application,
-                                "Não foi adicionado URL do vídeo", Toast.LENGTH_SHORT).show()
-                        }
+                        else showToast("Não foi adicionado URL do vídeo")
 
                     429 -> searchVideoVotacao(id)
-                    else -> {
-                        create.dismiss()
-                        Toast.makeText(application,
-                            "Não foi adicionado URL do vídeo", Toast.LENGTH_SHORT).show()
-                    }
+                    else -> showToast("API não respondeu")
                 }
             }
             override fun onFailure(call: Call<EventoDataClass>, t: Throwable) {
-                create.dismiss()
-                Toast.makeText(application,
-                    "Não foi adicionado URL do vídeo", Toast.LENGTH_SHORT).show()
+                showToast("API não respondeu")
             }
         })
     }
@@ -329,5 +319,10 @@ class ActivityVotacoesCamara: AppCompatActivity(), IClickSeeVideo, IClickSeeVote
 
     override fun clickSeeDetails(votacao: VotacaoId) {
 
+    }
+
+    private fun showToast(message: String){
+        create.dismiss()
+        Toast.makeText(application, message, Toast.LENGTH_SHORT).show()
     }
 }
