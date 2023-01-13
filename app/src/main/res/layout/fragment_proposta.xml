@@ -21,7 +21,7 @@
 
     </FrameLayout>
 
-    <androidx.appcompat.widget.Toolbar
+    <View
         android:layout_width="match_parent"
         android:layout_height="1.2dp"
         android:background="@color/purple_500" />

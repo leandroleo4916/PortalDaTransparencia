@@ -1,19 +1,26 @@
 package com.example.portaldatransparencia.views.activity.votacoes
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.animation.AnimationUtils
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.adapter.VotacoesCamaraAdapter
 import com.example.portaldatransparencia.databinding.ActivityVotacoesBinding
+import com.example.portaldatransparencia.dataclass.EventoDataClass
 import com.example.portaldatransparencia.dataclass.VotacaoId
 import com.example.portaldatransparencia.dataclass.VotacoesList
 import com.example.portaldatransparencia.interfaces.IClickSeeDetails
 import com.example.portaldatransparencia.interfaces.IClickSeeVideo
 import com.example.portaldatransparencia.interfaces.IClickSeeVote
+import com.example.portaldatransparencia.remote.ApiServiceEvento
 import com.example.portaldatransparencia.remote.ApiVotacoes
 import com.example.portaldatransparencia.remote.Retrofit
+import com.example.portaldatransparencia.util.createDialog
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import com.google.android.material.chip.Chip
 import org.koin.android.ext.android.inject
@@ -37,6 +44,7 @@ class ActivityVotacoesCamara: AppCompatActivity(), IClickSeeVideo, IClickSeeVote
     private var year = "2023"
     private var month = "Todos"
     private var monthName = ""
+    private lateinit var create: AlertDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -98,6 +106,52 @@ class ActivityVotacoesCamara: AppCompatActivity(), IClickSeeVideo, IClickSeeVote
                 disableProgressAndEnableText()
             }
         })
+    }
+
+    private fun searchVideoVotacao(id: String) {
+
+        val retrofit = Retrofit.createService(ApiServiceEvento::class.java)
+        val call: Call<EventoDataClass> = retrofit.getEvento(id)
+        call.enqueue(object: Callback<EventoDataClass> {
+            override fun onResponse(call: Call<EventoDataClass>, response: Response<EventoDataClass>) {
+                when (response.code()){
+                    200 ->
+                        if (response.body() != null){
+                            response.body()!!.dados.run {
+                                create.dismiss()
+                                openVideoVotacao(this.urlRegistro)
+                            }
+                        }
+                        else {
+                            create.dismiss()
+                            Toast.makeText(application,
+                                "Não foi adicionado URL do vídeo", Toast.LENGTH_SHORT).show()
+                        }
+
+                    429 -> searchVideoVotacao(id)
+                    else -> {
+                        create.dismiss()
+                        Toast.makeText(application,
+                            "Não foi adicionado URL do vídeo", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+            override fun onFailure(call: Call<EventoDataClass>, t: Throwable) {
+                create.dismiss()
+                Toast.makeText(application,
+                    "Não foi adicionado URL do vídeo", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+    private fun openVideoVotacao(url: String){
+        if (url.isNotEmpty()){
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+            startActivity(browserIntent)
+        } else {
+            Toast.makeText(application,
+                "Não foi adicionado link do vídeo", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun modifyTitle() {
@@ -266,10 +320,14 @@ class ActivityVotacoesCamara: AppCompatActivity(), IClickSeeVideo, IClickSeeVote
     }
 
     override fun clickSeeVideo(votacao: VotacaoId) {
-
+        val dialog = createDialog()
+        dialog.setView(R.layout.layout_dialog)
+        create = dialog.create()
+        create.show()
+        searchVideoVotacao(votacao.idEvento.toString())
     }
 
     override fun clickSeeDetails(votacao: VotacaoId) {
-        
+
     }
 }

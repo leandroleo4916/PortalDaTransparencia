@@ -114,7 +114,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="2dp"
-        android:text="Última Apresentação da Porposta..."
+        android:text="Última Apresentação da Proposta..."
         android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="@+id/text_date_votacao"
