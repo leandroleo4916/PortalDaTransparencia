@@ -23,6 +23,7 @@ class MainAdapter(private val listener: IClickDeputado, private val notify: INot
     private var binding: RecyclerMainBinding? = null
     private var data = mutableListOf<Dado>()
     private var dataList = mutableListOf<Dado>()
+    private var dataListState = mutableListOf<Dado>()
     private var filter: ListItemFilter = ListItemFilter()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
@@ -77,6 +78,19 @@ class MainAdapter(private val listener: IClickDeputado, private val notify: INot
     fun updateData(deputados: List<Dado>) {
         data = deputados as MutableList<Dado>
         dataList = deputados
+        notifyDataSetChanged()
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun filterList(partido: String, estado: String){
+        dataListState = mutableListOf()
+        data.forEach {
+            if (it.siglaPartido.contains(partido) && it.siglaUf.contains(estado)){
+                dataListState.add(it)
+            }
+        }
+        dataList = dataListState
+        if (dataList.isEmpty()) notify.notification()
         notifyDataSetChanged()
     }
 

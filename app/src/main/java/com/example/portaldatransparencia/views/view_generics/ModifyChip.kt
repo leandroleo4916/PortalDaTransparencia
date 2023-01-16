@@ -10,7 +10,8 @@ class ModifyChip {
             viewDisabled.isChecked = true
 
             if (viewEnabled != viewDisabled) viewDisabled
-            else { viewDisabled.isChecked = false
+            else {
+                viewDisabled.isChecked = false
                 null
             }
         } else {

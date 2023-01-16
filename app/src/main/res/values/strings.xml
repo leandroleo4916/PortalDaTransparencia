@@ -39,7 +39,7 @@
     <string name="senado_8anos">Senado - últimos 8 anos</string>
     <string name="senado_federal">Senado Federal</string>
     <string name="gastoGeral8Anos">Gasto geral - últimos 8 anos</string>
-    <string name="nao_encontrado_dep_partido">Não encontrado deputado com esse partido</string>
+    <string name="nao_encontrado_dep_partido">Nenhum parlamentar encontrado</string>
     <string name="erro_captura_voz">Erro na captura de voz</string>
     <string name="permissao_negada">Permissão negada</string>
     <string name="nenhuma_votacao_este_ano">Nenhuma votação para este ano</string>
