@@ -43,6 +43,8 @@ class SenadoFragment: Fragment(R.layout.fragment_camara_senado), IClickSenador, 
     private val visibilityNavViewAndFloating: VisibilityNavViewAndFloating by inject()
     private lateinit var adapter: SenadoAdapter
     private var chipEnabled: Chip? = null
+    private var chipEnabledState: Chip? = null
+    private var textPartido = ""
     private var hideFilter = true
     private val permissionCode = 1000
 
@@ -99,56 +101,56 @@ class SenadoFragment: Fragment(R.layout.fragment_camara_senado), IClickSenador, 
     private fun listener(){
         binding?.run {
             chipGroupItem.run {
-                chipAvante.setOnClickListener { modify(chipEnabled, chipAvante) }
-                chipCidadania.setOnClickListener { modify(chipEnabled, chipCidadania) }
-                chipDc.setOnClickListener { modify(chipEnabled, chipDc) }
-                chipDem.setOnClickListener { modify(chipEnabled, chipDem) }
-                chipMdb.setOnClickListener { modify(chipEnabled, chipMdb) }
-                chipNovo.setOnClickListener { modify(chipEnabled, chipNovo) }
-                chipPatri.setOnClickListener { modify(chipEnabled, chipPatri) }
-                chipPatriota.setOnClickListener { modify(chipEnabled, chipPatriota) }
-                chipPcb.setOnClickListener { modify(chipEnabled, chipPcb) }
-                chipPcdob.setOnClickListener { modify(chipEnabled, chipPcdob) }
-                chipPco.setOnClickListener { modify(chipEnabled, chipPco) }
-                chipPdt.setOnClickListener { modify(chipEnabled, chipPdt) }
-                chipPhs.setOnClickListener { modify(chipEnabled, chipPhs) }
-                chipPl.setOnClickListener { modify(chipEnabled, chipPl) }
-                chipPros.setOnClickListener { modify(chipEnabled, chipPros) }
-                chipPsc.setOnClickListener { modify(chipEnabled, chipPsc) }
-                chipPmb.setOnClickListener { modify(chipEnabled, chipPmb) }
-                chipPodemos.setOnClickListener { modify(chipEnabled, chipPodemos) }
-                chipPp.setOnClickListener { modify(chipEnabled, chipPp) }
-                chipPt.setOnClickListener { modify(chipEnabled, chipPt) }
-                chipRepublicanos.setOnClickListener { modify(chipEnabled, chipRepublicanos) }
-                chipUniao.setOnClickListener { modify(chipEnabled, chipUniao) }
+                chipAvante.setOnClickListener { modifyChipPartido(chipAvante) }
+                chipCidadania.setOnClickListener { modifyChipPartido(chipCidadania) }
+                chipDc.setOnClickListener { modifyChipPartido(chipDc) }
+                chipDem.setOnClickListener { modifyChipPartido(chipDem) }
+                chipMdb.setOnClickListener { modifyChipPartido(chipMdb) }
+                chipNovo.setOnClickListener { modifyChipPartido(chipNovo) }
+                chipPatri.setOnClickListener { modifyChipPartido(chipPatri) }
+                chipPatriota.setOnClickListener { modifyChipPartido(chipPatriota) }
+                chipPcb.setOnClickListener { modifyChipPartido(chipPcb) }
+                chipPcdob.setOnClickListener { modifyChipPartido(chipPcdob) }
+                chipPco.setOnClickListener { modifyChipPartido(chipPco) }
+                chipPdt.setOnClickListener { modifyChipPartido(chipPdt) }
+                chipPhs.setOnClickListener { modifyChipPartido(chipPhs) }
+                chipPl.setOnClickListener { modifyChipPartido(chipPl) }
+                chipPros.setOnClickListener { modifyChipPartido(chipPros) }
+                chipPsc.setOnClickListener { modifyChipPartido(chipPsc) }
+                chipPmb.setOnClickListener { modifyChipPartido(chipPmb) }
+                chipPodemos.setOnClickListener { modifyChipPartido(chipPodemos) }
+                chipPp.setOnClickListener { modifyChipPartido(chipPp) }
+                chipPt.setOnClickListener { modifyChipPartido(chipPt) }
+                chipRepublicanos.setOnClickListener { modifyChipPartido(chipRepublicanos) }
+                chipUniao.setOnClickListener { modifyChipPartido(chipUniao) }
 
-                chipAc.setOnClickListener { modify(chipEnabled, chipAc) }
-                chipAl.setOnClickListener { modify(chipEnabled, chipAl) }
-                chipAp.setOnClickListener { modify(chipEnabled, chipAp) }
-                chipAm.setOnClickListener { modify(chipEnabled, chipAm) }
-                chipBa.setOnClickListener { modify(chipEnabled, chipBa) }
-                chipCe.setOnClickListener { modify(chipEnabled, chipCe) }
-                chipDf.setOnClickListener { modify(chipEnabled, chipDf) }
-                chipEs.setOnClickListener { modify(chipEnabled, chipEs) }
-                chipGo.setOnClickListener { modify(chipEnabled, chipGo) }
-                chipMa.setOnClickListener { modify(chipEnabled, chipMa) }
-                chipMt.setOnClickListener { modify(chipEnabled, chipMt) }
-                chipMs.setOnClickListener { modify(chipEnabled, chipMs) }
-                chipMg.setOnClickListener { modify(chipEnabled, chipMg) }
-                chipPa.setOnClickListener { modify(chipEnabled, chipPa) }
-                chipPb.setOnClickListener { modify(chipEnabled, chipPb) }
-                chipPr.setOnClickListener { modify(chipEnabled, chipPr) }
-                chipPe.setOnClickListener { modify(chipEnabled, chipPe) }
-                chipPi.setOnClickListener { modify(chipEnabled, chipPi) }
-                chipRj.setOnClickListener { modify(chipEnabled, chipRj) }
-                chipRn.setOnClickListener { modify(chipEnabled, chipRn) }
-                chipRs.setOnClickListener { modify(chipEnabled, chipRs) }
-                chipRo.setOnClickListener { modify(chipEnabled, chipRo) }
-                chipRr.setOnClickListener { modify(chipEnabled, chipRr) }
-                chipSc.setOnClickListener { modify(chipEnabled, chipSc) }
-                chipSp.setOnClickListener { modify(chipEnabled, chipSp) }
-                chipSe.setOnClickListener { modify(chipEnabled, chipSe) }
-                chipTo.setOnClickListener { modify(chipEnabled, chipTo) }
+                chipAc.setOnClickListener { modifyChipState(chipAc) }
+                chipAl.setOnClickListener { modifyChipState(chipAl) }
+                chipAp.setOnClickListener { modifyChipState(chipAp) }
+                chipAm.setOnClickListener { modifyChipState(chipAm) }
+                chipBa.setOnClickListener { modifyChipState(chipBa) }
+                chipCe.setOnClickListener { modifyChipState(chipCe) }
+                chipDf.setOnClickListener { modifyChipState(chipDf) }
+                chipEs.setOnClickListener { modifyChipState(chipEs) }
+                chipGo.setOnClickListener { modifyChipState(chipGo) }
+                chipMa.setOnClickListener { modifyChipState(chipMa) }
+                chipMt.setOnClickListener { modifyChipState(chipMt) }
+                chipMs.setOnClickListener { modifyChipState(chipMs) }
+                chipMg.setOnClickListener { modifyChipState(chipMg) }
+                chipPa.setOnClickListener { modifyChipState(chipPa) }
+                chipPb.setOnClickListener { modifyChipState(chipPb) }
+                chipPr.setOnClickListener { modifyChipState(chipPr) }
+                chipPe.setOnClickListener { modifyChipState(chipPe) }
+                chipPi.setOnClickListener { modifyChipState(chipPi) }
+                chipRj.setOnClickListener { modifyChipState(chipRj) }
+                chipRn.setOnClickListener { modifyChipState(chipRn) }
+                chipRs.setOnClickListener { modifyChipState(chipRs) }
+                chipRo.setOnClickListener { modifyChipState(chipRo) }
+                chipRr.setOnClickListener { modifyChipState(chipRr) }
+                chipSc.setOnClickListener { modifyChipState(chipSc) }
+                chipSp.setOnClickListener { modifyChipState(chipSp) }
+                chipSe.setOnClickListener { modifyChipState(chipSe) }
+                chipTo.setOnClickListener { modifyChipState(chipTo) }
             }
 
             icVoz.setOnClickListener {
@@ -199,10 +201,30 @@ class SenadoFragment: Fragment(R.layout.fragment_camara_senado), IClickSenador, 
         }
     }
 
-    private fun modify(viewEnabled: Chip?, viewDisabled: Chip) {
-        chipEnabled = modifyChip.modify(viewEnabled, viewDisabled)
-        if (!viewDisabled.isChecked) adapter.filter.filter("")
-        else adapter.filter.filter(viewDisabled.text as String)
+    private fun modifyChipPartido(viewDisabled: Chip) {
+        chipEnabled = modifyChip.modify(chipEnabled, viewDisabled)
+        if (chipEnabledState != null) {
+            chipEnabledState!!.isChecked = false
+        }
+        textPartido = viewDisabled.text as String
+        if (!viewDisabled.isChecked) {
+            adapter.filter.filter("")
+            textPartido = ""
+        }
+        else {
+            adapter.filter.filter(viewDisabled.text as String)
+        }
+    }
+
+    private fun modifyChipState(viewClicked: Chip) {
+        chipEnabledState = modifyChip.modify(chipEnabledState, viewClicked)
+        if (viewClicked.isChecked) {
+            if (textPartido.isEmpty()){
+                adapter.filter.filter(viewClicked.text as String)
+            }
+            else adapter.filterList(textPartido, viewClicked.text as String)
+        }
+        else adapter.filter.filter(textPartido)
     }
 
     override fun clickSenador(id: String, nome: String) {
@@ -222,7 +244,7 @@ class SenadoFragment: Fragment(R.layout.fragment_camara_senado), IClickSenador, 
     }
 
     override fun notification() {
-        Toast.makeText(context, "Não encontrado senador com esse partido",
+        Toast.makeText(context, getString(R.string.nao_encontrado_dep_partido),
             Toast.LENGTH_SHORT).show()
         binding?.progressMain?.visibility = View.INVISIBLE
     }

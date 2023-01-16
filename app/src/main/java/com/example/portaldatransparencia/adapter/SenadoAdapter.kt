@@ -24,6 +24,7 @@ class SenadoAdapter(private val listener: IClickSenador, private val notify: INo
     private var binding: RecyclerMainBinding? = null
     private var data = mutableListOf<Parlamentar>()
     private var dataList = mutableListOf<Parlamentar>()
+    private var dataListState = mutableListOf<Parlamentar>()
     private var filter: ListItemFilter = ListItemFilter()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
@@ -86,6 +87,20 @@ class SenadoAdapter(private val listener: IClickSenador, private val notify: INo
     fun updateData(senadores: List<Parlamentar>) {
         data = senadores as MutableList<Parlamentar>
         dataList = senadores
+        notifyDataSetChanged()
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun filterList(partido: String, estado: String){
+        dataListState = mutableListOf()
+        data.forEach {
+            if (it.identificacaoParlamentar.siglaPartidoParlamentar.contains(partido)
+                && it.identificacaoParlamentar.ufParlamentar.contains(estado)){
+                dataListState.add(it)
+            }
+        }
+        dataList = dataListState
+        if (dataList.isEmpty()) notify.notification()
         notifyDataSetChanged()
     }
 
