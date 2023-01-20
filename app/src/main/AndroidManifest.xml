@@ -56,11 +56,15 @@
             android:exported="true">
         </activity>
         <activity
-            android:name=".views.activity.votacoes.ActivityVotacoesCamara"
+            android:name=".views.activity.votacoes.camara.ActivityVotacoesCamara"
             android:exported="true">
         </activity>
         <activity
             android:name="com.example.portaldatransparencia.views.camara.deputado.proposta_deputado.FragmentPropostaItem"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name="com.example.portaldatransparencia.views.activity.votacoes.senado.ActivityVotacoesSenado"
             android:exported="true">
         </activity>
     </application>

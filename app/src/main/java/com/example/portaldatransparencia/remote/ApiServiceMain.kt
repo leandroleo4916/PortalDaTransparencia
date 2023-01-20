@@ -12,11 +12,19 @@ interface ApiServiceMain {
         @Query("ordenarPor") ordenarPor: String
     ): Call<MainDataClass>
 }
+
 interface ApiVotacoes {
     @GET("https://dadosabertos.camara.leg.br/arquivos/votacoes/json/votacoes-{ano}.json")
     fun getVotacoes(
         @Path("ano") ano: String
     ): Call<VotacoesList>
+}
+
+interface ApiVotacoesSenado {
+    @GET("https://legis.senado.leg.br/dadosabertos/arquivos/ListaVotacoes{ano}.json")
+    fun getVotacoes(
+        @Path("ano") ano: String
+    ): Call<VotacaoSenado>
 }
 
 interface ApiServiceIdDeputado {

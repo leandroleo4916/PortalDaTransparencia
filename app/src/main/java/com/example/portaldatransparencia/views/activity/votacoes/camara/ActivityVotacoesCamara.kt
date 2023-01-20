@@ -1,4 +1,4 @@
-package com.example.portaldatransparencia.views.activity.votacoes
+package com.example.portaldatransparencia.views.activity.votacoes.camara
 
 import android.content.Intent
 import android.net.Uri

@@ -25,7 +25,7 @@ import com.example.portaldatransparencia.remote.Retrofit
 import com.example.portaldatransparencia.util.ValidationInternet
 import com.example.portaldatransparencia.views.activity.gastogeral.camara.ActivityGastoGeralCamara
 import com.example.portaldatransparencia.views.activity.ranking.camara.ActivityRankingCamara
-import com.example.portaldatransparencia.views.activity.votacoes.ActivityVotacoesCamara
+import com.example.portaldatransparencia.views.activity.votacoes.camara.ActivityVotacoesCamara
 import com.example.portaldatransparencia.views.camara.deputado.DeputadoActivity
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import com.example.portaldatransparencia.views.view_generics.ModifyChip

@@ -1,4 +1,4 @@
-package com.example.portaldatransparencia.views.activity.votacoes
+package com.example.portaldatransparencia.views.activity.votacoes.camara
 
 import androidx.lifecycle.ViewModel
 import com.example.portaldatransparencia.dataclass.EventoDataClass

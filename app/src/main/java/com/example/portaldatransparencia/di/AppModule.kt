@@ -13,7 +13,7 @@ import com.example.portaldatransparencia.views.activity.gastogeral.camara.GastoG
 import com.example.portaldatransparencia.views.activity.gastogeral.senado.GastoGeralViewModelSenado
 import com.example.portaldatransparencia.views.activity.ranking.camara.RankingViewModelCamara
 import com.example.portaldatransparencia.views.activity.ranking.senado.RankingViewModelSenado
-import com.example.portaldatransparencia.views.activity.votacoes.VotacoesViewModelCamara
+import com.example.portaldatransparencia.views.activity.votacoes.camara.VotacoesViewModelCamara
 import com.example.portaldatransparencia.views.senado.SenadoViewModel
 import com.example.portaldatransparencia.views.senado.senador.SenadorViewModel
 import com.example.portaldatransparencia.views.senado.senador.geral_senador.GeralSenadorViewModel
@@ -96,6 +96,9 @@ val retrofitModule = module {
         }
         single<ApiServicePropostaItem> {
                 get<Retrofit>().create(ApiServicePropostaItem::class.java)
+        }
+        single<ApiVotacoesSenado> {
+                get<Retrofit>().create(ApiVotacoesSenado::class.java)
         }
 }
 

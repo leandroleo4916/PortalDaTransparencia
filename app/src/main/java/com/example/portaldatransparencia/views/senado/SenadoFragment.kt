@@ -23,6 +23,7 @@ import com.example.portaldatransparencia.remote.ResultSenadoRequest
 import com.example.portaldatransparencia.util.RetiraAcento
 import com.example.portaldatransparencia.views.activity.gastogeral.senado.ActivityGastoGeralSenado
 import com.example.portaldatransparencia.views.activity.ranking.senado.ActivityRankingSenado
+import com.example.portaldatransparencia.views.activity.votacoes.senado.ActivityVotacoesSenado
 import com.example.portaldatransparencia.views.camara.CamaraFragment
 import com.example.portaldatransparencia.views.senado.senador.SenadorActivity
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
@@ -181,6 +182,8 @@ class SenadoFragment: Fragment(R.layout.fragment_camara_senado), IClickSenador, 
                 }
                 constraintLayout3.setOnClickListener {
                     it.startAnimation(AnimationUtils.loadAnimation(context, R.anim.click))
+                    val intent = Intent(context, ActivityVotacoesSenado::class.java)
+                    startActivity(intent)
                 }
             }
         }
