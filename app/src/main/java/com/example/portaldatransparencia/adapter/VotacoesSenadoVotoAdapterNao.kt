@@ -19,8 +19,8 @@ import com.example.portaldatransparencia.interfaces.IClickSeeVideo
 import com.example.portaldatransparencia.interfaces.IClickSeeVote
 import com.example.portaldatransparencia.views.view_generics.ModifyHttpToHttps
 
-class VotacoesSenadoVotoAdapter(private val context: Context, private val modifyHttp: ModifyHttpToHttps):
-    RecyclerView.Adapter<VotacoesSenadoVotoAdapter.VotacoesViewHolder>() {
+class VotacoesSenadoVotoAdapterNao(private val context: Context, private val modifyHttp: ModifyHttpToHttps):
+    RecyclerView.Adapter<VotacoesSenadoVotoAdapterNao.VotacoesViewHolder>() {
 
     private var binding: RecyclerVotoSenadoBinding? = null
     private var data: List<VotoParlamentar> = listOf()
@@ -45,9 +45,9 @@ class VotacoesSenadoVotoAdapter(private val context: Context, private val modify
             binding?.run {
                 votacao.run {
                     binding.run {
-                        val url = modifyHttp.modifyUrl(votacao.foto)
-                        Glide.with(itemView)
-                            .load(url)
+                        val urlFoto = modifyHttp.modifyUrl(votacao.foto)
+                        Glide.with(context)
+                            .load(urlFoto)
                             .circleCrop()
                             .into(iconImage)
                         textNameVoto.text = nomeParlamentar

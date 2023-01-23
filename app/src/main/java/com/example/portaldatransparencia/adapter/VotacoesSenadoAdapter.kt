@@ -5,18 +5,16 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
+import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.databinding.RecyclerVotacoesListSenadoBinding
 import com.example.portaldatransparencia.dataclass.VotacaoSenadoItem
 import com.example.portaldatransparencia.dataclass.VotoParlamentar
+import com.example.portaldatransparencia.interfaces.IAddVotoInRecycler
 
-class VotacoesSenadoAdapter (private val context: Context,
-                             private val adapterVoto: VotacoesSenadoVotoAdapter,
-                             private var recyclerSim: RecyclerView,
-                             private var recyclerNao: RecyclerView,
-                             private var recyclerAbs: RecyclerView):
+
+class VotacoesSenadoAdapter (private val context: Context):
     RecyclerView.Adapter<VotacoesSenadoAdapter.VotacoesViewHolder>() {
 
     private var binding: RecyclerVotacoesListSenadoBinding? = null
@@ -45,56 +43,84 @@ class VotacoesSenadoAdapter (private val context: Context,
                     (date[2] + "/" + date[1] + "/" + date[0]).also { textDateVotacao.text = it }
 
                     textComissao.text = descricaoIdentificacaoMateria ?: "Não informado descrição"
-                    textDescriptionVotacao.text = "Votação secreta: $secreta"
                     textPropostaDescription.text = descricaoVotacao
+
+                    var sim = 0
+                    var nao = 0
+                    var abs = 0
 
                     when (resultado) {
                         "A" -> {
+                            textUltimaProposta.text = "Aprovada"
                             iconCheck.setImageResource(R.drawable.ic_check_green)
                             constraintLateral.setBackgroundResource(R.drawable.back_teal)
                         }
                         "R" -> {
+                            textUltimaProposta.text = "Rejeitada"
                             iconCheck.setImageResource(R.drawable.ic_close)
                             constraintLateral.setBackgroundResource(R.drawable.back_teal_red)
                         }
                         else -> {
+                            textUltimaProposta.text = "Em tramitação"
                             iconCheck.setImageResource(R.drawable.ic_atent)
                             constraintLateral.setBackgroundResource(R.drawable.back_teal_yellow)
                         }
                     }
                     when (secreta){
                         "S" -> {
-                            textSim.visibility = View.GONE
-                            recyclerSim.visibility = View.GONE
-                            textNao.visibility = View.GONE
-                            recyclerNao.visibility = View.GONE
-                            textAbstencao.text =
-                                "$totalVotosSim - Sim, $totalVotosNao - Não, $totalVotosAbstencao - Abstenção"
+                            textSim.text = totalVotosSim.run {
+                                if (this == "0" || this == "1") "$this voto - Sim"
+                                else "$this votos - Sim"
+                            }
+                            textNao.text = totalVotosNao.run {
+                                if (this == "0" || this == "1") "$this voto - Não"
+                                else "$this votos - Não"
+                            }
+                            textAbstencao.text = totalVotosAbstencao.run {
+                                if (this == "0" || this == "1") "$this voto - Abstenção"
+                                else "$this votos - Abstenção"
+                            }
 
-                            recyclerAbs.layoutManager = LinearLayoutManager(context,
-                                LinearLayoutManager.HORIZONTAL, false)
-                            recyclerAbs.adapter = adapterVoto
-                            adapterVoto.updateData(
-                                votacao.votos.votoParlamentar as ArrayList<VotoParlamentar>)
+                            textDescriptionVotacao.text = "Votação secreta: Sim"
+                            verVotoSenado.text = "Esta votação foi secreta"
+                            iconRight.visibility = View.GONE
                         }
                         "N" -> {
-                            recyclerSim.layoutManager = LinearLayoutManager(context,
-                                LinearLayoutManager.HORIZONTAL, false)
-                            recyclerSim.adapter = adapterVoto
-                            adapterVoto.updateData(
-                                votacao.votos.votoParlamentar as ArrayList<VotoParlamentar>)
+                            textDescriptionVotacao.text = "Votação secreta: Não"
+                            val listSim: ArrayList<VotoParlamentar> = arrayListOf()
+                            val listNao: ArrayList<VotoParlamentar> = arrayListOf()
+                            val listAbs: ArrayList<VotoParlamentar> = arrayListOf()
 
-                            recyclerNao.layoutManager = LinearLayoutManager(context,
-                                LinearLayoutManager.HORIZONTAL, false)
-                            recyclerNao.adapter = adapterVoto
-                            adapterVoto.updateData(votacao.votos.votoParlamentar)
+                            votacao.votos.votoParlamentar.forEach {
+                                when (it.voto){
+                                    "Sim" -> {
+                                        sim += 1
+                                        listSim.add(it)
+                                    }
+                                    "Não" -> {
+                                        nao += 1
+                                        listNao.add(it)
+                                    }
+                                    else -> {
+                                        abs += 1
+                                        listAbs.add(it)
+                                    }
+                                }
+                            }
+                            textSim.text =
+                                if (sim == 0 || sim == 1) "$sim voto - Sim"
+                                else "$sim votos - Sim"
+                            textNao.text =
+                                if (nao == 0 || nao == 1) "$nao voto - Não"
+                                else "$nao votos - Não"
+                            textAbstencao.text =
+                                if (abs == 0 || abs == 1) "$abs voto - Abstenção"
+                                else "$abs votos - Abstenção"
 
-                            recyclerAbs.layoutManager = LinearLayoutManager(context,
-                                LinearLayoutManager.HORIZONTAL, false)
-                            recyclerAbs.adapter = adapterVoto
-                            adapterVoto.updateData(votacao.votos.votoParlamentar)
+                            linearVerVoto.setOnClickListener {
+                                it.startAnimation(AnimationUtils.loadAnimation(context, R.anim.click))
+                            }
                         }
-                        else -> {}
                     }
                 }
             }

@@ -20,6 +20,7 @@ import com.example.portaldatransparencia.views.senado.senador.geral_senador.Gera
 import com.example.portaldatransparencia.views.senado.senador.votacoes_senador.VotacoesViewModel
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import com.example.portaldatransparencia.views.view_generics.ModifyChip
+import com.example.portaldatransparencia.views.view_generics.ModifyHttpToHttps
 import com.example.portaldatransparencia.views.view_generics.VisibilityNavViewAndFloating
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -142,6 +143,7 @@ val formatValor = module { factory { FormatValor() } }
 val formatValorBi = module { factory { FormaterValueBilhoes(get()) } }
 val formatValorFloat = module { factory { FormatValueFloat() } }
 val validationInternet = module { single { ValidationInternet() } }
+val modifyHttp = module { single { ModifyHttpToHttps() } }
 
 val appModules = listOf( retrofitModule, viewModelModule, repositorySearch, progressModule,
         viewModelDeputado, repositoryIdDeputado, viewModelDespesas, repositoryDespesasDeputado,
@@ -150,7 +152,7 @@ val appModules = listOf( retrofitModule, viewModelModule, repositorySearch, prog
         viewModelSenador, visibilityNavFloating, repositorySenador, modifyChip, viewModelSenadorGeral,
         repositorySenadorGeral, retiraAcento, repositoryVotacoes, viewModelVotacoes,
         repositoryVotacoesItem, formatValor, repositoryGastoGeral, viewModelGastoGeral,
-        formatValorBi, formatValorFloat, validationInternet,
+        formatValorBi, formatValorFloat, validationInternet, modifyHttp,
         viewModelRankingCamara, viewModelRankingSenado, viewModelGastoGeralSenado,
         viewModelVotacoesCamara, repositoryVotacoesCamara
 )

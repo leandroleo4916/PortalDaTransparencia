@@ -13,14 +13,13 @@ import com.example.portaldatransparencia.databinding.RecyclerVotacoesListBinding
 import com.example.portaldatransparencia.databinding.RecyclerVotacoesListSenadoBinding
 import com.example.portaldatransparencia.databinding.RecyclerVotoSenadoBinding
 import com.example.portaldatransparencia.dataclass.*
-import com.example.portaldatransparencia.di.modifyHttp
 import com.example.portaldatransparencia.interfaces.IClickSeeDetails
 import com.example.portaldatransparencia.interfaces.IClickSeeVideo
 import com.example.portaldatransparencia.interfaces.IClickSeeVote
 import com.example.portaldatransparencia.views.view_generics.ModifyHttpToHttps
 
-class VotacoesSenadoVotoAdapter(private val context: Context, private val modifyHttp: ModifyHttpToHttps):
-    RecyclerView.Adapter<VotacoesSenadoVotoAdapter.VotacoesViewHolder>() {
+class VotacoesSenadoVotoAdapterAbs(private val context: Context, private val modifyHttp: ModifyHttpToHttps):
+    RecyclerView.Adapter<VotacoesSenadoVotoAdapterAbs.VotacoesViewHolder>() {
 
     private var binding: RecyclerVotoSenadoBinding? = null
     private var data: List<VotoParlamentar> = listOf()
@@ -45,9 +44,9 @@ class VotacoesSenadoVotoAdapter(private val context: Context, private val modify
             binding?.run {
                 votacao.run {
                     binding.run {
-                        val url = modifyHttp.modifyUrl(votacao.foto)
-                        Glide.with(itemView)
-                            .load(url)
+                        val urlFoto = modifyHttp.modifyUrl(votacao.foto)
+                        Glide.with(context)
+                            .load(urlFoto)
                             .circleCrop()
                             .into(iconImage)
                         textNameVoto.text = nomeParlamentar

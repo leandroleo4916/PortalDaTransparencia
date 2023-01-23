@@ -8,24 +8,22 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.adapter.VotacoesSenadoAdapter
 import com.example.portaldatransparencia.adapter.VotacoesSenadoVotoAdapter
+import com.example.portaldatransparencia.adapter.VotacoesSenadoVotoAdapterAbs
+import com.example.portaldatransparencia.adapter.VotacoesSenadoVotoAdapterNao
 import com.example.portaldatransparencia.databinding.ActivityVotacoesSenadoBinding
-import com.example.portaldatransparencia.databinding.RecyclerVotacoesListSenadoBinding
-import com.example.portaldatransparencia.dataclass.EventoDataClass
-import com.example.portaldatransparencia.dataclass.VotacaoId
-import com.example.portaldatransparencia.dataclass.VotacaoSenado
-import com.example.portaldatransparencia.dataclass.VotacaoSenadoItem
-import com.example.portaldatransparencia.interfaces.IClickSeeDetails
-import com.example.portaldatransparencia.interfaces.IClickSeeVideo
-import com.example.portaldatransparencia.interfaces.IClickSeeVote
+import com.example.portaldatransparencia.databinding.RecyclerVotoSenadoBinding
+import com.example.portaldatransparencia.dataclass.*
+import com.example.portaldatransparencia.interfaces.IAddVotoInRecycler
 import com.example.portaldatransparencia.remote.ApiServiceEvento
 import com.example.portaldatransparencia.remote.ApiVotacoesSenado
 import com.example.portaldatransparencia.remote.Retrofit
-import com.example.portaldatransparencia.util.createDialog
 import com.example.portaldatransparencia.views.activity.votacoes.camara.VotacoesViewModelCamara
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
+import com.example.portaldatransparencia.views.view_generics.ModifyHttpToHttps
 import com.google.android.material.chip.Chip
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -33,14 +31,17 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ActivityVotacoesSenado: AppCompatActivity(), IClickSeeVideo, IClickSeeVote, IClickSeeDetails {
+class ActivityVotacoesSenado: AppCompatActivity(), IAddVotoInRecycler {
 
     private val binding by lazy { ActivityVotacoesSenadoBinding.inflate(layoutInflater) }
-    private val bindingRecycler by lazy { RecyclerVotacoesListSenadoBinding.inflate(layoutInflater) }
+    private val bindingVoto by lazy { RecyclerVotoSenadoBinding.inflate(layoutInflater) }
     private val viewModel: VotacoesViewModelCamara by viewModel()
     private val statusView: EnableDisableView by inject()
+    private val modifyHttp: ModifyHttpToHttps by inject()
     private lateinit var adapter: VotacoesSenadoAdapter
     private lateinit var adapterVoto: VotacoesSenadoVotoAdapter
+    private lateinit var adapterVotoNao: VotacoesSenadoVotoAdapterNao
+    private lateinit var adapterVotoAbs: VotacoesSenadoVotoAdapterAbs
     private lateinit var chipYear: Chip
     private lateinit var chipMonth: Chip
     private var votacoes: List<VotacaoSenadoItem> = arrayListOf()
@@ -67,13 +68,12 @@ class ActivityVotacoesSenado: AppCompatActivity(), IClickSeeVideo, IClickSeeVote
     }
 
     private fun recycler() {
-        adapterVoto = VotacoesSenadoVotoAdapter(application)
-        val recyclerSim = bindingRecycler.recyclerVotoSim
-        val recyclerNao = bindingRecycler.recyclerVotoNao
-        val recyclerAbs = bindingRecycler.recyclerVotoAbstencao
+        adapterVoto = VotacoesSenadoVotoAdapter(this, modifyHttp)
+        adapterVotoNao = VotacoesSenadoVotoAdapterNao(this, modifyHttp)
+        adapterVotoAbs = VotacoesSenadoVotoAdapterAbs(this, modifyHttp)
 
         val recycler = binding.recyclerVotacoesSenado
-        adapter = VotacoesSenadoAdapter(application, adapterVoto, recyclerSim, recyclerNao, recyclerAbs)
+        adapter = VotacoesSenadoAdapter(this)
         recycler.layoutManager = LinearLayoutManager(this)
         recycler.adapter = adapter
     }
@@ -316,24 +316,17 @@ class ActivityVotacoesSenado: AppCompatActivity(), IClickSeeVideo, IClickSeeVote
         }
     }
 
-    override fun clickSeeVote(votacao: VotacaoId) {
-
-    }
-
-    override fun clickSeeVideo(votacao: VotacaoId) {
-        val dialog = createDialog()
-        dialog.setView(R.layout.layout_dialog)
-        create = dialog.create()
-        create.show()
-        searchVideoVotacao(votacao.idEvento.toString())
-    }
-
-    override fun clickSeeDetails(votacao: VotacaoId) {
-
-    }
-
     private fun showToast(message: String){
         create.dismiss()
         Toast.makeText(application, message, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun addVoto(list: ArrayList<VotoParlamentar>, adapterPosition: Int) {
+        val listVoto: ArrayList<AddVoto> = arrayListOf()
+        list.forEach {
+            val foto = Glide.with(baseContext).load(it.foto).circleCrop()
+            listVoto.add(AddVoto(it.codigoParlamentar, it.nomeParlamentar, foto))
+        }
+        adapterVoto.updateData(list, adapterPosition)
     }
 }
