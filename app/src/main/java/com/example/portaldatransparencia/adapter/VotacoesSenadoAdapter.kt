@@ -1,7 +1,6 @@
 package com.example.portaldatransparencia.adapter
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,15 +9,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.databinding.RecyclerVotacoesListSenadoBinding
 import com.example.portaldatransparencia.dataclass.VotacaoSenadoItem
-import com.example.portaldatransparencia.dataclass.VotoParlamentar
 import com.example.portaldatransparencia.interfaces.IAddVotoInRecycler
 
-
-class VotacoesSenadoAdapter (private val context: Context):
+class VotacoesSenadoAdapter (private val clickSeeVotos: IAddVotoInRecycler):
     RecyclerView.Adapter<VotacoesSenadoAdapter.VotacoesViewHolder>() {
 
     private var binding: RecyclerVotacoesListSenadoBinding? = null
-    private var data: List<VotacaoSenadoItem> = listOf()
+    private var data: ArrayList<VotacaoSenadoItem> = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VotacoesViewHolder {
         val item = LayoutInflater
@@ -28,15 +25,17 @@ class VotacoesSenadoAdapter (private val context: Context):
     }
 
     override fun onBindViewHolder(holder: VotacoesViewHolder, position: Int) {
-        holder.bind(data[position])
+        val item = data[position]
+        holder.bind(item)
     }
 
     override fun getItemCount() = data.size
 
-    inner class VotacoesViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+    inner class VotacoesViewHolder(private val itemViewE: View): RecyclerView.ViewHolder(itemViewE){
 
         fun bind(votacao: VotacaoSenadoItem){
-            binding = RecyclerVotacoesListSenadoBinding.bind(itemView)
+
+            binding = RecyclerVotacoesListSenadoBinding.bind(itemViewE)
             binding?.run {
                 votacao.run {
                     val date = dataSessao.split("-")
@@ -44,7 +43,6 @@ class VotacoesSenadoAdapter (private val context: Context):
 
                     textComissao.text = descricaoIdentificacaoMateria ?: "Não informado descrição"
                     textPropostaDescription.text = descricaoVotacao
-
                     var sim = 0
                     var nao = 0
                     var abs = 0
@@ -87,26 +85,17 @@ class VotacoesSenadoAdapter (private val context: Context):
                         }
                         "N" -> {
                             textDescriptionVotacao.text = "Votação secreta: Não"
-                            val listSim: ArrayList<VotoParlamentar> = arrayListOf()
-                            val listNao: ArrayList<VotoParlamentar> = arrayListOf()
-                            val listAbs: ArrayList<VotoParlamentar> = arrayListOf()
+                            verVotoSenado.text = "Ver votos dos Senadores"
+                            iconRight.visibility = View.VISIBLE
 
-                            votacao.votos.votoParlamentar.forEach {
+                            votos.votoParlamentar.forEach {
                                 when (it.voto){
-                                    "Sim" -> {
-                                        sim += 1
-                                        listSim.add(it)
-                                    }
-                                    "Não" -> {
-                                        nao += 1
-                                        listNao.add(it)
-                                    }
-                                    else -> {
-                                        abs += 1
-                                        listAbs.add(it)
-                                    }
+                                    "Sim" -> sim += 1
+                                    "Não" -> nao += 1
+                                    else -> abs += 1
                                 }
                             }
+
                             textSim.text =
                                 if (sim == 0 || sim == 1) "$sim voto - Sim"
                                 else "$sim votos - Sim"
@@ -118,7 +107,12 @@ class VotacoesSenadoAdapter (private val context: Context):
                                 else "$abs votos - Abstenção"
 
                             linearVerVoto.setOnClickListener {
-                                it.startAnimation(AnimationUtils.loadAnimation(context, R.anim.click))
+                                it.startAnimation(AnimationUtils
+                                    .loadAnimation(itemViewE.context, R.anim.click))
+                                if (verVotoSenado.text == "Ver votos dos Senadores") {
+                                    clickSeeVotos.addVoto(votos.votoParlamentar,
+                                        votacao.descricaoIdentificacaoMateria)
+                                }
                             }
                         }
                     }

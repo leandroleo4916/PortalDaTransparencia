@@ -16,7 +16,8 @@ import com.example.portaldatransparencia.interfaces.INoteDespesas
 import com.example.portaldatransparencia.util.FormatValor
 import java.util.*
 
-class DespesasAdapter(private val listener: INoteDespesas, private val formatValor: FormatValor,
+class DespesasAdapter(private val listener: INoteDespesas,
+                      private val formatValor: FormatValor,
                       private val context: Context):
     RecyclerView.Adapter<DespesasAdapter.DespesasViewHolder>(), Filterable {
 

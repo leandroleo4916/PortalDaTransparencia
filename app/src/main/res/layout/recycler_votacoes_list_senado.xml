@@ -150,8 +150,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:src="@drawable/ic_check_green"
-                android:contentDescription="image_check" />
+                android:contentDescription="image_check"
+                android:src="@drawable/ic_check_green" />
 
             <TextView
                 android:id="@+id/text_sim"
@@ -185,8 +185,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:src="@drawable/ic_close"
-                android:contentDescription="image_check" />
+                android:contentDescription="image_check"
+                android:src="@drawable/ic_close" />
 
             <TextView
                 android:id="@+id/text_nao"
@@ -213,16 +213,16 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_marginBottom="8dp"
+            android:orientation="horizontal"
             tools:ignore="UseCompoundDrawables">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:src="@drawable/ic_atent"
-                android:contentDescription="image_check" />
+                android:contentDescription="image_check"
+                android:src="@drawable/ic_atent" />
 
             <TextView
                 android:id="@+id/text_abstencao"
@@ -251,34 +251,34 @@
             android:layout_height="38dp"
             android:layout_marginStart="16dp"
             android:layout_marginBottom="16dp"
+            android:background="@drawable/back_white_stroke"
             android:backgroundTint="@color/purple_700"
-            android:orientation="horizontal"
             android:elevation="10dp"
-            android:background="@drawable/back_white_stroke">
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/ver_voto_senado"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_gravity="center"
                 android:layout_marginStart="16dp"
-                android:layout_marginEnd="12dp"
                 android:layout_marginTop="4dp"
+                android:layout_marginEnd="12dp"
                 android:layout_marginBottom="5dp"
                 android:gravity="center"
-                android:textStyle="bold"
-                android:textSize="16sp"
+                android:text="Ver votos dos Senadores"
                 android:textColor="@color/white"
-                android:layout_gravity="center"
-                android:text="Ver votos dos Senadores"/>
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <ImageView
                 android:id="@+id/icon_right"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:src="@drawable/ic_right_set_white"
                 android:layout_gravity="center"
-                android:contentDescription="image_right" />
+                android:layout_marginEnd="8dp"
+                android:contentDescription="image_right"
+                android:src="@drawable/ic_right_set_white" />
 
         </LinearLayout>
 

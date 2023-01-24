@@ -1,13 +1,13 @@
 package com.example.portaldatransparencia.views.activity.votacoes.senado
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.animation.AnimationUtils
-import android.widget.Toast
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.adapter.VotacoesSenadoAdapter
@@ -15,13 +15,18 @@ import com.example.portaldatransparencia.adapter.VotacoesSenadoVotoAdapter
 import com.example.portaldatransparencia.adapter.VotacoesSenadoVotoAdapterAbs
 import com.example.portaldatransparencia.adapter.VotacoesSenadoVotoAdapterNao
 import com.example.portaldatransparencia.databinding.ActivityVotacoesSenadoBinding
-import com.example.portaldatransparencia.databinding.RecyclerVotoSenadoBinding
-import com.example.portaldatransparencia.dataclass.*
+import com.example.portaldatransparencia.dataclass.AddVoto
+import com.example.portaldatransparencia.dataclass.VotacaoSenado
+import com.example.portaldatransparencia.dataclass.VotacaoSenadoItem
+import com.example.portaldatransparencia.dataclass.VotoParlamentar
 import com.example.portaldatransparencia.interfaces.IAddVotoInRecycler
-import com.example.portaldatransparencia.remote.ApiServiceEvento
+import com.example.portaldatransparencia.interfaces.IClickSenador
 import com.example.portaldatransparencia.remote.ApiVotacoesSenado
 import com.example.portaldatransparencia.remote.Retrofit
+import com.example.portaldatransparencia.util.RetiraAcento
+import com.example.portaldatransparencia.util.createDialog
 import com.example.portaldatransparencia.views.activity.votacoes.camara.VotacoesViewModelCamara
+import com.example.portaldatransparencia.views.senado.senador.SenadorActivity
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import com.example.portaldatransparencia.views.view_generics.ModifyHttpToHttps
 import com.google.android.material.chip.Chip
@@ -31,17 +36,16 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ActivityVotacoesSenado: AppCompatActivity(), IAddVotoInRecycler {
+class ActivityVotacoesSenado: AppCompatActivity(), IAddVotoInRecycler, IClickSenador {
 
     private val binding by lazy { ActivityVotacoesSenadoBinding.inflate(layoutInflater) }
-    private val bindingVoto by lazy { RecyclerVotoSenadoBinding.inflate(layoutInflater) }
     private val viewModel: VotacoesViewModelCamara by viewModel()
     private val statusView: EnableDisableView by inject()
     private val modifyHttp: ModifyHttpToHttps by inject()
     private lateinit var adapter: VotacoesSenadoAdapter
-    private lateinit var adapterVoto: VotacoesSenadoVotoAdapter
-    private lateinit var adapterVotoNao: VotacoesSenadoVotoAdapterNao
-    private lateinit var adapterVotoAbs: VotacoesSenadoVotoAdapterAbs
+    private lateinit var adapterSim: VotacoesSenadoVotoAdapter
+    private lateinit var adapterNao: VotacoesSenadoVotoAdapterNao
+    private lateinit var adapterAbs: VotacoesSenadoVotoAdapterAbs
     private lateinit var chipYear: Chip
     private lateinit var chipMonth: Chip
     private var votacoes: List<VotacaoSenadoItem> = arrayListOf()
@@ -52,6 +56,7 @@ class ActivityVotacoesSenado: AppCompatActivity(), IAddVotoInRecycler {
     private var month = "Todos"
     private var monthName = ""
     private lateinit var create: AlertDialog
+    private val retiraAcento: RetiraAcento by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,9 +73,10 @@ class ActivityVotacoesSenado: AppCompatActivity(), IAddVotoInRecycler {
     }
 
     private fun recycler() {
-        adapterVoto = VotacoesSenadoVotoAdapter(this, modifyHttp)
-        adapterVotoNao = VotacoesSenadoVotoAdapterNao(this, modifyHttp)
-        adapterVotoAbs = VotacoesSenadoVotoAdapterAbs(this, modifyHttp)
+
+        adapterSim = VotacoesSenadoVotoAdapter(this)
+        adapterNao = VotacoesSenadoVotoAdapterNao(this)
+        adapterAbs = VotacoesSenadoVotoAdapterAbs(this)
 
         val recycler = binding.recyclerVotacoesSenado
         adapter = VotacoesSenadoAdapter(this)
@@ -81,11 +87,11 @@ class ActivityVotacoesSenado: AppCompatActivity(), IAddVotoInRecycler {
     private fun listener() {
         binding.layoutTop.run {
             imageViewBack.setOnClickListener {
-                it.startAnimation(AnimationUtils.loadAnimation(applicationContext, R.anim.click))
+                it.startAnimation(AnimationUtils.loadAnimation(application, R.anim.click))
                 finish()
             }
             imageViewFilter.setOnClickListener {
-                it.startAnimation(AnimationUtils.loadAnimation(applicationContext, R.anim.click))
+                it.startAnimation(AnimationUtils.loadAnimation(application, R.anim.click))
                 modifyFilter()
             }
         }
@@ -117,42 +123,6 @@ class ActivityVotacoesSenado: AppCompatActivity(), IAddVotoInRecycler {
                 disableProgressAndEnableText()
             }
         })
-    }
-
-    private fun searchVideoVotacao(id: String) {
-
-        val retrofit = Retrofit.createService(ApiServiceEvento::class.java)
-        val call: Call<EventoDataClass> = retrofit.getEvento(id)
-        call.enqueue(object: Callback<EventoDataClass> {
-            override fun onResponse(call: Call<EventoDataClass>, response: Response<EventoDataClass>) {
-                when (response.code()){
-                    200 ->
-                        if (response.body() != null){
-                            response.body()!!.dados.run {
-                                create.dismiss()
-                                openVideoVotacao(this.urlRegistro)
-                            }
-                        }
-                        else showToast("Não foi adicionado URL do vídeo")
-
-                    429 -> searchVideoVotacao(id)
-                    else -> showToast("API não respondeu")
-                }
-            }
-            override fun onFailure(call: Call<EventoDataClass>, t: Throwable) {
-                showToast("API não respondeu")
-            }
-        })
-    }
-
-    private fun openVideoVotacao(url: String){
-        if (url.isNotEmpty()){
-            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-            startActivity(browserIntent)
-        } else {
-            Toast.makeText(application,
-                "Não foi adicionado link do vídeo", Toast.LENGTH_SHORT).show()
-        }
     }
 
     private fun modifyTitle() {
@@ -316,17 +286,72 @@ class ActivityVotacoesSenado: AppCompatActivity(), IAddVotoInRecycler {
         }
     }
 
-    private fun showToast(message: String){
-        create.dismiss()
-        Toast.makeText(application, message, Toast.LENGTH_SHORT).show()
+    override fun addVoto(list: List<VotoParlamentar>, descricao: String?) {
+
+        val listSim: ArrayList<AddVoto> = arrayListOf()
+        val listNao: ArrayList<AddVoto> = arrayListOf()
+        val listAbs: ArrayList<AddVoto> = arrayListOf()
+
+        list.forEach {
+            val url = modifyHttp.modifyUrl(it.foto)
+            val foto = Glide.with(this).load(url)
+            when (it.voto){
+                "Sim" -> listSim.add(AddVoto(it.codigoParlamentar, it.nomeParlamentar, foto))
+                "Não" -> listNao.add(AddVoto(it.codigoParlamentar, it.nomeParlamentar, foto))
+                else ->  listAbs.add(AddVoto(it.codigoParlamentar, it.nomeParlamentar, foto))
+            }
+        }
+        createViewDialog(listSim, listNao, listAbs, descricao)
     }
 
-    override fun addVoto(list: ArrayList<VotoParlamentar>, adapterPosition: Int) {
-        val listVoto: ArrayList<AddVoto> = arrayListOf()
-        list.forEach {
-            val foto = Glide.with(baseContext).load(it.foto).circleCrop()
-            listVoto.add(AddVoto(it.codigoParlamentar, it.nomeParlamentar, foto))
+    private fun createViewDialog (listSim: ArrayList<AddVoto>, listNao: ArrayList<AddVoto>,
+                                  listAbs: ArrayList<AddVoto>, descricao: String?){
+
+        val dialog = createDialog()
+        val inflate = layoutInflater.inflate(R.layout.dialog_list_voto_senado, null)
+        val textVoto = inflate.findViewById<TextView>(R.id.text_voto_title)
+        textVoto.text = descricao
+
+        val sim = inflate.findViewById<RecyclerView>(R.id.recyclerView_voto_sim)
+        val textSim = inflate.findViewById<TextView>(R.id.text_sim)
+        textSim.text = "${searchVoto(listSim.size)}Sim"
+        sim.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        sim.adapter = adapterSim
+        adapterSim.updateData(listSim)
+
+        val nao = inflate.findViewById<RecyclerView>(R.id.recyclerView_voto_nao)
+        val textNao = inflate.findViewById<TextView>(R.id.text_nao)
+        textNao.text = "${searchVoto(listNao.size)}Não"
+        nao.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        nao.adapter = adapterNao
+        adapterNao.updateData(listNao)
+
+        val abs = inflate.findViewById<RecyclerView>(R.id.recyclerView_voto_abs)
+        val textAbs = inflate.findViewById<TextView>(R.id.text_abstencao)
+        textAbs.text = "${searchVoto(listAbs.size)}Abstenção"
+        abs.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        abs.adapter = adapterAbs
+        adapterAbs.updateData(listAbs)
+
+        dialog.setView(inflate)
+        create = dialog.create()
+        create.show()
+    }
+
+    private fun searchVoto(size: Int): String{
+        return when (size){
+            0 -> "Nenhum voto - "
+            1 -> "1 voto - "
+            else -> "$size votos - "
         }
-        adapterVoto.updateData(list, adapterPosition)
+    }
+
+    override fun clickSenador(id: String, nome: String) {
+        create.dismiss()
+        val name = retiraAcento.deleteAccent(nome)
+        val intent = Intent(this, SenadorActivity::class.java)
+        intent.putExtra("id", id)
+        intent.putExtra("nome", name)
+        startActivity(intent)
     }
 }

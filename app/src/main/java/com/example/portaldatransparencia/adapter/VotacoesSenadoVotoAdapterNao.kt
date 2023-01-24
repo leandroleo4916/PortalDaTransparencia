@@ -9,21 +9,16 @@ import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.portaldatransparencia.R
-import com.example.portaldatransparencia.databinding.RecyclerVotacoesListBinding
-import com.example.portaldatransparencia.databinding.RecyclerVotacoesListSenadoBinding
 import com.example.portaldatransparencia.databinding.RecyclerVotoSenadoBinding
 import com.example.portaldatransparencia.dataclass.*
-import com.example.portaldatransparencia.di.modifyHttp
-import com.example.portaldatransparencia.interfaces.IClickSeeDetails
-import com.example.portaldatransparencia.interfaces.IClickSeeVideo
-import com.example.portaldatransparencia.interfaces.IClickSeeVote
+import com.example.portaldatransparencia.interfaces.IClickSenador
 import com.example.portaldatransparencia.views.view_generics.ModifyHttpToHttps
 
-class VotacoesSenadoVotoAdapterNao(private val context: Context, private val modifyHttp: ModifyHttpToHttps):
+class VotacoesSenadoVotoAdapterNao(private val click: IClickSenador):
     RecyclerView.Adapter<VotacoesSenadoVotoAdapterNao.VotacoesViewHolder>() {
 
     private var binding: RecyclerVotoSenadoBinding? = null
-    private var data: List<VotoParlamentar> = listOf()
+    private var data: List<AddVoto> = listOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VotacoesViewHolder {
         val item = LayoutInflater
@@ -38,27 +33,27 @@ class VotacoesSenadoVotoAdapterNao(private val context: Context, private val mod
 
     override fun getItemCount() = data.size
 
-    inner class VotacoesViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+    inner class VotacoesViewHolder(private val itemViewE: View): RecyclerView.ViewHolder(itemViewE){
 
-        fun bind(votacao: VotoParlamentar){
-            binding = RecyclerVotoSenadoBinding.bind(itemView)
+        fun bind(votacao: AddVoto){
+            binding = RecyclerVotoSenadoBinding.bind(itemViewE)
             binding?.run {
                 votacao.run {
                     binding.run {
-                        val urlFoto = modifyHttp.modifyUrl(votacao.foto)
-                        Glide.with(context)
-                            .load(urlFoto)
-                            .circleCrop()
-                            .into(iconImage)
-                        textNameVoto.text = nomeParlamentar
+                        votacao.foto.circleCrop().into(iconImage)
+                        textNameVoto.text = nome
                     }
+                }
+                constraintVotoSenador.setOnClickListener {
+                    it.startAnimation(AnimationUtils.loadAnimation(itemViewE.context, R.anim.click))
+                    click.clickSenador(votacao.id, votacao.nome)
                 }
             }
         }
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun updateData(front: ArrayList<VotoParlamentar>, adapterPosition: Int) {
+    fun updateData(front: ArrayList<AddVoto>) {
         data = front
         notifyDataSetChanged()
     }
