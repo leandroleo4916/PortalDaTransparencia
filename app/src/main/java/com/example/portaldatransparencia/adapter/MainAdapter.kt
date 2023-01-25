@@ -17,8 +17,8 @@ import com.example.portaldatransparencia.interfaces.INotification
 import kotlinx.coroutines.*
 import java.util.*
 
-class MainAdapter(private val listener: IClickDeputado, private val notify: INotification,
-                  private val context: Context): RecyclerView.Adapter<MainAdapter.MainViewHolder>(), Filterable {
+class MainAdapter(private val listener: IClickDeputado, private val notify: INotification):
+    RecyclerView.Adapter<MainAdapter.MainViewHolder>(), Filterable {
 
     private var binding: RecyclerMainBinding? = null
     private var data = mutableListOf<Dado>()
@@ -67,7 +67,7 @@ class MainAdapter(private val listener: IClickDeputado, private val notify: INot
                     }
                 }
                 constraintDeputado.setOnClickListener {
-                    it.startAnimation(AnimationUtils.loadAnimation(context, R.anim.click))
+                    it.startAnimation(AnimationUtils.loadAnimation(itemView.context, R.anim.click))
                     listener.clickDeputado(dataList[position].id.toString())
                 }
             }

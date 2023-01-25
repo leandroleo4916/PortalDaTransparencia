@@ -68,7 +68,7 @@ class ActivityRankingCamara: AppCompatActivity(), IClickOpenDeputadoRanking {
 
     private fun recycler(){
         val recycler = binding.recyclerRancking
-        adapter = GastoGeralAdapter(formatValor, baseContext, this)
+        adapter = GastoGeralAdapter(formatValor, this)
         recycler.layoutManager = LinearLayoutManager(this)
         recycler.adapter = adapter
     }

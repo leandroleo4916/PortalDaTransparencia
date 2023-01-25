@@ -46,7 +46,7 @@ class FragmentProposta: Fragment(R.layout.fragment_proposta), IClickItemProposta
 
     private fun recyclerView() {
         val recycler = binding!!.recyclerProposta
-        adapter = PropostaAdapter(context, this)
+        adapter = PropostaAdapter(this)
         recycler.layoutManager = LinearLayoutManager(context)
         recycler.adapter = adapter
     }

@@ -62,7 +62,7 @@ class ActivityVotacoesCamara: AppCompatActivity(), IClickSeeVideo, IClickSeeVote
 
     private fun recycler() {
         val recycler = binding.recyclerVotacoes
-        adapter = VotacoesCamaraAdapter(baseContext, this, this, this)
+        adapter = VotacoesCamaraAdapter(this, this, this)
         recycler.layoutManager = LinearLayoutManager(this)
         recycler.adapter = adapter
     }

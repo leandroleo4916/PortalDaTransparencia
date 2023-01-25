@@ -57,7 +57,7 @@ class FragmentGastosSenador: Fragment(R.layout.fragment_gastos), INoteDespesas, 
         recycler.adapter = adapter
 
         val recyclerDimension = binding!!.frameRecyclerDimension.recyclerDimension
-        adapterDimension = DimensionAdapter(FormatValor(), requireContext(), this)
+        adapterDimension = DimensionAdapter(FormatValor(), this)
         recyclerDimension.layoutManager = LinearLayoutManager(context,
             LinearLayoutManager.HORIZONTAL, false)
         recyclerDimension.adapter = adapterDimension

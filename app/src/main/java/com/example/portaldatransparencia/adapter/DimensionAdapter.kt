@@ -15,7 +15,6 @@ import com.example.portaldatransparencia.interfaces.IClickTipoDespesa
 import com.example.portaldatransparencia.util.FormatValor
 
 class DimensionAdapter(private val formatValor: FormatValor,
-                       private val context: Context,
                        private val clickDespesa: IClickTipoDespesa):
     RecyclerView.Adapter<DimensionAdapter.DespesasViewHolder>() {
 
@@ -50,7 +49,7 @@ class DimensionAdapter(private val formatValor: FormatValor,
                     .circleCrop()
                     .into(icon)
                 constraintRecycler.setOnClickListener {
-                    it.startAnimation(AnimationUtils.loadAnimation(context, R.anim.click))
+                    it.startAnimation(AnimationUtils.loadAnimation(itemView.context, R.anim.click))
                     clickDespesa.clickTipoDespesa(despesa.tipo)
                 }
             }

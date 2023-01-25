@@ -3,17 +3,17 @@ package com.example.portaldatransparencia.di
 import com.example.portaldatransparencia.remote.*
 import com.example.portaldatransparencia.security.SecurityPreferences
 import com.example.portaldatransparencia.util.*
+import com.example.portaldatransparencia.views.activity.gastogeral.camara.GastoGeralViewModelCamara
+import com.example.portaldatransparencia.views.activity.gastogeral.senado.GastoGeralViewModelSenado
+import com.example.portaldatransparencia.views.activity.ranking.camara.RankingViewModelCamara
+import com.example.portaldatransparencia.views.activity.ranking.senado.RankingViewModelSenado
+import com.example.portaldatransparencia.views.activity.votacoes.camara.VotacoesViewModelCamara
 import com.example.portaldatransparencia.views.camara.CamaraViewModel
 import com.example.portaldatransparencia.views.camara.deputado.DeputadoViewModel
 import com.example.portaldatransparencia.views.camara.deputado.frente_deputado.FrenteViewModel
 import com.example.portaldatransparencia.views.camara.deputado.gastos_deputado.DespesasViewModel
 import com.example.portaldatransparencia.views.camara.deputado.geral_deputado.OccupationViewModel
 import com.example.portaldatransparencia.views.camara.deputado.proposta_deputado.PropostaViewModel
-import com.example.portaldatransparencia.views.activity.gastogeral.camara.GastoGeralViewModelCamara
-import com.example.portaldatransparencia.views.activity.gastogeral.senado.GastoGeralViewModelSenado
-import com.example.portaldatransparencia.views.activity.ranking.camara.RankingViewModelCamara
-import com.example.portaldatransparencia.views.activity.ranking.senado.RankingViewModelSenado
-import com.example.portaldatransparencia.views.activity.votacoes.camara.VotacoesViewModelCamara
 import com.example.portaldatransparencia.views.senado.SenadoViewModel
 import com.example.portaldatransparencia.views.senado.senador.SenadorViewModel
 import com.example.portaldatransparencia.views.senado.senador.geral_senador.GeralSenadorViewModel
@@ -44,63 +44,25 @@ val retrofitModule = module {
                         .addInterceptor(logging)
                         .build()
         }
-        single<ApiServiceMain> {
-                get<Retrofit>().create(ApiServiceMain::class.java)
-        }
-        single<ApiServiceIdDeputado> {
-                get<Retrofit>().create(ApiServiceIdDeputado::class.java)
-        }
-        single<ApiServiceIdDespesas> {
-                get<Retrofit>().create(ApiServiceIdDespesas::class.java)
-        }
-        single<ApiServiceFrente> {
-                get<Retrofit>().create(ApiServiceFrente::class.java)
-        }
-        single<ApiServiceProposta> {
-                get<Retrofit>().create(ApiServiceProposta::class.java)
-        }
-        single<ApiServiceOccupation> {
-                get<Retrofit>().create(ApiServiceOccupation::class.java)
-        }
-        single<ApiServiceSenado> {
-                get<Retrofit>().create(ApiServiceSenado::class.java)
-        }
-        single<ApiServiceSenador> {
-                get<Retrofit>().create(ApiServiceSenador::class.java)
-        }
-        single<ApiServiceGastos> {
-                get<Retrofit>().create(ApiServiceGastos::class.java)
-        }
-        single<ApiServiceSenadorCargos> {
-                get<Retrofit>().create(ApiServiceSenadorCargos::class.java)
-        }
-        single<ApiServiceVotacoes> {
-                get<Retrofit>().create(ApiServiceVotacoes::class.java)
-        }
-        single<ApiServiceVotacoesItem> {
-                get<Retrofit>().create(ApiServiceVotacoesItem::class.java)
-        }
-        single<ApiServiceGastoGeralSenador> {
-                get<Retrofit>().create(ApiServiceGastoGeralSenador::class.java)
-        }
-        single<ApiServiceGastoGeralDeputado> {
-                get<Retrofit>().create(ApiServiceGastoGeralDeputado::class.java)
-        }
-        single<ApiServiceFrenteId> {
-                get<Retrofit>().create(ApiServiceFrenteId::class.java)
-        }
-        single<ApiVotacoes> {
-                get<Retrofit>().create(ApiVotacoes::class.java)
-        }
-        single<ApiServiceEvento> {
-                get<Retrofit>().create(ApiServiceEvento::class.java)
-        }
-        single<ApiServicePropostaItem> {
-                get<Retrofit>().create(ApiServicePropostaItem::class.java)
-        }
-        single<ApiVotacoesSenado> {
-                get<Retrofit>().create(ApiVotacoesSenado::class.java)
-        }
+        single<ApiServiceMain> { get<Retrofit>().create(ApiServiceMain::class.java) }
+        single<ApiServiceIdDeputado> { get<Retrofit>().create(ApiServiceIdDeputado::class.java) }
+        single<ApiServiceIdDespesas> { get<Retrofit>().create(ApiServiceIdDespesas::class.java) }
+        single<ApiServiceFrente> { get<Retrofit>().create(ApiServiceFrente::class.java) }
+        single<ApiServiceProposta> { get<Retrofit>().create(ApiServiceProposta::class.java) }
+        single<ApiServiceOccupation> { get<Retrofit>().create(ApiServiceOccupation::class.java) }
+        single<ApiServiceSenado> { get<Retrofit>().create(ApiServiceSenado::class.java) }
+        single<ApiServiceSenador> { get<Retrofit>().create(ApiServiceSenador::class.java) }
+        single<ApiServiceGastos> { get<Retrofit>().create(ApiServiceGastos::class.java) }
+        single<ApiServiceSenadorCargos> { get<Retrofit>().create(ApiServiceSenadorCargos::class.java) }
+        single<ApiServiceVotacoes> { get<Retrofit>().create(ApiServiceVotacoes::class.java) }
+        single<ApiServiceVotacoesItem> { get<Retrofit>().create(ApiServiceVotacoesItem::class.java) }
+        single<ApiServiceGastoGeralSenador> { get<Retrofit>().create(ApiServiceGastoGeralSenador::class.java) }
+        single<ApiServiceGastoGeralDeputado> { get<Retrofit>().create(ApiServiceGastoGeralDeputado::class.java) }
+        single<ApiServiceFrenteId> { get<Retrofit>().create(ApiServiceFrenteId::class.java) }
+        single<ApiVotacoes> { get<Retrofit>().create(ApiVotacoes::class.java) }
+        single<ApiServiceEvento> { get<Retrofit>().create(ApiServiceEvento::class.java) }
+        single<ApiServicePropostaItem> { get<Retrofit>().create(ApiServicePropostaItem::class.java) }
+        single<ApiVotacoesSenado> { get<Retrofit>().create(ApiVotacoesSenado::class.java) }
 }
 
 val viewModelModule = module { viewModel { CamaraViewModel(get()) } }

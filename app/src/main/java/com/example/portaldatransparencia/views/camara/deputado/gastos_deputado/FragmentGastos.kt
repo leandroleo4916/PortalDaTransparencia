@@ -55,12 +55,12 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas, IClickT
 
     private fun recyclerView() {
         val recycler = binding!!.recyclerDespesas
-        adapter = DespesasAdapter(this, FormatValor(), requireContext())
+        adapter = DespesasAdapter(this, FormatValor())
         recycler.layoutManager = LinearLayoutManager(context)
         recycler.adapter = adapter
 
         val recyclerDimension = binding!!.frameRecyclerDimension.recyclerDimension
-        adapterDimension = DimensionAdapter(FormatValor(), requireContext(), this)
+        adapterDimension = DimensionAdapter(FormatValor(), this)
         recyclerDimension.layoutManager = LinearLayoutManager(context,
             LinearLayoutManager.HORIZONTAL, false)
         recyclerDimension.adapter = adapterDimension

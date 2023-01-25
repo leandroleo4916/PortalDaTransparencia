@@ -41,7 +41,7 @@ class FragmentVotacoes: Fragment(R.layout.fragment_votacoes_senador), ISmoothPos
 
     private fun recyclerView() {
         val recycler = binding.recyclerProposta
-        adapter = VotacoesAdapter(this, requireContext())
+        adapter = VotacoesAdapter(this)
         recycler.layoutManager = LinearLayoutManager(context)
         recycler.adapter = adapter
     }

@@ -12,7 +12,7 @@ import com.example.portaldatransparencia.databinding.RecyclerVotacoesBinding
 import com.example.portaldatransparencia.dataclass.Votacao
 import com.example.portaldatransparencia.interfaces.ISmoothPosition
 
-class VotacoesAdapter(private val smooth: ISmoothPosition, private val context: Context):
+class VotacoesAdapter(private val smooth: ISmoothPosition):
     RecyclerView.Adapter<VotacoesAdapter.PropostaViewHolder>() {
 
     private var binding: RecyclerVotacoesBinding? = null
@@ -36,7 +36,7 @@ class VotacoesAdapter(private val smooth: ISmoothPosition, private val context: 
 
         fun bind(votacao: Votacao, position: Int) {
 
-            val animFade = AnimationUtils.loadAnimation(context, R.anim.click_votacao)
+            val animFade = AnimationUtils.loadAnimation(itemView.context, R.anim.click_votacao)
             binding = RecyclerVotacoesBinding.bind(itemView)
             binding?.run {
                 votacao.run {

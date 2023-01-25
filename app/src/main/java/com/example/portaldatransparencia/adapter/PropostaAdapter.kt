@@ -1,7 +1,6 @@
 package com.example.portaldatransparencia.adapter
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +11,7 @@ import com.example.portaldatransparencia.databinding.RecyclerPropostaBinding
 import com.example.portaldatransparencia.dataclass.Proposta
 import com.example.portaldatransparencia.interfaces.IClickItemProposta
 
-class PropostaAdapter(private val context: Context?, private val clickProposta: IClickItemProposta):
+class PropostaAdapter(private val clickProposta: IClickItemProposta):
     RecyclerView.Adapter<PropostaAdapter.PropostaViewHolder>() {
 
     private var binding: RecyclerPropostaBinding? = null
@@ -40,7 +39,7 @@ class PropostaAdapter(private val context: Context?, private val clickProposta: 
                 textDescriptionProposta.text =
                     (proposta.ementa ?: R.string.nao_informado_descricao) as CharSequence?
                 constraintDeputado.setOnClickListener {
-                    it.startAnimation(AnimationUtils.loadAnimation(context, R.anim.click))
+                    it.startAnimation(AnimationUtils.loadAnimation(itemView.context, R.anim.click))
                     clickProposta.clickProposta(proposta.id.toString())
                 }
             }

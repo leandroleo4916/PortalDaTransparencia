@@ -40,7 +40,7 @@ class FragmentFrente: Fragment(R.layout.fragment_frente), IFront {
 
     private fun recyclerView() {
         val recycler = binding!!.recyclerFrente
-        adapter = context?.let { FrenteAdapter(this, it) }!!
+        adapter = FrenteAdapter(this)
         recycler.layoutManager = LinearLayoutManager(context)
         recycler.adapter = adapter
     }

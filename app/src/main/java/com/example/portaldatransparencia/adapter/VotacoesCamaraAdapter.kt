@@ -14,8 +14,7 @@ import com.example.portaldatransparencia.interfaces.IClickSeeDetails
 import com.example.portaldatransparencia.interfaces.IClickSeeVideo
 import com.example.portaldatransparencia.interfaces.IClickSeeVote
 
-class VotacoesCamaraAdapter(private val context: Context,
-                            private val clickVote: IClickSeeVote,
+class VotacoesCamaraAdapter(private val clickVote: IClickSeeVote,
                             private val clickVideo: IClickSeeVideo,
                             private val clickDetail: IClickSeeDetails ):
     RecyclerView.Adapter<VotacoesCamaraAdapter.VotacoesViewHolder>() {
@@ -78,15 +77,15 @@ class VotacoesCamaraAdapter(private val context: Context,
                         else txt).toString()
                 }
                 viewShowVotos.setOnClickListener {
-                    it.startAnimation(AnimationUtils.loadAnimation(context, R.anim.click))
+                    it.startAnimation(AnimationUtils.loadAnimation(itemView.context, R.anim.click))
                     clickVote.clickSeeVote(votacao)
                 }
                 viewShowVideo.setOnClickListener {
-                    it.startAnimation(AnimationUtils.loadAnimation(context, R.anim.click))
+                    it.startAnimation(AnimationUtils.loadAnimation(itemView.context, R.anim.click))
                     clickVideo.clickSeeVideo(votacao)
                 }
                 viewShowDetail.setOnClickListener {
-                    it.startAnimation(AnimationUtils.loadAnimation(context, R.anim.click))
+                    it.startAnimation(AnimationUtils.loadAnimation(itemView.context, R.anim.click))
                     clickDetail.clickSeeDetails(votacao)
                 }
             }

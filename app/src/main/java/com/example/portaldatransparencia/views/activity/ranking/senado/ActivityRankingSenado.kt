@@ -58,7 +58,7 @@ class ActivityRankingSenado: AppCompatActivity(), IClickOpenDeputadoRanking {
 
     private fun recycler(){
         val recycler = binding.recyclerRancking
-        adapter = GastoGeralAdapter(formatValor, applicationContext, this)
+        adapter = GastoGeralAdapter(formatValor, this)
         recycler.layoutManager = LinearLayoutManager(this)
         recycler.adapter = adapter
     }

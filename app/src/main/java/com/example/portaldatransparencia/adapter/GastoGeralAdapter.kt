@@ -1,7 +1,6 @@
 package com.example.portaldatransparencia.adapter
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +14,7 @@ import com.example.portaldatransparencia.interfaces.IClickOpenDeputadoRanking
 import com.example.portaldatransparencia.util.FormaterValueBilhoes
 import kotlinx.coroutines.*
 
-class GastoGeralAdapter(private val formatValor: FormaterValueBilhoes, private val context: Context,
+class GastoGeralAdapter(private val formatValor: FormaterValueBilhoes,
                         private val clickRanking: IClickOpenDeputadoRanking) :
     RecyclerView.Adapter<GastoGeralAdapter.MainViewHolder>() {
 
@@ -72,7 +71,7 @@ class GastoGeralAdapter(private val formatValor: FormaterValueBilhoes, private v
                     .into(iconImage)
 
                 constraintRancking.setOnClickListener {
-                    it.startAnimation(AnimationUtils.loadAnimation(context, R.anim.click))
+                    it.startAnimation(AnimationUtils.loadAnimation(itemView.context, R.anim.click))
                     clickRanking.clickRanking(item.id)
                 }
             }

@@ -1,7 +1,6 @@
 package com.example.portaldatransparencia.adapter
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,11 +13,9 @@ import com.example.portaldatransparencia.databinding.RecyclerGastosBinding
 import com.example.portaldatransparencia.dataclass.DadoDespesas
 import com.example.portaldatransparencia.interfaces.INoteDespesas
 import com.example.portaldatransparencia.util.FormatValor
-import java.util.*
 
 class DespesasAdapter(private val listener: INoteDespesas,
-                      private val formatValor: FormatValor,
-                      private val context: Context):
+                      private val formatValor: FormatValor):
     RecyclerView.Adapter<DespesasAdapter.DespesasViewHolder>(), Filterable {
 
     private var binding: RecyclerGastosBinding? = null
@@ -69,7 +66,7 @@ class DespesasAdapter(private val listener: INoteDespesas,
                     }
                 }
                 itemView.setOnClickListener {
-                    it.startAnimation(AnimationUtils.loadAnimation(context, R.anim.click))
+                    it.startAnimation(AnimationUtils.loadAnimation(itemView.context, R.anim.click))
                     listener.listenerDespesas(despesa.urlDocumento)
                 }
             }
