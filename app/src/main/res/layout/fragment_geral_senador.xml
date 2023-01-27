@@ -63,7 +63,7 @@
                     android:layout_marginTop="-4dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="15dp"
-                    android:text="Informações gerais...Informações gerais...Informações gerais...Informações gerais...Informações gerais...Informações gerais..."
+                    android:text=""
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     android:visibility="gone"
@@ -71,6 +71,21 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/icon_senador_geral"
                     app:layout_constraintTop_toTopOf="@+id/icon_senador_geral" />
+
+                <TextView
+                    android:id="@+id/text_no_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:layout_margin="20dp"
+                    android:visibility="gone"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -82,7 +97,8 @@
                 android:layout_marginEnd="6dp"
                 android:layout_marginTop="8dp"
                 android:background="@color/white"
-                android:elevation="16sp">
+                android:elevation="16sp"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/text_rede_social"
@@ -170,7 +186,8 @@
                 android:layout_marginEnd="6dp"
                 android:layout_marginTop="8dp"
                 android:background="@color/white"
-                android:elevation="16sp">
+                android:elevation="16sp"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/text_occupation"
@@ -245,7 +262,8 @@
                 android:layout_marginEnd="6dp"
                 android:layout_marginTop="8dp"
                 android:background="@color/white"
-                android:elevation="16sp">
+                android:elevation="16sp"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/text_gabinete"

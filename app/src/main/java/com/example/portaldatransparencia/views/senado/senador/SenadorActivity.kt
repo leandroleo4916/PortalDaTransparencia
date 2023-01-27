@@ -9,6 +9,7 @@ import com.example.portaldatransparencia.databinding.ActivityDeputadoBinding
 import com.example.portaldatransparencia.dataclass.ParlamentarItem
 import com.example.portaldatransparencia.repository.ResultSenadorRequest
 import com.example.portaldatransparencia.security.SecurityPreferences
+import com.example.portaldatransparencia.util.ValidationInternet
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import com.example.portaldatransparencia.views.view_generics.TabViewAdapterSenador
 import com.google.android.material.tabs.TabLayoutMediator
@@ -21,6 +22,7 @@ class SenadorActivity: AppCompatActivity() {
     private val securityPreferences: SecurityPreferences by inject()
     private val senadorViewModel: SenadorViewModel by viewModel()
     private val statusView: EnableDisableView by inject()
+    private val verifyInternet: ValidationInternet by inject()
     private var id = ""
     private var nome = ""
 
@@ -58,22 +60,35 @@ class SenadorActivity: AppCompatActivity() {
     }
 
     private fun observer() {
-        senadorViewModel.searchDataSenador(id).observe(this) {
-            it?.let { result ->
-                when (result) {
-                    is ResultSenadorRequest.Success -> {
-                        result.dado?.let { senador ->
-                             addElementView(senador.detalheParlamentar.parlamentar)
+
+        val internet = verifyInternet.validationInternet(baseContext.applicationContext)
+        if (internet){
+            senadorViewModel.searchDataSenador(id).observe(this) {
+                it?.let { result ->
+                    when (result) {
+                        is ResultSenadorRequest.Success -> {
+                            result.dado?.let { senador ->
+                                addElementView(senador.detalheParlamentar.parlamentar)
+                            }
                         }
-                    }
-                    is ResultSenadorRequest.Error -> {
-                        result.exception.message?.let {  }
-                    }
-                    is ResultSenadorRequest.ErrorConnection -> {
-                        result.exception.message?.let {  }
+                        is ResultSenadorRequest.Error -> {
+                            notValue(R.string.erro_api_senado)
+                        }
+                        is ResultSenadorRequest.ErrorConnection -> {
+                            notValue(R.string.erro_api_senado)
+                        }
                     }
                 }
             }
+        }
+        else notValue(R.string.verifique_sua_internet)
+    }
+
+    private fun notValue(text: Int){
+        binding.run {
+            textNotValue.text = getString(text)
+            statusView.enableView(textNotValue)
+            statusView.disableView(progressDeputado)
         }
     }
 

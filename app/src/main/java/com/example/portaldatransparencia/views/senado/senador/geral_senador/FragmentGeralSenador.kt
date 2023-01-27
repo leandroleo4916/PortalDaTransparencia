@@ -13,6 +13,7 @@ import com.example.portaldatransparencia.repository.ResultCargosRequest
 import com.example.portaldatransparencia.repository.ResultSenadorRequest
 import com.example.portaldatransparencia.security.SecurityPreferences
 import com.example.portaldatransparencia.util.CalculateAge
+import com.example.portaldatransparencia.util.ValidationInternet
 import com.example.portaldatransparencia.views.senado.senador.SenadorViewModel
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import org.koin.android.ext.android.inject
@@ -24,6 +25,7 @@ class FragmentGeralSenador: Fragment(R.layout.fragment_geral_senador) {
     private val viewModel: GeralSenadorViewModel by viewModel()
     private val senadorViewModel: SenadorViewModel by viewModel()
     private val securityPreferences: SecurityPreferences by inject()
+    private val verifyInternet: ValidationInternet by inject()
     private val calculateAge: CalculateAge by inject()
     private val statusView: EnableDisableView by inject()
     private lateinit var dadosBasicos: DadosBasicosParlamentar
@@ -39,27 +41,40 @@ class FragmentGeralSenador: Fragment(R.layout.fragment_geral_senador) {
     }
 
     private fun observer() {
-        senadorViewModel.searchDataSenador(id).observe(viewLifecycleOwner) {
-            it?.let { result ->
-                when (result) {
-                    is ResultSenadorRequest.Success -> {
-                        result.dado?.let { senador ->
-                            dadosBasicos = senador.detalheParlamentar.parlamentar.dadosBasicosParlamentar
-                            detalhes = senador.detalheParlamentar.parlamentar.identificacaoParlamentar
-                            addElementSiteBlog()
-                            addElementView()
-                            addElementAddressContact(
-                                senador.detalheParlamentar.parlamentar.telefones.telefone.toString())
+
+        val internet = verifyInternet.validationInternet(requireContext().applicationContext)
+        if (internet){
+            senadorViewModel.searchDataSenador(id).observe(viewLifecycleOwner) {
+                it?.let { result ->
+                    when (result) {
+                        is ResultSenadorRequest.Success -> {
+                            result.dado?.let { senador ->
+                                dadosBasicos = senador.detalheParlamentar.parlamentar.dadosBasicosParlamentar
+                                detalhes = senador.detalheParlamentar.parlamentar.identificacaoParlamentar
+                                addElementSiteBlog()
+                                addElementView()
+                                addElementAddressContact(
+                                    senador.detalheParlamentar.parlamentar.telefones.telefone.toString())
+                            }
                         }
-                    }
-                    is ResultSenadorRequest.Error -> {
-                        result.exception.message?.let {  }
-                    }
-                    is ResultSenadorRequest.ErrorConnection -> {
-                        result.exception.message?.let {  }
+                        is ResultSenadorRequest.Error -> {
+                            notValue(R.string.erro_api_senado)
+                        }
+                        is ResultSenadorRequest.ErrorConnection -> {
+                            notValue(R.string.erro_api_senado)
+                        }
                     }
                 }
             }
+        }
+        else notValue(R.string.verifique_sua_internet)
+    }
+
+    private fun notValue(text: Int){
+        binding?.run {
+            textNoValue.text = getString(text)
+            statusView.enableView(textNoValue)
+            statusView.disableView(progressGeral)
         }
     }
 
@@ -117,6 +132,7 @@ class FragmentGeralSenador: Fragment(R.layout.fragment_geral_senador) {
     private fun addElementSiteBlog() {
 
         binding?.run {
+            statusView.enableView(constraintSocialMedia)
             textSitePessoal.text =
                 if (detalhes.urlPaginaParticular != null) {
                     detalhes.urlPaginaParticular+" >"
@@ -138,6 +154,7 @@ class FragmentGeralSenador: Fragment(R.layout.fragment_geral_senador) {
             textGeralPhone.text =
                 if (phone.contains("[{")) phone.substring(17, 25)
                 else phone.substring(16, 24)
+            statusView.enableView(constraintGabinete)
         }
     }
 
@@ -146,6 +163,7 @@ class FragmentGeralSenador: Fragment(R.layout.fragment_geral_senador) {
         binding?.run {
             ("Exerceu o cargo de "+cargo.descricaoCargo).also { textCargoSenador.text = it }
             (cargo.identificacaoComissao.nomeComissao).also { textCargoDescription.text = it }
+            statusView.enableView(constraintOccupation)
         }
     }
 
