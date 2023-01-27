@@ -81,10 +81,8 @@ class DespesasAdapter(private val listener: INoteDespesas,
             data = arrayListOf()
             dataFilter = arrayListOf()
         }
-        deputados.forEach {
-            data.add(it)
-            dataFilter.add(it)
-        }
+        data += deputados
+        dataFilter += deputados
         notifyDataSetChanged()
     }
 

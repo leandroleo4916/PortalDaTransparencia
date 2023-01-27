@@ -1,6 +1,7 @@
-package com.example.portaldatransparencia.remote
+package com.example.portaldatransparencia.repository
 
 import androidx.lifecycle.liveData
+import com.example.portaldatransparencia.network.ApiServiceSenador
 import java.net.ConnectException
 
 sealed class ResultSenadorRequest<out R> {

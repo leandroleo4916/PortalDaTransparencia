@@ -1,7 +1,13 @@
-package com.example.portaldatransparencia.remote
+package com.example.portaldatransparencia.repository
 
 import androidx.lifecycle.liveData
-import java.net.ConnectException
+import com.example.portaldatransparencia.R
+import com.example.portaldatransparencia.dataclass.Frente
+import com.example.portaldatransparencia.network.ApiServiceFrente
+import com.example.portaldatransparencia.network.ApiServiceFrenteId
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 sealed class ResultFrenteRequest<out R> {
     data class Success<out T>(val dado: T?) : ResultFrenteRequest<T?>()

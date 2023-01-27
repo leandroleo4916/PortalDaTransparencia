@@ -5,11 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.dataclass.Dado
-import com.example.portaldatransparencia.dataclass.FrenteId
 import com.example.portaldatransparencia.dataclass.MainDataClass
-import com.example.portaldatransparencia.remote.ApiServiceMain
-import com.example.portaldatransparencia.remote.Retrofit
-import com.example.portaldatransparencia.remote.SearchRepository
+import com.example.portaldatransparencia.network.ApiServiceMain
+import com.example.portaldatransparencia.network.Retrofit
+import com.example.portaldatransparencia.repository.SearchRepository
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

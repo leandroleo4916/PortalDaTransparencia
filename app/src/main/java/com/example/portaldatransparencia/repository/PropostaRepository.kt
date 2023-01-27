@@ -1,7 +1,6 @@
-package com.example.portaldatransparencia.remote
+package com.example.portaldatransparencia.repository
 
-import androidx.lifecycle.liveData
-import java.net.ConnectException
+import com.example.portaldatransparencia.network.ApiServiceProposta
 
 sealed class ResultPropostaRequest<out R> {
     data class Success<out T>(val dado: T?) : ResultPropostaRequest<T?>()

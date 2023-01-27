@@ -12,22 +12,26 @@ import com.example.portaldatransparencia.databinding.FragmentPropostaItemBinding
 import com.example.portaldatransparencia.dataclass.DadosProposicao
 import com.example.portaldatransparencia.dataclass.IdDeputadoDataClass
 import com.example.portaldatransparencia.dataclass.ProposicaoDataClass
-import com.example.portaldatransparencia.remote.ApiServiceIdDeputado
-import com.example.portaldatransparencia.remote.ApiServicePropostaItem
-import com.example.portaldatransparencia.remote.Retrofit
+import com.example.portaldatransparencia.network.ApiServiceIdDeputado
+import com.example.portaldatransparencia.network.ApiServicePropostaItem
+import com.example.portaldatransparencia.network.Retrofit
 import com.example.portaldatransparencia.security.SecurityPreferences
+import com.example.portaldatransparencia.util.ValidationInternet
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import kotlinx.coroutines.*
 import org.koin.android.ext.android.inject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FragmentPropostaItem: AppCompatActivity() {
 
     private val binding by lazy { FragmentPropostaItemBinding.inflate(layoutInflater) }
+    private val viewModel: PropostaViewModel by viewModel()
     private val securityPreferences: SecurityPreferences by inject()
     private val statusView: EnableDisableView by inject()
+    private val verifyInternet: ValidationInternet by inject()
     private lateinit var id: String
     private lateinit var idParlamentar: String
 
@@ -54,50 +58,20 @@ class FragmentPropostaItem: AppCompatActivity() {
 
     private fun observer() {
 
-        val retrofit = Retrofit.createService(ApiServicePropostaItem::class.java)
-        val call: Call<ProposicaoDataClass> = retrofit.getPropostaItem(id)
-        call.enqueue(object: Callback<ProposicaoDataClass> {
-            override fun onResponse(call: Call<ProposicaoDataClass>, res: Response<ProposicaoDataClass>) {
-                when (res.code()){
-                    200 -> {
-                        if (res.body() != null) {
-                            addElementToView(res.body()!!.dados)
-                            observerParlamentar()
-                        }
-                        else notValue()
-                    }
-                    429 -> observer()
-                    else -> notValue()
-                }
+        val internet = verifyInternet.validationInternet(baseContext.applicationContext)
+        if (internet){
+            viewModel.propostaIdDeputado(id, idParlamentar)
+            viewModel.responseLive.observe(this){
+                addElementToView(it)
             }
-            override fun onFailure(call: Call<ProposicaoDataClass>, t: Throwable) {
+            viewModel.responseErrorLiveData.observe(this){
                 notValue()
             }
-        })
-    }
-
-    private fun observerParlamentar() {
-
-        val retrofit = Retrofit.createService(ApiServiceIdDeputado::class.java)
-        val call: Call<IdDeputadoDataClass> = retrofit.getIdDeputado(idParlamentar)
-        call.enqueue(object: Callback<IdDeputadoDataClass> {
-            override fun onResponse(call: Call<IdDeputadoDataClass>, res: Response<IdDeputadoDataClass>) {
-                when (res.code()){
-                    200 -> {
-                        if (res.body() != null){
-                            addElementViewParlamentar(res.body()!!)
-                        }
-                        else {}
-                    }
-                    429 -> observerParlamentar()
-                    else -> {}
-                }
+            viewModel.responseLiveParlamentar.observe(this){
+                addElementViewParlamentar(it)
             }
-
-            override fun onFailure(call: Call<IdDeputadoDataClass>, t: Throwable) {
-
-            }
-        })
+        }
+        else notValue()
     }
 
     private fun notValue(){

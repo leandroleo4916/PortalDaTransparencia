@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.example.portaldatransparencia.dataclass.DataClassVotacoesItem
 import com.example.portaldatransparencia.dataclass.DataClassVotacoesSenador
-import com.example.portaldatransparencia.remote.*
+import com.example.portaldatransparencia.repository.*
 
 class VotacoesViewModel(private val repository: VotacoesRepository,
                         private val repositoryItem: VotacoesRepositoryItem): ViewModel() {

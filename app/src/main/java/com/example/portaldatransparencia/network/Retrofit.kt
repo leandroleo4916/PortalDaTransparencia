@@ -1,4 +1,4 @@
-package com.example.portaldatransparencia.remote
+package com.example.portaldatransparencia.network
 
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit

@@ -9,8 +9,8 @@ import com.example.portaldatransparencia.adapter.VotacoesAdapter
 import com.example.portaldatransparencia.databinding.FragmentVotacoesSenadorBinding
 import com.example.portaldatransparencia.dataclass.Votacao
 import com.example.portaldatransparencia.interfaces.ISmoothPosition
-import com.example.portaldatransparencia.remote.ResultVotacoesItemRequest
-import com.example.portaldatransparencia.remote.ResultVotacoesRequest
+import com.example.portaldatransparencia.repository.ResultVotacoesItemRequest
+import com.example.portaldatransparencia.repository.ResultVotacoesRequest
 import com.example.portaldatransparencia.security.SecurityPreferences
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import com.google.android.material.chip.Chip

@@ -1,6 +1,8 @@
-package com.example.portaldatransparencia.remote
+package com.example.portaldatransparencia.repository
 
 import androidx.lifecycle.liveData
+import com.example.portaldatransparencia.network.ApiServiceGastos
+import com.example.portaldatransparencia.network.ApiServiceIdDespesas
 import java.net.ConnectException
 
 sealed class ResultDespesasRequest<out R> {
@@ -16,7 +18,8 @@ sealed class ResultCotaRequest<out R> {
 }
 
 class IdDespesasRepository(private val serviceApi: ApiServiceIdDespesas,
-                           private val service: ApiServiceGastos) {
+                           private val service: ApiServiceGastos
+) {
 
     /*fun searchDespesasData(id: String, ano: String, pagina: Int) = liveData {
         try {

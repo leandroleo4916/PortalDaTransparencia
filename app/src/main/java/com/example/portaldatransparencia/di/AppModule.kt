@@ -1,7 +1,8 @@
 package com.example.portaldatransparencia.di
 
 import com.example.portaldatransparencia.adapter.GastoSenadorAdapter
-import com.example.portaldatransparencia.remote.*
+import com.example.portaldatransparencia.network.*
+import com.example.portaldatransparencia.repository.*
 import com.example.portaldatransparencia.security.SecurityPreferences
 import com.example.portaldatransparencia.util.*
 import com.example.portaldatransparencia.views.activity.gastogeral.camara.GastoGeralViewModelCamara
@@ -12,6 +13,7 @@ import com.example.portaldatransparencia.views.activity.votacoes.camara.Votacoes
 import com.example.portaldatransparencia.views.camara.CamaraViewModel
 import com.example.portaldatransparencia.views.camara.deputado.DeputadoViewModel
 import com.example.portaldatransparencia.views.camara.deputado.frente_deputado.FrontIdViewModel
+import com.example.portaldatransparencia.views.camara.deputado.frente_deputado.FrontViewModel
 import com.example.portaldatransparencia.views.camara.deputado.gastos_deputado.DespesasViewModel
 import com.example.portaldatransparencia.views.camara.deputado.geral_deputado.OccupationViewModel
 import com.example.portaldatransparencia.views.camara.deputado.proposta_deputado.PropostaViewModel
@@ -97,8 +99,9 @@ val gastoSenadorAdapter = module { single { GastoSenadorAdapter(get()) }}
 val viewModelModule = module { viewModel { CamaraViewModel(get()) } }
 val viewModelDeputado = module { viewModel { DeputadoViewModel(get()) } }
 val viewModelDespesas = module { viewModel { DespesasViewModel(get(), get()) } }
-val viewModelFront = module { viewModel { FrontIdViewModel() } }
-val viewModelProposta = module { viewModel { PropostaViewModel(get()) } }
+val viewModelFrontId = module { viewModel { FrontIdViewModel(get()) } }
+val viewModelFront = module { viewModel { FrontViewModel(get()) } }
+val viewModelProposta = module { viewModel { PropostaViewModel(get(), get()) } }
 val viewModelOccupation = module { viewModel { OccupationViewModel(get()) } }
 val viewModelSenado = module { viewModel { SenadoViewModel(get()) } }
 val viewModelSenador = module { viewModel { SenadorViewModel(get()) } }
@@ -119,5 +122,5 @@ val appModules = listOf( retrofitModule, viewModelModule, repositorySearch, prog
         repositoryVotacoesItem, formatValor, repositoryGastoGeral, viewModelGastoGeral,
         formatValorBi, formatValorFloat, validationInternet, modifyHttp, gastoSenadorAdapter,
         viewModelRankingCamara, viewModelRankingSenado, viewModelGastoGeralSenado,
-        viewModelVotacoesCamara, repositoryVotacoesCamara
+        viewModelVotacoesCamara, repositoryVotacoesCamara, viewModelFrontId
 )

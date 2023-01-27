@@ -6,8 +6,8 @@ import com.example.portaldatransparencia.adapter.DimensionAdapter
 import com.example.portaldatransparencia.dataclass.DadoDespesas
 import com.example.portaldatransparencia.dataclass.SenadorGastosDataClass
 import com.example.portaldatransparencia.dataclass.SublistDataClass
-import com.example.portaldatransparencia.remote.IdDespesasRepository
-import com.example.portaldatransparencia.remote.ResultCotaRequest
+import com.example.portaldatransparencia.repository.IdDespesasRepository
+import com.example.portaldatransparencia.repository.ResultCotaRequest
 import com.example.portaldatransparencia.util.FormatValueFloat
 
 class DespesasViewModel(private val repository: IdDespesasRepository,

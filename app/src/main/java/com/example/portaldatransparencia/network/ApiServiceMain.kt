@@ -1,4 +1,4 @@
-package com.example.portaldatransparencia.remote
+package com.example.portaldatransparencia.network
 
 import com.example.portaldatransparencia.dataclass.*
 import retrofit2.Call

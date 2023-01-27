@@ -7,7 +7,7 @@ import com.bumptech.glide.Glide
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.databinding.ActivityDeputadoBinding
 import com.example.portaldatransparencia.dataclass.ParlamentarItem
-import com.example.portaldatransparencia.remote.ResultSenadorRequest
+import com.example.portaldatransparencia.repository.ResultSenadorRequest
 import com.example.portaldatransparencia.security.SecurityPreferences
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import com.example.portaldatransparencia.views.view_generics.TabViewAdapterSenador

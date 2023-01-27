@@ -15,8 +15,8 @@ import com.example.portaldatransparencia.dataclass.DadoDespesas
 import com.example.portaldatransparencia.dataclass.Despesas
 import com.example.portaldatransparencia.interfaces.IClickTipoDespesa
 import com.example.portaldatransparencia.interfaces.INoteDespesas
-import com.example.portaldatransparencia.remote.ApiServiceIdDespesas
-import com.example.portaldatransparencia.remote.Retrofit
+import com.example.portaldatransparencia.network.ApiServiceIdDespesas
+import com.example.portaldatransparencia.network.Retrofit
 import com.example.portaldatransparencia.security.SecurityPreferences
 import com.example.portaldatransparencia.util.FormatValor
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView

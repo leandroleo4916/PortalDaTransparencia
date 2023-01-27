@@ -17,9 +17,9 @@ import com.example.portaldatransparencia.dataclass.VotacoesList
 import com.example.portaldatransparencia.interfaces.IClickSeeDetails
 import com.example.portaldatransparencia.interfaces.IClickSeeVideo
 import com.example.portaldatransparencia.interfaces.IClickSeeVote
-import com.example.portaldatransparencia.remote.ApiServiceEvento
-import com.example.portaldatransparencia.remote.ApiVotacoes
-import com.example.portaldatransparencia.remote.Retrofit
+import com.example.portaldatransparencia.network.ApiServiceEvento
+import com.example.portaldatransparencia.network.ApiVotacoes
+import com.example.portaldatransparencia.network.Retrofit
 import com.example.portaldatransparencia.util.createDialog
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import com.google.android.material.chip.Chip

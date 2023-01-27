@@ -19,7 +19,7 @@ import com.example.portaldatransparencia.adapter.SenadoAdapter
 import com.example.portaldatransparencia.databinding.FragmentCamaraSenadoBinding
 import com.example.portaldatransparencia.interfaces.IClickSenador
 import com.example.portaldatransparencia.interfaces.INotificationSenado
-import com.example.portaldatransparencia.remote.ResultSenadoRequest
+import com.example.portaldatransparencia.repository.ResultSenadoRequest
 import com.example.portaldatransparencia.util.RetiraAcento
 import com.example.portaldatransparencia.views.activity.gastogeral.senado.ActivityGastoGeralSenado
 import com.example.portaldatransparencia.views.activity.ranking.senado.ActivityRankingSenado

@@ -21,8 +21,8 @@ import com.example.portaldatransparencia.dataclass.VotacaoSenadoItem
 import com.example.portaldatransparencia.dataclass.VotoParlamentar
 import com.example.portaldatransparencia.interfaces.IAddVotoInRecycler
 import com.example.portaldatransparencia.interfaces.IClickSenador
-import com.example.portaldatransparencia.remote.ApiVotacoesSenado
-import com.example.portaldatransparencia.remote.Retrofit
+import com.example.portaldatransparencia.network.ApiVotacoesSenado
+import com.example.portaldatransparencia.network.Retrofit
 import com.example.portaldatransparencia.util.RetiraAcento
 import com.example.portaldatransparencia.util.createDialog
 import com.example.portaldatransparencia.views.activity.votacoes.camara.VotacoesViewModelCamara

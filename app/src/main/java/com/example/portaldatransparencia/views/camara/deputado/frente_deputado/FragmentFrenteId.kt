@@ -54,7 +54,7 @@ class FragmentFrenteId: AppCompatActivity() {
     override fun onBackPressed() = finish()
 
     private fun observer() {
-        val internet = verifyInternet.validationInternet(this)
+        val internet = verifyInternet.validationInternet(baseContext.applicationContext)
         if (internet) {
             viewModel.getFront(id)
             viewModel.responseLiveData.observe(this) { addElementFront(it) }

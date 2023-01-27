@@ -9,8 +9,8 @@ import com.bumptech.glide.Glide
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.databinding.FragmentGeralSenadorBinding
 import com.example.portaldatransparencia.dataclass.*
-import com.example.portaldatransparencia.remote.ResultCargosRequest
-import com.example.portaldatransparencia.remote.ResultSenadorRequest
+import com.example.portaldatransparencia.repository.ResultCargosRequest
+import com.example.portaldatransparencia.repository.ResultSenadorRequest
 import com.example.portaldatransparencia.security.SecurityPreferences
 import com.example.portaldatransparencia.util.CalculateAge
 import com.example.portaldatransparencia.views.senado.senador.SenadorViewModel

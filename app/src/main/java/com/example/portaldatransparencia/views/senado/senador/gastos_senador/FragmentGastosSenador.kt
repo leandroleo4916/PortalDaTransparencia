@@ -15,7 +15,7 @@ import com.example.portaldatransparencia.dataclass.GastosSenador
 import com.example.portaldatransparencia.dataclass.SublistDataClass
 import com.example.portaldatransparencia.interfaces.IClickTipoDespesa
 import com.example.portaldatransparencia.interfaces.INoteDespesas
-import com.example.portaldatransparencia.remote.ResultCotaRequest
+import com.example.portaldatransparencia.repository.ResultCotaRequest
 import com.example.portaldatransparencia.security.SecurityPreferences
 import com.example.portaldatransparencia.util.FormatValor
 import com.example.portaldatransparencia.util.FormatValueFloat

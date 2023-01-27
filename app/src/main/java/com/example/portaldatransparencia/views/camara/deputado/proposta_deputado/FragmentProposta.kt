@@ -10,8 +10,8 @@ import com.example.portaldatransparencia.adapter.PropostaAdapter
 import com.example.portaldatransparencia.databinding.FragmentPropostaBinding
 import com.example.portaldatransparencia.dataclass.PropostaDataClass
 import com.example.portaldatransparencia.interfaces.IClickItemProposta
-import com.example.portaldatransparencia.remote.ApiServiceProposta
-import com.example.portaldatransparencia.remote.Retrofit
+import com.example.portaldatransparencia.network.ApiServiceProposta
+import com.example.portaldatransparencia.network.Retrofit
 import com.example.portaldatransparencia.security.SecurityPreferences
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import com.google.android.material.chip.Chip

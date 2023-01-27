@@ -13,9 +13,9 @@ import com.example.portaldatransparencia.dataclass.GastoGeralCamara
 import com.example.portaldatransparencia.dataclass.ListParlamentar
 import com.example.portaldatransparencia.dataclass.MainDataClass
 import com.example.portaldatransparencia.interfaces.IClickOpenDeputadoRanking
-import com.example.portaldatransparencia.remote.ApiServiceMain
-import com.example.portaldatransparencia.remote.ResultGastoGeralCamara
-import com.example.portaldatransparencia.remote.Retrofit
+import com.example.portaldatransparencia.network.ApiServiceMain
+import com.example.portaldatransparencia.repository.ResultGastoGeralCamara
+import com.example.portaldatransparencia.network.Retrofit
 import com.example.portaldatransparencia.security.SecurityPreferences
 import com.example.portaldatransparencia.util.FormaterValueBilhoes
 import com.example.portaldatransparencia.util.ValidationInternet

@@ -11,8 +11,8 @@ import com.example.portaldatransparencia.dataclass.GastoGeralDataClass
 import com.example.portaldatransparencia.dataclass.ListParlamentar
 import com.example.portaldatransparencia.dataclass.Parlamentar
 import com.example.portaldatransparencia.interfaces.IClickOpenDeputadoRanking
-import com.example.portaldatransparencia.remote.ResultGastoGeralSenado
-import com.example.portaldatransparencia.remote.ResultSenadoRequest
+import com.example.portaldatransparencia.repository.ResultGastoGeralSenado
+import com.example.portaldatransparencia.repository.ResultSenadoRequest
 import com.example.portaldatransparencia.security.SecurityPreferences
 import com.example.portaldatransparencia.util.FormaterValueBilhoes
 import com.example.portaldatransparencia.views.senado.SenadoViewModel

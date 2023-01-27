@@ -9,21 +9,18 @@ import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.adapter.FrenteAdapter
 import com.example.portaldatransparencia.databinding.FragmentFrenteBinding
 import com.example.portaldatransparencia.dataclass.DadoFrente
-import com.example.portaldatransparencia.dataclass.Frente
 import com.example.portaldatransparencia.interfaces.IFront
-import com.example.portaldatransparencia.remote.ApiServiceFrente
-import com.example.portaldatransparencia.remote.Retrofit
 import com.example.portaldatransparencia.security.SecurityPreferences
+import com.example.portaldatransparencia.util.ValidationInternet
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class FragmentFrente: Fragment(R.layout.fragment_frente), IFront {
 
     private var binding: FragmentFrenteBinding? = null
+    private val viewModel: FrontViewModel by viewModel()
+    private val verifyInternet: ValidationInternet by inject()
     private lateinit var adapter: FrenteAdapter
     private val statusView: EnableDisableView by inject()
     private val securityPreferences: SecurityPreferences by inject()
@@ -47,28 +44,19 @@ class FragmentFrente: Fragment(R.layout.fragment_frente), IFront {
 
     private fun observer() {
 
-        val retrofit = Retrofit.createService(ApiServiceFrente::class.java)
-        val call: Call<Frente> = retrofit.getFrente(id)
-        call.enqueue(object: Callback<Frente> {
-            override fun onResponse(call: Call<Frente>, res: Response<Frente>) {
-                when (res.code()){
-                    200 -> {
-                        if (res.body() != null){
-                            val size = res.body()!!.dados.size
-                            calculateFront(size.toString())
-                            adapter.updateData(res.body()!!.dados)
-                        }
-                        else addValue(R.string.nenhuma_frente_parlamentar)
-                    }
-                    429 -> observer()
-                    else -> addValue(R.string.nenhuma_frente_parlamentar)
-                }
+        val internet = verifyInternet.validationInternet(requireContext().applicationContext)
+        if (internet){
+            viewModel.getFront(id)
+            viewModel.responseLiveData.observe(viewLifecycleOwner){
+                val size = it.dados.size
+                calculateFront(size.toString())
+                adapter.updateData(it.dados)
             }
-
-            override fun onFailure(call: Call<Frente>, t: Throwable) {
-                addValue(R.string.api_nao_respondeu)
+            viewModel.responseErrorLiveData.observe(viewLifecycleOwner){
+                addValue(it)
             }
-        })
+        }
+        else addValue(R.string.verifique_sua_internet)
     }
 
     private fun addValue(txt: Int){
@@ -88,7 +76,7 @@ class FragmentFrente: Fragment(R.layout.fragment_frente), IFront {
     }
 
     override fun listenerFront(note: DadoFrente) {
-        val intent = Intent(context, FragmentFrenteId::class.java)
+        val intent = Intent(requireContext().applicationContext, FragmentFrenteId::class.java)
         intent.putExtra("id", note.id.toString())
         startActivity(intent)
     }

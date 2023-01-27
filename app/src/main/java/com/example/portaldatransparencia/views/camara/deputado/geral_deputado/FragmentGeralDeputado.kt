@@ -13,11 +13,12 @@ import com.example.portaldatransparencia.dataclass.Dados
 import com.example.portaldatransparencia.dataclass.IdDeputadoDataClass
 import com.example.portaldatransparencia.dataclass.Occupation
 import com.example.portaldatransparencia.dataclass.OccupationDataClass
-import com.example.portaldatransparencia.remote.ApiServiceIdDeputado
-import com.example.portaldatransparencia.remote.ApiServiceOccupation
-import com.example.portaldatransparencia.remote.Retrofit
+import com.example.portaldatransparencia.network.ApiServiceIdDeputado
+import com.example.portaldatransparencia.network.ApiServiceOccupation
+import com.example.portaldatransparencia.network.Retrofit
 import com.example.portaldatransparencia.security.SecurityPreferences
 import com.example.portaldatransparencia.util.CalculateAge
+import com.example.portaldatransparencia.util.ValidationInternet
 import com.example.portaldatransparencia.views.camara.deputado.DeputadoViewModel
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import org.koin.android.ext.android.inject
@@ -32,6 +33,7 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
     private val viewModel: DeputadoViewModel by viewModel()
     private val viewModelOccupation: OccupationViewModel by viewModel()
     private val securityPreferences: SecurityPreferences by inject()
+    private val verifyInternet: ValidationInternet by inject()
     private val calculateAge: CalculateAge by inject()
     private val statusView: EnableDisableView by inject()
     private var sexoDeputado = ""
@@ -46,53 +48,35 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
     }
 
     private fun observerOccupation() {
-
-        val retrofit = Retrofit.createService(ApiServiceOccupation::class.java)
-        val call: Call<OccupationDataClass> = retrofit.getOccupation(id)
-        call.enqueue(object: Callback<OccupationDataClass>{
-            override fun onResponse(call: Call<OccupationDataClass>, res: Response<OccupationDataClass>) {
-                when (res.code()){
-                    200 -> {
-                        if (res.body() != null){
-                            addElementOccupation(res.body()!!.dados)
-                        }
-                    }
-                    429 -> observerOccupation()
-                    else -> {}
-                }
-            }
-            override fun onFailure(call: Call<OccupationDataClass>, t: Throwable) {}
-        })
+        viewModelOccupation.getOccupation(id)
+        viewModelOccupation.responseLiveData.observe(viewLifecycleOwner){
+            addElementOccupation(it)
+        }
     }
 
     private fun observerDeputado() {
 
-        val retrofit = Retrofit.createService(ApiServiceIdDeputado::class.java)
-        val call: Call<IdDeputadoDataClass> = retrofit.getIdDeputado(id)
-        call.enqueue(object: Callback<IdDeputadoDataClass>{
-            override fun onResponse(call: Call<IdDeputadoDataClass>, res: Response<IdDeputadoDataClass>) {
-                when (res.code()){
-                    200 -> {
-                        if (res.body() != null){
-                            addElementView(res.body()!!.dados)
-                            addElementRedeSocial(res.body()!!.dados)
-                            sexoDeputado = res.body()!!.dados.sexo
-                        }
-                        else addValueText("Sem informação na API")
-                    }
-                    429 -> observerDeputado()
-                    else -> addValueText("Erro na API do Senado")
-                }
+        val internet = verifyInternet.validationInternet(requireContext().applicationContext)
+        if (internet){
+            viewModel.searchDataDeputado(id)
+            viewModel.responseLiveData.observe(viewLifecycleOwner){
+                addElementView(it)
+                addElementRedeSocial(it)
+                sexoDeputado = it.sexo
             }
-            override fun onFailure(call: Call<IdDeputadoDataClass>, t: Throwable) {
-                addValueText("API do Senado não respondeu")
+            viewModel.responseErrorLiveData.observe(viewLifecycleOwner){
+                statusView.enableView(binding!!.textErroSearchData)
+                addValueText(it)
             }
-        })
+        }
+        else {
+            binding?.textErroSearchData?.text = getString(R.string.verifique_sua_internet)
+        }
     }
 
-    private fun addValueText(txt: String) {
+    private fun addValueText(txt: Int) {
         binding?.textGeralInformation?.run {
-            text = txt
+            text = getString(txt)
             statusView.enableView(this)
         }
     }

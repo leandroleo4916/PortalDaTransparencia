@@ -44,4 +44,6 @@
     <string name="erro_captura_voz">Erro na captura de voz</string>
     <string name="permissao_negada">Permissão negada</string>
     <string name="nenhuma_votacao_este_ano">Nenhuma votação para este ano</string>
+    <string name="erro_api_senado">Erro na API do Senado</string>
+    <string name="sem_info_api">Sem informação na API</string>
 </resources>

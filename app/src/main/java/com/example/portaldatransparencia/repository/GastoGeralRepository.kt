@@ -1,6 +1,8 @@
-package com.example.portaldatransparencia.remote
+package com.example.portaldatransparencia.repository
 
 import androidx.lifecycle.liveData
+import com.example.portaldatransparencia.network.ApiServiceGastoGeralDeputado
+import com.example.portaldatransparencia.network.ApiServiceGastoGeralSenador
 import java.net.ConnectException
 
 sealed class ResultGastoGeralSenado<out R> {
@@ -16,7 +18,8 @@ sealed class ResultGastoGeralCamara<out R> {
 }
 
 class GastoGeralRepository(private val serviceApi: ApiServiceGastoGeralSenador,
-                           private val serviceApiCamara: ApiServiceGastoGeralDeputado) {
+                           private val serviceApiCamara: ApiServiceGastoGeralDeputado
+) {
 
     fun gastoGeralSenado() = liveData {
         try {

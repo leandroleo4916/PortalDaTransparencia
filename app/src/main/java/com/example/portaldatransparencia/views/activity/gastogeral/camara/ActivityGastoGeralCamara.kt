@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.databinding.FragmentMaisBinding
 import com.example.portaldatransparencia.dataclass.GastoGeralCamara
-import com.example.portaldatransparencia.remote.ResultGastoGeralCamara
+import com.example.portaldatransparencia.repository.ResultGastoGeralCamara
 import com.example.portaldatransparencia.util.FormaterValueBilhoes
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import org.eazegraph.lib.models.PieModel

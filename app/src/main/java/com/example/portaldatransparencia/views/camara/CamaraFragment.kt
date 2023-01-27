@@ -17,11 +17,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.adapter.MainAdapter
 import com.example.portaldatransparencia.databinding.FragmentCamaraSenadoBinding
-import com.example.portaldatransparencia.dataclass.MainDataClass
 import com.example.portaldatransparencia.interfaces.IClickDeputado
 import com.example.portaldatransparencia.interfaces.INotification
-import com.example.portaldatransparencia.remote.ApiServiceMain
-import com.example.portaldatransparencia.remote.Retrofit
 import com.example.portaldatransparencia.util.ValidationInternet
 import com.example.portaldatransparencia.views.activity.gastogeral.camara.ActivityGastoGeralCamara
 import com.example.portaldatransparencia.views.activity.ranking.camara.ActivityRankingCamara
@@ -33,9 +30,6 @@ import com.example.portaldatransparencia.views.view_generics.VisibilityNavViewAn
 import com.google.android.material.chip.Chip
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import java.util.*
 
 class CamaraFragment: Fragment(R.layout.fragment_camara_senado), IClickDeputado, INotification {
