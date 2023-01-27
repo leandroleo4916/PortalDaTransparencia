@@ -6,10 +6,12 @@ import androidx.fragment.app.FragmentActivity
 import com.bumptech.glide.Glide
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.databinding.ActivityDeputadoBinding
+import com.example.portaldatransparencia.dataclass.Dados
 import com.example.portaldatransparencia.dataclass.IdDeputadoDataClass
 import com.example.portaldatransparencia.network.ApiServiceIdDeputado
 import com.example.portaldatransparencia.network.Retrofit
 import com.example.portaldatransparencia.security.SecurityPreferences
+import com.example.portaldatransparencia.util.ValidationInternet
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import com.example.portaldatransparencia.views.view_generics.TabViewAdapterDeputado
 import com.google.android.material.tabs.TabLayoutMediator
@@ -24,6 +26,7 @@ class DeputadoActivity: FragmentActivity() {
     private val binding by lazy { ActivityDeputadoBinding.inflate(layoutInflater) }
     private val mainViewModel: DeputadoViewModel by viewModel()
     private val securityPreferences: SecurityPreferences by inject()
+    private val verifyInternet: ValidationInternet by inject()
     private val statusView: EnableDisableView by inject()
     private var id: String = ""
 
@@ -62,39 +65,34 @@ class DeputadoActivity: FragmentActivity() {
 
     private fun observer() {
 
-        val retrofit = Retrofit.createService(ApiServiceIdDeputado::class.java)
-        val call: Call<IdDeputadoDataClass> = retrofit.getIdDeputado(id)
-        call.enqueue(object: Callback<IdDeputadoDataClass> {
-            override fun onResponse(call: Call<IdDeputadoDataClass>, res: Response<IdDeputadoDataClass>) {
-                when (res.code()){
-                    200 -> {
-                        if (res.body() != null){
-                            addElementView(res.body()!!)
-                        }
-                        else {
-
-                        }
-                    }
-                    429 -> observer()
-                    else -> {
-
-                    }
-                }
+        val internet = verifyInternet.validationInternet(baseContext.applicationContext)
+        if (internet){
+            mainViewModel.searchDataDeputado(id)
+            mainViewModel.responseLiveData.observe(this){
+                addElementView(it)
             }
-
-            override fun onFailure(call: Call<IdDeputadoDataClass>, t: Throwable) {
-                TODO("Not yet implemented")
+            mainViewModel.responseErrorLiveData.observe(this){
+                errorData(R.string.api_nao_respondeu)
             }
-        })
+        }
+        else errorData(R.string.verifique_sua_internet)
     }
 
-    private fun addElementView(item: IdDeputadoDataClass) {
+    private fun errorData(value: Int){
+        binding.run {
+            textNotValue.text = getString(value)
+            statusView.enableView(textNotValue)
+            statusView.disableView(progressDeputado)
+        }
+    }
+
+    private fun addElementView(item: Dados) {
         binding.run {
             Glide.with(application)
-                .load(item.dados.ultimoStatus.urlFoto)
+                .load(item.ultimoStatus.urlFoto)
                 .circleCrop()
                 .into(imageDeputado)
-            textDescription.text = item.dados.ultimoStatus.nome
+            textDescription.text = item.ultimoStatus.nome
             statusView.run {
                 disableView(progressDeputado)
                 enableView(textDescription)

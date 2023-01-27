@@ -21,6 +21,7 @@ import com.example.portaldatransparencia.interfaces.IClickSenador
 import com.example.portaldatransparencia.interfaces.INotificationSenado
 import com.example.portaldatransparencia.repository.ResultSenadoRequest
 import com.example.portaldatransparencia.util.RetiraAcento
+import com.example.portaldatransparencia.util.ValidationInternet
 import com.example.portaldatransparencia.views.activity.gastogeral.senado.ActivityGastoGeralSenado
 import com.example.portaldatransparencia.views.activity.ranking.senado.ActivityRankingSenado
 import com.example.portaldatransparencia.views.activity.votacoes.senado.ActivityVotacoesSenado
@@ -41,6 +42,7 @@ class SenadoFragment: Fragment(R.layout.fragment_camara_senado), IClickSenador, 
     private val modifyChip: ModifyChip by inject()
     private val retiraAcento: RetiraAcento by inject()
     private val hideView: EnableDisableView by inject()
+    private val verifyInternet: ValidationInternet by inject()
     private val visibilityNavViewAndFloating: VisibilityNavViewAndFloating by inject()
     private lateinit var adapter: SenadoAdapter
     private var chipEnabled: Chip? = null
@@ -60,6 +62,24 @@ class SenadoFragment: Fragment(R.layout.fragment_camara_senado), IClickSenador, 
         search()
     }
 
+    private fun validationInternet(text: Int){
+        binding?.run {
+            layoutValidation.run {
+                hideView.enableView(frameValidation)
+                hideView.enableView(verifiqueInternet)
+                hideView.disableView(progressMain)
+                verifiqueInternet.text = getString(text)
+                buttonAgain.setOnClickListener {
+                    it.startAnimation(AnimationUtils.loadAnimation(
+                        requireContext().applicationContext, R.anim.click))
+                    hideView.enableView(progressMain)
+                    hideView.disableView(frameValidation)
+                    observer()
+                }
+            }
+        }
+    }
+
     private fun recycler() {
         val recycler = binding?.recyclerDeputados
         adapter = SenadoAdapter(this, this)
@@ -68,25 +88,30 @@ class SenadoFragment: Fragment(R.layout.fragment_camara_senado), IClickSenador, 
     }
 
     private fun observer(){
-        senadoViewModel.searchDataSenado().observe(viewLifecycleOwner){
-            it?.let { result ->
-                when (result) {
-                    is ResultSenadoRequest.Success -> {
-                        result.dado?.let { senado ->
-                            hideView.disableView(binding?.progressMain!!)
-                            adapter.updateData(
-                                senado.listaParlamentarEmExercicio.parlamentares.parlamentar)
+
+        val internet = verifyInternet.validationInternet(requireContext().applicationContext)
+        if (internet){
+            senadoViewModel.searchDataSenado().observe(viewLifecycleOwner){
+                it?.let { result ->
+                    when (result) {
+                        is ResultSenadoRequest.Success -> {
+                            result.dado?.let { senado ->
+                                hideView.disableView(binding?.progressMain!!)
+                                adapter.updateData(
+                                    senado.listaParlamentarEmExercicio.parlamentares.parlamentar)
+                            }
                         }
-                    }
-                    is ResultSenadoRequest.Error -> {
-                        result.exception.message?.let {  }
-                    }
-                    is ResultSenadoRequest.ErrorConnection -> {
-                        result.exception.message?.let {  }
+                        is ResultSenadoRequest.Error -> {
+                            validationInternet(R.string.sem_info_api)
+                        }
+                        is ResultSenadoRequest.ErrorConnection -> {
+                            validationInternet(R.string.api_nao_respondeu)
+                        }
                     }
                 }
             }
         }
+        else validationInternet(R.string.verifique_sua_internet)
     }
 
     private fun search() {

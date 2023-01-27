@@ -65,19 +65,19 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
                 sexoDeputado = it.sexo
             }
             viewModel.responseErrorLiveData.observe(viewLifecycleOwner){
-                statusView.enableView(binding!!.textErroSearchData)
                 addValueText(it)
             }
         }
         else {
-            binding?.textErroSearchData?.text = getString(R.string.verifique_sua_internet)
+            addValueText(R.string.verifique_sua_internet)
         }
     }
 
-    private fun addValueText(txt: Int) {
-        binding?.textGeralInformation?.run {
-            text = getString(txt)
-            statusView.enableView(this)
+    private fun addValueText(text: Int) {
+        binding?.run {
+            statusView.disableView(progressGeral)
+            statusView.enableView(textErroSearchData)
+            textErroSearchData.text = getString(text)
         }
     }
 
