@@ -22,7 +22,6 @@ import com.example.portaldatransparencia.util.FormatValor
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import com.google.android.material.chip.Chip
 import org.koin.android.ext.android.inject
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -30,7 +29,7 @@ import retrofit2.Response
 class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas, IClickTipoDespesa {
 
     private var binding: FragmentGastosBinding? = null
-    private val viewModel: DespesasViewModel by viewModel()
+    private val viewModel: DespesasViewModel by inject()
     private lateinit var adapter: DespesasAdapter
     private lateinit var adapterDimension: DimensionAdapter
     private val securityPreferences: SecurityPreferences by inject()
@@ -90,7 +89,7 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas, IClickT
                                 viewModel.captureDataNotes(listDadosDimension, adapterDimension)
                             }
                         }
-                        else noValue("Não há dados no ano ${ano}")
+                        else noValue("Não há dados no ano $ano")
                     }
                     429 -> observer()
                     else -> noValue("API não respondeu!")

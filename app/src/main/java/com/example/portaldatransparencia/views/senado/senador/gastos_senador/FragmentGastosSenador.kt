@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.adapter.DimensionAdapter
-import com.example.portaldatransparencia.adapter.GastorSenadorAdapter
+import com.example.portaldatransparencia.adapter.GastoSenadorAdapter
 import com.example.portaldatransparencia.databinding.FragmentGastosBinding
 import com.example.portaldatransparencia.dataclass.GastosSenador
 import com.example.portaldatransparencia.dataclass.SublistDataClass
@@ -29,7 +29,7 @@ class FragmentGastosSenador: Fragment(R.layout.fragment_gastos), INoteDespesas, 
 
     private var binding: FragmentGastosBinding? = null
     private val viewModelGastos: DespesasViewModel by viewModel()
-    private lateinit var adapter: GastorSenadorAdapter
+    private val adapter: GastoSenadorAdapter by inject()
     private lateinit var adapterDimension: DimensionAdapter
     private val securityPreferences: SecurityPreferences by inject()
     private val statusView: EnableDisableView by inject()
@@ -52,7 +52,6 @@ class FragmentGastosSenador: Fragment(R.layout.fragment_gastos), INoteDespesas, 
 
     private fun recyclerView() {
         val recycler = binding!!.recyclerDespesas
-        adapter = GastorSenadorAdapter(FormatValor())
         recycler.layoutManager = LinearLayoutManager(context)
         recycler.adapter = adapter
 

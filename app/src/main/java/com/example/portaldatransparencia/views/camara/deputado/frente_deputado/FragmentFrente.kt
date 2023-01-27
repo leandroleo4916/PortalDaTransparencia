@@ -24,7 +24,6 @@ import retrofit2.Response
 class FragmentFrente: Fragment(R.layout.fragment_frente), IFront {
 
     private var binding: FragmentFrenteBinding? = null
-    private val viewModel: FrenteViewModel by viewModel()
     private lateinit var adapter: FrenteAdapter
     private val statusView: EnableDisableView by inject()
     private val securityPreferences: SecurityPreferences by inject()
@@ -33,6 +32,7 @@ class FragmentFrente: Fragment(R.layout.fragment_frente), IFront {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentFrenteBinding.bind(view)
+
         id = securityPreferences.getString("id")
         recyclerView()
         observer()
@@ -58,29 +58,25 @@ class FragmentFrente: Fragment(R.layout.fragment_frente), IFront {
                             calculateFront(size.toString())
                             adapter.updateData(res.body()!!.dados)
                         }
-                        else {
-                            binding?.run {
-                                statusView.disableView(progressFront)
-                                statusView.enableView(textFrenteParlamentar)
-                                textFrenteParlamentar.text = getString(R.string.nenhuma_frente_parlamentar)
-                            }
-                        }
+                        else addValue(R.string.nenhuma_frente_parlamentar)
                     }
                     429 -> observer()
-                    else -> {
-                        binding?.run {
-                            statusView.disableView(progressFront)
-                            statusView.enableView(textFrenteParlamentar)
-                            textFrenteParlamentar.text = getString(R.string.nenhuma_frente_parlamentar)
-                        }
-                    }
+                    else -> addValue(R.string.nenhuma_frente_parlamentar)
                 }
             }
 
             override fun onFailure(call: Call<Frente>, t: Throwable) {
-                TODO("Not yet implemented")
+                addValue(R.string.api_nao_respondeu)
             }
         })
+    }
+
+    private fun addValue(txt: Int){
+        binding?.run {
+            statusView.disableView(progressFront)
+            statusView.enableView(textFrenteParlamentar)
+            textFrenteParlamentar.text = getString(txt)
+        }
     }
 
     private fun calculateFront(front: String){

@@ -41,6 +41,11 @@ class SenadorActivity: AppCompatActivity() {
 
     private fun setupViewGeral(){
         val tabs = arrayOf(R.string.geral, R.string.gastos, R.string.acao)
+        val icons = arrayOf(
+            R.drawable.ic_avatar,
+            R.drawable.ic_money,
+            R.drawable.ic_project
+        )
         val tabLayout = binding.tabDeputado
         val pagerGeral = binding.viewPagerDeputado
         val adapter = TabViewAdapterSenador(this)
@@ -48,6 +53,7 @@ class SenadorActivity: AppCompatActivity() {
 
         TabLayoutMediator(tabLayout, pagerGeral){ tab, position ->
             tab.text = getString(tabs[position])
+            tab.icon = getDrawable(icons[position])
         }.attach()
     }
 

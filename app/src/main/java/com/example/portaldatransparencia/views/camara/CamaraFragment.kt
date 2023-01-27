@@ -41,7 +41,7 @@ import java.util.*
 class CamaraFragment: Fragment(R.layout.fragment_camara_senado), IClickDeputado, INotification {
 
     private var binding: FragmentCamaraSenadoBinding? = null
-    private val mainViewModel: CamaraViewModel by viewModel()
+    private val viewModel: CamaraViewModel by viewModel()
     private val hideView: EnableDisableView by inject()
     private val modifyChip: ModifyChip by inject()
     private val validationInternet: ValidationInternet by inject()
@@ -75,34 +75,23 @@ class CamaraFragment: Fragment(R.layout.fragment_camara_senado), IClickDeputado,
     private fun observer() {
 
         val internet = context?.let { validationInternet.validationInternet(it) }
-        val retrofit = Retrofit.createService(ApiServiceMain::class.java)
-        val call: Call<MainDataClass> = retrofit.getDeputados(ordem = "ASC", "nome")
         if (internet == true){
-            call.enqueue(object: Callback<MainDataClass> {
-                override fun onResponse(call: Call<MainDataClass>, res: Response<MainDataClass>) {
-                    when (res.code()) {
-                        200 -> {
-                            binding?.run {
-                                hideView.run {
-                                    enableView(recyclerDeputados)
-                                    disableView(progressMain)
-                                    disableView(frameValidation)
-                                }
-                            }
-                            adapter.updateData(res.body()!!.dados)
-                        }
-                        429 -> observer()
-                        else -> showValidationInternet(R.string.nao_recebeu_dados)
+            viewModel.searchData()
+            viewModel.responseLiveData.observe(viewLifecycleOwner){
+                binding?.run {
+                    hideView.run {
+                        enableView(recyclerDeputados)
+                        disableView(progressMain)
+                        disableView(frameValidation)
                     }
                 }
-                override fun onFailure(call: Call<MainDataClass>, t: Throwable) {
-                    showValidationInternet(R.string.falha_no_servidor)
-                }
-            })
+                adapter.updateData(it)
+            }
+            viewModel.responseLiveError.observe(viewLifecycleOwner){
+                showValidationInternet(it)
+            }
         }
-        else {
-            showValidationInternet(R.string.verifique_sua_internet)
-        }
+        else showValidationInternet(R.string.verifique_sua_internet)
     }
 
     private fun showValidationInternet(value: Int){
@@ -112,7 +101,17 @@ class CamaraFragment: Fragment(R.layout.fragment_camara_senado), IClickDeputado,
                 disableView(recyclerDeputados)
                 enableView(frameValidation)
             }
-            layoutValidation.verifiqueInternet.text = getString(value)
+            layoutValidation.run {
+                verifiqueInternet.text = getString(value)
+                buttonAgain.setOnClickListener {
+                    hideView.run {
+                        enableView(progressMain)
+                        enableView(recyclerDeputados)
+                        disableView(frameValidation)
+                    }
+                    observer()
+                }
+            }
         }
     }
 

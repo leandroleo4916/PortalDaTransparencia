@@ -56,20 +56,12 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
                         if (res.body() != null){
                             addElementOccupation(res.body()!!.dados)
                         }
-                        else {
-
-                        }
                     }
                     429 -> observerOccupation()
-                    else -> {
-
-                    }
+                    else -> {}
                 }
             }
-
-            override fun onFailure(call: Call<OccupationDataClass>, t: Throwable) {
-                TODO("Not yet implemented")
-            }
+            override fun onFailure(call: Call<OccupationDataClass>, t: Throwable) {}
         })
     }
 
@@ -86,21 +78,23 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
                             addElementRedeSocial(res.body()!!.dados)
                             sexoDeputado = res.body()!!.dados.sexo
                         }
-                        else {
-
-                        }
+                        else addValueText("Sem informação na API")
                     }
                     429 -> observerDeputado()
-                    else -> {
-
-                    }
+                    else -> addValueText("Erro na API do Senado")
                 }
             }
-
             override fun onFailure(call: Call<IdDeputadoDataClass>, t: Throwable) {
-
+                addValueText("API do Senado não respondeu")
             }
         })
+    }
+
+    private fun addValueText(txt: String) {
+        binding?.textGeralInformation?.run {
+            text = txt
+            statusView.enableView(this)
+        }
     }
 
     private fun addElementView(dados: Dados) {
@@ -141,6 +135,8 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
                 disableView(progressGeral)
                 enableView(iconDeputadoGeral)
                 enableView(textGeralInformation)
+                enableView(constraintSocialMedia)
+                enableView(constraintGabinete)
             }
         }
     }
@@ -151,8 +147,8 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
 
         val em = " em "
         val hifen = " - "
-        val uf = occupation.entidadeUF ?: ""
-        val pais = occupation.entidadePais ?: ""
+        val uf = occupation.entidadeUF
+        val pais = occupation.entidadePais
         val part = if (uf != "") em+uf+hifen+pais else ""
 
         binding?.run {
@@ -161,6 +157,7 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
                 ("Trabalhou como "+occupation.titulo+" na "+ occupation.entidade+part+", no ano de "+
                         occupation.anoInicio+".").also { textOccupationDescription.text = it }
             }
+            statusView.enableView(constraintOccupation)
         }
     }
 

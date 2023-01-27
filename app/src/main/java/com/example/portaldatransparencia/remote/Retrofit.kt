@@ -27,6 +27,5 @@ class Retrofit {
         fun <S> createService(service: Class<S>): S{
             return getRetrofit().create(service)
         }
-
     }
 }

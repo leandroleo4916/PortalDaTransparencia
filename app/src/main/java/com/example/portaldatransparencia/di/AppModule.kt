@@ -1,5 +1,6 @@
 package com.example.portaldatransparencia.di
 
+import com.example.portaldatransparencia.adapter.GastoSenadorAdapter
 import com.example.portaldatransparencia.remote.*
 import com.example.portaldatransparencia.security.SecurityPreferences
 import com.example.portaldatransparencia.util.*
@@ -10,7 +11,7 @@ import com.example.portaldatransparencia.views.activity.ranking.senado.RankingVi
 import com.example.portaldatransparencia.views.activity.votacoes.camara.VotacoesViewModelCamara
 import com.example.portaldatransparencia.views.camara.CamaraViewModel
 import com.example.portaldatransparencia.views.camara.deputado.DeputadoViewModel
-import com.example.portaldatransparencia.views.camara.deputado.frente_deputado.FrenteViewModel
+import com.example.portaldatransparencia.views.camara.deputado.frente_deputado.FrontIdViewModel
 import com.example.portaldatransparencia.views.camara.deputado.gastos_deputado.DespesasViewModel
 import com.example.portaldatransparencia.views.camara.deputado.geral_deputado.OccupationViewModel
 import com.example.portaldatransparencia.views.camara.deputado.proposta_deputado.PropostaViewModel
@@ -65,21 +66,17 @@ val retrofitModule = module {
         single<ApiVotacoesSenado> { get<Retrofit>().create(ApiVotacoesSenado::class.java) }
 }
 
-val viewModelModule = module { viewModel { CamaraViewModel(get()) } }
-val viewModelDeputado = module { viewModel { DeputadoViewModel(get()) } }
-val viewModelDespesas = module { viewModel { DespesasViewModel(get(), get()) } }
-val viewModelFront = module { viewModel { FrenteViewModel(get()) } }
-val viewModelProposta = module { viewModel { PropostaViewModel(get()) } }
-val viewModelOccupation = module { viewModel { OccupationViewModel(get()) } }
-val viewModelSenado = module { viewModel { SenadoViewModel(get()) } }
-val viewModelSenador = module { viewModel { SenadorViewModel(get()) } }
-val viewModelSenadorGeral = module { viewModel { GeralSenadorViewModel(get()) } }
-val viewModelVotacoes = module { viewModel { VotacoesViewModel(get(), get()) } }
-val viewModelGastoGeral = module { viewModel { GastoGeralViewModelCamara(get()) } }
-val viewModelRankingCamara = module { viewModel { RankingViewModelCamara(get()) } }
-val viewModelRankingSenado = module { viewModel { RankingViewModelSenado(get()) } }
-val viewModelGastoGeralSenado = module { viewModel { GastoGeralViewModelSenado(get()) } }
-val viewModelVotacoesCamara = module { viewModel { VotacoesViewModelCamara() } }
+val progressModule = module { factory { EnableDisableView() } }
+val ageModule = module { factory { CalculateAge() } }
+val visibilityNavFloating = module { factory { VisibilityNavViewAndFloating() } }
+val modifyChip = module { factory { ModifyChip() } }
+val retiraAcento = module { factory { RetiraAcento() } }
+val securityPreferences = module { single { SecurityPreferences(get()) } }
+val formatValor = module { factory { FormatValor() } }
+val formatValorBi = module { factory { FormaterValueBilhoes(get()) } }
+val formatValorFloat = module { factory { FormatValueFloat() } }
+val validationInternet = module { single { ValidationInternet() } }
+val modifyHttp = module { single { ModifyHttpToHttps() } }
 
 val repositorySearch = module { single { SearchRepository(get()) } }
 val repositoryIdDeputado = module { single { IdDeputadoRepository(get()) } }
@@ -95,17 +92,23 @@ val repositoryVotacoesItem = module { single { VotacoesRepositoryItem(get()) } }
 val repositoryGastoGeral = module { single { GastoGeralRepository(get(), get()) } }
 val repositoryVotacoesCamara = module { single { VotacoesCamaraRepository(get()) } }
 
-val progressModule = module { factory { EnableDisableView() } }
-val ageModule = module { factory { CalculateAge() } }
-val visibilityNavFloating = module { factory { VisibilityNavViewAndFloating() } }
-val modifyChip = module { factory { ModifyChip() } }
-val retiraAcento = module { factory { RetiraAcento() } }
-val securityPreferences = module { single { SecurityPreferences(get()) } }
-val formatValor = module { factory { FormatValor() } }
-val formatValorBi = module { factory { FormaterValueBilhoes(get()) } }
-val formatValorFloat = module { factory { FormatValueFloat() } }
-val validationInternet = module { single { ValidationInternet() } }
-val modifyHttp = module { single { ModifyHttpToHttps() } }
+val gastoSenadorAdapter = module { single { GastoSenadorAdapter(get()) }}
+
+val viewModelModule = module { viewModel { CamaraViewModel(get()) } }
+val viewModelDeputado = module { viewModel { DeputadoViewModel(get()) } }
+val viewModelDespesas = module { viewModel { DespesasViewModel(get(), get()) } }
+val viewModelFront = module { viewModel { FrontIdViewModel() } }
+val viewModelProposta = module { viewModel { PropostaViewModel(get()) } }
+val viewModelOccupation = module { viewModel { OccupationViewModel(get()) } }
+val viewModelSenado = module { viewModel { SenadoViewModel(get()) } }
+val viewModelSenador = module { viewModel { SenadorViewModel(get()) } }
+val viewModelSenadorGeral = module { viewModel { GeralSenadorViewModel(get()) } }
+val viewModelVotacoes = module { viewModel { VotacoesViewModel(get(), get()) } }
+val viewModelGastoGeral = module { viewModel { GastoGeralViewModelCamara(get()) } }
+val viewModelRankingCamara = module { viewModel { RankingViewModelCamara(get()) } }
+val viewModelRankingSenado = module { viewModel { RankingViewModelSenado(get()) } }
+val viewModelGastoGeralSenado = module { viewModel { GastoGeralViewModelSenado(get()) } }
+val viewModelVotacoesCamara = module { viewModel { VotacoesViewModelCamara() } }
 
 val appModules = listOf( retrofitModule, viewModelModule, repositorySearch, progressModule,
         viewModelDeputado, repositoryIdDeputado, viewModelDespesas, repositoryDespesasDeputado,
@@ -114,7 +117,7 @@ val appModules = listOf( retrofitModule, viewModelModule, repositorySearch, prog
         viewModelSenador, visibilityNavFloating, repositorySenador, modifyChip, viewModelSenadorGeral,
         repositorySenadorGeral, retiraAcento, repositoryVotacoes, viewModelVotacoes,
         repositoryVotacoesItem, formatValor, repositoryGastoGeral, viewModelGastoGeral,
-        formatValorBi, formatValorFloat, validationInternet, modifyHttp,
+        formatValorBi, formatValorFloat, validationInternet, modifyHttp, gastoSenadorAdapter,
         viewModelRankingCamara, viewModelRankingSenado, viewModelGastoGeralSenado,
         viewModelVotacoesCamara, repositoryVotacoesCamara
 )

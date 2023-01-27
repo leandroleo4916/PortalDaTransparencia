@@ -13,10 +13,6 @@ import com.example.portaldatransparencia.util.FormatValueFloat
 class DespesasViewModel(private val repository: IdDespesasRepository,
                         private val formatFloat: FormatValueFloat) : ViewModel() {
 
-    /*fun searchDespesasDeputado(id: String, ano: String, pagina: Int):
-            LiveData<ResultDespesasRequest<Despesas?>> =
-        repository.searchDespesasData(id, ano, pagina)*/
-
     fun searchGastosSenador(ano: String, nome: String):
             LiveData<ResultCotaRequest<SenadorGastosDataClass?>> =
         repository.gastosData(ano, nome)
