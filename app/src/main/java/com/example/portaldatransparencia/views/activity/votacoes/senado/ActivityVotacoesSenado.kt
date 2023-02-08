@@ -2,6 +2,7 @@ package com.example.portaldatransparencia.views.activity.votacoes.senado
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
@@ -57,6 +58,7 @@ class ActivityVotacoesSenado: AppCompatActivity(), IAddVotoInRecycler, IClickSen
     private var monthName = ""
     private lateinit var create: AlertDialog
     private val retiraAcento: RetiraAcento by inject()
+    private var shortAnimationDuration = 300
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -133,20 +135,41 @@ class ActivityVotacoesSenado: AppCompatActivity(), IAddVotoInRecycler, IClickSen
 
     private fun modifyFilter() {
         if (value == 1){
-            binding.run {
-                layoutTop.imageViewFilter.setImageResource(R.drawable.ic_no_filter_dark)
-                statusView.enableView(frameYear)
-                statusView.enableView(frameMonth)
-            }
+            binding.layoutTop.imageViewFilter.setImageResource(R.drawable.ic_no_filter_dark)
+            crossFade(true)
             value = 0
         }
         else {
-            binding.run {
-                layoutTop.imageViewFilter.setImageResource(R.drawable.ic_filter_dark)
-                statusView.disableView(frameYear)
-                statusView.disableView(frameMonth)
-            }
+            binding.layoutTop.imageViewFilter.setImageResource(R.drawable.ic_filter_dark)
+            crossFade(false)
             value = 1
+        }
+    }
+
+    private fun crossFade(visible: Boolean) {
+        binding.run {
+            frameYear.apply {
+                alpha = 0F
+                visibility =
+                    if (visible) View.VISIBLE
+                    else View.GONE
+
+                animate()
+                    .alpha(1f)
+                    .setDuration(shortAnimationDuration.toLong())
+                    .setListener(null)
+            }
+            frameMonth.apply {
+                alpha = 0F
+                visibility =
+                    if (visible) View.VISIBLE
+                    else View.GONE
+
+                animate()
+                    .alpha(1f)
+                    .setDuration(shortAnimationDuration.toLong())
+                    .setListener(null)
+            }
         }
     }
 

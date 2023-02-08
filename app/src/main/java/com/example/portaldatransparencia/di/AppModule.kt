@@ -21,10 +21,7 @@ import com.example.portaldatransparencia.views.senado.SenadoViewModel
 import com.example.portaldatransparencia.views.senado.senador.SenadorViewModel
 import com.example.portaldatransparencia.views.senado.senador.geral_senador.GeralSenadorViewModel
 import com.example.portaldatransparencia.views.senado.senador.votacoes_senador.VotacoesViewModel
-import com.example.portaldatransparencia.views.view_generics.EnableDisableView
-import com.example.portaldatransparencia.views.view_generics.ModifyChip
-import com.example.portaldatransparencia.views.view_generics.ModifyHttpToHttps
-import com.example.portaldatransparencia.views.view_generics.VisibilityNavViewAndFloating
+import com.example.portaldatransparencia.views.view_generics.*
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -66,6 +63,7 @@ val retrofitModule = module {
         single<ApiServiceEvento> { get<Retrofit>().create(ApiServiceEvento::class.java) }
         single<ApiServicePropostaItem> { get<Retrofit>().create(ApiServicePropostaItem::class.java) }
         single<ApiVotacoesSenado> { get<Retrofit>().create(ApiVotacoesSenado::class.java) }
+        single<ApiServiceRankingDeputado> { get<Retrofit>().create(ApiServiceRankingDeputado::class.java) }
 }
 
 val progressModule = module { factory { EnableDisableView() } }
@@ -91,10 +89,11 @@ val repositorySenador = module { single { SenadorRepository(get()) } }
 val repositorySenadorGeral = module { single { GeralSenadorRepository(get()) } }
 val repositoryVotacoes = module { single { VotacoesRepository(get()) } }
 val repositoryVotacoesItem = module { single { VotacoesRepositoryItem(get()) } }
-val repositoryGastoGeral = module { single { GastoGeralRepository(get(), get()) } }
+val repositoryGastoGeral = module { single { GastoGeralRepository(get(), get(), get()) } }
 val repositoryVotacoesCamara = module { single { VotacoesCamaraRepository(get()) } }
 
 val gastoSenadorAdapter = module { single { GastoSenadorAdapter(get()) }}
+val animationView = module { single { AnimationView() }}
 
 val viewModelModule = module { viewModel { CamaraViewModel(get()) } }
 val viewModelDeputado = module { viewModel { DeputadoViewModel(get()) } }
@@ -122,5 +121,5 @@ val appModules = listOf( retrofitModule, viewModelModule, repositorySearch, prog
         repositoryVotacoesItem, formatValor, repositoryGastoGeral, viewModelGastoGeral,
         formatValorBi, formatValorFloat, validationInternet, modifyHttp, gastoSenadorAdapter,
         viewModelRankingCamara, viewModelRankingSenado, viewModelGastoGeralSenado,
-        viewModelVotacoesCamara, repositoryVotacoesCamara, viewModelFrontId
+        viewModelVotacoesCamara, repositoryVotacoesCamara, viewModelFrontId, animationView
 )

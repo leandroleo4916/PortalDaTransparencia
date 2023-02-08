@@ -8,14 +8,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.adapter.GastoGeralAdapter
 import com.example.portaldatransparencia.databinding.LayoutRankingBinding
-import com.example.portaldatransparencia.dataclass.Dado
-import com.example.portaldatransparencia.dataclass.GastoGeralCamara
-import com.example.portaldatransparencia.dataclass.ListParlamentar
-import com.example.portaldatransparencia.dataclass.MainDataClass
+import com.example.portaldatransparencia.dataclass.*
 import com.example.portaldatransparencia.interfaces.IClickOpenDeputadoRanking
 import com.example.portaldatransparencia.network.ApiServiceMain
-import com.example.portaldatransparencia.repository.ResultGastoGeralCamara
 import com.example.portaldatransparencia.network.Retrofit
+import com.example.portaldatransparencia.repository.ResultRankingGeralCamara
 import com.example.portaldatransparencia.security.SecurityPreferences
 import com.example.portaldatransparencia.util.FormaterValueBilhoes
 import com.example.portaldatransparencia.util.ValidationInternet
@@ -39,11 +36,12 @@ class ActivityRankingCamara: AppCompatActivity(), IClickOpenDeputadoRanking {
     private val formatValor: FormaterValueBilhoes by inject()
     private lateinit var adapter: GastoGeralAdapter
     private lateinit var listDeputados: ArrayList<Dado>
-    private lateinit var listGastoGeralDeputado: ArrayList<ListParlamentar>
+    private lateinit var listGastoGeralDeputado: ArrayList<Ranking>
     private var listAdpterDeputado: ArrayList<ListParlamentar> = arrayListOf()
     private lateinit var gastoCamara: GastoGeralCamara
     private lateinit var sizeDeputado: String
     private lateinit var id: String
+    private val ano = "Geral"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -105,20 +103,19 @@ class ActivityRankingCamara: AppCompatActivity(), IClickOpenDeputadoRanking {
 
     private fun observerGastoCamara() {
 
-        viewModel.rankingCamara().observe(this){
+        viewModel.rankingCamara(ano).observe(this){
             it?.let { result ->
                 when (result) {
-                    is ResultGastoGeralCamara.Success -> {
+                    is ResultRankingGeralCamara.Success -> {
                         result.dado?.let { gastos ->
-                            listGastoGeralDeputado = gastos.gastoGeral.listDeputado as ArrayList
-                            gastoCamara = gastos
+                            listGastoGeralDeputado = gastos.ranking as ArrayList
                             processListCamara()
                         }
                     }
-                    is ResultGastoGeralCamara.Error -> {
+                    is ResultRankingGeralCamara.Error -> {
                         result.exception.message?.let { }
                     }
-                    is ResultGastoGeralCamara.ErrorConnection -> {
+                    is ResultRankingGeralCamara.ErrorConnection -> {
                         result.exception.message?.let { }
                     }
                 }
@@ -127,32 +124,11 @@ class ActivityRankingCamara: AppCompatActivity(), IClickOpenDeputadoRanking {
     }
 
     private fun processListCamara(){
-
-        listDeputados.forEach { deputado ->
-            val id = deputado.id
-            val partido = deputado.siglaPartido
-            val uf = deputado.siglaUf
-            val nome = deputado.nome
-            val urlFoto = deputado.urlFoto
-            listGastoGeralDeputado.forEach{
-                val n = it.nome
-                if (n == nome){
-                    it.id = id.toString()
-                    it.partido = partido
-                    it.uf = uf
-                    it.urlFoto = urlFoto
-                }
-            }
-        }
-        listGastoGeralDeputado.forEach {
-            val item = it
-            if (item.urlFoto != null) listAdpterDeputado.add(item)
-        }
         binding.run {
             progressRancking.let { hideView.disableView(it) }
             textResultRacking.let { hideView.disableView(it) }
         }
-        adapter.updateData(listAdpterDeputado)
+        adapter.updateData(listGastoGeralDeputado)
     }
 
     override fun clickRanking(id: String) {

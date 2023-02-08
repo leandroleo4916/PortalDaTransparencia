@@ -3,6 +3,7 @@ package com.example.portaldatransparencia.repository
 import androidx.lifecycle.liveData
 import com.example.portaldatransparencia.network.ApiServiceGastoGeralDeputado
 import com.example.portaldatransparencia.network.ApiServiceGastoGeralSenador
+import com.example.portaldatransparencia.network.ApiServiceRankingDeputado
 import java.net.ConnectException
 
 sealed class ResultGastoGeralSenado<out R> {
@@ -17,9 +18,15 @@ sealed class ResultGastoGeralCamara<out R> {
     data class ErrorConnection(val exception: Exception) : ResultGastoGeralCamara<Nothing>()
 }
 
+sealed class ResultRankingGeralCamara<out R> {
+    data class Success<out T>(val dado: T?) : ResultRankingGeralCamara<T?>()
+    data class Error(val exception: Exception) : ResultRankingGeralCamara<Nothing>()
+    data class ErrorConnection(val exception: Exception) : ResultRankingGeralCamara<Nothing>()
+}
+
 class GastoGeralRepository(private val serviceApi: ApiServiceGastoGeralSenador,
-                           private val serviceApiCamara: ApiServiceGastoGeralDeputado
-) {
+                           private val serviceApiCamara: ApiServiceGastoGeralDeputado,
+                           private val serviceApiRanking: ApiServiceRankingDeputado) {
 
     fun gastoGeralSenado() = liveData {
         try {
@@ -37,9 +44,9 @@ class GastoGeralRepository(private val serviceApi: ApiServiceGastoGeralSenador,
         }
     }
 
-    fun gastoGeralCamara() = liveData {
+    fun gastoGeralCamara(ano: String) = liveData {
         try {
-            val request = serviceApiCamara.getGastoGeral()
+            val request = serviceApiCamara.getGastoGeral(ano)
             if(request.isSuccessful){
                 emit(ResultGastoGeralCamara.Success(dado = request.body()))
             } else {
@@ -50,6 +57,22 @@ class GastoGeralRepository(private val serviceApi: ApiServiceGastoGeralSenador,
         }
         catch (e: Exception) {
             emit(ResultGastoGeralCamara.Error(exception = e))
+        }
+    }
+
+    fun rankingGeralCamara(ano: String) = liveData {
+        try {
+            val request = serviceApiRanking.rankingGeral(ano)
+            if(request.isSuccessful){
+                emit(ResultRankingGeralCamara.Success(dado = request.body()))
+            } else {
+                emit(ResultRankingGeralCamara.Error(exception = Exception("Não foi possível conectar!")))
+            }
+        } catch (e: ConnectException) {
+            emit(ResultRankingGeralCamara.ErrorConnection(exception = Exception("Falha na comunicação com API")))
+        }
+        catch (e: Exception) {
+            emit(ResultRankingGeralCamara.Error(exception = e))
         }
     }
 }

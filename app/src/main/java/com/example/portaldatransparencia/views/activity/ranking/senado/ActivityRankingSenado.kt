@@ -140,7 +140,7 @@ class ActivityRankingSenado: AppCompatActivity(), IClickOpenDeputadoRanking {
             progressRancking.let { hideView.disableView(it) }
             textResultRacking.let { hideView.disableView(it) }
         }
-        adapter.updateData(listAdpterSenador)
+        //adapter.updateData(listAdpterSenador)
     }
 
     override fun clickRanking(id: String) {}

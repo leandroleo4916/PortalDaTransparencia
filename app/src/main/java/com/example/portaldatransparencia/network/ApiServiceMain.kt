@@ -115,8 +115,18 @@ interface ApiServiceGastoGeralSenador {
 
 interface ApiServiceGastoGeralDeputado {
     @Headers("Content-Type: application/json")
-    @GET("https://raw.githubusercontent.com/leandroleo4916/API_SENADO/master/geralDeputado")
-    suspend fun getGastoGeral(): Response<GastoGeralCamara>
+    @GET("https://raw.githubusercontent.com/leandroleo4916/API_SENADO/master/gastosCamara/geral{ano}")
+    suspend fun getGastoGeral(
+        @Path("ano") ano: String
+    ): Response<GastoGeralCamara>
+}
+
+interface ApiServiceRankingDeputado {
+    @Headers("Content-Type: application/json")
+    @GET("https://raw.githubusercontent.com/leandroleo4916/API_SENADO/master/rankingCamara/ranking{ano}")
+    suspend fun rankingGeral(
+        @Path("ano") ano: String
+    ): Response<RankingCamara>
 }
 
 interface ApiServiceVotacoes {

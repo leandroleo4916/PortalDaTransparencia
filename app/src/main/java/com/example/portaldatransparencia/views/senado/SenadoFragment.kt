@@ -51,6 +51,8 @@ class SenadoFragment: Fragment(R.layout.fragment_camara_senado), IClickSenador, 
     private var hideFilter = true
     private val permissionCode = 1000
 
+    private var shortAnimationDuration = 300
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentCamaraSenadoBinding.bind(view)
@@ -219,15 +221,31 @@ class SenadoFragment: Fragment(R.layout.fragment_camara_senado), IClickSenador, 
             if (hideFilter){
                 icFilter.setImageResource(R.drawable.ic_no_filter)
                 hideFilter = false
-                frameChip.let { hideView.enableView(it) }
+                crossFade(true)
             }
             else {
                 icFilter.setImageResource(R.drawable.ic_filter)
                 hideFilter = true
-                frameChip.let { hideView.disableView(it) }
+                crossFade(false)
             }
         }
     }
+
+
+    private fun crossFade(visible: Boolean) {
+        binding?.frameChip?.apply {
+            alpha = 0F
+            visibility =
+                if (visible) View.VISIBLE
+                else View.GONE
+
+            animate()
+                .alpha(1f)
+                .setDuration(shortAnimationDuration.toLong())
+                .setListener(null)
+        }
+    }
+
 
     private fun modifyChipPartido(viewDisabled: Chip) {
         chipEnabled = modifyChip.modify(chipEnabled, viewDisabled)

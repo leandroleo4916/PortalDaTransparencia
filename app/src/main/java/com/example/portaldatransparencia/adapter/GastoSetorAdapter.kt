@@ -1,0 +1,54 @@
+package com.example.portaldatransparencia.adapter
+
+import android.annotation.SuppressLint
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
+import com.example.portaldatransparencia.R
+import com.example.portaldatransparencia.databinding.RecyclerGastoSetorBinding
+import com.example.portaldatransparencia.dataclass.AddInfoSetor
+import com.example.portaldatransparencia.util.FormatValor
+import com.example.portaldatransparencia.views.view_generics.AnimationView
+
+class GastoSetorAdapter(private val formatValor: FormatValor, private val animeView: AnimationView):
+    RecyclerView.Adapter<GastoSetorAdapter.DespesasViewHolder>() {
+
+    private var binding: RecyclerGastoSetorBinding? = null
+    private var data: ArrayList<AddInfoSetor> = arrayListOf()
+    private var value = 0
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DespesasViewHolder {
+        val item = LayoutInflater
+            .from(parent.context)
+            .inflate(R.layout.recycler_gasto_setor, parent, false)
+        return DespesasViewHolder(item)
+    }
+
+    override fun onBindViewHolder(holder: DespesasViewHolder, position: Int) {
+        val despesa = data[position]
+        holder.bind(despesa)
+    }
+
+    override fun getItemCount() = data.size
+
+    inner class DespesasViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+
+        fun bind(despesa: AddInfoSetor){
+
+            binding = RecyclerGastoSetorBinding.bind(itemView)
+            binding?.run {
+                textDescriptionSetor.text = despesa.description
+                textValueSetor.text = "R$ ${formatValor.formatValor(despesa.value.toDouble())}"
+                viewLateral.setBackgroundColor(despesa.color)
+            }
+            animeView.crossFade(itemView)
+        }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun updateData(subList: ArrayList<AddInfoSetor>) {
+        data = subList
+        notifyDataSetChanged()
+    }
+}

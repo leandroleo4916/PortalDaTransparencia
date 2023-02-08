@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import androidx.core.view.ViewCompat.animate
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.portaldatransparencia.R
@@ -52,6 +53,20 @@ class DimensionAdapter(private val formatValor: FormatValor,
                     it.startAnimation(AnimationUtils.loadAnimation(itemView.context, R.anim.click))
                     clickDespesa.clickTipoDespesa(despesa.tipo)
                 }
+            }
+            crossFade()
+        }
+
+        private fun crossFade() {
+            val shortAnimationDuration = 300
+            binding?.constraintRecycler?.apply {
+                alpha = 0F
+                visibility = View.VISIBLE
+
+                animate()
+                    .alpha(1f)
+                    .setDuration(shortAnimationDuration.toLong())
+                    .setListener(null)
             }
         }
     }

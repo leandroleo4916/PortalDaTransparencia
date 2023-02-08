@@ -10,6 +10,7 @@ import com.example.portaldatransparencia.dataclass.GastoGeralDataClass
 import com.example.portaldatransparencia.repository.ResultGastoGeralSenado
 import com.example.portaldatransparencia.util.FormaterValueBilhoes
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
+import com.google.android.material.chip.Chip
 import org.eazegraph.lib.models.PieModel
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -21,32 +22,40 @@ class ActivityGastoGeralSenado: AppCompatActivity() {
     private val hideView: EnableDisableView by inject()
     private val formatValor: FormaterValueBilhoes by inject()
     private lateinit var gastoSenado: GastoGeralDataClass
+    private lateinit var chipSelected: Chip
+    private val ano = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        binding.chipGroupItem.chipAll.apply {
+            chipSelected = this
+            hideView.enableView(this)
+        }
+        modifyItemTop()
         modifyItemGraph()
         observerGastoSenado()
         listener()
     }
 
-    private fun modifyItemGraph() {
+    private fun modifyItemTop(){
         binding.run {
-            hideView.run {
-                disableView(layoutServicosPostais)
-                disableView(layoutOutrosServicos)
-                disableView(toolbarAquisicao)
-                disableView(toolbarOutrosServicos)
-            }
-            textAluguel.text = getString(R.string.alugueDeImoveis)
-            textServicosTelefonicos.text = getString(R.string.consultoriaAcessoria)
-            textAquisicao.text = getString(R.string.aquisicaoDeMateriais)
             layoutTop.run {
                 textViewTitleTop.text = getString(R.string.senado_federal)
                 textViewDescriptionTop.text = getString(R.string.gastoGeral8Anos)
                 hideView.enableView(textViewDescriptionTop)
-                hideView.disableView(imageViewFilter)
+            }
+            chipGroupItem.chip2023.isChecked = false
+        }
+    }
+
+    private fun modifyItemGraph() {
+        binding.run {
+            layoutTop.run {
+                textViewTitleTop.text = getString(R.string.senado_federal)
+                textViewDescriptionTop.text = getString(R.string.gastoGeral8Anos)
+                hideView.enableView(textViewDescriptionTop)
             }
         }
     }
@@ -87,15 +96,7 @@ class ActivityGastoGeralSenado: AppCompatActivity() {
                     enableView(constraintNumberParlamentar)
                     enableView(constraintNumberTotal)
                     enableView(constraintNumberNotas)
-                    enableView(linearLayout2)
-                    enableView(toolbarSeparate)
                 }
-                textAluguelValue.text = formatValor.formatValor(aluguel.toDouble())
-                textDivulgacaoValue.text = formatValor.formatValor(divulgacao.toDouble())
-                textPassagensValue.text = formatValor.formatValor(passagens.toDouble())
-                textTelefonicosValue.text = formatValor.formatValor(contratacao.toDouble())
-                textHospedagensValue.text = formatValor.formatValor(locomocao.toDouble())
-                textCombustiveisValue.text = formatValor.formatValor(aquisicao.toDouble())
             }
         }
     }

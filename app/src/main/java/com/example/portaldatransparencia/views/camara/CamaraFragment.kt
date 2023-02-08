@@ -12,6 +12,7 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat.animate
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.portaldatransparencia.R
@@ -28,6 +29,7 @@ import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import com.example.portaldatransparencia.views.view_generics.ModifyChip
 import com.example.portaldatransparencia.views.view_generics.VisibilityNavViewAndFloating
 import com.google.android.material.chip.Chip
+import com.nineoldandroids.view.ViewPropertyAnimator.animate
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
@@ -47,6 +49,7 @@ class CamaraFragment: Fragment(R.layout.fragment_camara_senado), IClickDeputado,
     private val permissionCode = 1000
     private var hideFilter = true
     companion object { const val SPEECH_REQUEST_CODE = 0 }
+    private var shortAnimationDuration = 300
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -91,9 +94,9 @@ class CamaraFragment: Fragment(R.layout.fragment_camara_senado), IClickDeputado,
     private fun showValidationInternet(value: Int){
         binding?.run {
             hideView.run {
+                enableView(frameValidation)
                 disableView(progressMain)
                 disableView(recyclerDeputados)
-                enableView(frameValidation)
             }
             layoutValidation.run {
                 verifiqueInternet.text = getString(value)
@@ -225,13 +228,27 @@ class CamaraFragment: Fragment(R.layout.fragment_camara_senado), IClickDeputado,
             if (hideFilter){
                 icFilter.setImageResource(R.drawable.ic_no_filter)
                 hideFilter = false
-                frameChip.let { hideView.enableView(it) }
+                crossFade(true)
             }
             else {
                 icFilter.setImageResource(R.drawable.ic_filter)
                 hideFilter = true
-                frameChip.let { hideView.disableView(it) }
+                crossFade(false)
             }
+        }
+    }
+
+    private fun crossFade(visible: Boolean) {
+        binding?.frameChip?.apply {
+            alpha = 0F
+            visibility =
+                if (visible) View.VISIBLE
+                else View.GONE
+
+            animate()
+                .alpha(1f)
+                .setDuration(shortAnimationDuration.toLong())
+                .setListener(null)
         }
     }
 

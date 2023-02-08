@@ -149,21 +149,21 @@ class FragmentGeralSenador: Fragment(R.layout.fragment_geral_senador) {
     private fun addElementAddressContact(phone: String){
 
         binding?.run {
+            statusView.enableView(constraintGabinete)
             textGeralPredio.text = dadosBasicos.enderecoParlamentar
             textGeralAndar.text = detalhes.emailParlamentar
             textGeralPhone.text =
                 if (phone.contains("[{")) phone.substring(17, 25)
                 else phone.substring(16, 24)
-            statusView.enableView(constraintGabinete)
         }
     }
 
     private fun addElementCargo(dados: List<Cargo>) {
         val cargo = dados[0]
         binding?.run {
+            statusView.enableView(constraintOccupation)
             ("Exerceu o cargo de "+cargo.descricaoCargo).also { textCargoSenador.text = it }
             (cargo.identificacaoComissao.nomeComissao).also { textCargoDescription.text = it }
-            statusView.enableView(constraintOccupation)
         }
     }
 

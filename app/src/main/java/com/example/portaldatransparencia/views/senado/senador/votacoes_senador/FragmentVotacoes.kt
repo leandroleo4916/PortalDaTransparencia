@@ -63,14 +63,10 @@ class FragmentVotacoes: Fragment(R.layout.fragment_votacoes_senador), ISmoothPos
                         }
                     }
                     is ResultVotacoesRequest.Error -> {
-                        result.exception.message?.let {
-                            observerItem()
-                        }
+                        result.exception.message?.let { observerItem() }
                     }
                     is ResultVotacoesRequest.ErrorConnection -> {
-                        result.exception.message?.let {
-                            observerItem()
-                        }
+                        result.exception.message?.let { observerItem() }
                     }
                 }
             }
@@ -152,11 +148,9 @@ class FragmentVotacoes: Fragment(R.layout.fragment_votacoes_senador), ISmoothPos
                 enableView(iconVoto)
                 disableView(textNotValue)
             }
-            if (numberVotacoes == 1){
-                "$numberVotacoes Votação".also { textTotalVotos.text = it }
-            }else {
-                "$numberVotacoes Votações".also { textTotalVotos.text = it }
-            }
+            textTotalVotos.text =
+                if (numberVotacoes == 1) "$numberVotacoes Votação"
+                else "$numberVotacoes Votações"
         }
     }
 

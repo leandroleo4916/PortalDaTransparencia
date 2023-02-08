@@ -1,19 +1,25 @@
 package com.example.portaldatransparencia.dataclass
 
 data class GastoGeralCamara(
-    val gastoGeral: GeralCamara
+    val total: Total
 )
 
-data class GeralCamara (
+data class Total (
     val totalGeral: String,
     val totalNotas: String,
     val manutencao: String,
     val combustivel: String,
     val passagens: String,
+    val assinatura: String,
     val divulgacao: String,
     val telefonia: String,
-    val servicos: String,
+    val postais: String,
+    val hospedagem: String,
+    val taxi: String,
+    val locacao: String,
+    val consultoria: String,
+    val seguranca: String,
+    val curso: String,
     val alimentacao: String,
-    val outros: String,
-    val listDeputado: List<ListParlamentar>
+    val outros: String
 )

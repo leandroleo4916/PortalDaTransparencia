@@ -8,8 +8,8 @@ import com.example.portaldatransparencia.repository.ResultGastoGeralCamara
 
 class GastoGeralViewModelCamara(private val repository: GastoGeralRepository): ViewModel() {
 
-    fun gastoGeralCamara():
-            LiveData<ResultGastoGeralCamara<GastoGeralCamara?>> = repository.gastoGeralCamara()
+    fun gastoGeralCamara(ano: String):
+            LiveData<ResultGastoGeralCamara<GastoGeralCamara?>> = repository.gastoGeralCamara(ano)
 
 }
 

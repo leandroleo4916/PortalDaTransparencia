@@ -15,10 +15,17 @@
     <string name="manutencao_escritorio">Manutenção de escritório</string>
     <string name="divulgacao_parlamentar">Divulgação parlamentar</string>
     <string name="passagens_aereas">Passagens aéreas</string>
+    <string name="assinaturas">Assinaturas</string>
     <string name="servicos_telefonicos">Serviços telefônicos</string>
     <string name="hospedagem_alimentacao">Hospedagem, alimentação</string>
     <string name="combustivel_lubrificante">Combustíveis e lubrificantes</string>
     <string name="servico_postal">Serviços postais, correios</string>
+    <string name="hospedagem">Hospedagens</string>
+    <string name="taxi">Taxi</string>
+    <string name="seguranca">Segurança</string>
+    <string name="curso">Cursos, Palestras</string>
+    <string name="locacao">Locação</string>
+    <string name="alimentacao">Alimentacao</string>
     <string name="outros_servicos">Outros serviços e produtos</string>
     <string name="value">R$ 0.000,00</string>
     <string name="ultimos8anos"> - últimos 8 anos</string>
