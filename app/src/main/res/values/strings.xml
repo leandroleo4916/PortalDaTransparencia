@@ -21,10 +21,10 @@
     <string name="combustivel_lubrificante">Combustíveis e lubrificantes</string>
     <string name="servico_postal">Serviços postais, correios</string>
     <string name="hospedagem">Hospedagens</string>
-    <string name="taxi">Taxi</string>
-    <string name="seguranca">Segurança</string>
+    <string name="taxi">Taxi, Pedágio</string>
+    <string name="seguranca">Serviço de Segurança</string>
     <string name="curso">Cursos, Palestras</string>
-    <string name="locacao">Locação</string>
+    <string name="locacao">Locação veículos</string>
     <string name="alimentacao">Alimentacao</string>
     <string name="outros_servicos">Outros serviços e produtos</string>
     <string name="value">R$ 0.000,00</string>

@@ -1,10 +1,12 @@
 package com.example.portaldatransparencia.adapter
 
 import android.annotation.SuppressLint
+import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.databinding.RecyclerGastoSetorBinding
 import com.example.portaldatransparencia.dataclass.AddInfoSetor
@@ -40,7 +42,11 @@ class GastoSetorAdapter(private val formatValor: FormatValor, private val animeV
             binding?.run {
                 textDescriptionSetor.text = despesa.description
                 textValueSetor.text = "R$ ${formatValor.formatValor(despesa.value.toDouble())}"
-                viewLateral.setBackgroundColor(despesa.color)
+                viewLateral.setBackgroundResource(despesa.color)
+
+                Glide.with(itemView)
+                    .load(despesa.photo)
+                    .into(iconGasto)
             }
             animeView.crossFade(itemView)
         }

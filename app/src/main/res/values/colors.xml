@@ -16,11 +16,18 @@
     <color name="yellow">#FFB600</color>
 
     <color name="color1">#D50000</color>
-    <color name="color2">#2467AA</color>
-    <color name="color3">#37505C</color>
+    <color name="color2">#FF018786</color>
+    <color name="color3">#6200EA</color>
     <color name="color4">#F47B37</color>
     <color name="color5">#17DC1B</color>
-    <color name="color6">#6378AF</color>
-    <color name="color7">#40A89A</color>
+    <color name="color6">#C51162</color>
+    <color name="color7">#00ACEE</color>
     <color name="color8">#08197A</color>
+    <color name="color9">#000000</color>
+    <color name="color10">#304FFE</color>
+    <color name="color11">#FFD600</color>
+    <color name="color12">#DC17AB</color>
+    <color name="color13">#78264B</color>
+    <color name="color14">#A7E6FF</color>
+    <color name="color15">#727CB6</color>
 </resources>

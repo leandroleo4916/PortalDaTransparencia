@@ -6,9 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="12dp"
-    android:layout_marginTop="2dp"
+    android:layout_marginTop="4dp"
     android:layout_marginEnd="12dp"
-    android:layout_marginBottom="12dp"
+    android:layout_marginBottom="8dp"
     android:background="@drawable/back_white"
     android:elevation="8dp">
 
@@ -22,19 +22,27 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/icon_gasto"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        app:layout_constraintStart_toEndOf="@+id/view_lateral"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/text_description_setor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
         android:layout_marginTop="8dp"
+        android:layout_marginStart="10dp"
         android:gravity="center|top"
         android:singleLine="true"
         android:text="@string/manutencao_escritorio"
         android:textColor="@color/purple_700"
         android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/view_lateral"
+        app:layout_constraintStart_toEndOf="@+id/icon_gasto"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
