@@ -6,11 +6,12 @@ import kotlinx.coroutines.*
 class AddValueViewGraph {
 
     fun addHeightToView(info: Int, view: View){
+        val multi = info * 1.7
         val layoutParams = view.layoutParams
         var value = 1
         CoroutineScope(Dispatchers.Main).launch {
             withContext(Dispatchers.Default) {
-                while (value <= info*1.8) {
+                while (value <= multi) {
                     withContext(Dispatchers.Main) {
                         layoutParams.height = value
                         view.layoutParams = layoutParams

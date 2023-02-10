@@ -127,6 +127,7 @@ class SenadoFragment: Fragment(R.layout.fragment_camara_senado), IClickSenador, 
     }
 
     private fun listener(){
+        val anime = AnimationUtils.loadAnimation(context, R.anim.click)
         binding?.run {
             chipGroupItem.run {
                 chipAvante.setOnClickListener { modifyChipPartido(chipAvante) }
@@ -182,11 +183,11 @@ class SenadoFragment: Fragment(R.layout.fragment_camara_senado), IClickSenador, 
             }
 
             icVoz.setOnClickListener {
-                it.startAnimation(AnimationUtils.loadAnimation(context, R.anim.click))
+                it.startAnimation(anime)
                 permissionVoice()
             }
             icFilter.setOnClickListener {
-                it.startAnimation(AnimationUtils.loadAnimation(context, R.anim.click))
+                it.startAnimation(anime)
                 showFilterIcons()
             }
             floatingController.setOnClickListener {
@@ -198,17 +199,17 @@ class SenadoFragment: Fragment(R.layout.fragment_camara_senado), IClickSenador, 
             }
             layoutItemParlamento.run {
                 constraintLayout1.setOnClickListener {
-                    it.startAnimation(AnimationUtils.loadAnimation(context, R.anim.click))
+                    it.startAnimation(anime)
                     val intent = Intent(context, ActivityGastoGeralSenado::class.java)
                     startActivity(intent)
                 }
                 constraintLayout2.setOnClickListener {
-                    it.startAnimation(AnimationUtils.loadAnimation(context, R.anim.click))
+                    it.startAnimation(anime)
                     val intent = Intent(context, ActivityRankingSenado::class.java)
                     startActivity(intent)
                 }
                 constraintLayout3.setOnClickListener {
-                    it.startAnimation(AnimationUtils.loadAnimation(context, R.anim.click))
+                    it.startAnimation(anime)
                     val intent = Intent(context, ActivityVotacoesSenado::class.java)
                     startActivity(intent)
                 }

@@ -89,7 +89,34 @@ class ActivityGastoGeralCamara: AppCompatActivity(), ISmoothPosition {
         }
     }
 
+    private fun zeroDataViewGraph(){
+        binding.layoutGraph.run {
+            modifyValueViewGraph(viewValue1)
+            modifyValueViewGraph(viewValue2)
+            modifyValueViewGraph(viewValue3)
+            modifyValueViewGraph(viewValue4)
+            modifyValueViewGraph(viewValue5)
+            modifyValueViewGraph(viewValue6)
+            modifyValueViewGraph(viewValue7)
+            modifyValueViewGraph(viewValue8)
+            modifyValueViewGraph(viewValue9)
+            modifyValueViewGraph(viewValue10)
+            modifyValueViewGraph(viewValue11)
+            modifyValueViewGraph(viewValue12)
+            modifyValueViewGraph(viewValue13)
+            modifyValueViewGraph(viewValue14)
+            modifyValueViewGraph(viewValue15)
+        }
+    }
+
+    private fun modifyValueViewGraph(view: View){
+        val layoutParams = view.layoutParams
+        layoutParams.height = 1
+        view.layoutParams = layoutParams
+    }
+
     private fun modify(viewSelected: Chip, viewClicked: Chip) {
+        zeroDataViewGraph()
         if (ano != viewClicked.text){
             hideView.run {
                 disableView(binding.progressGastoGeral)
@@ -210,16 +237,12 @@ class ActivityGastoGeralCamara: AppCompatActivity(), ISmoothPosition {
         var count = 1
         info.forEach {
             val ret = retValueInt.formatValor(it.value)
-            val des = if (it.description.length > 9) it.description.substring(0,9)+"..."
-                else it.description
+            val des = it.description
             binding.layoutGraph.run {
                 when (count){
                     1 -> {
                         textItem1.text = des
                         addValue.addHeightToView(ret, viewValue1)
-                        viewValue1.setOnClickListener{
-
-                        }
                     }
                     2 -> {
                         textItem2.text = des
@@ -307,7 +330,6 @@ class ActivityGastoGeralCamara: AppCompatActivity(), ISmoothPosition {
         val recycler = binding.recyclerGastoSetor
         recycler.smoothScrollToPosition(position)
         view.startAnimation(AnimationUtils.loadAnimation(applicationContext, R.anim.click))
-        recycler.startAnimation(AnimationUtils.loadAnimation(applicationContext, R.anim.click_votacao))
     }
 
     private fun listener() {
