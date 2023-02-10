@@ -1,19 +1,21 @@
 package com.example.portaldatransparencia.adapter
 
 import android.annotation.SuppressLint
-import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.databinding.RecyclerGastoSetorBinding
 import com.example.portaldatransparencia.dataclass.AddInfoSetor
+import com.example.portaldatransparencia.interfaces.ISmoothPosition
 import com.example.portaldatransparencia.util.FormatValor
 import com.example.portaldatransparencia.views.view_generics.AnimationView
 
-class GastoSetorAdapter(private val formatValor: FormatValor, private val animeView: AnimationView):
+class GastoSetorAdapter(private val formatValor: FormatValor, private val animeView: AnimationView,
+                        private val smooth: ISmoothPosition):
     RecyclerView.Adapter<GastoSetorAdapter.DespesasViewHolder>() {
 
     private var binding: RecyclerGastoSetorBinding? = null
@@ -49,6 +51,10 @@ class GastoSetorAdapter(private val formatValor: FormatValor, private val animeV
                     .into(iconGasto)
             }
             animeView.crossFade(itemView)
+            itemView.setOnClickListener {
+                it.startAnimation(AnimationUtils.loadAnimation(itemView.context, R.anim.click))
+                smooth.smoothPosition(adapterPosition)
+            }
         }
     }
 
@@ -56,5 +62,9 @@ class GastoSetorAdapter(private val formatValor: FormatValor, private val animeV
     fun updateData(subList: ArrayList<AddInfoSetor>) {
         data = subList
         notifyDataSetChanged()
+    }
+
+    fun animePosition(){
+
     }
 }

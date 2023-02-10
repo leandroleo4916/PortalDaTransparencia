@@ -25,7 +25,7 @@ import com.example.portaldatransparencia.interfaces.IClickSenador
 import com.example.portaldatransparencia.network.ApiVotacoesSenado
 import com.example.portaldatransparencia.network.Retrofit
 import com.example.portaldatransparencia.util.RetiraAcento
-import com.example.portaldatransparencia.util.createDialog
+import com.example.portaldatransparencia.views.view_generics.createDialog
 import com.example.portaldatransparencia.views.activity.votacoes.camara.VotacoesViewModelCamara
 import com.example.portaldatransparencia.views.senado.senador.SenadorActivity
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView

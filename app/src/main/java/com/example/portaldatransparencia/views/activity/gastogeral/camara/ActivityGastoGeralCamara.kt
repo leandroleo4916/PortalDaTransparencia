@@ -1,8 +1,8 @@
 package com.example.portaldatransparencia.views.activity.gastogeral.camara
 
 import android.annotation.SuppressLint
-import android.graphics.Color
 import android.os.Bundle
+import android.view.View
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,24 +11,27 @@ import com.example.portaldatransparencia.adapter.GastoSetorAdapter
 import com.example.portaldatransparencia.databinding.FragmentMaisBinding
 import com.example.portaldatransparencia.dataclass.AddInfoSetor
 import com.example.portaldatransparencia.dataclass.GastoGeralCamara
+import com.example.portaldatransparencia.interfaces.ISmoothPosition
 import com.example.portaldatransparencia.repository.ResultGastoGeralCamara
 import com.example.portaldatransparencia.util.FormatValor
 import com.example.portaldatransparencia.util.FormaterValueBilhoes
+import com.example.portaldatransparencia.util.RetValueInt
+import com.example.portaldatransparencia.views.view_generics.AddValueViewGraph
 import com.example.portaldatransparencia.views.view_generics.AnimationView
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import com.google.android.material.chip.Chip
-import org.eazegraph.lib.models.PieModel
-import org.koin.android.ext.android.bind
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class ActivityGastoGeralCamara: AppCompatActivity() {
+class ActivityGastoGeralCamara: AppCompatActivity(), ISmoothPosition {
 
     private val binding by lazy { FragmentMaisBinding.inflate(layoutInflater) }
     private val viewModel: GastoGeralViewModelCamara by viewModel()
     private val hideView: EnableDisableView by inject()
     private val formatValor: FormaterValueBilhoes by inject()
     private val crossFade: AnimationView by inject()
+    private val retValueInt: RetValueInt by inject()
+    private val addValue: AddValueViewGraph by inject()
     private lateinit var adapter: GastoSetorAdapter
     private lateinit var gastoCamara: GastoGeralCamara
     private lateinit var chipSelected: Chip
@@ -48,11 +51,12 @@ class ActivityGastoGeralCamara: AppCompatActivity() {
         observerGastoCamara()
         listener()
         listenerChip()
+        clickGraph()
     }
 
     private fun recyclerAdapter(){
         val recycler = binding.recyclerGastoSetor
-        adapter = GastoSetorAdapter(FormatValor(), crossFade)
+        adapter = GastoSetorAdapter(FormatValor(), crossFade, this)
         recycler.layoutManager = LinearLayoutManager(this.applicationContext)
         recycler.adapter = adapter
     }
@@ -198,18 +202,112 @@ class ActivityGastoGeralCamara: AppCompatActivity() {
                 "https://cdn-icons-png.flaticon.com/512/4692/4692103.png"))
         }
         adapter.updateData(infoSetor)
-        addGraphCamara(infoSetor)
+        addValueInGraph(infoSetor)
     }
 
-    private fun addGraphCamara(info: ArrayList<AddInfoSetor>){
+    private fun addValueInGraph(info: ArrayList<AddInfoSetor>) {
+
+        var count = 1
         info.forEach {
-            binding.run {
-                piechart.addPieSlice(PieModel(it.description, it.value.toFloat(),
-                    Color.parseColor(it.colorGraph)))
-                piechart.startAnimation()
+            val ret = retValueInt.formatValor(it.value)
+            val des = if (it.description.length > 9) it.description.substring(0,9)+"..."
+                else it.description
+            binding.layoutGraph.run {
+                when (count){
+                    1 -> {
+                        textItem1.text = des
+                        addValue.addHeightToView(ret, viewValue1)
+                        viewValue1.setOnClickListener{
+
+                        }
+                    }
+                    2 -> {
+                        textItem2.text = des
+                        addValue.addHeightToView(ret, viewValue2)
+                    }
+                    3 -> {
+                        textItem3.text = des
+                        addValue.addHeightToView(ret, viewValue3)
+                    }
+                    4 -> {
+                        textItem4.text = des
+                        addValue.addHeightToView(ret, viewValue4)
+                    }
+                    5 -> {
+                        textItem5.text = des
+                        addValue.addHeightToView(ret, viewValue5)
+                    }
+                    6 -> {
+                        textItem6.text = des
+                        addValue.addHeightToView(ret, viewValue6)
+                    }
+                    7 -> {
+                        textItem7.text = des
+                        addValue.addHeightToView(ret, viewValue7)
+                    }
+                    8 -> {
+                        textItem8.text = des
+                        addValue.addHeightToView(ret, viewValue8)
+                    }
+                    9 -> {
+                        textItem9.text = des
+                        addValue.addHeightToView(ret, viewValue9)
+                    }
+                    10 -> {
+                        textItem10.text = des
+                        addValue.addHeightToView(ret, viewValue10)
+                    }
+                    11 -> {
+                        textItem11.text = des
+                        addValue.addHeightToView(ret, viewValue11)
+                    }
+                    12 -> {
+                        textItem12.text = des
+                        addValue.addHeightToView(ret, viewValue12)
+                    }
+                    13 -> {
+                        textItem13.text = des
+                        addValue.addHeightToView(ret, viewValue13)
+                    }
+                    14 -> {
+                        textItem14.text = des
+                        addValue.addHeightToView(ret, viewValue14)
+                    }
+                    15 -> {
+                        textItem15.text = des
+                        addValue.addHeightToView(ret, viewValue15)
+                    }
+                }
             }
-            crossFade.crossFade(binding.piechart)
+            count++
         }
+    }
+
+    private fun clickGraph(){
+        binding.layoutGraph.run {
+            layout1.setOnClickListener { smoothRecycler(0, it) }
+            layout2.setOnClickListener { smoothRecycler(1, it) }
+            layout3.setOnClickListener { smoothRecycler(2, it) }
+            layout4.setOnClickListener { smoothRecycler(3, it) }
+            layout5.setOnClickListener { smoothRecycler(4, it) }
+            layout6.setOnClickListener { smoothRecycler(5, it) }
+            layout7.setOnClickListener { smoothRecycler(6, it) }
+            layout8.setOnClickListener { smoothRecycler(7, it) }
+            layout9.setOnClickListener { smoothRecycler(8, it) }
+            layout10.setOnClickListener { smoothRecycler(9, it) }
+            layout11.setOnClickListener { smoothRecycler(10, it) }
+            layout12.setOnClickListener { smoothRecycler(11, it) }
+            layout13.setOnClickListener { smoothRecycler(12, it) }
+            layout14.setOnClickListener { smoothRecycler(13, it) }
+            layout15.setOnClickListener { smoothRecycler(14, it) }
+        }
+    }
+
+    private fun smoothRecycler(position: Int, view: View){
+        val recycler = binding.recyclerGastoSetor
+        recycler.smoothScrollToPosition(position)
+        view.startAnimation(AnimationUtils.loadAnimation(applicationContext, R.anim.click))
+        recycler.startAnimation(AnimationUtils.loadAnimation(applicationContext, R.anim.click_votacao))
     }
 
     private fun listener() {
@@ -217,6 +315,29 @@ class ActivityGastoGeralCamara: AppCompatActivity() {
             imageViewBack.setOnClickListener {
                 it.startAnimation(AnimationUtils.loadAnimation(applicationContext, R.anim.click))
                 finish()
+            }
+        }
+    }
+
+    override fun smoothPosition(position: Int) {
+        val anime = AnimationUtils.loadAnimation(applicationContext, R.anim.click_votacao)
+        binding.layoutGraph.run {
+            when(position){
+                0 -> layout1.startAnimation(anime)
+                1 -> layout2.startAnimation(anime)
+                2 -> layout3.startAnimation(anime)
+                3 -> layout4.startAnimation(anime)
+                4 -> layout5.startAnimation(anime)
+                5 -> layout6.startAnimation(anime)
+                6 -> layout7.startAnimation(anime)
+                7 -> layout8.startAnimation(anime)
+                8 -> layout9.startAnimation(anime)
+                9 -> layout10.startAnimation(anime)
+                10 -> layout11.startAnimation(anime)
+                11 -> layout12.startAnimation(anime)
+                12 -> layout13.startAnimation(anime)
+                13 -> layout14.startAnimation(anime)
+                14 -> layout15.startAnimation(anime)
             }
         }
     }

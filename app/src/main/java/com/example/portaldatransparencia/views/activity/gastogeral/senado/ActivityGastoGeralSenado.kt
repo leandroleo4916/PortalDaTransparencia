@@ -114,8 +114,8 @@ class ActivityGastoGeralSenado: AppCompatActivity() {
 
     private fun addGraphSenado(title: String, value: Float, color: String){
         binding.run {
-            piechart.addPieSlice(PieModel(title, value, Color.parseColor(color)))
-            piechart.startAnimation()
+            //piechart.addPieSlice(PieModel(title, value, Color.parseColor(color)))
+            //piechart.startAnimation()
         }
     }
 

@@ -77,6 +77,8 @@ val formatValorBi = module { factory { FormaterValueBilhoes(get()) } }
 val formatValorFloat = module { factory { FormatValueFloat() } }
 val validationInternet = module { single { ValidationInternet() } }
 val modifyHttp = module { single { ModifyHttpToHttps() } }
+val retValueInt = module { single { RetValueInt() } }
+val addValue = module { single { AddValueViewGraph() } }
 
 val repositorySearch = module { single { SearchRepository(get()) } }
 val repositoryIdDeputado = module { single { IdDeputadoRepository(get()) } }
@@ -117,9 +119,9 @@ val appModules = listOf( retrofitModule, viewModelModule, repositorySearch, prog
         securityPreferences, viewModelFront, repositoryFront, viewModelProposta, repositoryProposta,
         ageModule, viewModelOccupation, repositoryOccupation, repositorySenado, viewModelSenado,
         viewModelSenador, visibilityNavFloating, repositorySenador, modifyChip, viewModelSenadorGeral,
-        repositorySenadorGeral, retiraAcento, repositoryVotacoes, viewModelVotacoes,
+        repositorySenadorGeral, retiraAcento, repositoryVotacoes, viewModelVotacoes, retValueInt,
         repositoryVotacoesItem, formatValor, repositoryGastoGeral, viewModelGastoGeral,
         formatValorBi, formatValorFloat, validationInternet, modifyHttp, gastoSenadorAdapter,
-        viewModelRankingCamara, viewModelRankingSenado, viewModelGastoGeralSenado,
+        viewModelRankingCamara, viewModelRankingSenado, viewModelGastoGeralSenado, addValue,
         viewModelVotacoesCamara, repositoryVotacoesCamara, viewModelFrontId, animationView
 )

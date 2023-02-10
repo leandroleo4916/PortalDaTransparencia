@@ -1,4 +1,4 @@
-package com.example.portaldatransparencia.util
+package com.example.portaldatransparencia.views.view_generics
 
 import android.content.Context
 import androidx.appcompat.app.AlertDialog

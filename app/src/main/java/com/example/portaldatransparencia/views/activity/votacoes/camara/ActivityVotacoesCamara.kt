@@ -21,7 +21,7 @@ import com.example.portaldatransparencia.interfaces.IClickSeeVote
 import com.example.portaldatransparencia.network.ApiServiceEvento
 import com.example.portaldatransparencia.network.ApiVotacoes
 import com.example.portaldatransparencia.network.Retrofit
-import com.example.portaldatransparencia.util.createDialog
+import com.example.portaldatransparencia.views.view_generics.createDialog
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import com.google.android.material.chip.Chip
 import org.koin.android.ext.android.inject

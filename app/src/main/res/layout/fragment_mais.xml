@@ -39,7 +39,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <FrameLayout
                 android:id="@+id/frame_year"
@@ -56,9 +56,17 @@
 
             </FrameLayout>
 
+            <View
+                android:id="@+id/view_div"
+                android:layout_width="match_parent"
+                android:layout_height="1.2dp"
+                android:background="@color/purple_500"/>
+
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
+
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -93,42 +101,26 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.core.widget.NestedScrollView
+    <HorizontalScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="match_parent"
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginTop="6dp"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/nestedScrollView">
-
-            <org.eazegraph.lib.charts.PieChart
-                android:id="@+id/piechart"
-                android:layout_width="145dp"
-                android:layout_height="145dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="12dp"
-                android:layout_weight="1"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:orientation="horizontal">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraint_number_parlamentar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="2dp"
+                android:layout_marginStart="12dp"
                 android:background="@drawable/back_white"
                 android:backgroundTint="@color/purple_700"
                 android:elevation="12dp"
-                android:gravity="center"
-                app:layout_constraintStart_toEndOf="@+id/piechart"
-                app:layout_constraintTop_toTopOf="@+id/piechart">
+                android:gravity="center">
 
                 <TextView
                     android:id="@+id/textView_total_parlamentar"
@@ -136,8 +128,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginStart="10dp"
-                    android:layout_marginTop="6dp"
-                    android:layout_marginBottom="6dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
                     android:gravity="center"
                     android:text="513"
                     android:textColor="@color/white"
@@ -167,14 +159,11 @@
                 android:id="@+id/constraint_number_total"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="2dp"
                 android:background="@drawable/back_white"
                 android:backgroundTint="@color/purple_700"
+                android:layout_marginStart="12dp"
                 android:elevation="12dp"
-                android:gravity="center"
-                app:layout_constraintStart_toEndOf="@+id/piechart"
-                app:layout_constraintTop_toBottomOf="@+id/constraint_number_parlamentar">
+                android:gravity="center">
 
                 <TextView
                     android:id="@+id/textView_gasto_parlamentar"
@@ -183,9 +172,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginStart="10dp"
-                    android:layout_marginTop="6dp"
+                    android:layout_marginTop="4dp"
                     android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="6dp"
+                    android:layout_marginBottom="4dp"
                     android:text="@string/value"
                     android:textColor="@color/white"
                     android:textSize="22sp"
@@ -201,13 +190,11 @@
                 android:id="@+id/constraint_number_notas"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
                 android:background="@drawable/back_white"
                 android:backgroundTint="@color/purple_700"
+                android:layout_marginStart="12dp"
                 android:elevation="12dp"
-                android:gravity="center"
-                app:layout_constraintStart_toStartOf="@+id/constraint_number_parlamentar"
-                app:layout_constraintTop_toBottomOf="@+id/constraint_number_total">
+                android:gravity="center">
 
                 <TextView
                     android:id="@+id/textView_total_notas"
@@ -215,10 +202,10 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginStart="10dp"
-                    android:layout_marginTop="6dp"
-                    android:layout_marginBottom="6dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
                     android:gravity="center"
-                    android:text=""
+                    android:text="0"
                     android:textColor="@color/white"
                     android:textSize="22sp"
                     android:textStyle="bold"
@@ -230,9 +217,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:layout_marginTop="6dp"
+                    android:layout_marginTop="4dp"
                     android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="6dp"
+                    android:layout_marginBottom="4dp"
                     android:text="@string/notas"
                     android:textColor="@color/white"
                     android:textSize="20sp"
@@ -243,15 +230,39 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </HorizontalScrollView>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp">
+
+        <include
+            android:id="@+id/layout_graph"
+            layout="@layout/layout_graph"/>
+
+    </FrameLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_gasto_setor"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/piechart"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:listitem="@layout/recycler_gasto_setor" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
