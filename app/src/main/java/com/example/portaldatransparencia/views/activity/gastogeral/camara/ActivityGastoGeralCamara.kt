@@ -119,8 +119,10 @@ class ActivityGastoGeralCamara: AppCompatActivity(), ISmoothPosition {
         zeroDataViewGraph()
         if (ano != viewClicked.text){
             hideView.run {
-                disableView(binding.progressGastoGeral)
-                disableView(binding.textResultRacking)
+                binding.layoutProgressAndText.run {
+                    disableView(progressActive)
+                    disableView(textNotValue)
+                }
                 disableView(binding.linearLayout)
             }
             adapter.updateData(arrayListOf())
@@ -146,10 +148,12 @@ class ActivityGastoGeralCamara: AppCompatActivity(), ISmoothPosition {
                     }
                     is ResultGastoGeralCamara.Error -> {
                         result.exception.message?.let {
-                            hideView.disableView(binding.progressGastoGeral)
-                            binding.textResultRacking.apply {
-                                this.text = "Por enquanto não temos dados do ano $ano"
-                                hideView.enableView(this)
+                            binding.layoutProgressAndText.run {
+                                hideView.disableView(progressActive)
+                                textNotValue.apply {
+                                    this.text = "Por enquanto não temos dados do ano $ano"
+                                    hideView.enableView(this)
+                                }
                             }
                         }
                     }
@@ -168,7 +172,7 @@ class ActivityGastoGeralCamara: AppCompatActivity(), ISmoothPosition {
                 textViewGastoParlamentar.text = total
                 textViewTotalNotas.text = dados.total.totalNotas
                 hideView.run {
-                    disableView(progressGastoGeral)
+                    disableView(layoutProgressAndText.progressActive)
                     enableView(linearLayout)
                     crossFade.crossFade(constraintNumberParlamentar)
                     crossFade.crossFade(constraintNumberTotal)
@@ -233,73 +237,27 @@ class ActivityGastoGeralCamara: AppCompatActivity(), ISmoothPosition {
     }
 
     private fun addValueInGraph(info: ArrayList<AddInfoSetor>) {
-
         var count = 1
         info.forEach {
             val ret = retValueInt.formatValor(it.value)
-            val des = it.description
+            val description = it.description
             binding.layoutGraph.run {
                 when (count){
-                    1 -> {
-                        textItem1.text = des
-                        addValue.addHeightToView(ret, viewValue1)
-                    }
-                    2 -> {
-                        textItem2.text = des
-                        addValue.addHeightToView(ret, viewValue2)
-                    }
-                    3 -> {
-                        textItem3.text = des
-                        addValue.addHeightToView(ret, viewValue3)
-                    }
-                    4 -> {
-                        textItem4.text = des
-                        addValue.addHeightToView(ret, viewValue4)
-                    }
-                    5 -> {
-                        textItem5.text = des
-                        addValue.addHeightToView(ret, viewValue5)
-                    }
-                    6 -> {
-                        textItem6.text = des
-                        addValue.addHeightToView(ret, viewValue6)
-                    }
-                    7 -> {
-                        textItem7.text = des
-                        addValue.addHeightToView(ret, viewValue7)
-                    }
-                    8 -> {
-                        textItem8.text = des
-                        addValue.addHeightToView(ret, viewValue8)
-                    }
-                    9 -> {
-                        textItem9.text = des
-                        addValue.addHeightToView(ret, viewValue9)
-                    }
-                    10 -> {
-                        textItem10.text = des
-                        addValue.addHeightToView(ret, viewValue10)
-                    }
-                    11 -> {
-                        textItem11.text = des
-                        addValue.addHeightToView(ret, viewValue11)
-                    }
-                    12 -> {
-                        textItem12.text = des
-                        addValue.addHeightToView(ret, viewValue12)
-                    }
-                    13 -> {
-                        textItem13.text = des
-                        addValue.addHeightToView(ret, viewValue13)
-                    }
-                    14 -> {
-                        textItem14.text = des
-                        addValue.addHeightToView(ret, viewValue14)
-                    }
-                    15 -> {
-                        textItem15.text = des
-                        addValue.addHeightToView(ret, viewValue15)
-                    }
+                    1 -> { addValue.addHeightToView(ret, viewValue1, description, textItem1) }
+                    2 -> { addValue.addHeightToView(ret, viewValue2, description, textItem2) }
+                    3 -> { addValue.addHeightToView(ret, viewValue3, description, textItem3) }
+                    4 -> { addValue.addHeightToView(ret, viewValue4, description, textItem4) }
+                    5 -> { addValue.addHeightToView(ret, viewValue5, description, textItem5) }
+                    6 -> { addValue.addHeightToView(ret, viewValue6, description, textItem6) }
+                    7 -> { addValue.addHeightToView(ret, viewValue7, description, textItem7) }
+                    8 -> { addValue.addHeightToView(ret, viewValue8, description, textItem8) }
+                    9 -> { addValue.addHeightToView(ret, viewValue9, description, textItem9) }
+                    10 -> { addValue.addHeightToView(ret, viewValue10, description, textItem10) }
+                    11 -> { addValue.addHeightToView(ret, viewValue11, description, textItem11) }
+                    12 -> { addValue.addHeightToView(ret, viewValue12, description, textItem12) }
+                    13 -> { addValue.addHeightToView(ret, viewValue13, description, textItem13) }
+                    14 -> { addValue.addHeightToView(ret, viewValue14, description, textItem14) }
+                    15 -> { addValue.addHeightToView(ret, viewValue15, description, textItem15) }
                 }
             }
             count++

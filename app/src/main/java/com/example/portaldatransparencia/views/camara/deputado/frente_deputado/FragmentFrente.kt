@@ -60,18 +60,18 @@ class FragmentFrente: Fragment(R.layout.fragment_frente), IFront {
     }
 
     private fun addValue(txt: Int){
-        binding?.run {
-            statusView.disableView(progressFront)
-            statusView.enableView(textFrenteParlamentar)
-            textFrenteParlamentar.text = getString(txt)
+        binding?.layoutProgressAndText?.run {
+            statusView.disableView(progressActive)
+            statusView.enableView(textNotValue)
+            textNotValue.text = getString(txt)
         }
     }
 
     private fun calculateFront(front: String){
-        binding?.run {
-            statusView.disableView(progressFront)
-            statusView.enableView(textFrenteParlamentar)
-            "$front frentes parlamentares".also { textFrenteParlamentar.text = it }
+        binding?.layoutProgressAndText?.run {
+            statusView.disableView(progressActive)
+            statusView.enableView(textNotValue)
+            "$front frentes parlamentares".also { textNotValue.text = it }
         }
     }
 

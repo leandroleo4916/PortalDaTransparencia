@@ -274,7 +274,9 @@ class ActivityVotacoesCamara: AppCompatActivity(), IClickSeeVideo, IClickSeeVote
                         (if (sizeVotacoes == 0) "Nenhuma votação em $monthName de $year"
                          else "$sizeVotacoes votações em $monthName de $year").toString()
 
-                    statusView.enableView(textNotValue)
+                    layoutProgressAndText.textNotValue.apply {
+                        statusView.enableView(this)
+                    }
                 }
             }
         }
@@ -298,33 +300,32 @@ class ActivityVotacoesCamara: AppCompatActivity(), IClickSeeVideo, IClickSeeVote
     }
 
     private fun disableProgress(){
-        binding.run {
+        binding.layoutProgressAndText.run {
             statusView.run {
-                disableView(progressVotacoes)
-                disableView(constraintNumberVotacoes)
+                disableView(progressActive)
                 disableView(textNotValue)
             }
         }
     }
 
     private fun disableProgressAndEnableText(){
-        binding.run {
+        binding.layoutProgressAndText.run {
             statusView.run {
-                disableView(progressVotacoes)
+                disableView(progressActive)
                 enableView(textNotValue)
             }
-            layoutTop.textViewDescriptionTop.text = getString(R.string.nenhuma_votacao_este_ano)
         }
+        binding.layoutTop.textViewDescriptionTop.text = getString(R.string.nenhuma_votacao_este_ano)
+
         votacoes = arrayListOf()
         votacoesFilter = arrayListOf()
     }
 
     private fun enableProgressAndDisable(){
-        binding.run {
+        binding.layoutProgressAndText.run {
             statusView.run {
                 disableView(textNotValue)
-                enableView(constraintNumberVotacoes)
-                enableView(progressVotacoes)
+                enableView(progressActive)
             }
         }
     }

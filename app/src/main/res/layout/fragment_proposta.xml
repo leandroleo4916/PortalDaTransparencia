@@ -35,16 +35,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.wang.avi.AVLoadingIndicatorView
-            android:id="@+id/progress_proposta"
-            android:layout_width="wrap_content"
+        <FrameLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:indicatorColor="@color/purple_700"
-            app:indicatorName="BallPulseIndicator"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <include
+                android:id="@+id/layout_progress_and_text"
+                layout="@layout/layout_progress" />
+
+        </FrameLayout>
 
         <ImageView
             android:id="@+id/icon_proposta"
@@ -76,25 +79,6 @@
             app:layout_constraintBottom_toBottomOf="@+id/icon_proposta"
             app:layout_constraintStart_toEndOf="@+id/icon_proposta"
             app:layout_constraintTop_toTopOf="@+id/icon_proposta" />
-
-        <TextView
-            android:id="@+id/text_not_value"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="12dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:gravity="center"
-            android:text="Nenhum projeto de lei..."
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar2"

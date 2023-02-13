@@ -110,10 +110,10 @@ class FragmentProposta: Fragment(R.layout.fragment_proposta), IClickItemProposta
         chipEnabled = viewDisabled
         binding?.run {
             statusView.run {
-                enableView(progressProposta)
+                enableView(layoutProgressAndText.progressActive)
                 disableView(textPropostaParlamentar)
                 disableView(iconProposta)
-                disableView(textNotValue)
+                disableView(layoutProgressAndText.textNotValue)
             }
         }
         adapter.updateData(arrayListOf(), 1)
@@ -125,10 +125,10 @@ class FragmentProposta: Fragment(R.layout.fragment_proposta), IClickItemProposta
         numberProposta += size
         binding?.run {
             statusView.run {
-                disableView(progressProposta)
+                disableView(layoutProgressAndText.progressActive)
                 enableView(textPropostaParlamentar)
                 enableView(iconProposta)
-                disableView(textNotValue)
+                disableView(layoutProgressAndText.textNotValue)
             }
             textPropostaParlamentar.text =
                 if (numberProposta == 1) "$numberProposta projeto de lei"
@@ -137,8 +137,8 @@ class FragmentProposta: Fragment(R.layout.fragment_proposta), IClickItemProposta
     }
 
     private fun setTextNoProposta(){
-        binding?.run {
-            statusView.disableView(progressProposta)
+        binding?.layoutProgressAndText?.run {
+            statusView.disableView(progressActive)
             statusView.enableView(textNotValue)
             textNotValue.text = "Nenhum projeto de lei para $year"
         }

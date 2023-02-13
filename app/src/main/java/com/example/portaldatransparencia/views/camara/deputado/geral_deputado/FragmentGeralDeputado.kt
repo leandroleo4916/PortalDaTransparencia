@@ -10,12 +10,7 @@ import com.bumptech.glide.Glide
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.databinding.FragmentGeralDeputadoBinding
 import com.example.portaldatransparencia.dataclass.Dados
-import com.example.portaldatransparencia.dataclass.IdDeputadoDataClass
 import com.example.portaldatransparencia.dataclass.Occupation
-import com.example.portaldatransparencia.dataclass.OccupationDataClass
-import com.example.portaldatransparencia.network.ApiServiceIdDeputado
-import com.example.portaldatransparencia.network.ApiServiceOccupation
-import com.example.portaldatransparencia.network.Retrofit
 import com.example.portaldatransparencia.security.SecurityPreferences
 import com.example.portaldatransparencia.util.CalculateAge
 import com.example.portaldatransparencia.util.ValidationInternet
@@ -23,9 +18,6 @@ import com.example.portaldatransparencia.views.camara.deputado.DeputadoViewModel
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
 
@@ -74,10 +66,10 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
     }
 
     private fun addValueText(text: Int) {
-        binding?.run {
-            statusView.disableView(progressGeral)
-            statusView.enableView(textErroSearchData)
-            textErroSearchData.text = getString(text)
+        binding?.layoutProgressAndText?.run {
+            statusView.disableView(progressActive)
+            statusView.enableView(textNotValue)
+            textNotValue.text = getString(text)
         }
     }
 
@@ -116,7 +108,7 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
             }
 
             statusView.run {
-                disableView(progressGeral)
+                disableView(layoutProgressAndText.progressActive)
                 enableView(iconDeputadoGeral)
                 enableView(textGeralInformation)
                 enableView(constraintSocialMedia)

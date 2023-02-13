@@ -136,9 +136,11 @@ class ActivityRankingSenado: AppCompatActivity(), IClickOpenDeputadoRanking {
                 listAdpterSenador.add(item)
             }
         }
-        binding.run {
-            progressRancking.let { hideView.disableView(it) }
-            textResultRacking.let { hideView.disableView(it) }
+        hideView.run {
+            binding.layoutProgressAndText.run {
+                disableView(progressActive)
+                disableView(textNotValue)
+            }
         }
         //adapter.updateData(listAdpterSenador)
     }

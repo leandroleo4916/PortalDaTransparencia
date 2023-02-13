@@ -71,10 +71,10 @@ class FragmentGeralSenador: Fragment(R.layout.fragment_geral_senador) {
     }
 
     private fun notValue(text: Int){
-        binding?.run {
-            textNoValue.text = getString(text)
-            statusView.enableView(textNoValue)
-            statusView.disableView(progressGeral)
+        binding?.layoutProgressAndText?.run {
+            textNotValue.text = getString(text)
+            statusView.enableView(textNotValue)
+            statusView.disableView(progressActive)
         }
     }
 
@@ -122,7 +122,7 @@ class FragmentGeralSenador: Fragment(R.layout.fragment_geral_senador) {
             }
 
             statusView.run {
-                disableView(progressGeral)
+                disableView(layoutProgressAndText.progressActive)
                 enableView(iconSenadorGeral)
                 enableView(textGeralInformation)
             }

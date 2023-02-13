@@ -66,40 +66,15 @@
 
     </androidx.core.widget.NestedScrollView>
 
-
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.wang.avi.AVLoadingIndicatorView
-            android:id="@+id/progress_gastoGeral"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            app:indicatorColor="@color/purple_700"
-            app:indicatorName="BallPulseIndicator"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <include
+            android:id="@+id/layout_progress_and_text"
+            layout="@layout/layout_progress"/>
 
-        <TextView
-            android:id="@+id/text_result_racking"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:padding="12sp"
-            android:text="@string/sem_dados_para_exibir_no_momento"
-            android:textColor="@color/purple_700"
-            android:textSize="18sp"
-            android:visibility="gone"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"

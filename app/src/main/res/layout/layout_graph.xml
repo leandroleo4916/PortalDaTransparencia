@@ -174,7 +174,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="bottom"
-                android:layout_marginStart="8dp">
+                android:layout_marginStart="8dp"
+                android:elevation="12dp">
 
                 <View
                     android:id="@+id/view_value1"

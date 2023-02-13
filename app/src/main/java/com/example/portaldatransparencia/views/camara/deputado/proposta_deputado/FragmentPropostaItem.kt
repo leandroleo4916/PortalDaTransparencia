@@ -11,18 +11,11 @@ import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.databinding.FragmentPropostaItemBinding
 import com.example.portaldatransparencia.dataclass.DadosProposicao
 import com.example.portaldatransparencia.dataclass.IdDeputadoDataClass
-import com.example.portaldatransparencia.dataclass.ProposicaoDataClass
-import com.example.portaldatransparencia.network.ApiServiceIdDeputado
-import com.example.portaldatransparencia.network.ApiServicePropostaItem
-import com.example.portaldatransparencia.network.Retrofit
 import com.example.portaldatransparencia.security.SecurityPreferences
 import com.example.portaldatransparencia.util.ValidationInternet
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import kotlinx.coroutines.*
 import org.koin.android.ext.android.inject
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FragmentPropostaItem: AppCompatActivity() {
@@ -50,7 +43,6 @@ class FragmentPropostaItem: AppCompatActivity() {
             textViewTitleTop.text = "Projeto de Lei"
             statusView.run {
                 disableView(imageViewFilter)
-                disableView(binding.layoutProgress.toolbar4)
             }
             imageViewBack.setOnClickListener { finish() }
         }
@@ -77,7 +69,7 @@ class FragmentPropostaItem: AppCompatActivity() {
     private fun notValue(){
         binding.layoutProgress.run {
             statusView.run {
-                disableView(progressDespesas)
+                disableView(progressActive)
                 enableView(textNotValue)
             }
         }
@@ -86,7 +78,7 @@ class FragmentPropostaItem: AppCompatActivity() {
     private fun addElementToView(body: DadosProposicao) {
         binding.run {
             statusView.run {
-                disableView(layoutProgress.progressDespesas)
+                disableView(layoutProgress.progressActive)
                 disableView(layoutProgress.constraintValorNotes)
                 enableView(frameParlamentar)
                 enableView(constraintLayoutProject)

@@ -85,7 +85,7 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas, IClickT
 
                             if (size >= 100) observer()
                             else {
-                                statusView.disableView(binding!!.layoutProgress.progressDespesas)
+                                statusView.disableView(binding!!.layoutProgress.progressActive)
                                 viewModel.captureDataNotes(listDadosDimension, adapterDimension)
                             }
                         }
@@ -126,7 +126,7 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas, IClickT
         chipEnabled = viewDisabled
         binding!!.layoutProgress.run {
             statusView.disableView(textNotValue)
-            statusView.enableView(progressDespesas)
+            statusView.enableView(progressActive)
         }
         adapter.updateData(arrayListOf(), 1)
         adapterDimension.updateData(arrayListOf())
@@ -135,7 +135,7 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas, IClickT
 
     private fun noValue(value: String){
         binding!!.layoutProgress.run {
-            statusView.disableView(progressDespesas)
+            statusView.disableView(progressActive)
             statusView.enableView(textNotValue)
             textNotValue.text = value
         }

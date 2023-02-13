@@ -1,6 +1,5 @@
 package com.example.portaldatransparencia.views.activity.gastogeral.senado
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
@@ -11,7 +10,6 @@ import com.example.portaldatransparencia.repository.ResultGastoGeralSenado
 import com.example.portaldatransparencia.util.FormaterValueBilhoes
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import com.google.android.material.chip.Chip
-import org.eazegraph.lib.models.PieModel
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -92,7 +90,7 @@ class ActivityGastoGeralSenado: AppCompatActivity() {
                 textViewGastoParlamentar.text = total
                 textViewTotalNotas.text = totalNotas
                 hideView.run {
-                    disableView(progressGastoGeral)
+                    disableView(layoutProgressAndText.progressActive)
                     enableView(constraintNumberParlamentar)
                     enableView(constraintNumberTotal)
                     enableView(constraintNumberNotas)

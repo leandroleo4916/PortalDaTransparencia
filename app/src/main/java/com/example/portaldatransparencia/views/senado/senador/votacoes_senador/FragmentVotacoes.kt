@@ -129,10 +129,10 @@ class FragmentVotacoes: Fragment(R.layout.fragment_votacoes_senador), ISmoothPos
         chipEnabled = viewDisabled
         binding.run {
             statusView.run {
-                enableView(progressVotacoes)
+                enableView(layoutProgressAndText.progressActive)
                 disableView(textTotalVotos)
                 disableView(iconVoto)
-                disableView(textNotValue)
+                disableView(layoutProgressAndText.textNotValue)
             }
         }
         adapter.updateData(arrayListOf())
@@ -143,10 +143,10 @@ class FragmentVotacoes: Fragment(R.layout.fragment_votacoes_senador), ISmoothPos
 
         binding.run {
             statusView.run {
-                disableView(progressVotacoes)
+                disableView(layoutProgressAndText.progressActive)
                 enableView(textTotalVotos)
                 enableView(iconVoto)
-                disableView(textNotValue)
+                disableView(layoutProgressAndText.textNotValue)
             }
             textTotalVotos.text =
                 if (numberVotacoes == 1) "$numberVotacoes Votação"
@@ -155,9 +155,9 @@ class FragmentVotacoes: Fragment(R.layout.fragment_votacoes_senador), ISmoothPos
     }
 
     private fun disableProgressAndText(){
-        binding.run {
+        binding.layoutProgressAndText.run {
             statusView.run {
-                disableView(progressVotacoes)
+                disableView(progressActive)
                 enableView(textNotValue)
             }
             textNotValue.text = "Nenhuma votação para $ano ou não tinha mandato neste ano."

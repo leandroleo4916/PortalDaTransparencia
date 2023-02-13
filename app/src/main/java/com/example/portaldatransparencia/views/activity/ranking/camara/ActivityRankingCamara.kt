@@ -19,6 +19,7 @@ import com.example.portaldatransparencia.util.ValidationInternet
 import com.example.portaldatransparencia.views.camara.CamaraViewModel
 import com.example.portaldatransparencia.views.camara.deputado.DeputadoActivity
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
+import com.google.android.material.chip.Chip
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import retrofit2.Call
@@ -42,18 +43,33 @@ class ActivityRankingCamara: AppCompatActivity(), IClickOpenDeputadoRanking {
     private lateinit var sizeDeputado: String
     private lateinit var id: String
     private val ano = "Geral"
+    private lateinit var chipSelected: Chip
+    private var anoSelect = "Todos"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        binding.run {
+            layoutYear.chipAll.apply {
+                chipSelected = this
+                hideView.enableView(this)
+            }
+            layoutYear.chip2023.isChecked = false
+            layoutGroupPartidos.run {
+                hideView.disableView(scrollState)
+            }
+        }
+
         id = securityPreferences.getString("id")
+        modifyElementTop()
+        listenerChip()
         recycler()
         observerCamara()
-        listenerBack()
+        listener()
     }
 
-    private fun listenerBack() {
+    private fun listener() {
         binding.layoutTop.run {
             hideView.disableView(imageViewFilter)
             hideView.enableView(textViewDescriptionTop)
@@ -61,6 +77,45 @@ class ActivityRankingCamara: AppCompatActivity(), IClickOpenDeputadoRanking {
                 it.startAnimation(AnimationUtils.loadAnimation(applicationContext, R.anim.click))
                 finish()
             }
+        }
+    }
+
+    private fun modifyElementTop(){
+        binding.run {
+            layoutTop.run {
+                textViewDescriptionTop.text = getString(R.string.ranking_de_gastos)
+                hideView.enableView(textViewDescriptionTop)
+                hideView.disableView(imageViewFilter)
+            }
+        }
+    }
+
+    private fun listenerChip(){
+        binding.run {
+            layoutYear.run {
+                chipAll.setOnClickListener { modify(chipSelected, chipAll) }
+                chip2023.setOnClickListener { modify(chipSelected, chip2023) }
+                chip2022.setOnClickListener { modify(chipSelected, chip2022) }
+                chip2021.setOnClickListener { modify(chipSelected, chip2021) }
+                chip2020.setOnClickListener { modify(chipSelected, chip2020) }
+                chip2019.setOnClickListener { modify(chipSelected, chip2019) }
+                chip2018.setOnClickListener { modify(chipSelected, chip2018) }
+                chip2017.setOnClickListener { modify(chipSelected, chip2017) }
+                chip2016.setOnClickListener { modify(chipSelected, chip2016) }
+                chip2015.setOnClickListener { modify(chipSelected, chip2015) }
+            }
+        }
+    }
+
+    private fun modify(viewSelected: Chip, viewClicked: Chip) {
+        if (ano != viewClicked.text){
+            disableProgressAndText()
+            adapter.updateData(arrayListOf())
+            anoSelect = viewClicked.text.toString()
+            viewSelected.isChecked = false
+            viewClicked.isChecked = true
+            chipSelected = viewClicked
+            observerGastoCamara()
         }
     }
 
@@ -124,11 +179,17 @@ class ActivityRankingCamara: AppCompatActivity(), IClickOpenDeputadoRanking {
     }
 
     private fun processListCamara(){
-        binding.run {
-            progressRancking.let { hideView.disableView(it) }
-            textResultRacking.let { hideView.disableView(it) }
-        }
+        disableProgressAndText()
         adapter.updateData(listGastoGeralDeputado)
+    }
+
+    private fun disableProgressAndText(){
+        hideView.run {
+            binding.layoutProgressAndText.run {
+                disableView(progressActive)
+                disableView(textNotValue)
+            }
+        }
     }
 
     override fun clickRanking(id: String) {

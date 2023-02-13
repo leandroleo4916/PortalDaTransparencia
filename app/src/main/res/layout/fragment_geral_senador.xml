@@ -30,16 +30,19 @@
                 android:background="@color/white"
                 android:elevation="16sp">
 
-                <com.wang.avi.AVLoadingIndicatorView
-                    android:id="@+id/progress_geral"
-                    android:layout_width="wrap_content"
+                <FrameLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    app:indicatorColor="@color/purple_700"
-                    app:indicatorName="BallPulseIndicator"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <include
+                        android:id="@+id/layout_progress_and_text"
+                        layout="@layout/layout_progress" />
+
+                </FrameLayout>
 
                 <ImageView
                     android:id="@+id/icon_senador_geral"
@@ -71,21 +74,6 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/icon_senador_geral"
                     app:layout_constraintTop_toTopOf="@+id/icon_senador_geral" />
-
-                <TextView
-                    android:id="@+id/text_no_value"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=""
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:layout_margin="20dp"
-                    android:visibility="gone"
-                    android:textSize="18sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

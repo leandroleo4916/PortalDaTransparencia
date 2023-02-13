@@ -162,13 +162,13 @@ class FragmentGastosSenador: Fragment(R.layout.fragment_gastos), INoteDespesas, 
                 "https://cdn-icons-png.flaticon.com/512/4692/4692103.png",
                 "Outros"))
         }
-        statusView.disableView(binding!!.layoutProgress.progressDespesas)
+        statusView.disableView(binding!!.layoutProgress.progressActive)
         adapterDimension.updateData(subList)
     }
 
     private fun errorCallApi(value: String){
         binding!!.layoutProgress.run {
-            statusView.disableView(progressDespesas)
+            statusView.disableView(progressActive)
             statusView.enableView(textNotValue)
             textNotValue.text = value
         }
@@ -196,7 +196,7 @@ class FragmentGastosSenador: Fragment(R.layout.fragment_gastos), INoteDespesas, 
         viewDisabled.isChecked = true
         chipEnabled = viewDisabled
         binding!!.layoutProgress.run {
-            statusView.enableView(progressDespesas)
+            statusView.enableView(progressActive)
             statusView.disableView(textNotValue)
         }
         ano = viewDisabled.text.toString()
