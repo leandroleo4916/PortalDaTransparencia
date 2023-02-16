@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.adapter.GastoSetorAdapter
+import com.example.portaldatransparencia.adapter.GraphGastoAdapter
 import com.example.portaldatransparencia.databinding.FragmentMaisBinding
 import com.example.portaldatransparencia.dataclass.AddInfoSetor
 import com.example.portaldatransparencia.dataclass.GastoGeralCamara
@@ -33,6 +34,7 @@ class ActivityGastoGeralCamara: AppCompatActivity(), ISmoothPosition {
     private val retValueInt: RetValueInt by inject()
     private val addValue: AddValueViewGraph by inject()
     private lateinit var adapter: GastoSetorAdapter
+    private lateinit var adapterGraph: GraphGastoAdapter
     private lateinit var gastoCamara: GastoGeralCamara
     private lateinit var chipSelected: Chip
     private var infoSetor: ArrayList<AddInfoSetor> = arrayListOf()
@@ -51,7 +53,6 @@ class ActivityGastoGeralCamara: AppCompatActivity(), ISmoothPosition {
         observerGastoCamara()
         listener()
         listenerChip()
-        clickGraph()
     }
 
     private fun recyclerAdapter(){
@@ -59,6 +60,12 @@ class ActivityGastoGeralCamara: AppCompatActivity(), ISmoothPosition {
         adapter = GastoSetorAdapter(FormatValor(), crossFade, this)
         recycler.layoutManager = LinearLayoutManager(this.applicationContext)
         recycler.adapter = adapter
+
+        val recyclerGraph = binding.layoutGraph.recyclerGraph
+        adapterGraph = GraphGastoAdapter(addValue, retValueInt)
+        recyclerGraph.layoutManager =
+            LinearLayoutManager(this.applicationContext, LinearLayoutManager.HORIZONTAL, false)
+        recyclerGraph.adapter = adapterGraph
     }
     
     private fun modifyElementTop(){
@@ -89,26 +96,6 @@ class ActivityGastoGeralCamara: AppCompatActivity(), ISmoothPosition {
         }
     }
 
-    private fun zeroDataViewGraph(){
-        binding.layoutGraph.run {
-            modifyValueViewGraph(viewValue1)
-            modifyValueViewGraph(viewValue2)
-            modifyValueViewGraph(viewValue3)
-            modifyValueViewGraph(viewValue4)
-            modifyValueViewGraph(viewValue5)
-            modifyValueViewGraph(viewValue6)
-            modifyValueViewGraph(viewValue7)
-            modifyValueViewGraph(viewValue8)
-            modifyValueViewGraph(viewValue9)
-            modifyValueViewGraph(viewValue10)
-            modifyValueViewGraph(viewValue11)
-            modifyValueViewGraph(viewValue12)
-            modifyValueViewGraph(viewValue13)
-            modifyValueViewGraph(viewValue14)
-            modifyValueViewGraph(viewValue15)
-        }
-    }
-
     private fun modifyValueViewGraph(view: View){
         val layoutParams = view.layoutParams
         layoutParams.height = 1
@@ -116,7 +103,7 @@ class ActivityGastoGeralCamara: AppCompatActivity(), ISmoothPosition {
     }
 
     private fun modify(viewSelected: Chip, viewClicked: Chip) {
-        zeroDataViewGraph()
+
         if (ano != viewClicked.text){
             hideView.run {
                 binding.layoutProgressAndText.run {
@@ -142,7 +129,7 @@ class ActivityGastoGeralCamara: AppCompatActivity(), ISmoothPosition {
                     is ResultGastoGeralCamara.Success -> {
                         result.dado?.let { gastos ->
                             gastoCamara = gastos
-                            addElementCamara(gastoCamara)
+                            addElementCamara()
                             buildGraphCamara()
                         }
                     }
@@ -165,12 +152,12 @@ class ActivityGastoGeralCamara: AppCompatActivity(), ISmoothPosition {
         }
     }
 
-    private fun addElementCamara(dados: GastoGeralCamara) {
+    private fun addElementCamara() {
         binding.run {
-            dados.total.run {
+            gastoCamara.total.run {
                 val total = formatValor.formatValor(totalGeral.toDouble())
                 textViewGastoParlamentar.text = total
-                textViewTotalNotas.text = dados.total.totalNotas
+                textViewTotalNotas.text = totalNotas
                 hideView.run {
                     disableView(layoutProgressAndText.progressActive)
                     enableView(linearLayout)
@@ -233,55 +220,8 @@ class ActivityGastoGeralCamara: AppCompatActivity(), ISmoothPosition {
                 "https://cdn-icons-png.flaticon.com/512/4692/4692103.png"))
         }
         adapter.updateData(infoSetor)
-        addValueInGraph(infoSetor)
-    }
-
-    private fun addValueInGraph(info: ArrayList<AddInfoSetor>) {
-        var count = 1
-        info.forEach {
-            val ret = retValueInt.formatValor(it.value)
-            val description = it.description
-            binding.layoutGraph.run {
-                when (count){
-                    1 -> { addValue.addHeightToView(ret, viewValue1, description, textItem1) }
-                    2 -> { addValue.addHeightToView(ret, viewValue2, description, textItem2) }
-                    3 -> { addValue.addHeightToView(ret, viewValue3, description, textItem3) }
-                    4 -> { addValue.addHeightToView(ret, viewValue4, description, textItem4) }
-                    5 -> { addValue.addHeightToView(ret, viewValue5, description, textItem5) }
-                    6 -> { addValue.addHeightToView(ret, viewValue6, description, textItem6) }
-                    7 -> { addValue.addHeightToView(ret, viewValue7, description, textItem7) }
-                    8 -> { addValue.addHeightToView(ret, viewValue8, description, textItem8) }
-                    9 -> { addValue.addHeightToView(ret, viewValue9, description, textItem9) }
-                    10 -> { addValue.addHeightToView(ret, viewValue10, description, textItem10) }
-                    11 -> { addValue.addHeightToView(ret, viewValue11, description, textItem11) }
-                    12 -> { addValue.addHeightToView(ret, viewValue12, description, textItem12) }
-                    13 -> { addValue.addHeightToView(ret, viewValue13, description, textItem13) }
-                    14 -> { addValue.addHeightToView(ret, viewValue14, description, textItem14) }
-                    15 -> { addValue.addHeightToView(ret, viewValue15, description, textItem15) }
-                }
-            }
-            count++
-        }
-    }
-
-    private fun clickGraph(){
-        binding.layoutGraph.run {
-            layout1.setOnClickListener { smoothRecycler(0, it) }
-            layout2.setOnClickListener { smoothRecycler(1, it) }
-            layout3.setOnClickListener { smoothRecycler(2, it) }
-            layout4.setOnClickListener { smoothRecycler(3, it) }
-            layout5.setOnClickListener { smoothRecycler(4, it) }
-            layout6.setOnClickListener { smoothRecycler(5, it) }
-            layout7.setOnClickListener { smoothRecycler(6, it) }
-            layout8.setOnClickListener { smoothRecycler(7, it) }
-            layout9.setOnClickListener { smoothRecycler(8, it) }
-            layout10.setOnClickListener { smoothRecycler(9, it) }
-            layout11.setOnClickListener { smoothRecycler(10, it) }
-            layout12.setOnClickListener { smoothRecycler(11, it) }
-            layout13.setOnClickListener { smoothRecycler(12, it) }
-            layout14.setOnClickListener { smoothRecycler(13, it) }
-            layout15.setOnClickListener { smoothRecycler(14, it) }
-        }
+        adapterGraph.updateData(infoSetor)
+        //addValueInGraph(infoSetor)
     }
 
     private fun smoothRecycler(position: Int, view: View){
@@ -300,25 +240,6 @@ class ActivityGastoGeralCamara: AppCompatActivity(), ISmoothPosition {
     }
 
     override fun smoothPosition(position: Int) {
-        val anime = AnimationUtils.loadAnimation(applicationContext, R.anim.click_votacao)
-        binding.layoutGraph.run {
-            when(position){
-                0 -> layout1.startAnimation(anime)
-                1 -> layout2.startAnimation(anime)
-                2 -> layout3.startAnimation(anime)
-                3 -> layout4.startAnimation(anime)
-                4 -> layout5.startAnimation(anime)
-                5 -> layout6.startAnimation(anime)
-                6 -> layout7.startAnimation(anime)
-                7 -> layout8.startAnimation(anime)
-                8 -> layout9.startAnimation(anime)
-                9 -> layout10.startAnimation(anime)
-                10 -> layout11.startAnimation(anime)
-                11 -> layout12.startAnimation(anime)
-                12 -> layout13.startAnimation(anime)
-                13 -> layout14.startAnimation(anime)
-                14 -> layout15.startAnimation(anime)
-            }
-        }
+
     }
 }

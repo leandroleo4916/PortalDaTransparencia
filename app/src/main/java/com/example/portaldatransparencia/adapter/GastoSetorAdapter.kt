@@ -63,8 +63,4 @@ class GastoSetorAdapter(private val formatValor: FormatValor, private val animeV
         data = subList
         notifyDataSetChanged()
     }
-
-    fun animePosition(){
-
-    }
 }
