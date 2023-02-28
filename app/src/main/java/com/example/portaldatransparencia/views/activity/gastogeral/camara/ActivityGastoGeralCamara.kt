@@ -71,7 +71,7 @@ class ActivityGastoGeralCamara: AppCompatActivity(), ISmoothPosition {
     private fun modifyElementTop(){
         binding.run {
             layoutTop.run {
-                textViewDescriptionTop.text = getString(R.string.gastoGeral8Anos)
+                textViewDescriptionTop.text = getString(R.string.gastoGeral12Anos)
                 hideView.enableView(textViewDescriptionTop)
                 hideView.disableView(imageViewFilter)
             }
@@ -92,6 +92,10 @@ class ActivityGastoGeralCamara: AppCompatActivity(), ISmoothPosition {
                 chip2017.setOnClickListener { modify(chipSelected, chip2017) }
                 chip2016.setOnClickListener { modify(chipSelected, chip2016) }
                 chip2015.setOnClickListener { modify(chipSelected, chip2015) }
+                chip2014.setOnClickListener { modify(chipSelected, chip2014) }
+                chip2013.setOnClickListener { modify(chipSelected, chip2013) }
+                chip2012.setOnClickListener { modify(chipSelected, chip2012) }
+                chip2011.setOnClickListener { modify(chipSelected, chip2011) }
             }
         }
     }
@@ -161,9 +165,9 @@ class ActivityGastoGeralCamara: AppCompatActivity(), ISmoothPosition {
                 hideView.run {
                     disableView(layoutProgressAndText.progressActive)
                     enableView(linearLayout)
-                    crossFade.crossFade(constraintNumberParlamentar)
-                    crossFade.crossFade(constraintNumberTotal)
-                    crossFade.crossFade(constraintNumberNotas)
+                    crossFade.crossFade(constraintNumberParlamentar, true)
+                    crossFade.crossFade(constraintNumberTotal, true)
+                    crossFade.crossFade(constraintNumberNotas, true)
                 }
             }
         }

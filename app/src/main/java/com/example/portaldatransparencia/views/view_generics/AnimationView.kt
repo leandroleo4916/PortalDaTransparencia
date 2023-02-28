@@ -3,11 +3,13 @@ package com.example.portaldatransparencia.views.view_generics
 import android.view.View
 
 class AnimationView {
-    fun crossFade(view: View) {
+    fun crossFade(view: View, visible: Boolean) {
         val shortAnimationDuration = 300
         view.apply {
             alpha = 0F
-            visibility = View.VISIBLE
+            visibility =
+                if (visible) View.VISIBLE
+                else View.GONE
 
             animate()
                 .alpha(1f)

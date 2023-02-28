@@ -59,8 +59,11 @@ class GastoGeralAdapter(private val formatValor: FormaterValueBilhoes,
                         }
                     }
                 }
+                val https = "https:/"
+                val urlFoto = item.foto.split(":/")
+                val photo = https+urlFoto[1]
                 Glide.with(itemView)
-                    .load(item.foto)
+                    .load(photo)
                     .circleCrop()
                     .into(iconImage)
 

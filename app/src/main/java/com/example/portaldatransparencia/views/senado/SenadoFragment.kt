@@ -27,6 +27,7 @@ import com.example.portaldatransparencia.views.activity.ranking.senado.ActivityR
 import com.example.portaldatransparencia.views.activity.votacoes.senado.ActivityVotacoesSenado
 import com.example.portaldatransparencia.views.camara.CamaraFragment
 import com.example.portaldatransparencia.views.senado.senador.SenadorActivity
+import com.example.portaldatransparencia.views.view_generics.AnimationView
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import com.example.portaldatransparencia.views.view_generics.ModifyChip
 import com.example.portaldatransparencia.views.view_generics.VisibilityNavViewAndFloating
@@ -42,6 +43,7 @@ class SenadoFragment: Fragment(R.layout.fragment_camara_senado), IClickSenador, 
     private val modifyChip: ModifyChip by inject()
     private val retiraAcento: RetiraAcento by inject()
     private val hideView: EnableDisableView by inject()
+    private val animeView: AnimationView by inject()
     private val verifyInternet: ValidationInternet by inject()
     private val visibilityNavViewAndFloating: VisibilityNavViewAndFloating by inject()
     private lateinit var adapter: SenadoAdapter
@@ -50,8 +52,6 @@ class SenadoFragment: Fragment(R.layout.fragment_camara_senado), IClickSenador, 
     private var textPartido = ""
     private var hideFilter = true
     private val permissionCode = 1000
-
-    private var shortAnimationDuration = 300
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -72,8 +72,7 @@ class SenadoFragment: Fragment(R.layout.fragment_camara_senado), IClickSenador, 
                 hideView.disableView(progressMain)
                 verifiqueInternet.text = getString(text)
                 buttonAgain.setOnClickListener {
-                    it.startAnimation(AnimationUtils.loadAnimation(
-                        requireContext().applicationContext, R.anim.click))
+                    animaView(it)
                     hideView.enableView(progressMain)
                     hideView.disableView(frameValidation)
                     observer()
@@ -127,7 +126,7 @@ class SenadoFragment: Fragment(R.layout.fragment_camara_senado), IClickSenador, 
     }
 
     private fun listener(){
-        val anime = AnimationUtils.loadAnimation(context, R.anim.click)
+
         binding?.run {
             chipGroupItem.run {
                 chipAvante.setOnClickListener { modifyChipPartido(chipAvante) }
@@ -183,35 +182,31 @@ class SenadoFragment: Fragment(R.layout.fragment_camara_senado), IClickSenador, 
             }
 
             icVoz.setOnClickListener {
-                it.startAnimation(anime)
+                animaView(it)
                 permissionVoice()
             }
             icFilter.setOnClickListener {
-                it.startAnimation(anime)
+                animaView(it)
                 showFilterIcons()
             }
             floatingController.setOnClickListener {
                 recyclerDeputados.smoothScrollToPosition(0)
-                context?.let { it1 ->
-                    visibilityNavViewAndFloating.visibilityNavViewAndFloating(
-                        it1, true, floatingController
-                    )}
+                visibilityNavViewAndFloating
+                    .visibilityNavViewAndFloating(
+                        requireContext().applicationContext, true, floatingController, animeView)
             }
             layoutItemParlamento.run {
                 constraintLayout1.setOnClickListener {
-                    it.startAnimation(anime)
-                    val intent = Intent(context, ActivityGastoGeralSenado::class.java)
-                    startActivity(intent)
+                    val intent = Intent(requireContext().applicationContext, ActivityGastoGeralSenado::class.java)
+                    intentStarActivity(it, intent)
                 }
                 constraintLayout2.setOnClickListener {
-                    it.startAnimation(anime)
-                    val intent = Intent(context, ActivityRankingSenado::class.java)
-                    startActivity(intent)
+                    val intent = Intent(requireContext().applicationContext, ActivityRankingSenado::class.java)
+                    intentStarActivity(it, intent)
                 }
                 constraintLayout3.setOnClickListener {
-                    it.startAnimation(anime)
-                    val intent = Intent(context, ActivityVotacoesSenado::class.java)
-                    startActivity(intent)
+                    val intent = Intent(requireContext().applicationContext, ActivityVotacoesSenado::class.java)
+                    intentStarActivity(it, intent)
                 }
             }
         }
@@ -219,34 +214,20 @@ class SenadoFragment: Fragment(R.layout.fragment_camara_senado), IClickSenador, 
 
     private fun showFilterIcons(){
         binding?.run {
-            if (hideFilter){
-                icFilter.setImageResource(R.drawable.ic_no_filter)
-                hideFilter = false
-                crossFade(true)
-            }
-            else {
-                icFilter.setImageResource(R.drawable.ic_filter)
-                hideFilter = true
-                crossFade(false)
-            }
+            if (hideFilter) modifyIcon(R.drawable.ic_no_filter, value1 = false, value2 = true)
+            else modifyIcon(R.drawable.ic_filter, value1 = true, value2 = false)
         }
     }
 
-
-    private fun crossFade(visible: Boolean) {
-        binding?.frameChip?.apply {
-            alpha = 0F
-            visibility =
-                if (visible) View.VISIBLE
-                else View.GONE
-
-            animate()
-                .alpha(1f)
-                .setDuration(shortAnimationDuration.toLong())
-                .setListener(null)
+    private fun modifyIcon(res: Int, value1: Boolean,value2: Boolean){
+        binding?.run {
+            icFilter.setImageResource(res)
+            hideFilter = value1
+            binding?.frameChip?.apply {
+                animeView.crossFade(this, value2)
+            }
         }
     }
-
 
     private fun modifyChipPartido(viewDisabled: Chip) {
         chipEnabled = modifyChip.modify(chipEnabled, viewDisabled)
@@ -284,9 +265,8 @@ class SenadoFragment: Fragment(R.layout.fragment_camara_senado), IClickSenador, 
 
     private fun showTabView() {
         binding?.run {
-            context?.let {
-                visibilityNavViewAndFloating.showTabView(appbar, it, floatingController)
-            }
+            visibilityNavViewAndFloating
+                .showTabView(appbar, requireContext(), floatingController, animeView)
         }
     }
 
@@ -356,5 +336,14 @@ class SenadoFragment: Fragment(R.layout.fragment_camara_senado), IClickSenador, 
             binding?.textSearch?.editText?.setText(spokenText)
         }
         super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    private fun animaView(view: View){
+        view.startAnimation(AnimationUtils.loadAnimation(context, R.anim.click))
+    }
+
+    private fun intentStarActivity(view: View, intent: Intent){
+        animaView(view)
+        startActivity(intent)
     }
 }

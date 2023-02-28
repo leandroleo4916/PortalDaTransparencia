@@ -86,11 +86,14 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
         val age = calculateAge.age(dados.dataNascimento)
         val status = dados.ultimoStatus
 
+        val situation =
+            if (dados.ultimoStatus.situacao == "Exercício") "é $deputado em exercício"
+            else "foi $deputado - fim de mandato"
+
         binding?.run {
             ("Acompanhe $oDeputado nas redes sociais").also { textAcompanheRede.text = it }
-            (status.nome+", "+age+" anos, nascido na cidade de "+
-                    dados.municipioNascimento+" - "+dados.ufNascimento+", é "+
-                    deputado+" em "+status.situacao+", filiado ao partido "+
+            (dados.nomeCivil+", "+age+" anos, nascido na cidade de "+
+                    dados.municipioNascimento+" - "+dados.ufNascimento+", $situation, filiado ao partido "+
                     status.siglaPartido+" pelo estado de "+ status.siglaUf+
                     ", sua escolaridade atual é " +dados.escolaridade+".")
                 .also { textGeralInformation.text = it }

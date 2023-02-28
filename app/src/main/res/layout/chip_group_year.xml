@@ -138,6 +138,54 @@
             app:chipStrokeWidth="1.5dp"
             app:chipBackgroundColor="@color/back_chip_select" />
 
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_2014"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checkable="true"
+            android:checked="false"
+            android:text="2014"
+            android:textColor="@color/back_chip_select_text"
+            app:chipStrokeColor="@color/purple_700"
+            app:chipStrokeWidth="1.5dp"
+            app:chipBackgroundColor="@color/back_chip_select" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_2013"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checkable="true"
+            android:checked="false"
+            android:text="2013"
+            android:textColor="@color/back_chip_select_text"
+            app:chipStrokeColor="@color/purple_700"
+            app:chipStrokeWidth="1.5dp"
+            app:chipBackgroundColor="@color/back_chip_select" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_2012"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checkable="true"
+            android:checked="false"
+            android:text="2012"
+            android:textColor="@color/back_chip_select_text"
+            app:chipStrokeColor="@color/purple_700"
+            app:chipStrokeWidth="1.5dp"
+            app:chipBackgroundColor="@color/back_chip_select" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_2011"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checkable="true"
+            android:checked="false"
+            android:text="2011"
+            android:textColor="@color/back_chip_select_text"
+            app:chipStrokeColor="@color/purple_700"
+            app:chipStrokeWidth="1.5dp"
+            app:chipBackgroundColor="@color/back_chip_select" />
+
     </com.google.android.material.chip.ChipGroup>
 
 </HorizontalScrollView>

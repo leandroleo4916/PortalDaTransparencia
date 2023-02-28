@@ -9,30 +9,30 @@ class VisibilityNavViewAndFloating {
 
     private lateinit var viewController: IHideViewController
 
-    fun showTabView(appBar: AppBarLayout, context: Context, view: View) {
+    fun showTabView(appBar: AppBarLayout, context: Context, view: View, anime: AnimationView) {
         var isShow = true
         var scrollRange = -1
         appBar.addOnOffsetChangedListener { barLayout, verticalOffset ->
             if (scrollRange == -1) { scrollRange = barLayout?.totalScrollRange!! }
             if (scrollRange + verticalOffset == 0) {
-                visibilityNavViewAndFloating(context,false, view)
+                visibilityNavViewAndFloating(context,false, view, anime)
                 isShow = true
             }
             else if (isShow) {
-                visibilityNavViewAndFloating(context,true, view)
+                visibilityNavViewAndFloating(context,true, view, anime)
                 isShow = false
             }
         }
     }
 
-    fun visibilityNavViewAndFloating(context: Context, value: Boolean, view: View){
+    fun visibilityNavViewAndFloating(context: Context, value: Boolean, view: View, anime: AnimationView){
         if (context is IHideViewController) { viewController = context }
         viewController.hideNavView(value)
-        floatingVisibility(value, view)
+        floatingVisibility(value, view, anime)
     }
 
-    private fun floatingVisibility(isVisible: Boolean, view: View) {
+    private fun floatingVisibility(isVisible: Boolean, view: View, anime: AnimationView) {
         if (isVisible) view.visibility = View.INVISIBLE
-        else view.visibility = View.VISIBLE
+        else anime.crossFade(view, isVisible)
     }
 }

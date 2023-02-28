@@ -12,7 +12,6 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat.animate
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.portaldatransparencia.R
@@ -25,14 +24,15 @@ import com.example.portaldatransparencia.views.activity.gastogeral.camara.Activi
 import com.example.portaldatransparencia.views.activity.ranking.camara.ActivityRankingCamara
 import com.example.portaldatransparencia.views.activity.votacoes.camara.ActivityVotacoesCamara
 import com.example.portaldatransparencia.views.camara.deputado.DeputadoActivity
+import com.example.portaldatransparencia.views.view_generics.AnimationView
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import com.example.portaldatransparencia.views.view_generics.ModifyChip
 import com.example.portaldatransparencia.views.view_generics.VisibilityNavViewAndFloating
 import com.google.android.material.chip.Chip
-import com.nineoldandroids.view.ViewPropertyAnimator.animate
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
+import kotlin.reflect.KClass
 
 class CamaraFragment: Fragment(R.layout.fragment_camara_senado), IClickDeputado, INotification {
 
@@ -40,6 +40,7 @@ class CamaraFragment: Fragment(R.layout.fragment_camara_senado), IClickDeputado,
     private val viewModel: CamaraViewModel by viewModel()
     private val hideView: EnableDisableView by inject()
     private val modifyChip: ModifyChip by inject()
+    private val anime: AnimationView by inject()
     private val validationInternet: ValidationInternet by inject()
     private val visibilityNavViewAndFloating: VisibilityNavViewAndFloating by inject()
     private lateinit var adapter: MainAdapter
@@ -49,7 +50,6 @@ class CamaraFragment: Fragment(R.layout.fragment_camara_senado), IClickDeputado,
     private val permissionCode = 1000
     private var hideFilter = true
     companion object { const val SPEECH_REQUEST_CODE = 0 }
-    private var shortAnimationDuration = 300
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -184,38 +184,37 @@ class CamaraFragment: Fragment(R.layout.fragment_camara_senado), IClickDeputado,
             }
 
             icVoz.setOnClickListener {
-                it.startAnimation(AnimationUtils.loadAnimation(context, R.anim.click))
+                animaView(it)
                 permissionVoice()
             }
             icFilter.setOnClickListener {
-                it.startAnimation(AnimationUtils.loadAnimation(context, R.anim.click))
+                animaView(it)
                 showFilterIcons()
             }
             floatingController.setOnClickListener {
                 recyclerDeputados.smoothScrollToPosition(0)
-                context?.let { it1 ->
-                    visibilityNavViewAndFloating.visibilityNavViewAndFloating(
-                        it1, true, floatingController
-                    )}
+                visibilityNavViewAndFloating
+                    .visibilityNavViewAndFloating(
+                        requireContext().applicationContext, true, floatingController, anime)
             }
             layoutValidation.buttonAgain.setOnClickListener {
-                it.startAnimation(AnimationUtils.loadAnimation(context, R.anim.click))
+                animaView(it)
                 hideView.enableView(binding!!.progressMain)
                 observer()
             }
             layoutItemParlamento.run {
                 constraintLayout1.setOnClickListener {
-                    it.startAnimation(AnimationUtils.loadAnimation(context, R.anim.click))
+                    animaView(it)
                     val intent = Intent(context, ActivityGastoGeralCamara::class.java)
                     startActivity(intent)
                 }
                 constraintLayout2.setOnClickListener {
-                    it.startAnimation(AnimationUtils.loadAnimation(context, R.anim.click))
+                    animaView(it)
                     val intent = Intent(context, ActivityRankingCamara::class.java)
                     startActivity(intent)
                 }
                 constraintLayout3.setOnClickListener {
-                    it.startAnimation(AnimationUtils.loadAnimation(context, R.anim.click))
+                    animaView(it)
                     val intent = Intent(context, ActivityVotacoesCamara::class.java)
                     startActivity(intent)
                 }
@@ -228,27 +227,13 @@ class CamaraFragment: Fragment(R.layout.fragment_camara_senado), IClickDeputado,
             if (hideFilter){
                 icFilter.setImageResource(R.drawable.ic_no_filter)
                 hideFilter = false
-                crossFade(true)
+                anime.crossFade(frameChip, true)
             }
             else {
                 icFilter.setImageResource(R.drawable.ic_filter)
                 hideFilter = true
-                crossFade(false)
+                anime.crossFade(frameChip,false)
             }
-        }
-    }
-
-    private fun crossFade(visible: Boolean) {
-        binding?.frameChip?.apply {
-            alpha = 0F
-            visibility =
-                if (visible) View.VISIBLE
-                else View.GONE
-
-            animate()
-                .alpha(1f)
-                .setDuration(shortAnimationDuration.toLong())
-                .setListener(null)
         }
     }
 
@@ -341,15 +326,17 @@ class CamaraFragment: Fragment(R.layout.fragment_camara_senado), IClickDeputado,
 
     private fun showTabView() {
         binding?.run {
-            context?.let {
-                visibilityNavViewAndFloating.showTabView(appbar,
-                    it, floatingController)
-            }
+            visibilityNavViewAndFloating
+                .showTabView(appbar, requireContext(), floatingController, anime)
         }
     }
 
     override fun notification() {
         Toast.makeText(context, getString(R.string.nao_encontrado_dep_partido),
             Toast.LENGTH_SHORT).show()
+    }
+
+    private fun animaView(view: View){
+        view.startAnimation(AnimationUtils.loadAnimation(context, R.anim.click))
     }
 }

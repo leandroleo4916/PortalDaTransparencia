@@ -1,6 +1,6 @@
 package com.example.portaldatransparencia.dataclass
 
-data class RankingCamara (
+data class RankingDataClass (
     val ranking: List<Ranking>
 )
 

@@ -8,23 +8,19 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.adapter.GastoGeralAdapter
 import com.example.portaldatransparencia.databinding.LayoutRankingBinding
-import com.example.portaldatransparencia.dataclass.*
+import com.example.portaldatransparencia.dataclass.Ranking
 import com.example.portaldatransparencia.interfaces.IClickOpenDeputadoRanking
-import com.example.portaldatransparencia.network.ApiServiceMain
-import com.example.portaldatransparencia.network.Retrofit
 import com.example.portaldatransparencia.repository.ResultRankingGeralCamara
 import com.example.portaldatransparencia.security.SecurityPreferences
 import com.example.portaldatransparencia.util.FormaterValueBilhoes
 import com.example.portaldatransparencia.util.ValidationInternet
 import com.example.portaldatransparencia.views.camara.CamaraViewModel
 import com.example.portaldatransparencia.views.camara.deputado.DeputadoActivity
+import com.example.portaldatransparencia.views.view_generics.AnimationView
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import com.google.android.material.chip.Chip
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class ActivityRankingCamara: AppCompatActivity(), IClickOpenDeputadoRanking {
 
@@ -33,18 +29,15 @@ class ActivityRankingCamara: AppCompatActivity(), IClickOpenDeputadoRanking {
     private val camaraViewModel: CamaraViewModel by viewModel()
     private val validationInternet: ValidationInternet by inject()
     private val hideView: EnableDisableView by inject()
+    private val animeView: AnimationView by inject()
     private val securityPreferences: SecurityPreferences by inject()
     private val formatValor: FormaterValueBilhoes by inject()
     private lateinit var adapter: GastoGeralAdapter
-    private lateinit var listDeputados: ArrayList<Dado>
     private lateinit var listGastoGeralDeputado: ArrayList<Ranking>
-    private var listAdpterDeputado: ArrayList<ListParlamentar> = arrayListOf()
-    private lateinit var gastoCamara: GastoGeralCamara
-    private lateinit var sizeDeputado: String
     private lateinit var id: String
-    private val ano = "Geral"
     private lateinit var chipSelected: Chip
     private var anoSelect = "Todos"
+    private var hideFilter = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,17 +58,32 @@ class ActivityRankingCamara: AppCompatActivity(), IClickOpenDeputadoRanking {
         modifyElementTop()
         listenerChip()
         recycler()
-        observerCamara()
         listener()
+        observerGastoCamara()
+    }
+
+    private fun recycler(){
+        val recycler = binding.recyclerRancking
+        adapter = GastoGeralAdapter(formatValor, this)
+        recycler.layoutManager = LinearLayoutManager(this)
+        recycler.adapter = adapter
     }
 
     private fun listener() {
         binding.layoutTop.run {
-            hideView.disableView(imageViewFilter)
             hideView.enableView(textViewDescriptionTop)
             imageViewBack.setOnClickListener {
                 it.startAnimation(AnimationUtils.loadAnimation(applicationContext, R.anim.click))
                 finish()
+            }
+            imageViewFilter.setOnClickListener {
+                hideFilter = if (hideFilter) {
+                    showFilters(true)
+                    false
+                } else {
+                    showFilters(false)
+                    true
+                }
             }
         }
     }
@@ -85,7 +93,33 @@ class ActivityRankingCamara: AppCompatActivity(), IClickOpenDeputadoRanking {
             layoutTop.run {
                 textViewDescriptionTop.text = getString(R.string.ranking_de_gastos)
                 hideView.enableView(textViewDescriptionTop)
-                hideView.disableView(imageViewFilter)
+            }
+        }
+    }
+
+    private fun observerGastoCamara() {
+
+        val internet = this.let { validationInternet.validationInternet(it) }
+        if (internet){
+            viewModel.rankingCamara(anoSelect).observe(this){
+                it?.let { result ->
+                    when (result) {
+                        is ResultRankingGeralCamara.Success -> {
+                            result.dado?.let { gastos ->
+                                listGastoGeralDeputado = gastos.ranking as ArrayList
+                                disableProgressAndText()
+                                showFilters(true)
+                                adapter.updateData(listGastoGeralDeputado)
+                            }
+                        }
+                        is ResultRankingGeralCamara.Error -> {
+                            showErrorApi()
+                        }
+                        is ResultRankingGeralCamara.ErrorConnection -> {
+                            showErrorApi()
+                        }
+                    }
+                }
             }
         }
     }
@@ -103,12 +137,16 @@ class ActivityRankingCamara: AppCompatActivity(), IClickOpenDeputadoRanking {
                 chip2017.setOnClickListener { modify(chipSelected, chip2017) }
                 chip2016.setOnClickListener { modify(chipSelected, chip2016) }
                 chip2015.setOnClickListener { modify(chipSelected, chip2015) }
+                chip2014.setOnClickListener { modify(chipSelected, chip2014) }
+                chip2013.setOnClickListener { modify(chipSelected, chip2013) }
+                chip2012.setOnClickListener { modify(chipSelected, chip2012) }
+                chip2011.setOnClickListener { modify(chipSelected, chip2011) }
             }
         }
     }
 
     private fun modify(viewSelected: Chip, viewClicked: Chip) {
-        if (ano != viewClicked.text){
+        if (anoSelect != viewClicked.text){
             disableProgressAndText()
             adapter.updateData(arrayListOf())
             anoSelect = viewClicked.text.toString()
@@ -117,70 +155,6 @@ class ActivityRankingCamara: AppCompatActivity(), IClickOpenDeputadoRanking {
             chipSelected = viewClicked
             observerGastoCamara()
         }
-    }
-
-    private fun recycler(){
-        val recycler = binding.recyclerRancking
-        adapter = GastoGeralAdapter(formatValor, this)
-        recycler.layoutManager = LinearLayoutManager(this)
-        recycler.adapter = adapter
-    }
-
-    private fun observerCamara(){
-
-        val internet = this.let { validationInternet.validationInternet(it) }
-        val retrofit = Retrofit.createService(ApiServiceMain::class.java)
-        val call: Call<MainDataClass> = retrofit.getDeputados(ordem = "ASC", "nome")
-        if (internet){
-            call.enqueue(object: Callback<MainDataClass> {
-                override fun onResponse(call: Call<MainDataClass>, res: Response<MainDataClass>) {
-                    when (res.code()) {
-                        200 -> {
-                            if (res.body()!!.dados.isNotEmpty()){
-                                val list = res.body()!!.dados
-                                sizeDeputado = list.size.toString()
-                                listDeputados = list as ArrayList
-                                observerGastoCamara()
-                            }
-                        }
-                        429 -> observerCamara()
-                    }
-                }
-                override fun onFailure(call: Call<MainDataClass>, t: Throwable) {
-                    TODO("Not yet implemented")
-                }
-            })
-        }
-        else {
-            //showValidationInternet(R.string.verifique_sua_internet)
-        }
-    }
-
-    private fun observerGastoCamara() {
-
-        viewModel.rankingCamara(ano).observe(this){
-            it?.let { result ->
-                when (result) {
-                    is ResultRankingGeralCamara.Success -> {
-                        result.dado?.let { gastos ->
-                            listGastoGeralDeputado = gastos.ranking as ArrayList
-                            processListCamara()
-                        }
-                    }
-                    is ResultRankingGeralCamara.Error -> {
-                        result.exception.message?.let { }
-                    }
-                    is ResultRankingGeralCamara.ErrorConnection -> {
-                        result.exception.message?.let { }
-                    }
-                }
-            }
-        }
-    }
-
-    private fun processListCamara(){
-        disableProgressAndText()
-        adapter.updateData(listGastoGeralDeputado)
     }
 
     private fun disableProgressAndText(){
@@ -196,5 +170,18 @@ class ActivityRankingCamara: AppCompatActivity(), IClickOpenDeputadoRanking {
         val intent = Intent(this, DeputadoActivity::class.java)
         intent.putExtra("id", id)
         startActivity(intent)
+    }
+
+    private fun showErrorApi(){
+        binding.layoutProgressAndText.apply {
+            animeView.crossFade(textNotValue, true)
+            hideView.disableView(progressActive)
+            textNotValue.text = getString(R.string.erro_api_senado)
+        }
+    }
+
+    private fun showFilters(boolean: Boolean){
+        animeView.crossFade(binding.framePartidos, boolean)
+        animeView.crossFade(binding.frameYearRanking, boolean)
     }
 }

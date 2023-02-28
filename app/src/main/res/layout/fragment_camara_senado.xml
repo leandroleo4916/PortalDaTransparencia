@@ -182,7 +182,6 @@
             android:layout_marginBottom="20dp"
             android:foreground="@drawable/ic_top"
             app:backgroundTint="@color/purple_700"
-            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             tools:ignore="ContentDescription" />

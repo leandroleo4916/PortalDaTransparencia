@@ -113,6 +113,10 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas, IClickT
                 chip2017.setOnClickListener { modify(chipEnabled, chip2017) }
                 chip2016.setOnClickListener { modify(chipEnabled, chip2016) }
                 chip2015.setOnClickListener { modify(chipEnabled, chip2015) }
+                chip2014.setOnClickListener { modify(chipEnabled, chip2014) }
+                chip2013.setOnClickListener { modify(chipEnabled, chip2013) }
+                chip2012.setOnClickListener { modify(chipEnabled, chip2012) }
+                chip2011.setOnClickListener { modify(chipEnabled, chip2011) }
             }
         }
     }

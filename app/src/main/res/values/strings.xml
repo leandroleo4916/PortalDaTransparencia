@@ -35,7 +35,7 @@
     <string name="senadores">Senadores</string>
     <string name="deputados">Deputados</string>
     <string name="notas">Notas</string>
-    <string name="ranking_de_gastos">Ranking de gastos - últimos 8 anos</string>
+    <string name="ranking_de_gastos">Ranking de gastos - últimos 12 anos</string>
     <string name="sem_dados_para_exibir_no_momento">Sem dados para exibir no momento.</string>
     <string name="nenhuma_frente_parlamentar">Nenhuma frente parlamentar</string>
     <string name="digite_ou_fale_o_nome_do_deputado">Digite ou fale o nome do deputado</string>
@@ -44,9 +44,9 @@
     <string name="nao_recebeu_dados">API não respondeu, tente novamente!</string>
     <string name="api_nao_respondeu">API não respondeu!</string>
     <string name="falha_no_servidor">Falha na resposta do servidor!</string>
-    <string name="senado_8anos">Senado - últimos 8 anos</string>
+    <string name="senado_12anos">Senado - últimos 12 anos</string>
     <string name="senado_federal">Senado Federal</string>
-    <string name="gastoGeral8Anos">Gasto geral - últimos 8 anos</string>
+    <string name="gastoGeral12Anos">Gasto geral - últimos 12 anos</string>
     <string name="nao_encontrado_dep_partido">Nenhum parlamentar encontrado</string>
     <string name="erro_captura_voz">Erro na captura de voz</string>
     <string name="permissao_negada">Permissão negada</string>

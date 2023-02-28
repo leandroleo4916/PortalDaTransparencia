@@ -50,7 +50,7 @@ class GastoSetorAdapter(private val formatValor: FormatValor, private val animeV
                     .load(despesa.photo)
                     .into(iconGasto)
             }
-            animeView.crossFade(itemView)
+            animeView.crossFade(itemView, true)
             itemView.setOnClickListener {
                 it.startAnimation(AnimationUtils.loadAnimation(itemView.context, R.anim.click))
                 smooth.smoothPosition(adapterPosition)

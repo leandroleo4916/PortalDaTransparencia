@@ -56,7 +56,7 @@ val retrofitModule = module {
         single<ApiServiceSenadorCargos> { get<Retrofit>().create(ApiServiceSenadorCargos::class.java) }
         single<ApiServiceVotacoes> { get<Retrofit>().create(ApiServiceVotacoes::class.java) }
         single<ApiServiceVotacoesItem> { get<Retrofit>().create(ApiServiceVotacoesItem::class.java) }
-        single<ApiServiceGastoGeralSenador> { get<Retrofit>().create(ApiServiceGastoGeralSenador::class.java) }
+        single<ApiServiceRankingSenador> { get<Retrofit>().create(ApiServiceRankingSenador::class.java) }
         single<ApiServiceGastoGeralDeputado> { get<Retrofit>().create(ApiServiceGastoGeralDeputado::class.java) }
         single<ApiServiceFrenteId> { get<Retrofit>().create(ApiServiceFrenteId::class.java) }
         single<ApiVotacoes> { get<Retrofit>().create(ApiVotacoes::class.java) }
@@ -64,6 +64,7 @@ val retrofitModule = module {
         single<ApiServicePropostaItem> { get<Retrofit>().create(ApiServicePropostaItem::class.java) }
         single<ApiVotacoesSenado> { get<Retrofit>().create(ApiVotacoesSenado::class.java) }
         single<ApiServiceRankingDeputado> { get<Retrofit>().create(ApiServiceRankingDeputado::class.java) }
+        single<ApiServiceGastoGeralSenado> { get<Retrofit>().create(ApiServiceGastoGeralSenado::class.java) }
 }
 
 val progressModule = module { factory { EnableDisableView() } }
@@ -91,7 +92,7 @@ val repositorySenador = module { single { SenadorRepository(get()) } }
 val repositorySenadorGeral = module { single { GeralSenadorRepository(get()) } }
 val repositoryVotacoes = module { single { VotacoesRepository(get()) } }
 val repositoryVotacoesItem = module { single { VotacoesRepositoryItem(get()) } }
-val repositoryGastoGeral = module { single { GastoGeralRepository(get(), get(), get()) } }
+val repositoryGastoGeral = module { single { GastoGeralRepository(get(), get(), get(), get()) } }
 val repositoryVotacoesCamara = module { single { VotacoesCamaraRepository(get()) } }
 
 val gastoSenadorAdapter = module { single { GastoSenadorAdapter(get()) }}
