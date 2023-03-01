@@ -18,7 +18,7 @@ import com.example.portaldatransparencia.interfaces.INoteDespesas
 import com.example.portaldatransparencia.network.ApiServiceIdDespesas
 import com.example.portaldatransparencia.network.Retrofit
 import com.example.portaldatransparencia.security.SecurityPreferences
-import com.example.portaldatransparencia.util.FormatValor
+import com.example.portaldatransparencia.util.FormaterValueBilhoes
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import com.google.android.material.chip.Chip
 import org.koin.android.ext.android.inject
@@ -54,12 +54,12 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas, IClickT
 
     private fun recyclerView() {
         val recycler = binding!!.recyclerDespesas
-        adapter = DespesasAdapter(this, FormatValor())
+        adapter = DespesasAdapter(this, FormaterValueBilhoes())
         recycler.layoutManager = LinearLayoutManager(context)
         recycler.adapter = adapter
 
         val recyclerDimension = binding!!.frameRecyclerDimension.recyclerDimension
-        adapterDimension = DimensionAdapter(FormatValor(), this)
+        adapterDimension = DimensionAdapter(FormaterValueBilhoes(), this)
         recyclerDimension.layoutManager = LinearLayoutManager(context,
             LinearLayoutManager.HORIZONTAL, false)
         recyclerDimension.adapter = adapterDimension

@@ -3,6 +3,7 @@ package com.example.portaldatransparencia.views.activity.ranking.camara
 import android.content.Intent
 import android.os.Bundle
 import android.view.animation.AnimationUtils
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.portaldatransparencia.R
@@ -10,6 +11,7 @@ import com.example.portaldatransparencia.adapter.GastoGeralAdapter
 import com.example.portaldatransparencia.databinding.LayoutRankingBinding
 import com.example.portaldatransparencia.dataclass.Ranking
 import com.example.portaldatransparencia.interfaces.IClickOpenDeputadoRanking
+import com.example.portaldatransparencia.interfaces.INotification
 import com.example.portaldatransparencia.repository.ResultRankingGeralCamara
 import com.example.portaldatransparencia.security.SecurityPreferences
 import com.example.portaldatransparencia.util.FormaterValueBilhoes
@@ -22,7 +24,7 @@ import com.google.android.material.chip.Chip
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class ActivityRankingCamara: AppCompatActivity(), IClickOpenDeputadoRanking {
+class ActivityRankingCamara: AppCompatActivity(), IClickOpenDeputadoRanking, INotification {
 
     private val binding by lazy { LayoutRankingBinding.inflate(layoutInflater) }
     private val viewModel: RankingViewModelCamara by viewModel()
@@ -64,7 +66,7 @@ class ActivityRankingCamara: AppCompatActivity(), IClickOpenDeputadoRanking {
 
     private fun recycler(){
         val recycler = binding.recyclerRancking
-        adapter = GastoGeralAdapter(formatValor, this)
+        adapter = GastoGeralAdapter(formatValor, this, this)
         recycler.layoutManager = LinearLayoutManager(this)
         recycler.adapter = adapter
     }
@@ -183,5 +185,10 @@ class ActivityRankingCamara: AppCompatActivity(), IClickOpenDeputadoRanking {
     private fun showFilters(boolean: Boolean){
         animeView.crossFade(binding.framePartidos, boolean)
         animeView.crossFade(binding.frameYearRanking, boolean)
+    }
+
+    override fun notification() {
+        Toast.makeText(applicationContext, getString(R.string.nao_encontrado_dep_partido),
+            Toast.LENGTH_SHORT).show()
     }
 }

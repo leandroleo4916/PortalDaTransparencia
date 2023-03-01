@@ -21,25 +21,25 @@ class DespesasViewModel(private val repository: IdDespesasRepository,
 
         val subList: ArrayList<SublistDataClass> = arrayListOf()
         val size = dados.size
-        var total = 0.0F
-        var manutencao = 0.0F
-        var combustivel = 0.0F
-        var divulgacao = 0.0F
-        var passagens = 0.0F
-        var telefonia = 0.0F
-        var postais = 0.0F
-        var alimentacao = 0.0F
-        var hospedagem = 0.0F
-        var taxi = 0.0F
-        var locacao = 0.0F
-        var consultoria = 0.0F
-        var seguranca = 0.0F
-        var curso = 0.0F
-        var outros = 0.0F
+        var total = 0.0
+        var manutencao = 0.0
+        var combustivel = 0.0
+        var divulgacao = 0.0
+        var passagens = 0.0
+        var telefonia = 0.0
+        var postais = 0.0
+        var alimentacao = 0.0
+        var hospedagem = 0.0
+        var taxi = 0.0
+        var locacao = 0.0
+        var consultoria = 0.0
+        var seguranca = 0.0
+        var curso = 0.0
+        var outros = 0.0
 
         dados.forEach {
-            val valor = formatFloat.formatFloat(it.valorDocumento.toString())
-            if (valor != 0.0F) {
+            val valor = it.valorDocumento
+            if (valor != 0.0) {
                 total += valor
                 when (it.tipoDespesa) {
                     "MANUTENÇÃO DE ESCRITÓRIO DE APOIO À ATIVIDADE PARLAMENTAR" -> manutencao += valor

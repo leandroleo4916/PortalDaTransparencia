@@ -2,6 +2,7 @@ package com.example.portaldatransparencia.views.activity.ranking.senado
 
 import android.os.Bundle
 import android.view.animation.AnimationUtils
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.portaldatransparencia.R
@@ -9,17 +10,19 @@ import com.example.portaldatransparencia.adapter.GastoGeralAdapter
 import com.example.portaldatransparencia.databinding.LayoutRankingBinding
 import com.example.portaldatransparencia.dataclass.Ranking
 import com.example.portaldatransparencia.interfaces.IClickOpenDeputadoRanking
+import com.example.portaldatransparencia.interfaces.INotification
 import com.example.portaldatransparencia.repository.ResultRankingSenado
 import com.example.portaldatransparencia.security.SecurityPreferences
 import com.example.portaldatransparencia.util.FormaterValueBilhoes
 import com.example.portaldatransparencia.views.senado.SenadoViewModel
 import com.example.portaldatransparencia.views.view_generics.AnimationView
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
+import com.example.portaldatransparencia.views.view_generics.ModifyChip
 import com.google.android.material.chip.Chip
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class ActivityRankingSenado: AppCompatActivity(), IClickOpenDeputadoRanking {
+class ActivityRankingSenado: AppCompatActivity(), IClickOpenDeputadoRanking, INotification {
 
     private val binding by lazy { LayoutRankingBinding.inflate(layoutInflater) }
     private val viewModel: RankingViewModelSenado by viewModel()
@@ -34,9 +37,25 @@ class ActivityRankingSenado: AppCompatActivity(), IClickOpenDeputadoRanking {
     private var anoSelect = "Todos"
     private var hideFilter = false
 
+    private var chipEnabled: Chip? = null
+    private var chipEnabledState: Chip? = null
+    private val modifyChip: ModifyChip by inject()
+    private var textPartido = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        binding.run {
+            layoutYear.chipAll.apply {
+                chipSelected = this
+                hideView.enableView(this)
+            }
+            layoutYear.chip2023.isChecked = false
+            layoutGroupPartidos.run {
+                hideView.disableView(scrollState)
+            }
+        }
 
         listenerChip()
         modifyTextTitleAndListenerBack()
@@ -67,7 +86,7 @@ class ActivityRankingSenado: AppCompatActivity(), IClickOpenDeputadoRanking {
 
     private fun recycler(){
         val recycler = binding.recyclerRancking
-        adapter = GastoGeralAdapter(formatValor, this)
+        adapter = GastoGeralAdapter(formatValor, this, this)
         recycler.layoutManager = LinearLayoutManager(this)
         recycler.adapter = adapter
     }
@@ -81,6 +100,7 @@ class ActivityRankingSenado: AppCompatActivity(), IClickOpenDeputadoRanking {
                         result.dado?.let { gastos ->
                             listGastoGeralSenador = gastos.ranking
                             disableProgressAndText()
+                            showFilters(true)
                             adapter.updateData(listGastoGeralSenador as ArrayList)
                         }
                     }
@@ -113,6 +133,45 @@ class ActivityRankingSenado: AppCompatActivity(), IClickOpenDeputadoRanking {
                 chip2012.setOnClickListener { modify(chipSelected, chip2012) }
                 chip2011.setOnClickListener { modify(chipSelected, chip2011) }
             }
+            layoutGroupPartidos.run {
+                chipAvante.setOnClickListener { modifyChipPartido(chipAvante) }
+                chipCidadania.setOnClickListener { modifyChipPartido(chipCidadania) }
+                chipDc.setOnClickListener { modifyChipPartido(chipDc) }
+                chipDem.setOnClickListener { modifyChipPartido(chipDem) }
+                chipMdb.setOnClickListener { modifyChipPartido(chipMdb) }
+                chipNovo.setOnClickListener { modifyChipPartido(chipNovo) }
+                chipPatri.setOnClickListener { modifyChipPartido(chipPatri) }
+                chipPatriota.setOnClickListener { modifyChipPartido(chipPatriota) }
+                chipPcb.setOnClickListener { modifyChipPartido(chipPcb) }
+                chipPcdob.setOnClickListener { modifyChipPartido(chipPcdob) }
+                chipPco.setOnClickListener { modifyChipPartido(chipPco) }
+                chipPdt.setOnClickListener { modifyChipPartido(chipPdt) }
+                chipPhs.setOnClickListener { modifyChipPartido(chipPhs) }
+                chipPl.setOnClickListener { modifyChipPartido(chipPl) }
+                chipPros.setOnClickListener { modifyChipPartido(chipPros) }
+                chipPsc.setOnClickListener { modifyChipPartido(chipPsc) }
+                chipPmb.setOnClickListener { modifyChipPartido(chipPmb) }
+                chipPodemos.setOnClickListener { modifyChipPartido(chipPodemos) }
+                chipPp.setOnClickListener { modifyChipPartido(chipPp) }
+                chipPt.setOnClickListener { modifyChipPartido(chipPt) }
+                chipRepublicanos.setOnClickListener { modifyChipPartido(chipRepublicanos) }
+                chipUniao.setOnClickListener { modifyChipPartido(chipUniao) }
+            }
+        }
+    }
+
+    private fun modifyChipPartido(viewDisabled: Chip) {
+        chipEnabled = modifyChip.modify(chipEnabled, viewDisabled)
+        if (chipEnabledState != null) {
+            chipEnabledState!!.isChecked = false
+        }
+        textPartido = viewDisabled.text as String
+        if (!viewDisabled.isChecked) {
+            adapter.filterList("")
+            textPartido = ""
+        }
+        else {
+            adapter.filterList(viewDisabled.text as String)
         }
     }
 
@@ -150,5 +209,10 @@ class ActivityRankingSenado: AppCompatActivity(), IClickOpenDeputadoRanking {
     private fun showFilters(boolean: Boolean){
         animeView.crossFade(binding.framePartidos, boolean)
         animeView.crossFade(binding.frameYearRanking, boolean)
+    }
+
+    override fun notification() {
+        Toast.makeText(applicationContext, getString(R.string.nao_encontrado_dep_partido),
+            Toast.LENGTH_SHORT).show()
     }
 }

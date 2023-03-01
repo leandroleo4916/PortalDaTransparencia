@@ -14,7 +14,6 @@ import com.example.portaldatransparencia.dataclass.AddInfoSetor
 import com.example.portaldatransparencia.dataclass.GastoGeralCamara
 import com.example.portaldatransparencia.interfaces.ISmoothPosition
 import com.example.portaldatransparencia.repository.ResultGastoGeralCamara
-import com.example.portaldatransparencia.util.FormatValor
 import com.example.portaldatransparencia.util.FormaterValueBilhoes
 import com.example.portaldatransparencia.util.RetValueInt
 import com.example.portaldatransparencia.views.view_generics.AddValueViewGraph
@@ -57,7 +56,7 @@ class ActivityGastoGeralCamara: AppCompatActivity(), ISmoothPosition {
 
     private fun recyclerAdapter(){
         val recycler = binding.recyclerGastoSetor
-        adapter = GastoSetorAdapter(FormatValor(), crossFade, this)
+        adapter = GastoSetorAdapter(FormaterValueBilhoes(), crossFade, this)
         recycler.layoutManager = LinearLayoutManager(this.applicationContext)
         recycler.adapter = adapter
 

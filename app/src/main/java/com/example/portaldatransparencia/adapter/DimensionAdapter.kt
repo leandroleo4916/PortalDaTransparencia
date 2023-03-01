@@ -1,21 +1,19 @@
 package com.example.portaldatransparencia.adapter
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import androidx.core.view.ViewCompat.animate
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.databinding.RecyclerDimensionBinding
 import com.example.portaldatransparencia.dataclass.SublistDataClass
 import com.example.portaldatransparencia.interfaces.IClickTipoDespesa
-import com.example.portaldatransparencia.util.FormatValor
+import com.example.portaldatransparencia.util.FormaterValueBilhoes
 
-class DimensionAdapter(private val formatValor: FormatValor,
+class DimensionAdapter(private val formatValor: FormaterValueBilhoes,
                        private val clickDespesa: IClickTipoDespesa):
     RecyclerView.Adapter<DimensionAdapter.DespesasViewHolder>() {
 
@@ -44,7 +42,7 @@ class DimensionAdapter(private val formatValor: FormatValor,
             binding = RecyclerDimensionBinding.bind(itemView)
             binding?.run {
                 textViewDescription.text = despesa.description
-                textViewGasto.text = "R$ ${formatValor.formatValor(despesa.value.toDouble())}"
+                textViewGasto.text = formatValor.formatValor(despesa.value.toDouble())
                 Glide.with(itemView)
                     .load(despesa.icon)
                     .circleCrop()

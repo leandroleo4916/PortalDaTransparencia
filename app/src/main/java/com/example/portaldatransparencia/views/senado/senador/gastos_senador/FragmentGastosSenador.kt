@@ -17,8 +17,8 @@ import com.example.portaldatransparencia.interfaces.IClickTipoDespesa
 import com.example.portaldatransparencia.interfaces.INoteDespesas
 import com.example.portaldatransparencia.repository.ResultCotaRequest
 import com.example.portaldatransparencia.security.SecurityPreferences
-import com.example.portaldatransparencia.util.FormatValor
 import com.example.portaldatransparencia.util.FormatValueFloat
+import com.example.portaldatransparencia.util.FormaterValueBilhoes
 import com.example.portaldatransparencia.views.camara.deputado.gastos_deputado.DespesasViewModel
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import com.google.android.material.chip.Chip
@@ -56,7 +56,7 @@ class FragmentGastosSenador: Fragment(R.layout.fragment_gastos), INoteDespesas, 
         recycler.adapter = adapter
 
         val recyclerDimension = binding!!.frameRecyclerDimension.recyclerDimension
-        adapterDimension = DimensionAdapter(FormatValor(), this)
+        adapterDimension = DimensionAdapter(FormaterValueBilhoes(), this)
         recyclerDimension.layoutManager = LinearLayoutManager(context,
             LinearLayoutManager.HORIZONTAL, false)
         recyclerDimension.adapter = adapterDimension

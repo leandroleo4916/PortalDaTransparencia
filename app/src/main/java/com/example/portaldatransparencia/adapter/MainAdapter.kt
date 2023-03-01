@@ -1,12 +1,12 @@
 package com.example.portaldatransparencia.adapter
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import android.widget.*
+import android.widget.Filter
+import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.portaldatransparencia.R
@@ -15,7 +15,6 @@ import com.example.portaldatransparencia.dataclass.Dado
 import com.example.portaldatransparencia.interfaces.IClickDeputado
 import com.example.portaldatransparencia.interfaces.INotification
 import kotlinx.coroutines.*
-import java.util.*
 
 class MainAdapter(private val listener: IClickDeputado, private val notify: INotification):
     RecyclerView.Adapter<MainAdapter.MainViewHolder>(), Filterable {

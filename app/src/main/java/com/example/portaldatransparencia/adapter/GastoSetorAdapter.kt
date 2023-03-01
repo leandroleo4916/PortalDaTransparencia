@@ -11,10 +11,11 @@ import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.databinding.RecyclerGastoSetorBinding
 import com.example.portaldatransparencia.dataclass.AddInfoSetor
 import com.example.portaldatransparencia.interfaces.ISmoothPosition
-import com.example.portaldatransparencia.util.FormatValor
+import com.example.portaldatransparencia.util.FormaterValueBilhoes
 import com.example.portaldatransparencia.views.view_generics.AnimationView
 
-class GastoSetorAdapter(private val formatValor: FormatValor, private val animeView: AnimationView,
+class GastoSetorAdapter(private val formatValor: FormaterValueBilhoes,
+                        private val animeView: AnimationView,
                         private val smooth: ISmoothPosition):
     RecyclerView.Adapter<GastoSetorAdapter.DespesasViewHolder>() {
 
@@ -43,7 +44,7 @@ class GastoSetorAdapter(private val formatValor: FormatValor, private val animeV
             binding = RecyclerGastoSetorBinding.bind(itemView)
             binding?.run {
                 textDescriptionSetor.text = despesa.description
-                textValueSetor.text = "R$ ${formatValor.formatValor(despesa.value.toDouble())}"
+                textValueSetor.text = formatValor.formatValor(despesa.value.toDouble())
                 viewLateral.setBackgroundResource(despesa.color)
 
                 Glide.with(itemView)

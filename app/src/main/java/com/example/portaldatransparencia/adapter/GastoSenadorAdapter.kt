@@ -8,9 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.databinding.RecyclerGastosBinding
 import com.example.portaldatransparencia.dataclass.GastosSenador
-import com.example.portaldatransparencia.util.FormatValor
+import com.example.portaldatransparencia.util.FormaterValueBilhoes
 
-class GastoSenadorAdapter(private val formatValor: FormatValor):
+class GastoSenadorAdapter(private val formatValor: FormaterValueBilhoes):
     RecyclerView.Adapter<GastoSenadorAdapter.DespesasViewHolder>() {
 
     private var data: ArrayList<GastosSenador> = arrayListOf()
@@ -49,15 +49,13 @@ class GastoSenadorAdapter(private val formatValor: FormatValor):
                     if (it.contains(",")){
                         val value = it.split(",")
                         if (value[0].isNotEmpty()){
-                            val formatTotal = formatValor.formatValor(value[0].toDouble())
-                            textValorNota.text = "R$ $formatTotal"
+                            textValorNota.text = formatValor.formatValor(value[0].toDouble())
                         }
                         else textValorNota.text = "R$ 0,01"
                     }
                     else {
                         if (it.isNotEmpty()) {
-                            val formatTotal = formatValor.formatValor(it.toDouble())
-                            textValorNota.text = "R$ $formatTotal"
+                            textValorNota.text = formatValor.formatValor(it.toDouble())
                         }
                         else textValorNota.text = "Valor não informado"
                     }

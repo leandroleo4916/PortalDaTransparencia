@@ -11,15 +11,19 @@ import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.databinding.RecyclerRankingBinding
 import com.example.portaldatransparencia.dataclass.Ranking
 import com.example.portaldatransparencia.interfaces.IClickOpenDeputadoRanking
+import com.example.portaldatransparencia.interfaces.INotification
 import com.example.portaldatransparencia.util.FormaterValueBilhoes
 import kotlinx.coroutines.*
 
 class GastoGeralAdapter(private val formatValor: FormaterValueBilhoes,
-                        private val clickRanking: IClickOpenDeputadoRanking) :
+                        private val clickRanking: IClickOpenDeputadoRanking,
+                        private val notify: INotification) :
     RecyclerView.Adapter<GastoGeralAdapter.MainViewHolder>() {
 
     private var binding: RecyclerRankingBinding? = null
-    private var data = arrayListOf<Ranking>()
+    private var data = mutableListOf<Ranking>()
+    private var dataList = mutableListOf<Ranking>()
+    private var dataListState = mutableListOf<Ranking>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
         val item = LayoutInflater
@@ -44,7 +48,7 @@ class GastoGeralAdapter(private val formatValor: FormaterValueBilhoes,
 
             binding?.run {
                 textNameRancking.text = item.nome
-                textPartidoUf.text = "${item.partido}"+" - "+"${item.estado}"
+                textPartidoUf.text = "${item.partido} - ${item.estado}"
                 textValorItem.text = formatValor.formatValor(item.gasto.toDouble())
 
                 var value = 0
@@ -77,10 +81,31 @@ class GastoGeralAdapter(private val formatValor: FormaterValueBilhoes,
 
     @SuppressLint("NotifyDataSetChanged")
     fun updateData(parlamentar: ArrayList<Ranking>) {
-        parlamentar.sortByDescending {
-            it.gasto.toInt()
+        if (parlamentar.isNotEmpty()){
+            parlamentar.sortByDescending {
+                it.gasto.toInt()
+            }
         }
         data = parlamentar
+        dataList = parlamentar
+        notifyDataSetChanged()
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun filterList(estado: String){
+        dataListState = mutableListOf()
+        dataList.forEach {
+            if (it.partido == estado){
+                dataListState.add(it)
+            }
+        }
+        data = dataListState
+        if (data.isEmpty()) notify.notification()
+        else {
+            data.sortedByDescending {
+                it.gasto.toInt()
+            }
+        }
         notifyDataSetChanged()
     }
 }

@@ -12,10 +12,10 @@ import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.databinding.RecyclerGastosBinding
 import com.example.portaldatransparencia.dataclass.DadoDespesas
 import com.example.portaldatransparencia.interfaces.INoteDespesas
-import com.example.portaldatransparencia.util.FormatValor
+import com.example.portaldatransparencia.util.FormaterValueBilhoes
 
 class DespesasAdapter(private val listener: INoteDespesas,
-                      private val formatValor: FormatValor):
+                      private val formatValor: FormaterValueBilhoes):
     RecyclerView.Adapter<DespesasAdapter.DespesasViewHolder>(), Filterable {
 
     private var binding: RecyclerGastosBinding? = null
@@ -61,8 +61,7 @@ class DespesasAdapter(private val listener: INoteDespesas,
                         else "CNPJ ou CPF não informado"
 
                     valorDocumento.let{
-                        val formatTotal = formatValor.formatValor(it)
-                        textValorNota.text = "R$ $formatTotal"
+                        textValorNota.text = formatValor.formatValor(it)
                     }
                 }
                 itemView.setOnClickListener {
