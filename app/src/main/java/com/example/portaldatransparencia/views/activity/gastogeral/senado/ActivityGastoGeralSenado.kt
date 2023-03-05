@@ -96,6 +96,8 @@ class ActivityGastoGeralSenado: AppCompatActivity(), ISmoothPosition {
                             gastoSenado = gasto
                             modifyTextTop(anoSelect)
                             addElementSenado()
+                            viewModel.buildGraphCamara(
+                                gasto, adapter, adapterGraph, anoSelect, applicationContext)
                         }
                     }
                     is ResultGastoGeralSenado.Error -> {
