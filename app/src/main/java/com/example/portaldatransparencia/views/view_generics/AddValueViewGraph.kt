@@ -6,13 +6,13 @@ import kotlinx.coroutines.*
 
 class AddValueViewGraph {
 
-    fun addHeightToView(info: Int, view: View){
-        val multi = info * 2
+    fun addHeightToView(info: Int, multi: Float, view: View){
+        val result = info / multi
         val layoutParams = view.layoutParams
         var value = 1
         CoroutineScope(Dispatchers.Main).launch {
             withContext(Dispatchers.Default) {
-                while (value <= multi) {
+                while (value <= result) {
                     withContext(Dispatchers.Main) {
                         layoutParams.height = value
                         view.layoutParams = layoutParams
@@ -24,7 +24,7 @@ class AddValueViewGraph {
         }
     }
 
-    fun addValueToText(info: Int, textView: TextView){
+    fun addValueToText(info: Int, multi: Float, textView: TextView){
         var value = 1F
         CoroutineScope(Dispatchers.Main).launch {
             withContext(Dispatchers.Default) {
@@ -34,7 +34,7 @@ class AddValueViewGraph {
                         textView.text = "$ ${value.toInt()} mi"
                     }
                     delay(1)
-                    value += 0.5F
+                    value += multi
                 }
             }
         }

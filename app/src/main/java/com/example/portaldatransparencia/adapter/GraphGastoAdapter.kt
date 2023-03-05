@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.databinding.RecyclerGraphGastoBinding
 import com.example.portaldatransparencia.dataclass.AddInfoSetor
-import com.example.portaldatransparencia.di.addValue
 import com.example.portaldatransparencia.util.RetValueInt
 import com.example.portaldatransparencia.views.view_generics.AddValueViewGraph
 
@@ -18,6 +17,7 @@ class GraphGastoAdapter(private val addValue: AddValueViewGraph,
 
     private var binding: RecyclerGraphGastoBinding? = null
     private var data: List<AddInfoSetor> = listOf()
+    private var anoSelect = "Todos"
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DespesasViewHolder {
         val item = LayoutInflater
@@ -27,7 +27,8 @@ class GraphGastoAdapter(private val addValue: AddValueViewGraph,
     }
 
     override fun onBindViewHolder(holder: DespesasViewHolder, position: Int) {
-        holder.bind(data[position])
+        if (anoSelect == "Todos") holder.bind(data[position])
+        else holder.bind2(data[position])
     }
 
     override fun getItemCount() = data.size
@@ -38,16 +39,27 @@ class GraphGastoAdapter(private val addValue: AddValueViewGraph,
             binding = RecyclerGraphGastoBinding.bind(itemView)
             binding?.run {
                 val ret = retValueInt.formatValor(item.value)
-                addValue.addHeightToView(ret, viewValue1)
-                addValue.addValueToText(ret, textItemTop)
+                addValue.addHeightToView(ret, 1.5F, viewValue1)
+                addValue.addValueToText(ret, 1.5f, textItemTop)
+                textItem1.text = item.description
+            }
+        }
+
+        fun bind2(item: AddInfoSetor){
+            binding = RecyclerGraphGastoBinding.bind(itemView)
+            binding?.run {
+                val ret = retValueInt.formatValor(item.value)
+                addValue.addHeightToView(ret, 1.5F, viewValue1)
+                addValue.addValueToText(ret, 1.5f, textItemTop)
                 textItem1.text = item.description
             }
         }
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun updateData(front: ArrayList<AddInfoSetor>) {
+    fun updateData(front: ArrayList<AddInfoSetor>, ano: String) {
         data = front
+        anoSelect = ano
         notifyDataSetChanged()
     }
 }

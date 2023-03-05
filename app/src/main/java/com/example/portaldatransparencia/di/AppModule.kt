@@ -76,6 +76,7 @@ val retiraAcento = module { factory { RetiraAcento() } }
 val securityPreferences = module { single { SecurityPreferences(get()) } }
 val formatValorBi = module { factory { FormaterValueBilhoes() } }
 val formatValorFloat = module { factory { FormatValueFloat() } }
+val converterValueNotes = module { factory { ConverterValueNotes() } }
 val validationInternet = module { single { ValidationInternet() } }
 val modifyHttp = module { single { ModifyHttpToHttps() } }
 val retValueInt = module { single { RetValueInt() } }
@@ -127,5 +128,5 @@ val appModules = listOf( retrofitModule, viewModelModule, repositorySearch, prog
         formatValorBi, formatValorFloat, validationInternet, modifyHttp, gastoSenadorAdapter,
         viewModelRankingCamara, viewModelRankingSenado, viewModelGastoGeralSenado, addValue,
         viewModelVotacoesCamara, repositoryVotacoesCamara, viewModelFrontId, animationView,
-        dialogFragment
+        dialogFragment, converterValueNotes
 )

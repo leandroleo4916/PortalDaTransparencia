@@ -3,23 +3,33 @@ package com.example.portaldatransparencia.views.activity.gastogeral.senado
 import android.os.Bundle
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.portaldatransparencia.R
+import com.example.portaldatransparencia.adapter.GastoSetorAdapter
+import com.example.portaldatransparencia.adapter.GraphGastoAdapter
 import com.example.portaldatransparencia.databinding.FragmentMaisBinding
 import com.example.portaldatransparencia.dataclass.GastoGeralSenadoData
+import com.example.portaldatransparencia.interfaces.ISmoothPosition
 import com.example.portaldatransparencia.repository.ResultGastoGeralSenado
 import com.example.portaldatransparencia.util.FormaterValueBilhoes
+import com.example.portaldatransparencia.util.RetValueInt
+import com.example.portaldatransparencia.views.view_generics.AddValueViewGraph
+import com.example.portaldatransparencia.views.view_generics.AnimationView
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import com.google.android.material.chip.Chip
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class ActivityGastoGeralSenado: AppCompatActivity() {
+class ActivityGastoGeralSenado: AppCompatActivity(), ISmoothPosition {
 
     private val binding by lazy { FragmentMaisBinding.inflate(layoutInflater) }
     private val viewModel: GastoGeralViewModelSenado by viewModel()
     private val hideView: EnableDisableView by inject()
     private val formatValor: FormaterValueBilhoes by inject()
+    private val crossFade: AnimationView by inject()
     private lateinit var gastoSenado: GastoGeralSenadoData
+    private lateinit var adapterGraph: GraphGastoAdapter
+    private lateinit var adapter: GastoSetorAdapter
     private lateinit var chipSelected: Chip
     private var anoSelect = "Todos"
 
@@ -31,30 +41,47 @@ class ActivityGastoGeralSenado: AppCompatActivity() {
             chipSelected = this
             hideView.enableView(this)
         }
+        recycler()
         listener()
         listenerChip()
         modifyItemTop()
-        modifyItemGraph()
         observerGastoSenado()
+    }
+
+    private fun recycler(){
+        val recycler = binding.recyclerGastoSetor
+        adapter = GastoSetorAdapter(FormaterValueBilhoes(), crossFade, this)
+        recycler.layoutManager = LinearLayoutManager(this.applicationContext)
+        recycler.adapter = adapter
+
+        val recyclerGraph = binding.layoutGraph.recyclerGraph
+        adapterGraph = GraphGastoAdapter(AddValueViewGraph(), RetValueInt())
+        recyclerGraph.layoutManager =
+            LinearLayoutManager(
+                this.applicationContext, LinearLayoutManager.HORIZONTAL, false)
+        recyclerGraph.adapter = adapterGraph
     }
 
     private fun modifyItemTop(){
         binding.run {
             layoutTop.run {
                 textViewTitleTop.text = getString(R.string.senado_federal)
-                textViewDescriptionTop.text = getString(R.string.gastoGeral12Anos)
+                modifyTextTop("últimos 12 anos")
                 hideView.enableView(textViewDescriptionTop)
+                hideView.disableView(imageViewFilter)
             }
             chipGroupItem.chip2023.isChecked = false
         }
     }
 
-    private fun modifyItemGraph() {
+    private fun modifyTextTop(text: String){
         binding.run {
             layoutTop.run {
-                textViewTitleTop.text = getString(R.string.senado_federal)
-                textViewDescriptionTop.text = getString(R.string.gastoGeral12Anos)
-                hideView.enableView(textViewDescriptionTop)
+                textViewDescriptionTop.text =
+                    if (text != "Todos") "Gasto geral - $text"
+                    else getString(R.string.gastoGeral12Anos)
+                textViewDescriptionTop
+                    .startAnimation(AnimationUtils.loadAnimation(baseContext, R.anim.click_votacao))
             }
         }
     }
@@ -67,6 +94,7 @@ class ActivityGastoGeralSenado: AppCompatActivity() {
                     is ResultGastoGeralSenado.Success -> {
                         result.dado?.let { gasto ->
                             gastoSenado = gasto
+                            modifyTextTop(anoSelect)
                             addElementSenado()
                         }
                     }
@@ -107,7 +135,7 @@ class ActivityGastoGeralSenado: AppCompatActivity() {
         if (anoSelect != viewClicked.text){
             hideView.run {
                 binding.layoutProgressAndText.run {
-                    disableView(progressActive)
+                    enableView(progressActive)
                     disableView(textNotValue)
                 }
                 disableView(binding.linearLayout)
@@ -129,9 +157,10 @@ class ActivityGastoGeralSenado: AppCompatActivity() {
                 textViewTotalNotas.text = notas
                 hideView.run {
                     disableView(layoutProgressAndText.progressActive)
-                    enableView(constraintNumberParlamentar)
-                    enableView(constraintNumberTotal)
-                    enableView(constraintNumberNotas)
+                    crossFade.crossFade(constraintNumberParlamentar, true)
+                    crossFade.crossFade(frameGraph, true)
+                    crossFade.crossFade(constraintNumberTotal, true)
+                    crossFade.crossFade(constraintNumberNotas, true)
                 }
             }
         }
@@ -145,5 +174,7 @@ class ActivityGastoGeralSenado: AppCompatActivity() {
             }
         }
     }
+
+    override fun smoothPosition(position: Int) {}
 
 }
