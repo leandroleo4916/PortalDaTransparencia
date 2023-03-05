@@ -12,14 +12,11 @@ import com.example.portaldatransparencia.adapter.DimensionAdapter
 import com.example.portaldatransparencia.adapter.GastoSenadorAdapter
 import com.example.portaldatransparencia.databinding.FragmentGastosBinding
 import com.example.portaldatransparencia.dataclass.GastosSenador
-import com.example.portaldatransparencia.dataclass.SublistDataClass
 import com.example.portaldatransparencia.interfaces.IClickTipoDespesa
 import com.example.portaldatransparencia.interfaces.INoteDespesas
 import com.example.portaldatransparencia.repository.ResultCotaRequest
 import com.example.portaldatransparencia.security.SecurityPreferences
-import com.example.portaldatransparencia.util.FormatValueFloat
 import com.example.portaldatransparencia.util.FormaterValueBilhoes
-import com.example.portaldatransparencia.views.camara.deputado.gastos_deputado.DespesasViewModel
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import com.google.android.material.chip.Chip
 import org.koin.android.ext.android.inject
@@ -28,12 +25,11 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class FragmentGastosSenador: Fragment(R.layout.fragment_gastos), INoteDespesas, IClickTipoDespesa {
 
     private var binding: FragmentGastosBinding? = null
-    private val viewModelGastos: DespesasViewModel by viewModel()
+    private val viewModelGastos: CotasSenadorViewModel by viewModel()
     private val adapter: GastoSenadorAdapter by inject()
     private lateinit var adapterDimension: DimensionAdapter
     private val securityPreferences: SecurityPreferences by inject()
     private val statusView: EnableDisableView by inject()
-    private val formatFloat: FormatValueFloat by inject()
     private lateinit var chipEnabled: Chip
     private lateinit var nome: String
     private var ano = "2023"
@@ -72,7 +68,8 @@ class FragmentGastosSenador: Fragment(R.layout.fragment_gastos), INoteDespesas, 
                             if (gastos.gastosSenador.isNotEmpty()){
                                 dados = gastos.gastosSenador
                                 adapter.updateDataSenador(dados)
-                                captureDataNotes()
+                                statusView.disableView(binding!!.layoutProgress.progressActive)
+                                viewModelGastos.addCotasAdapterDimension(dados, adapterDimension)
                             }
                             else errorCallApi("Não tem dados para $ano")
                         }
@@ -84,86 +81,12 @@ class FragmentGastosSenador: Fragment(R.layout.fragment_gastos), INoteDespesas, 
                     }
                     is ResultCotaRequest.ErrorConnection -> {
                         result.exception.message?.let {
-                            errorCallApi("Erro ao buscar os dados, tente novamnete mais tarde!")
+                            errorCallApi(getString(R.string.erro_ao_buscar_dados))
                         }
                     }
                 }
             }
         }
-    }
-
-    private fun captureDataNotes(){
-
-        val subList: ArrayList<SublistDataClass> = arrayListOf()
-        val size = dados.size
-        var total = 0.0F
-        var aluguel = 0.0F
-        var divulgacao = 0.0F
-        var passagens = 0.0F
-        var contratacao = 0.0F
-        var locomocao = 0.0F
-        var aquisicao = 0.0F
-        var servico = 0.0F
-        var outros = 0.0F
-
-        dados.forEach {
-            val value = formatFloat.formatFloat(it.valorReembolsado)
-            if (value != 0.0F){
-                total += value
-                when (it.tipoDespesa.substring(0,5)){
-                    "Alugu" -> aluguel += value
-                    "Divul" -> divulgacao += value
-                    "Passa" -> passagens += value
-                    "Contr" -> contratacao += value
-                    "Locom" -> locomocao += value
-                    "Aquis" -> aquisicao += value
-                    "Servi" -> servico += value
-                    else -> outros += value
-                }
-            }
-        }
-        if (total.toInt() != 0){
-            subList.add(SublistDataClass(total.toInt(), "$size notas",
-                "https://cdn-icons-png.flaticon.com/512/116/116638.png",
-                "Total geral"))
-        }
-        if (divulgacao.toInt() != 0){
-            subList.add(SublistDataClass(divulgacao.toInt(), "Divulgação parlamentar",
-                "https://cdn-icons-png.flaticon.com/512/6520/6520327.png",
-                "Divulgação"))
-        }
-        if (passagens.toInt() != 0){
-            subList.add(SublistDataClass(passagens.toInt(), "Passagens aéreas",
-                "https://cdn-icons-png.flaticon.com/512/5014/5014749.png",
-                "Passagens"))
-        }
-        if (contratacao.toInt() != 0){
-            subList.add(SublistDataClass(contratacao.toInt(), "Consultoria, assessoria",
-                "https://cdn-icons-png.flaticon.com/512/1522/1522778.png",
-                "Contratação"))
-        }
-        if (locomocao.toInt() != 0){
-            subList.add(SublistDataClass(locomocao.toInt(), "Hospedagem, alimentação",
-                "https://cdn-icons-png.flaticon.com/512/6799/6799692.png",
-                "Locomoção"))
-        }
-        if (aquisicao.toInt() != 0){
-            subList.add(SublistDataClass(aquisicao.toInt(), "Aquisição de materiais",
-                "https://cdn-icons-png.flaticon.com/512/6169/6169675.png",
-                "Aquisição"))
-        }
-        if (servico.toInt() != 0){
-            subList.add(SublistDataClass(servico.toInt(), "Serviços postais",
-                "https://cdn-icons-png.flaticon.com/512/4280/4280211.png",
-                "Serviços"))
-        }
-        if (outros.toInt() != 0){
-            subList.add(SublistDataClass(outros.toInt(), "Outros serviços",
-                "https://cdn-icons-png.flaticon.com/512/4692/4692103.png",
-                "Outros"))
-        }
-        statusView.disableView(binding!!.layoutProgress.progressActive)
-        adapterDimension.updateData(subList)
     }
 
     private fun errorCallApi(value: String){
@@ -186,12 +109,15 @@ class FragmentGastosSenador: Fragment(R.layout.fragment_gastos), INoteDespesas, 
                 chip2017.setOnClickListener { modify(chipEnabled, chip2017) }
                 chip2016.setOnClickListener { modify(chipEnabled, chip2016) }
                 chip2015.setOnClickListener { modify(chipEnabled, chip2015) }
+                chip2014.setOnClickListener { modify(chipEnabled, chip2019) }
+                chip2013.setOnClickListener { modify(chipEnabled, chip2018) }
+                chip2012.setOnClickListener { modify(chipEnabled, chip2017) }
+                chip2011.setOnClickListener { modify(chipEnabled, chip2016) }
             }
         }
     }
 
     private fun modify(viewEnabled: Chip, viewDisabled: Chip) {
-
         viewEnabled.isChecked = false
         viewDisabled.isChecked = true
         chipEnabled = viewDisabled
@@ -210,9 +136,13 @@ class FragmentGastosSenador: Fragment(R.layout.fragment_gastos), INoteDespesas, 
             val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(note))
             startActivity(browserIntent)
         } else {
-            Toast.makeText(context, "Comprovante não enviado", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, getString(R.string.comprovante_nao_enviado),
+                Toast.LENGTH_SHORT).show()
         }
     }
 
-    override fun clickTipoDespesa(type: String) {}
+    override fun clickTipoDespesa(type: String) {
+        val typeSubString = type.substring(0,5)
+        adapter.openDataSelect(typeSubString)
+    }
 }

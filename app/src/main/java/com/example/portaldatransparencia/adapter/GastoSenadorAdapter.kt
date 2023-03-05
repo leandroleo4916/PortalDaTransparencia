@@ -8,12 +8,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.databinding.RecyclerGastosBinding
 import com.example.portaldatransparencia.dataclass.GastosSenador
+import com.example.portaldatransparencia.dataclass.SublistDataClass
 import com.example.portaldatransparencia.util.FormaterValueBilhoes
 
 class GastoSenadorAdapter(private val formatValor: FormaterValueBilhoes):
     RecyclerView.Adapter<GastoSenadorAdapter.DespesasViewHolder>() {
 
     private var data: ArrayList<GastosSenador> = arrayListOf()
+    private var dataSelected: ArrayList<GastosSenador> = arrayListOf()
     private var binding: RecyclerGastosBinding? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DespesasViewHolder {
@@ -69,6 +71,21 @@ class GastoSenadorAdapter(private val formatValor: FormaterValueBilhoes):
     fun updateDataSenador(senador: List<GastosSenador>) {
         data = if (senador.isEmpty()) arrayListOf()
         else senador as ArrayList<GastosSenador>
+
+        notifyDataSetChanged()
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun openDataSelect(type: String) {
+        if (type != "") {
+            data = arrayListOf()
+            val noteSelect: ArrayList<GastosSenador> = arrayListOf()
+            dataSelected.forEach {
+                if (it.tipoDespesa.contains(type)) noteSelect.add(it)
+            }
+            if (noteSelect.isNotEmpty()) data = noteSelect
+        }
+        else data = dataSelected
         notifyDataSetChanged()
     }
 }

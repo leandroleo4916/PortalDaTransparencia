@@ -20,6 +20,7 @@ import com.example.portaldatransparencia.views.camara.CamaraViewModel
 import com.example.portaldatransparencia.views.camara.deputado.DeputadoActivity
 import com.example.portaldatransparencia.views.view_generics.AnimationView
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
+import com.example.portaldatransparencia.views.view_generics.ModifyChip
 import com.google.android.material.chip.Chip
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -40,6 +41,11 @@ class ActivityRankingCamara: AppCompatActivity(), IClickOpenDeputadoRanking, INo
     private lateinit var chipSelected: Chip
     private var anoSelect = "Todos"
     private var hideFilter = false
+
+    private var chipEnabled: Chip? = null
+    private var chipEnabledState: Chip? = null
+    private val modifyChip: ModifyChip by inject()
+    private var textPartido = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -111,6 +117,7 @@ class ActivityRankingCamara: AppCompatActivity(), IClickOpenDeputadoRanking, INo
                                 listGastoGeralDeputado = gastos.ranking as ArrayList
                                 disableProgressAndText()
                                 showFilters(true)
+                                modifyTextTop("Ranking gastos - $anoSelect")
                                 adapter.updateData(listGastoGeralDeputado)
                             }
                         }
@@ -144,12 +151,50 @@ class ActivityRankingCamara: AppCompatActivity(), IClickOpenDeputadoRanking, INo
                 chip2012.setOnClickListener { modify(chipSelected, chip2012) }
                 chip2011.setOnClickListener { modify(chipSelected, chip2011) }
             }
+            layoutGroupPartidos.run {
+                chipAvante.setOnClickListener { modifyChipPartido(chipAvante) }
+                chipCidadania.setOnClickListener { modifyChipPartido(chipCidadania) }
+                chipDc.setOnClickListener { modifyChipPartido(chipDc) }
+                chipDem.setOnClickListener { modifyChipPartido(chipDem) }
+                chipMdb.setOnClickListener { modifyChipPartido(chipMdb) }
+                chipNovo.setOnClickListener { modifyChipPartido(chipNovo) }
+                chipPatri.setOnClickListener { modifyChipPartido(chipPatri) }
+                chipPatriota.setOnClickListener { modifyChipPartido(chipPatriota) }
+                chipPcb.setOnClickListener { modifyChipPartido(chipPcb) }
+                chipPcdob.setOnClickListener { modifyChipPartido(chipPcdob) }
+                chipPco.setOnClickListener { modifyChipPartido(chipPco) }
+                chipPdt.setOnClickListener { modifyChipPartido(chipPdt) }
+                chipPhs.setOnClickListener { modifyChipPartido(chipPhs) }
+                chipPl.setOnClickListener { modifyChipPartido(chipPl) }
+                chipPros.setOnClickListener { modifyChipPartido(chipPros) }
+                chipPsc.setOnClickListener { modifyChipPartido(chipPsc) }
+                chipPmb.setOnClickListener { modifyChipPartido(chipPmb) }
+                chipPodemos.setOnClickListener { modifyChipPartido(chipPodemos) }
+                chipPp.setOnClickListener { modifyChipPartido(chipPp) }
+                chipPt.setOnClickListener { modifyChipPartido(chipPt) }
+                chipRepublicanos.setOnClickListener { modifyChipPartido(chipRepublicanos) }
+                chipUniao.setOnClickListener { modifyChipPartido(chipUniao) }
+            }
         }
     }
 
+    private fun modifyChipPartido(viewDisabled: Chip) {
+        chipEnabled = modifyChip.modify(chipEnabled, viewDisabled)
+        if (chipEnabledState != null) {
+            chipEnabledState!!.isChecked = false
+        }
+        textPartido = viewDisabled.text as String
+        if (!viewDisabled.isChecked) {
+            adapter.filterList("")
+            textPartido = ""
+        }
+        else adapter.filterList(viewDisabled.text as String)
+        modifyTextTop("Ranking gastos - $textPartido - $anoSelect")
+    }
+
     private fun modify(viewSelected: Chip, viewClicked: Chip) {
+        enableProgressAndText()
         if (anoSelect != viewClicked.text){
-            disableProgressAndText()
             adapter.updateData(arrayListOf())
             anoSelect = viewClicked.text.toString()
             viewSelected.isChecked = false
@@ -157,12 +202,22 @@ class ActivityRankingCamara: AppCompatActivity(), IClickOpenDeputadoRanking, INo
             chipSelected = viewClicked
             observerGastoCamara()
         }
+        chipEnabled?.isChecked = false
     }
 
     private fun disableProgressAndText(){
         hideView.run {
             binding.layoutProgressAndText.run {
                 disableView(progressActive)
+                disableView(textNotValue)
+            }
+        }
+    }
+
+    private fun enableProgressAndText(){
+        hideView.run {
+            binding.layoutProgressAndText.run {
+                enableView(progressActive)
                 disableView(textNotValue)
             }
         }
@@ -190,5 +245,14 @@ class ActivityRankingCamara: AppCompatActivity(), IClickOpenDeputadoRanking, INo
     override fun notification() {
         Toast.makeText(applicationContext, getString(R.string.nao_encontrado_dep_partido),
             Toast.LENGTH_SHORT).show()
+    }
+
+    private fun modifyTextTop(textResult: String){
+        binding.run {
+            layoutTop.textViewDescriptionTop.run {
+                text = textResult
+                this.startAnimation(AnimationUtils.loadAnimation(context, R.anim.click_votacao))
+            }
+        }
     }
 }

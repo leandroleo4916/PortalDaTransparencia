@@ -94,16 +94,15 @@ class GastoGeralAdapter(private val formatValor: FormaterValueBilhoes,
     @SuppressLint("NotifyDataSetChanged")
     fun filterList(estado: String){
         dataListState = mutableListOf()
-        dataList.forEach {
-            if (it.partido == estado){
-                dataListState.add(it)
-            }
-        }
-        data = dataListState
-        if (data.isEmpty()) notify.notification()
+        if (estado == "") data = dataList
         else {
-            data.sortedByDescending {
-                it.gasto.toInt()
+            dataList.forEach {
+                if (it.partido == estado) dataListState.add(it)
+            }
+            data = dataListState
+            if (data.isEmpty()) notify.notification()
+            else {
+                data.sortedByDescending { it.gasto.toInt() }
             }
         }
         notifyDataSetChanged()

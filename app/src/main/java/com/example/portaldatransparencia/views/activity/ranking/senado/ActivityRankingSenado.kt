@@ -1,5 +1,6 @@
 package com.example.portaldatransparencia.views.activity.ranking.senado
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.animation.AnimationUtils
 import android.widget.Toast
@@ -12,9 +13,9 @@ import com.example.portaldatransparencia.dataclass.Ranking
 import com.example.portaldatransparencia.interfaces.IClickOpenDeputadoRanking
 import com.example.portaldatransparencia.interfaces.INotification
 import com.example.portaldatransparencia.repository.ResultRankingSenado
-import com.example.portaldatransparencia.security.SecurityPreferences
 import com.example.portaldatransparencia.util.FormaterValueBilhoes
 import com.example.portaldatransparencia.views.senado.SenadoViewModel
+import com.example.portaldatransparencia.views.senado.senador.SenadorActivity
 import com.example.portaldatransparencia.views.view_generics.AnimationView
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import com.example.portaldatransparencia.views.view_generics.ModifyChip
@@ -31,7 +32,6 @@ class ActivityRankingSenado: AppCompatActivity(), IClickOpenDeputadoRanking, INo
     private val formatValor: FormaterValueBilhoes by inject()
     private val animeView: AnimationView by inject()
     private lateinit var adapter: GastoGeralAdapter
-    private val securityPreferences: SecurityPreferences by inject()
     private lateinit var listGastoGeralSenador: List<Ranking>
     private lateinit var chipSelected: Chip
     private var anoSelect = "Todos"
@@ -101,6 +101,7 @@ class ActivityRankingSenado: AppCompatActivity(), IClickOpenDeputadoRanking, INo
                             listGastoGeralSenador = gastos.ranking
                             disableProgressAndText()
                             showFilters(true)
+                            modifyTextTop("Ranking gastos - $anoSelect")
                             adapter.updateData(listGastoGeralSenador as ArrayList)
                         }
                     }
@@ -170,9 +171,8 @@ class ActivityRankingSenado: AppCompatActivity(), IClickOpenDeputadoRanking, INo
             adapter.filterList("")
             textPartido = ""
         }
-        else {
-            adapter.filterList(viewDisabled.text as String)
-        }
+        else adapter.filterList(viewDisabled.text as String)
+        modifyTextTop("Ranking gastos - $textPartido - $anoSelect")
     }
 
     private fun modify(viewSelected: Chip, viewClicked: Chip) {
@@ -185,6 +185,7 @@ class ActivityRankingSenado: AppCompatActivity(), IClickOpenDeputadoRanking, INo
             chipSelected = viewClicked
             observerRanking()
         }
+        chipEnabled?.isChecked = false
     }
 
     private fun disableProgressAndText(){
@@ -196,7 +197,11 @@ class ActivityRankingSenado: AppCompatActivity(), IClickOpenDeputadoRanking, INo
         }
     }
 
-    override fun clickRanking(id: String) {}
+    override fun clickRanking(id: String) {
+        val intent = Intent(this, SenadorActivity::class.java)
+        intent.putExtra("id", id)
+        startActivity(intent)
+    }
 
     private fun showErrorApi(){
         binding.layoutProgressAndText.apply {
@@ -214,5 +219,14 @@ class ActivityRankingSenado: AppCompatActivity(), IClickOpenDeputadoRanking, INo
     override fun notification() {
         Toast.makeText(applicationContext, getString(R.string.nao_encontrado_dep_partido),
             Toast.LENGTH_SHORT).show()
+    }
+
+    private fun modifyTextTop(textResult: String){
+        binding.run {
+            layoutTop.textViewDescriptionTop.run {
+                text = textResult
+                this.startAnimation(AnimationUtils.loadAnimation(context, R.anim.click_votacao))
+            }
+        }
     }
 }

@@ -1,21 +1,14 @@
 package com.example.portaldatransparencia.views.camara.deputado.gastos_deputado
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.example.portaldatransparencia.adapter.DimensionAdapter
 import com.example.portaldatransparencia.dataclass.DadoDespesas
-import com.example.portaldatransparencia.dataclass.SenadorGastosDataClass
 import com.example.portaldatransparencia.dataclass.SublistDataClass
 import com.example.portaldatransparencia.repository.IdDespesasRepository
-import com.example.portaldatransparencia.repository.ResultCotaRequest
 import com.example.portaldatransparencia.util.FormatValueFloat
 
 class DespesasViewModel(private val repository: IdDespesasRepository,
                         private val formatFloat: FormatValueFloat) : ViewModel() {
-
-    fun searchGastosSenador(ano: String, nome: String):
-            LiveData<ResultCotaRequest<SenadorGastosDataClass?>> =
-        repository.gastosData(ano, nome)
 
     fun captureDataNotes(dados: List<DadoDespesas>, adapter: DimensionAdapter) {
 

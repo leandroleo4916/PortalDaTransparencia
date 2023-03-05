@@ -53,4 +53,6 @@
     <string name="nenhuma_votacao_este_ano">Nenhuma votação para este ano</string>
     <string name="erro_api_senado">Erro na API do Senado</string>
     <string name="sem_info_api">Sem informação na API</string>
+    <string name="comprovante_nao_enviado">Parlamentar não enviou comprovante!</string>
+    <string name="erro_ao_buscar_dados">Erro ao buscar os dados, tente novamnete mais tarde!</string>
 </resources>
