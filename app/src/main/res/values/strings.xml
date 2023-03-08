@@ -47,7 +47,7 @@
     <string name="falha_no_servidor">Falha na resposta do servidor!</string>
     <string name="senado_12anos">Senado - últimos 12 anos</string>
     <string name="senado_federal">Senado Federal</string>
-    <string name="gastoGeral12Anos">Gasto geral - últimos 12 anos</string>
+    <string name="gastoGeral12Anos">Gasto Geral - últimos 12 anos</string>
     <string name="nao_encontrado_dep_partido">Nenhum parlamentar encontrado</string>
     <string name="erro_captura_voz">Erro na captura de voz</string>
     <string name="permissao_negada">Permissão negada</string>

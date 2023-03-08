@@ -76,12 +76,12 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
     private fun addElementView(dados: Dados) {
         val deputado: String
         val oDeputado: String
-        if (dados.sexo == "M") {
-            deputado = "Deputado Federal"
-            oDeputado = "o deputado"
-        } else {
+        if (dados.sexo == "F") {
             deputado = "Deputada Federal"
-            oDeputado = "a deputada"
+            oDeputado = "a deputado"
+        } else {
+            deputado = "Deputado Federal"
+            oDeputado = "o deputada"
         }
         val age = calculateAge.age(dados.dataNascimento)
         val status = dados.ultimoStatus

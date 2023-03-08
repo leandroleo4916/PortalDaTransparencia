@@ -26,6 +26,7 @@ class ActivityGastoGeralSenado: AppCompatActivity(), ISmoothPosition {
     private val viewModel: GastoGeralViewModelSenado by viewModel()
     private val hideView: EnableDisableView by inject()
     private val formatValor: FormaterValueBilhoes by inject()
+    private val addValue: AddValueViewGraph by inject()
     private val crossFade: AnimationView by inject()
     private lateinit var gastoSenado: GastoGeralSenadoData
     private lateinit var adapterGraph: GraphGastoAdapter
@@ -55,7 +56,7 @@ class ActivityGastoGeralSenado: AppCompatActivity(), ISmoothPosition {
         recycler.adapter = adapter
 
         val recyclerGraph = binding.layoutGraph.recyclerGraph
-        adapterGraph = GraphGastoAdapter(AddValueViewGraph(), RetValueInt())
+        adapterGraph = GraphGastoAdapter(addValue, RetValueInt())
         recyclerGraph.layoutManager =
             LinearLayoutManager(
                 this.applicationContext, LinearLayoutManager.HORIZONTAL, false)

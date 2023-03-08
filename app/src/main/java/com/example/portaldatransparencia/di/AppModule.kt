@@ -80,7 +80,7 @@ val converterValueNotes = module { factory { ConverterValueNotes() } }
 val validationInternet = module { single { ValidationInternet() } }
 val modifyHttp = module { single { ModifyHttpToHttps() } }
 val retValueInt = module { single { RetValueInt() } }
-val addValue = module { single { AddValueViewGraph() } }
+val addValue = module { single { AddValueViewGraph(get()) } }
 
 val repositorySearch = module { single { SearchRepository(get()) } }
 val repositoryIdDeputado = module { single { IdDeputadoRepository(get()) } }

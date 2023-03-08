@@ -28,6 +28,7 @@ class ActivityGastoGeralCamara: AppCompatActivity(), ISmoothPosition {
     private val viewModel: GastoGeralViewModelCamara by viewModel()
     private val hideView: EnableDisableView by inject()
     private val formatValor: FormaterValueBilhoes by inject()
+    private val addValue: AddValueViewGraph by inject()
     private val crossFade: AnimationView by inject()
     private val converterValue: ConverterValueNotes by inject()
     private lateinit var adapter: GastoSetorAdapter
@@ -58,7 +59,7 @@ class ActivityGastoGeralCamara: AppCompatActivity(), ISmoothPosition {
         recycler.adapter = adapter
 
         val recyclerGraph = binding.layoutGraph.recyclerGraph
-        adapterGraph = GraphGastoAdapter(AddValueViewGraph(), RetValueInt())
+        adapterGraph = GraphGastoAdapter(addValue, RetValueInt())
         recyclerGraph.layoutManager =
             LinearLayoutManager(
                 this.applicationContext, LinearLayoutManager.HORIZONTAL, false)
@@ -68,7 +69,7 @@ class ActivityGastoGeralCamara: AppCompatActivity(), ISmoothPosition {
     private fun modifyElementTop(){
         binding.run {
             layoutTop.run {
-                modifyTextTop("últimos 12 anos")
+                modifyTextTop(ano)
                 hideView.enableView(textViewDescriptionTop)
                 hideView.disableView(imageViewFilter)
             }
@@ -76,15 +77,39 @@ class ActivityGastoGeralCamara: AppCompatActivity(), ISmoothPosition {
         }
     }
 
-    private fun modifyTextTop(text: String){
-        binding.run {
-            layoutTop.run {
-                textViewDescriptionTop.text =
-                    if (text != "Todos") "Gasto geral - $text"
-                    else getString(R.string.gastoGeral12Anos)
-                textViewDescriptionTop
-                    .startAnimation(AnimationUtils.loadAnimation(baseContext, R.anim.click_votacao))
+    private fun modifyTextTop(textString: String){
+        binding.layoutTop.run {
+            textViewDescriptionTop.run{
+                when(textString) {
+                    "Todos" -> {
+                        text = getString(R.string.gastoGeral12Anos)
+                        modifyItemValueGraph(
+                            "$ 700 mi", "$ 560 mi", "$ 420 mi", "$ 280 mi", "$ 140 mi")
+                    }
+                    "2023" -> {
+                        text = "Gasto Geral - $textString"
+                        modifyItemValueGraph(
+                            "$ 5 mi", "$ 4 mi", "$ 3 mi", "$ 2 mi", "$ 1 mi")
+                    }
+                    else -> {
+                        text = "Gasto Geral - $textString"
+                        modifyItemValueGraph(
+                            "$ 70 mi", "$ 56 mi", "$ 42 mi", "$ 28 mi", "$ 14 mi")
+                    }
+                }
             }
+            textViewDescriptionTop
+                .startAnimation(AnimationUtils.loadAnimation(baseContext, R.anim.click_votacao))
+        }
+    }
+
+    private fun modifyItemValueGraph(v1: String, v2: String, v3: String, v4: String, v5: String){
+        binding.layoutGraph.run {
+            textTop.text = v1
+            textTopBellow.text = v2
+            textMedium.text = v3
+            textMediumBellow.text = v4
+            textBottom.text = v5
         }
     }
 

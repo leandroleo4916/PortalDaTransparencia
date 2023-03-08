@@ -10,11 +10,13 @@
 
     <View
         android:id="@+id/view_top"
-        android:layout_width="8dp"
-        android:layout_height="1.5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="1.2dp"
+        android:layout_marginStart="84dp"
         android:layout_marginTop="16dp"
-        android:background="@color/purple_200"
-        app:layout_constraintEnd_toStartOf="@+id/view"
+        android:background="@color/purple_100"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -34,11 +36,13 @@
 
     <View
         android:id="@+id/view_top_bellow"
-        android:layout_width="8dp"
-        android:layout_height="1.5dp"
-        android:background="@color/purple_200"
+        android:layout_width="wrap_content"
+        android:layout_height="1.2dp"
+        android:layout_marginStart="84dp"
+        android:background="@color/purple_100"
         app:layout_constraintBottom_toTopOf="@+id/view_medium"
-        app:layout_constraintEnd_toStartOf="@+id/view"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view_top" />
 
     <TextView
@@ -47,7 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="2dp"
         android:gravity="center"
-        android:text="$ 550 mi"
+        android:text="$ 560 mi"
         android:textColor="@color/purple_700"
         android:textSize="10sp"
         android:textStyle="bold"
@@ -58,11 +62,13 @@
 
     <View
         android:id="@+id/view_medium"
-        android:layout_width="8dp"
-        android:layout_height="1.5dp"
-        android:background="@color/purple_200"
+        android:layout_width="wrap_content"
+        android:layout_height="1.2dp"
+        android:layout_marginStart="84dp"
+        android:background="@color/purple_100"
         app:layout_constraintBottom_toTopOf="@+id/view_bottom"
-        app:layout_constraintEnd_toStartOf="@+id/view"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view_top" />
 
     <TextView
@@ -72,7 +78,7 @@
         android:layout_marginEnd="2dp"
         android:layout_marginBottom="2dp"
         android:gravity="center"
-        android:text="$ 400 mi"
+        android:text="$ 420 mi"
         android:textColor="@color/purple_700"
         android:textSize="10sp"
         android:textStyle="bold"
@@ -82,11 +88,13 @@
 
     <View
         android:id="@+id/view_medium_bellow"
-        android:layout_width="8dp"
-        android:layout_height="1.5dp"
-        android:background="@color/purple_200"
+        android:layout_width="wrap_content"
+        android:layout_height="1.2dp"
+        android:layout_marginStart="84dp"
+        android:background="@color/purple_100"
         app:layout_constraintBottom_toTopOf="@+id/view_bottom"
-        app:layout_constraintEnd_toStartOf="@+id/view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view_medium" />
 
     <TextView
@@ -96,7 +104,7 @@
         android:layout_marginEnd="2dp"
         android:layout_marginBottom="2dp"
         android:gravity="center"
-        android:text="$ 300 mi"
+        android:text="$ 280 mi"
         android:textColor="@color/purple_700"
         android:textSize="10sp"
         android:textStyle="bold"
@@ -106,12 +114,14 @@
 
     <View
         android:id="@+id/view_bottom"
-        android:layout_width="8dp"
-        android:layout_height="1.5dp"
-        android:layout_marginBottom="50dp"
-        android:background="@color/purple_200"
+        android:layout_width="wrap_content"
+        android:layout_height="1.2dp"
+        android:layout_marginStart="84dp"
+        android:layout_marginBottom="36dp"
+        android:background="@color/purple_100"
         app:layout_constraintBottom_toTopOf="@+id/view2"
-        app:layout_constraintEnd_toStartOf="@+id/view" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/text_bottom"
@@ -120,7 +130,7 @@
         android:layout_marginEnd="2dp"
         android:layout_marginBottom="2dp"
         android:gravity="center"
-        android:text="$ 150 mi"
+        android:text="$ 140 mi"
         android:textColor="@color/purple_700"
         android:textSize="10sp"
         android:textStyle="bold"
@@ -130,11 +140,11 @@
 
     <View
         android:id="@+id/view"
-        android:layout_width="1.5dp"
-        android:layout_height="320dp"
+        android:layout_width="1.2dp"
+        android:layout_height="240dp"
         android:layout_marginStart="50dp"
         android:layout_marginBottom="8dp"
-        android:background="@color/purple_200"
+        android:background="@color/purple_100"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -145,7 +155,7 @@
         android:layout_height="1.2dp"
         android:layout_marginBottom="34dp"
         android:layout_marginStart="40dp"
-        android:background="@color/purple_200"
+        android:background="@color/purple_100"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

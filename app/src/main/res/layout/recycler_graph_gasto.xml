@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/layout_1"
-    android:layout_width="48dp"
+    android:layout_width="50dp"
     android:layout_height="match_parent"
     android:layout_gravity="bottom"
     android:elevation="12dp">
@@ -12,7 +12,7 @@
         android:id="@+id/text_item_top"
         android:layout_width="45dp"
         android:layout_height="wrap_content"
-        android:text="R$ 32 mi"
+        android:text="$ 32 mi"
         android:textAlignment="center"
         android:textColor="@color/purple_700"
         android:textSize="10sp"
