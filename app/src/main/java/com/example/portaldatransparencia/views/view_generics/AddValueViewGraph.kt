@@ -10,7 +10,7 @@ class AddValueViewGraph(private val format: ConverterValueNotes) {
     fun addHeightToView(info: Float, div: Float, view: View){
         val result = info / div
         val layoutParams = view.layoutParams
-        var value = 0
+        var value = 1
         CoroutineScope(Dispatchers.Main).launch {
             withContext(Dispatchers.Default) {
                 while (value <= result) {
@@ -58,9 +58,57 @@ class AddValueViewGraph(private val format: ConverterValueNotes) {
         }
     }
 
+    fun addValueToTextSenado1(info: Float, textView: TextView){
+        var value = 0F
+        CoroutineScope(Dispatchers.Main).launch {
+            withContext(Dispatchers.Default) {
+                while (value < info + 0.1){
+                    withContext(Dispatchers.Main){
+                        textView.text = "$ +${value.toInt()} mi"
+                    }
+                    delay(0)
+                    value += 0.2F
+                }
+            }
+        }
+    }
+
+    fun addValueToTextSenado2(info: Int, textView: TextView){
+        var value = 0F
+        CoroutineScope(Dispatchers.Main).launch {
+            withContext(Dispatchers.Default) {
+                while (value < info + 1){
+                    withContext(Dispatchers.Main){
+                        textView.text = "$ +${value.toInt()} mil"
+                    }
+                    delay(0)
+                    value += 1.6F
+                }
+            }
+        }
+    }
+
+    fun addHeightToViewSenado(info: Int, div: Float, view: View){
+        val resultDiv = info / div
+        val layoutParams = view.layoutParams
+        var value = 1
+        CoroutineScope(Dispatchers.Main).launch {
+            withContext(Dispatchers.Default) {
+                while (value < resultDiv) {
+                    withContext(Dispatchers.Main) {
+                        layoutParams.height = value
+                        view.layoutParams = layoutParams
+                    }
+                    delay(0)
+                    value += 1
+                }
+            }
+        }
+    }
+
     fun addValueMultiToTextMi(info: Int, div: Int, textView: TextView){
         val res = info / div
-        var value = 0
+        var value = 1
         CoroutineScope(Dispatchers.Main).launch {
             withContext(Dispatchers.Default) {
                 while (value <= info){

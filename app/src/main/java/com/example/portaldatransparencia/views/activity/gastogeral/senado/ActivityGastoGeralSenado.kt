@@ -6,13 +6,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.adapter.GastoSetorAdapter
-import com.example.portaldatransparencia.adapter.GraphGastoAdapter
+import com.example.portaldatransparencia.adapter.GraphGastoAdapterSenado
 import com.example.portaldatransparencia.databinding.FragmentMaisBinding
 import com.example.portaldatransparencia.dataclass.GastoGeralSenadoData
 import com.example.portaldatransparencia.interfaces.ISmoothPosition
 import com.example.portaldatransparencia.repository.ResultGastoGeralSenado
 import com.example.portaldatransparencia.util.FormaterValueBilhoes
-import com.example.portaldatransparencia.util.RetValueInt
+import com.example.portaldatransparencia.util.RetValueFloatOrInt
 import com.example.portaldatransparencia.views.view_generics.AddValueViewGraph
 import com.example.portaldatransparencia.views.view_generics.AnimationView
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
@@ -29,7 +29,7 @@ class ActivityGastoGeralSenado: AppCompatActivity(), ISmoothPosition {
     private val addValue: AddValueViewGraph by inject()
     private val crossFade: AnimationView by inject()
     private lateinit var gastoSenado: GastoGeralSenadoData
-    private lateinit var adapterGraph: GraphGastoAdapter
+    private lateinit var adapterGraph: GraphGastoAdapterSenado
     private lateinit var adapter: GastoSetorAdapter
     private lateinit var chipSelected: Chip
     private var anoSelect = "Todos"
@@ -56,7 +56,7 @@ class ActivityGastoGeralSenado: AppCompatActivity(), ISmoothPosition {
         recycler.adapter = adapter
 
         val recyclerGraph = binding.layoutGraph.recyclerGraph
-        adapterGraph = GraphGastoAdapter(addValue, RetValueInt())
+        adapterGraph = GraphGastoAdapterSenado(addValue, RetValueFloatOrInt())
         recyclerGraph.layoutManager =
             LinearLayoutManager(
                 this.applicationContext, LinearLayoutManager.HORIZONTAL, false)
@@ -69,7 +69,6 @@ class ActivityGastoGeralSenado: AppCompatActivity(), ISmoothPosition {
                 textViewTitleTop.text = getString(R.string.senado_federal)
                 modifyTextTop("últimos 12 anos")
                 hideView.enableView(textViewDescriptionTop)
-                hideView.disableView(imageViewFilter)
             }
             chipGroupItem.chip2023.isChecked = false
         }
@@ -96,6 +95,7 @@ class ActivityGastoGeralSenado: AppCompatActivity(), ISmoothPosition {
                         result.dado?.let { gasto ->
                             gastoSenado = gasto
                             modifyTextTop(anoSelect)
+                            modifyTextGraphOnClick(anoSelect)
                             addElementSenado()
                             viewModel.buildGraphCamara(
                                 gasto, adapter, adapterGraph, anoSelect, applicationContext)
@@ -143,10 +143,12 @@ class ActivityGastoGeralSenado: AppCompatActivity(), ISmoothPosition {
                 }
                 disableView(binding.linearLayout)
             }
+            adapter.updateData(arrayListOf())
             anoSelect = viewClicked.text.toString()
             viewSelected.isChecked = false
             viewClicked.isChecked = true
             chipSelected = viewClicked
+            observerGastoSenado()
         }
     }
 
@@ -160,12 +162,49 @@ class ActivityGastoGeralSenado: AppCompatActivity(), ISmoothPosition {
                 textViewTotalNotas.text = notas
                 hideView.run {
                     disableView(layoutProgressAndText.progressActive)
+                    crossFade.crossFade(linearLayout, true)
                     crossFade.crossFade(constraintNumberParlamentar, true)
                     crossFade.crossFade(frameGraph, true)
                     crossFade.crossFade(constraintNumberTotal, true)
                     crossFade.crossFade(constraintNumberNotas, true)
                 }
             }
+        }
+    }
+
+    private fun modifyTextGraphOnClick(textString: String){
+        binding.layoutTop.run {
+            textViewDescriptionTop.run{
+                when(textString) {
+                    "Todos" -> {
+                        text = getString(R.string.gastoGeral12Anos)
+                        modifyItemValueGraph(
+                            "$ 70 mi", "$ 56 mi", "$ 42 mi", "$ 28 mi", "$ 14 mi")
+                    }
+                    "2023" -> {
+                        text = "Gasto Geral - $textString"
+                        modifyItemValueGraph(
+                            "$ 500 mil", "$ 400 mil", "$ 300 mil", "$ 200 mil", "$ 100 mil")
+                    }
+                    else -> {
+                        text = "Gasto Geral - $textString"
+                        modifyItemValueGraph(
+                            "$ 7 mi", "$ 5.6 mi", "$ 4.2 mi", "$ 2.8 mi", "$ 1.4 mi")
+                    }
+                }
+            }
+            textViewDescriptionTop
+                .startAnimation(AnimationUtils.loadAnimation(baseContext, R.anim.click_votacao))
+        }
+    }
+
+    private fun modifyItemValueGraph(v1: String, v2: String, v3: String, v4: String, v5: String){
+        binding.layoutGraph.run {
+            textTop.text = v1
+            textTopBellow.text = v2
+            textMedium.text = v3
+            textMediumBellow.text = v4
+            textBottom.text = v5
         }
     }
 

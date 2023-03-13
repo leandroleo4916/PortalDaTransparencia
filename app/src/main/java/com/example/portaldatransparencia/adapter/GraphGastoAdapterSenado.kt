@@ -11,9 +11,9 @@ import com.example.portaldatransparencia.dataclass.AddInfoSetor
 import com.example.portaldatransparencia.util.RetValueFloatOrInt
 import com.example.portaldatransparencia.views.view_generics.AddValueViewGraph
 
-class GraphGastoAdapter(private val addValue: AddValueViewGraph,
-                        private val retValueInt: RetValueFloatOrInt):
-    RecyclerView.Adapter<GraphGastoAdapter.DespesasViewHolder>() {
+class GraphGastoAdapterSenado(private val addValue: AddValueViewGraph,
+                              private val retValueInt: RetValueFloatOrInt):
+    RecyclerView.Adapter<GraphGastoAdapterSenado.DespesasViewHolder>() {
 
     private var binding: RecyclerGraphGastoBinding? = null
     private var data: List<AddInfoSetor> = listOf()
@@ -42,15 +42,9 @@ class GraphGastoAdapter(private val addValue: AddValueViewGraph,
             binding = RecyclerGraphGastoBinding.bind(itemView)
             binding?.run {
                 val ret = retValueInt.formatValor(item.value)
-                if (item.value.toInt() < 1000000){
-                    addLayoutParams(viewValue1)
-                    textItemTop.text = "$ -1 mi"
-                }else {
-                    addValue.addHeightToView(ret, 2F, viewValue1)
-                    if (ret < 10) addValue.addValueToText(ret, 1F, textItemTop)
-                    else addValue.addValueToText(ret, 2F, textItemTop)
-                    textItem1.text = item.description
-                }
+                addValue.addHeightMultiToView(ret, 4.8F, viewValue1)
+                addValue.addValueToTextSenado1(ret, textItemTop)
+                textItem1.text = item.description
             }
         }
 
@@ -58,28 +52,20 @@ class GraphGastoAdapter(private val addValue: AddValueViewGraph,
             binding = RecyclerGraphGastoBinding.bind(itemView)
             val valueInt = item.value.toInt()
             binding?.run {
-                if (valueInt < 1000000){
-                    if (valueInt < 1000){
+                if (valueInt < 2000){
+                    if (valueInt < 1000) {
                         textItemTop.text = "$ -1 mil"
                         addLayoutParams(viewValue1)
                     }
                     else {
-                        val ret = retValueInt.formatValorToFloat(item.value)
-                        if (ret in 1.0..99.9){
-                            textItemTop.text = "$ +${ret.toInt()} mil"
-                            if (ret <= 10) addLayoutParams(viewValue1)
-                            else addValue.addHeightToViewMil(ret, 10F, viewValue1)
-                        }
-                        else {
-                            addValue.addHeightToView(ret, 10F, viewValue1)
-                            addValue.addValueToText(ret, 10F, textItemTop)
-                        }
+                        textItemTop.text = "$ +1 mil"
+                        addLayoutParams(viewValue1)
                     }
                 }
                 else {
-                    val ret = retValueInt.formatValor(item.value)
-                    addValue.addHeightMultiToView(ret, 66F, viewValue1)
-                    addValue.addValueMultiToTextMi(valueInt, 70, textItemTop)
+                    val value = retValueInt.formatValorToInt(item.value)
+                    addValue.addHeightToViewSenado(value, 1.5F, viewValue1)
+                    addValue.addValueToTextSenado2(value, textItemTop)
                 }
                 textItem1.text = item.description
             }

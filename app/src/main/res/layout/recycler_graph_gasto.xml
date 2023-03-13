@@ -12,7 +12,7 @@
         android:id="@+id/text_item_top"
         android:layout_width="45dp"
         android:layout_height="wrap_content"
-        android:text="$ 32 mi"
+        android:text="$ 0 mi"
         android:textAlignment="center"
         android:textColor="@color/purple_700"
         android:textSize="10sp"

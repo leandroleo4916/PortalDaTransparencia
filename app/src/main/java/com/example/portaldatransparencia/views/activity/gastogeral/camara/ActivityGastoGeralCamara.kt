@@ -14,7 +14,7 @@ import com.example.portaldatransparencia.interfaces.ISmoothPosition
 import com.example.portaldatransparencia.repository.ResultGastoGeralCamara
 import com.example.portaldatransparencia.util.ConverterValueNotes
 import com.example.portaldatransparencia.util.FormaterValueBilhoes
-import com.example.portaldatransparencia.util.RetValueInt
+import com.example.portaldatransparencia.util.RetValueFloatOrInt
 import com.example.portaldatransparencia.views.view_generics.AddValueViewGraph
 import com.example.portaldatransparencia.views.view_generics.AnimationView
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
@@ -35,7 +35,7 @@ class ActivityGastoGeralCamara: AppCompatActivity(), ISmoothPosition {
     private lateinit var adapterGraph: GraphGastoAdapter
     private lateinit var gastoCamara: GastoGeralCamara
     private lateinit var chipSelected: Chip
-    private var ano = "Todos"
+    private var anoSelect = "Todos"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,7 +59,7 @@ class ActivityGastoGeralCamara: AppCompatActivity(), ISmoothPosition {
         recycler.adapter = adapter
 
         val recyclerGraph = binding.layoutGraph.recyclerGraph
-        adapterGraph = GraphGastoAdapter(addValue, RetValueInt())
+        adapterGraph = GraphGastoAdapter(addValue, RetValueFloatOrInt())
         recyclerGraph.layoutManager =
             LinearLayoutManager(
                 this.applicationContext, LinearLayoutManager.HORIZONTAL, false)
@@ -69,9 +69,8 @@ class ActivityGastoGeralCamara: AppCompatActivity(), ISmoothPosition {
     private fun modifyElementTop(){
         binding.run {
             layoutTop.run {
-                modifyTextTop(ano)
+                modifyTextTop(anoSelect)
                 hideView.enableView(textViewDescriptionTop)
-                hideView.disableView(imageViewFilter)
             }
             chipGroupItem.chip2023.isChecked = false
         }
@@ -136,7 +135,7 @@ class ActivityGastoGeralCamara: AppCompatActivity(), ISmoothPosition {
 
     private fun modify(viewSelected: Chip, viewClicked: Chip) {
 
-        if (ano != viewClicked.text){
+        if (anoSelect != viewClicked.text){
             hideView.run {
                 binding.layoutProgressAndText.run {
                     enableView(progressActive)
@@ -145,7 +144,7 @@ class ActivityGastoGeralCamara: AppCompatActivity(), ISmoothPosition {
                 disableView(binding.linearLayout)
             }
             adapter.updateData(arrayListOf())
-            ano = viewClicked.text.toString()
+            anoSelect = viewClicked.text.toString()
             viewSelected.isChecked = false
             viewClicked.isChecked = true
             chipSelected = viewClicked
@@ -155,16 +154,16 @@ class ActivityGastoGeralCamara: AppCompatActivity(), ISmoothPosition {
 
     private fun observerGastoCamara() {
 
-        viewModel.gastoGeralCamara(ano).observe(this){
+        viewModel.gastoGeralCamara(anoSelect).observe(this){
             it?.let { result ->
                 when (result) {
                     is ResultGastoGeralCamara.Success -> {
                         result.dado?.let { gastos ->
                             gastoCamara = gastos
-                            modifyTextTop(ano)
+                            modifyTextTop(anoSelect)
                             addElementCamara()
                             viewModel.buildGraphCamara(
-                                gastoCamara, adapter, adapterGraph, ano, applicationContext)
+                                gastoCamara, adapter, adapterGraph, anoSelect, applicationContext)
                         }
                     }
                     is ResultGastoGeralCamara.Error -> {
@@ -172,7 +171,7 @@ class ActivityGastoGeralCamara: AppCompatActivity(), ISmoothPosition {
                             binding.layoutProgressAndText.run {
                                 hideView.disableView(progressActive)
                                 textNotValue.apply {
-                                    this.text = "Por enquanto não temos dados do ano $ano"
+                                    this.text = "Por enquanto não temos dados do ano $anoSelect"
                                     hideView.enableView(this)
                                 }
                             }
@@ -195,7 +194,7 @@ class ActivityGastoGeralCamara: AppCompatActivity(), ISmoothPosition {
                 textViewTotalNotas.text = notes
                 hideView.run {
                     disableView(layoutProgressAndText.progressActive)
-                    enableView(linearLayout)
+                    crossFade.crossFade(linearLayout, true)
                     crossFade.crossFade(constraintNumberParlamentar, true)
                     crossFade.crossFade(frameGraph, true)
                     crossFade.crossFade(constraintNumberTotal, true)

@@ -79,7 +79,7 @@ val formatValorFloat = module { factory { FormatValueFloat() } }
 val converterValueNotes = module { factory { ConverterValueNotes() } }
 val validationInternet = module { single { ValidationInternet() } }
 val modifyHttp = module { single { ModifyHttpToHttps() } }
-val retValueInt = module { single { RetValueInt() } }
+val retValueInt = module { single { RetValueFloatOrInt() } }
 val addValue = module { single { AddValueViewGraph(get()) } }
 
 val repositorySearch = module { single { SearchRepository(get()) } }
