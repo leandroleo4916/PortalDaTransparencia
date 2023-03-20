@@ -9,7 +9,6 @@ import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.adapter.GastoSetorAdapter
 import com.example.portaldatransparencia.databinding.FragmentMaisBinding
 import com.example.portaldatransparencia.dataclass.GastoGeralCamara
-import com.example.portaldatransparencia.interfaces.ISmoothPosition
 import com.example.portaldatransparencia.repository.ResultGastoGeralCamara
 import com.example.portaldatransparencia.util.ConverterValueNotes
 import com.example.portaldatransparencia.util.FormaterValueBilhoes
@@ -19,7 +18,7 @@ import com.google.android.material.chip.Chip
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class ActivityGastoGeralCamara: AppCompatActivity(), ISmoothPosition {
+class ActivityGastoGeralCamara: AppCompatActivity() {
 
     private val binding by lazy { FragmentMaisBinding.inflate(layoutInflater) }
     private val viewModel: GastoGeralViewModelCamara by viewModel()
@@ -47,12 +46,12 @@ class ActivityGastoGeralCamara: AppCompatActivity(), ISmoothPosition {
         observerGastoCamara()
         listener()
         listenerChip()
-        clickListener()
+        clickIconFilter()
     }
 
     private fun recyclerAdapter(){
         val recycler = binding.recyclerGastoSetor
-        adapter = GastoSetorAdapter(FormaterValueBilhoes(), crossFade, this)
+        adapter = GastoSetorAdapter(FormaterValueBilhoes(), crossFade)
         recycler.layoutManager = LinearLayoutManager(this.applicationContext)
         recycler.adapter = adapter
     }
@@ -64,6 +63,13 @@ class ActivityGastoGeralCamara: AppCompatActivity(), ISmoothPosition {
                 hideView.enableView(textViewDescriptionTop)
             }
             chipGroupItem.chip2023.isChecked = false
+        }
+    }
+
+    private fun clickIconFilter(){
+        binding.layoutTop.imageViewFilter.setOnClickListener {
+            animaView(it)
+            showFilterIcons()
         }
     }
 
@@ -79,16 +85,19 @@ class ActivityGastoGeralCamara: AppCompatActivity(), ISmoothPosition {
         }
     }
 
-    private fun clickListener(){
-        binding.layoutTop.imageViewFilter.apply {
-            setOnClickListener {
-                hideFilter = if (hideFilter) {
-                    animeView.crossFade(this, true)
-                    false
-                } else {
-                    animeView.crossFade(this, false)
-                    true
-                }
+    private fun showFilterIcons(){
+        binding.run {
+            if (hideFilter){
+                layoutTop.imageViewFilter.setImageResource(R.drawable.ic_no_filter_dark)
+                hideFilter = false
+                animeView.crossFade(frameYear, true)
+                animeView.crossFade(viewDiv, true)
+            }
+            else {
+                layoutTop.imageViewFilter.setImageResource(R.drawable.ic_filter_dark)
+                hideFilter = true
+                animeView.crossFade(frameYear,false)
+                animeView.crossFade(viewDiv,false)
             }
         }
     }
@@ -183,9 +192,7 @@ class ActivityGastoGeralCamara: AppCompatActivity(), ISmoothPosition {
         }
     }
 
-    private fun smoothRecycler(position: Int, view: View){
-        val recycler = binding.recyclerGastoSetor
-        recycler.smoothScrollToPosition(position)
+    private fun animaView(view: View){
         view.startAnimation(AnimationUtils.loadAnimation(applicationContext, R.anim.click))
     }
 
@@ -197,6 +204,4 @@ class ActivityGastoGeralCamara: AppCompatActivity(), ISmoothPosition {
             }
         }
     }
-
-    override fun smoothPosition(position: Int) {}
 }

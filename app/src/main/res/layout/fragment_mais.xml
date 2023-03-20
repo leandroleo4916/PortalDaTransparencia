@@ -105,7 +105,8 @@
                         android:background="@drawable/back_white"
                         android:backgroundTint="@color/purple_700"
                         android:elevation="12dp"
-                        android:gravity="center">
+                        android:gravity="center"
+                        android:visibility="gone">
 
                         <TextView
                             android:id="@+id/textView_total_parlamentar"
@@ -146,7 +147,8 @@
                         android:backgroundTint="@color/purple_700"
                         android:layout_marginStart="12dp"
                         android:elevation="12dp"
-                        android:gravity="center">
+                        android:gravity="center"
+                        android:visibility="gone">
 
                         <TextView
                             android:id="@+id/textView_gasto_parlamentar"
@@ -189,7 +191,8 @@
                         android:backgroundTint="@color/purple_700"
                         android:layout_marginStart="12dp"
                         android:elevation="12dp"
-                        android:gravity="center">
+                        android:gravity="center"
+                        android:visibility="gone">
 
                         <TextView
                             android:id="@+id/textView_total_notas"

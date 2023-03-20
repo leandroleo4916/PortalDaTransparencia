@@ -1,6 +1,7 @@
 package com.example.portaldatransparencia.views.activity.gastogeral.senado
 
 import android.os.Bundle
+import android.view.View
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -8,7 +9,6 @@ import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.adapter.GastoSetorAdapter
 import com.example.portaldatransparencia.databinding.FragmentMaisBinding
 import com.example.portaldatransparencia.dataclass.GastoGeralSenadoData
-import com.example.portaldatransparencia.interfaces.ISmoothPosition
 import com.example.portaldatransparencia.repository.ResultGastoGeralSenado
 import com.example.portaldatransparencia.util.FormaterValueBilhoes
 import com.example.portaldatransparencia.views.view_generics.AnimationView
@@ -17,7 +17,7 @@ import com.google.android.material.chip.Chip
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class ActivityGastoGeralSenado: AppCompatActivity(), ISmoothPosition {
+class ActivityGastoGeralSenado: AppCompatActivity() {
 
     private val binding by lazy { FragmentMaisBinding.inflate(layoutInflater) }
     private val viewModel: GastoGeralViewModelSenado by viewModel()
@@ -28,6 +28,8 @@ class ActivityGastoGeralSenado: AppCompatActivity(), ISmoothPosition {
     private lateinit var adapter: GastoSetorAdapter
     private lateinit var chipSelected: Chip
     private var anoSelect = "Todos"
+    private var hideFilter = false
+    private val animeView: AnimationView by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,11 +44,12 @@ class ActivityGastoGeralSenado: AppCompatActivity(), ISmoothPosition {
         listenerChip()
         modifyItemTop()
         observerGastoSenado()
+        clickIconFilter()
     }
 
     private fun recycler(){
         val recycler = binding.recyclerGastoSetor
-        adapter = GastoSetorAdapter(FormaterValueBilhoes(), crossFade, this)
+        adapter = GastoSetorAdapter(FormaterValueBilhoes(), crossFade)
         recycler.layoutManager = LinearLayoutManager(this.applicationContext)
         recycler.adapter = adapter
     }
@@ -71,6 +74,13 @@ class ActivityGastoGeralSenado: AppCompatActivity(), ISmoothPosition {
                 textViewDescriptionTop
                     .startAnimation(AnimationUtils.loadAnimation(baseContext, R.anim.click_votacao))
             }
+        }
+    }
+
+    private fun clickIconFilter(){
+        binding.layoutTop.imageViewFilter.setOnClickListener {
+            animaView(it)
+            showFilterIcons()
         }
     }
 
@@ -115,6 +125,23 @@ class ActivityGastoGeralSenado: AppCompatActivity(), ISmoothPosition {
                 chip2013.setOnClickListener { modify(chipSelected, chip2013) }
                 chip2012.setOnClickListener { modify(chipSelected, chip2012) }
                 chip2011.setOnClickListener { modify(chipSelected, chip2011) }
+            }
+        }
+    }
+
+    private fun showFilterIcons(){
+        binding.run {
+            if (hideFilter){
+                layoutTop.imageViewFilter.setImageResource(R.drawable.ic_no_filter_dark)
+                hideFilter = false
+                animeView.crossFade(frameYear, true)
+                animeView.crossFade(viewDiv, true)
+            }
+            else {
+                layoutTop.imageViewFilter.setImageResource(R.drawable.ic_filter_dark)
+                hideFilter = true
+                animeView.crossFade(frameYear,false)
+                animeView.crossFade(viewDiv,false)
             }
         }
     }
@@ -166,6 +193,7 @@ class ActivityGastoGeralSenado: AppCompatActivity(), ISmoothPosition {
         }
     }
 
-    override fun smoothPosition(position: Int) {}
-
+    private fun animaView(view: View){
+        view.startAnimation(AnimationUtils.loadAnimation(applicationContext, R.anim.click))
+    }
 }

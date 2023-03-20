@@ -15,8 +15,7 @@ import com.example.portaldatransparencia.util.FormaterValueBilhoes
 import com.example.portaldatransparencia.views.view_generics.AnimationView
 
 class GastoSetorAdapter(private val formatValor: FormaterValueBilhoes,
-                        private val animeView: AnimationView,
-                        private val smooth: ISmoothPosition):
+                        private val animeView: AnimationView):
     RecyclerView.Adapter<GastoSetorAdapter.DespesasViewHolder>() {
 
     private var binding: RecyclerGastoSetorBinding? = null
@@ -54,7 +53,6 @@ class GastoSetorAdapter(private val formatValor: FormaterValueBilhoes,
             animeView.crossFade(itemView, true)
             itemView.setOnClickListener {
                 it.startAnimation(AnimationUtils.loadAnimation(itemView.context, R.anim.click))
-                smooth.smoothPosition(adapterPosition)
             }
         }
     }

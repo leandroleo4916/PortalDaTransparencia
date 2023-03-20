@@ -74,13 +74,22 @@ class ActivityRankingSenado: AppCompatActivity(), IClickOpenDeputadoRanking, INo
             }
             imageViewFilter.setOnClickListener {
                 hideFilter = if (hideFilter) {
+                    modifyFilter(true)
                     showFilters(true)
                     false
                 } else {
+                    modifyFilter(false)
                     showFilters(false)
                     true
                 }
             }
+        }
+    }
+
+    private fun modifyFilter(boolean: Boolean){
+        binding.layoutTop.imageViewFilter.run {
+            if (boolean) this.setImageResource(R.drawable.ic_no_filter_dark)
+            else this.setImageResource(R.drawable.ic_filter_dark)
         }
     }
 
