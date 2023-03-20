@@ -28,6 +28,7 @@ class CotasSenadorViewModel(private val repository: IdDespesasRepository,
         var locomocao = 0.0F
         var aquisicao = 0.0F
         var servico = 0.0F
+        var seguranca = 0.0F
         var outros = 0.0F
 
         dados.forEach {
@@ -42,47 +43,53 @@ class CotasSenadorViewModel(private val repository: IdDespesasRepository,
                     "Locom" -> locomocao += value
                     "Aquis" -> aquisicao += value
                     "Servi" -> servico += value
+                    "Segur" -> seguranca += value
                     else -> outros += value
                 }
             }
         }
-        if (total.toInt() != 0){
-            subList.add(SublistDataClass(total.toInt(), "$size notas",
+        if (total != 0.0f){
+            subList.add(SublistDataClass(total.toInt(), "$size Notas Fiscais",
                 "https://cdn-icons-png.flaticon.com/512/116/116638.png",
-                "Total geral"))
+                "Todos"))
         }
-        if (divulgacao.toInt() != 0){
-            subList.add(SublistDataClass(divulgacao.toInt(), "Divulgação parlamentar",
+        if (divulgacao != 0.0f){
+            subList.add(SublistDataClass(divulgacao.toInt(), "Divulgação Parlamentar",
                 "https://cdn-icons-png.flaticon.com/512/6520/6520327.png",
                 "Divulgação"))
         }
-        if (passagens.toInt() != 0){
-            subList.add(SublistDataClass(passagens.toInt(), "Passagens aéreas",
+        if (passagens != 0.0f){
+            subList.add(SublistDataClass(passagens.toInt(), "Passagens aéreas...",
                 "https://cdn-icons-png.flaticon.com/512/5014/5014749.png",
                 "Passagens"))
         }
-        if (contratacao.toInt() != 0){
-            subList.add(SublistDataClass(contratacao.toInt(), "Consultoria, assessoria",
+        if (contratacao != 0.0f){
+            subList.add(SublistDataClass(contratacao.toInt(), "Consultoria, Assessoria...",
                 "https://cdn-icons-png.flaticon.com/512/1522/1522778.png",
                 "Contratação"))
         }
-        if (locomocao.toInt() != 0){
-            subList.add(SublistDataClass(locomocao.toInt(), "Hospedagem, alimentação",
+        if (locomocao != 0.0f){
+            subList.add(SublistDataClass(locomocao.toInt(), "Hospedagem, alimentação...",
                 "https://cdn-icons-png.flaticon.com/512/6799/6799692.png",
                 "Locomoção"))
         }
-        if (aquisicao.toInt() != 0){
-            subList.add(SublistDataClass(aquisicao.toInt(), "Aquisição de materiais",
+        if (aquisicao != 0.0f){
+            subList.add(SublistDataClass(aquisicao.toInt(), "Aquisição de materiais...",
                 "https://cdn-icons-png.flaticon.com/512/6169/6169675.png",
                 "Aquisição"))
         }
-        if (servico.toInt() != 0){
-            subList.add(SublistDataClass(servico.toInt(), "Serviços postais",
+        if (servico != 0.0f){
+            subList.add(SublistDataClass(servico.toInt(), "Serviços postais...",
                 "https://cdn-icons-png.flaticon.com/512/4280/4280211.png",
-                "Serviços"))
+                "postais"))
         }
-        if (outros.toInt() != 0){
-            subList.add(SublistDataClass(outros.toInt(), "Outros serviços",
+        if (seguranca != 0.0f){
+            subList.add(SublistDataClass(seguranca.toInt(), "Segurança Privada...",
+                "https://cdn-icons-png.flaticon.com/512/8184/8184895.png",
+                "Segurança"))
+        }
+        if (outros != 0.0f){
+            subList.add(SublistDataClass(outros.toInt(), "Outros serviços...",
                 "https://cdn-icons-png.flaticon.com/512/4692/4692103.png",
                 "Outros"))
         }

@@ -7,15 +7,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.adapter.GastoSetorAdapter
-import com.example.portaldatransparencia.adapter.GraphGastoAdapter
 import com.example.portaldatransparencia.databinding.FragmentMaisBinding
 import com.example.portaldatransparencia.dataclass.GastoGeralCamara
 import com.example.portaldatransparencia.interfaces.ISmoothPosition
 import com.example.portaldatransparencia.repository.ResultGastoGeralCamara
 import com.example.portaldatransparencia.util.ConverterValueNotes
 import com.example.portaldatransparencia.util.FormaterValueBilhoes
-import com.example.portaldatransparencia.util.RetValueFloatOrInt
-import com.example.portaldatransparencia.views.view_generics.AddValueViewGraph
 import com.example.portaldatransparencia.views.view_generics.AnimationView
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import com.google.android.material.chip.Chip
@@ -28,14 +25,14 @@ class ActivityGastoGeralCamara: AppCompatActivity(), ISmoothPosition {
     private val viewModel: GastoGeralViewModelCamara by viewModel()
     private val hideView: EnableDisableView by inject()
     private val formatValor: FormaterValueBilhoes by inject()
-    private val addValue: AddValueViewGraph by inject()
     private val crossFade: AnimationView by inject()
     private val converterValue: ConverterValueNotes by inject()
     private lateinit var adapter: GastoSetorAdapter
-    private lateinit var adapterGraph: GraphGastoAdapter
     private lateinit var gastoCamara: GastoGeralCamara
     private lateinit var chipSelected: Chip
     private var anoSelect = "Todos"
+    private var hideFilter = false
+    private val animeView: AnimationView by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,10 +43,11 @@ class ActivityGastoGeralCamara: AppCompatActivity(), ISmoothPosition {
             hideView.enableView(this)
         }
         recyclerAdapter()
-        modifyElementTop()
+        modifyItemTop()
         observerGastoCamara()
         listener()
         listenerChip()
+        clickListener()
     }
 
     private fun recyclerAdapter(){
@@ -57,58 +55,41 @@ class ActivityGastoGeralCamara: AppCompatActivity(), ISmoothPosition {
         adapter = GastoSetorAdapter(FormaterValueBilhoes(), crossFade, this)
         recycler.layoutManager = LinearLayoutManager(this.applicationContext)
         recycler.adapter = adapter
-
-        val recyclerGraph = binding.layoutGraph.recyclerGraph
-        adapterGraph = GraphGastoAdapter(addValue, RetValueFloatOrInt())
-        recyclerGraph.layoutManager =
-            LinearLayoutManager(
-                this.applicationContext, LinearLayoutManager.HORIZONTAL, false)
-        recyclerGraph.adapter = adapterGraph
     }
-    
-    private fun modifyElementTop(){
+
+    private fun modifyItemTop(){
         binding.run {
             layoutTop.run {
-                modifyTextTop(anoSelect)
+                modifyTextTop("últimos 12 anos")
                 hideView.enableView(textViewDescriptionTop)
             }
             chipGroupItem.chip2023.isChecked = false
         }
     }
 
-    private fun modifyTextTop(textString: String){
-        binding.layoutTop.run {
-            textViewDescriptionTop.run{
-                when(textString) {
-                    "Todos" -> {
-                        text = getString(R.string.gastoGeral12Anos)
-                        modifyItemValueGraph(
-                            "$ 700 mi", "$ 560 mi", "$ 420 mi", "$ 280 mi", "$ 140 mi")
-                    }
-                    "2023" -> {
-                        text = "Gasto Geral - $textString"
-                        modifyItemValueGraph(
-                            "$ 5 mi", "$ 4 mi", "$ 3 mi", "$ 2 mi", "$ 1 mi")
-                    }
-                    else -> {
-                        text = "Gasto Geral - $textString"
-                        modifyItemValueGraph(
-                            "$ 70 mi", "$ 56 mi", "$ 42 mi", "$ 28 mi", "$ 14 mi")
-                    }
-                }
+    private fun modifyTextTop(text: String){
+        binding.run {
+            layoutTop.run {
+                textViewDescriptionTop.text =
+                    if (text != "Todos") "Gasto Geral - $text"
+                    else getString(R.string.gastoGeral12Anos)
+                textViewDescriptionTop
+                    .startAnimation(AnimationUtils.loadAnimation(baseContext, R.anim.click_votacao))
             }
-            textViewDescriptionTop
-                .startAnimation(AnimationUtils.loadAnimation(baseContext, R.anim.click_votacao))
         }
     }
 
-    private fun modifyItemValueGraph(v1: String, v2: String, v3: String, v4: String, v5: String){
-        binding.layoutGraph.run {
-            textTop.text = v1
-            textTopBellow.text = v2
-            textMedium.text = v3
-            textMediumBellow.text = v4
-            textBottom.text = v5
+    private fun clickListener(){
+        binding.layoutTop.imageViewFilter.apply {
+            setOnClickListener {
+                hideFilter = if (hideFilter) {
+                    animeView.crossFade(this, true)
+                    false
+                } else {
+                    animeView.crossFade(this, false)
+                    true
+                }
+            }
         }
     }
 
@@ -160,10 +141,9 @@ class ActivityGastoGeralCamara: AppCompatActivity(), ISmoothPosition {
                     is ResultGastoGeralCamara.Success -> {
                         result.dado?.let { gastos ->
                             gastoCamara = gastos
-                            modifyTextTop(anoSelect)
                             addElementCamara()
-                            viewModel.buildGraphCamara(
-                                gastoCamara, adapter, adapterGraph, anoSelect, applicationContext)
+                            modifyTextTop(anoSelect)
+                            viewModel.buildGraphCamara(gastoCamara, adapter, applicationContext)
                         }
                     }
                     is ResultGastoGeralCamara.Error -> {
@@ -196,7 +176,6 @@ class ActivityGastoGeralCamara: AppCompatActivity(), ISmoothPosition {
                     disableView(layoutProgressAndText.progressActive)
                     crossFade.crossFade(linearLayout, true)
                     crossFade.crossFade(constraintNumberParlamentar, true)
-                    crossFade.crossFade(frameGraph, true)
                     crossFade.crossFade(constraintNumberTotal, true)
                     crossFade.crossFade(constraintNumberNotas, true)
                 }

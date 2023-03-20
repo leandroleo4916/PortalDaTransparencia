@@ -80,7 +80,6 @@ val converterValueNotes = module { factory { ConverterValueNotes() } }
 val validationInternet = module { single { ValidationInternet() } }
 val modifyHttp = module { single { ModifyHttpToHttps() } }
 val retValueInt = module { single { RetValueFloatOrInt() } }
-val addValue = module { single { AddValueViewGraph(get()) } }
 
 val repositorySearch = module { single { SearchRepository(get()) } }
 val repositoryIdDeputado = module { single { IdDeputadoRepository(get()) } }
@@ -96,7 +95,6 @@ val repositoryVotacoesItem = module { single { VotacoesRepositoryItem(get()) } }
 val repositoryGastoGeral = module { single { GastoGeralRepository(get(), get(), get(), get()) } }
 val repositoryVotacoesCamara = module { single { VotacoesCamaraRepository(get()) } }
 
-val gastoSenadorAdapter = module { single { GastoSenadorAdapter(get()) }}
 val animationView = module { single { AnimationView() }}
 val dialogFragment = module { single { BottomDialogFragment() }}
 
@@ -125,8 +123,8 @@ val appModules = listOf( retrofitModule, viewModelModule, repositorySearch, prog
         viewModelSenador, visibilityNavFloating, repositorySenador, modifyChip, viewModelSenadorGeral,
         repositorySenadorGeral, retiraAcento, repositoryVotacoes, viewModelVotacoes, retValueInt,
         repositoryVotacoesItem, repositoryGastoGeral, viewModelGastoGeral, viewModelCotasSenador,
-        formatValorBi, formatValorFloat, validationInternet, modifyHttp, gastoSenadorAdapter,
-        viewModelRankingCamara, viewModelRankingSenado, viewModelGastoGeralSenado, addValue,
+        formatValorBi, formatValorFloat, validationInternet, modifyHttp,
+        viewModelRankingCamara, viewModelRankingSenado, viewModelGastoGeralSenado,
         viewModelVotacoesCamara, repositoryVotacoesCamara, viewModelFrontId, animationView,
         dialogFragment, converterValueNotes
 )

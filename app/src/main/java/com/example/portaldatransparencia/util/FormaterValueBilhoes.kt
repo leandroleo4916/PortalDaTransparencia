@@ -10,25 +10,25 @@ class FormaterValueBilhoes {
             0 -> {
                 val value = ss.split(".")
                 if (value[1].length != 1){
-                    "R$ ${value[0]},${value[1]}"
+                    "$ ${value[0]},${value[1]}"
                 }else {
-                    "R$ ${value[0]},${value[1]}0"
+                    "$ ${value[0]},${value[1]}0"
                 }
             }
             1 -> {
                 val value = ss.split(".")
                 if (value[1].length != 1){
-                    "R$ ${value[0]},${value[1]}"
+                    "$ ${value[0]},${value[1]}"
                 }else {
-                    "R$ ${value[0]},${value[1]}0"
+                    "$ ${value[0]},${value[1]}0"
                 }
             }
             2 -> {
                 val value = ss.split(".")
                 if (value[1].length != 1){
-                    "R$ ${value[0]},${value[1]}"
+                    "$ ${value[0]},${value[1]}"
                 }else {
-                    "R$ ${value[0]},${value[1]}0"
+                    "$ ${value[0]},${value[1]}0"
                 }
             }
             3 -> {

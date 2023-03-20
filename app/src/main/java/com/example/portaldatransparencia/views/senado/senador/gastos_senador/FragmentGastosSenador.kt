@@ -14,6 +14,7 @@ import com.example.portaldatransparencia.databinding.FragmentGastosBinding
 import com.example.portaldatransparencia.dataclass.GastosSenador
 import com.example.portaldatransparencia.interfaces.IClickTipoDespesa
 import com.example.portaldatransparencia.interfaces.INoteDespesas
+import com.example.portaldatransparencia.interfaces.INotification
 import com.example.portaldatransparencia.repository.ResultCotaRequest
 import com.example.portaldatransparencia.security.SecurityPreferences
 import com.example.portaldatransparencia.util.FormaterValueBilhoes
@@ -22,11 +23,11 @@ import com.google.android.material.chip.Chip
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class FragmentGastosSenador: Fragment(R.layout.fragment_gastos), INoteDespesas, IClickTipoDespesa {
+class FragmentGastosSenador: Fragment(R.layout.fragment_gastos), INoteDespesas, IClickTipoDespesa, INotification {
 
     private var binding: FragmentGastosBinding? = null
     private val viewModelGastos: CotasSenadorViewModel by viewModel()
-    private val adapter: GastoSenadorAdapter by inject()
+    private lateinit var adapter: GastoSenadorAdapter
     private lateinit var adapterDimension: DimensionAdapter
     private val securityPreferences: SecurityPreferences by inject()
     private val statusView: EnableDisableView by inject()
@@ -48,6 +49,7 @@ class FragmentGastosSenador: Fragment(R.layout.fragment_gastos), INoteDespesas, 
 
     private fun recyclerView() {
         val recycler = binding!!.recyclerDespesas
+        adapter = GastoSenadorAdapter(FormaterValueBilhoes(), this)
         recycler.layoutManager = LinearLayoutManager(context)
         recycler.adapter = adapter
 
@@ -109,10 +111,10 @@ class FragmentGastosSenador: Fragment(R.layout.fragment_gastos), INoteDespesas, 
                 chip2017.setOnClickListener { modify(chipEnabled, chip2017) }
                 chip2016.setOnClickListener { modify(chipEnabled, chip2016) }
                 chip2015.setOnClickListener { modify(chipEnabled, chip2015) }
-                chip2014.setOnClickListener { modify(chipEnabled, chip2019) }
-                chip2013.setOnClickListener { modify(chipEnabled, chip2018) }
-                chip2012.setOnClickListener { modify(chipEnabled, chip2017) }
-                chip2011.setOnClickListener { modify(chipEnabled, chip2016) }
+                chip2014.setOnClickListener { modify(chipEnabled, chip2014) }
+                chip2013.setOnClickListener { modify(chipEnabled, chip2013) }
+                chip2012.setOnClickListener { modify(chipEnabled, chip2012) }
+                chip2011.setOnClickListener { modify(chipEnabled, chip2011) }
             }
         }
     }
@@ -144,5 +146,9 @@ class FragmentGastosSenador: Fragment(R.layout.fragment_gastos), INoteDespesas, 
     override fun clickTipoDespesa(type: String) {
         val typeSubString = type.substring(0,5)
         adapter.openDataSelect(typeSubString)
+    }
+
+    override fun notification() {
+        Toast.makeText(requireContext(), "Comprovante não enviado", Toast.LENGTH_SHORT).show()
     }
 }

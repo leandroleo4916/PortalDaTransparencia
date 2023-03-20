@@ -150,7 +150,8 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas, IClickT
             val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(note))
             startActivity(browserIntent)
         } else {
-            Toast.makeText(context, "Comprovante não enviado", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(),
+                "Comprovante não enviado", Toast.LENGTH_SHORT).show()
         }
     }
 

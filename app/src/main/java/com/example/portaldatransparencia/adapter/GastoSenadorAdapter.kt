@@ -8,10 +8,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.databinding.RecyclerGastosBinding
 import com.example.portaldatransparencia.dataclass.GastosSenador
-import com.example.portaldatransparencia.dataclass.SublistDataClass
+import com.example.portaldatransparencia.interfaces.INotification
 import com.example.portaldatransparencia.util.FormaterValueBilhoes
 
-class GastoSenadorAdapter(private val formatValor: FormaterValueBilhoes):
+class GastoSenadorAdapter(private val formatValor: FormaterValueBilhoes,
+                          private val notify: INotification):
     RecyclerView.Adapter<GastoSenadorAdapter.DespesasViewHolder>() {
 
     private var data: ArrayList<GastosSenador> = arrayListOf()
@@ -38,14 +39,16 @@ class GastoSenadorAdapter(private val formatValor: FormaterValueBilhoes):
 
             binding = RecyclerGastosBinding.bind(itemView)
             binding?.run {
-                textDate.text = despesa.data
+                val dateDoc = despesa.data.split("-")
+                (dateDoc[2]+"/"+dateDoc[1]+"/"+dateDoc[0]).also { textDate.text = it }
                 despesa.tipoDespesa.let { textDestination.text = it }
                 textTypeDoc.text =
-                    (if (despesa.detalhamento == "Não foi informado") despesa.tipoDespesa
+                    (if (despesa.detalhamento == "Não foi informado" || despesa.detalhamento == "null" )
+                        despesa.tipoDespesa
                     else despesa.detalhamento).toString()
                 despesa.fornecedor.let { textNomeFornecedor.text = it }
                 despesa.cnpjCpf.let {
-                    textCnpjFornecedor.text = (if (it.length == 14) "CPF: $it" else "CNPJ: $it").toString()
+                    textCnpjFornecedor.text = (if (it.length == 14) "CNPJ: $it" else "CPF: $it").toString()
                 }
                 despesa.valorReembolsado.let{
                     if (it.contains(",")){
@@ -69,21 +72,27 @@ class GastoSenadorAdapter(private val formatValor: FormaterValueBilhoes):
 
     @SuppressLint("NotifyDataSetChanged")
     fun updateDataSenador(senador: List<GastosSenador>) {
-        data = if (senador.isEmpty()) arrayListOf()
-        else senador as ArrayList<GastosSenador>
-
+        if (senador.isEmpty()) {
+            data = arrayListOf()
+            dataSelected = arrayListOf()
+        }
+        else {
+            data = senador as ArrayList<GastosSenador>
+            dataSelected = senador
+        }
         notifyDataSetChanged()
     }
 
     @SuppressLint("NotifyDataSetChanged")
     fun openDataSelect(type: String) {
-        if (type != "") {
+        if (type != "Todos") {
             data = arrayListOf()
             val noteSelect: ArrayList<GastosSenador> = arrayListOf()
             dataSelected.forEach {
                 if (it.tipoDespesa.contains(type)) noteSelect.add(it)
             }
             if (noteSelect.isNotEmpty()) data = noteSelect
+            else notify.notification()
         }
         else data = dataSelected
         notifyDataSetChanged()

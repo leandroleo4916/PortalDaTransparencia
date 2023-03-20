@@ -6,7 +6,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.adapter.GastoSetorAdapter
-import com.example.portaldatransparencia.adapter.GraphGastoAdapterSenado
 import com.example.portaldatransparencia.dataclass.AddInfoSetor
 import com.example.portaldatransparencia.dataclass.GastoGeralSenadoData
 import com.example.portaldatransparencia.repository.GastoGeralRepository
@@ -20,8 +19,7 @@ class GastoGeralViewModelSenado(private val repository: GastoGeralRepository): V
     @SuppressLint("ResourceType")
     fun buildGraphCamara (gastoSenado: GastoGeralSenadoData,
                           adapter: GastoSetorAdapter,
-                          adapterGraph: GraphGastoAdapterSenado,
-                          ano: String, context: Context) {
+                          context: Context) {
 
         val infoSetor: ArrayList<AddInfoSetor> = arrayListOf()
         gastoSenado.gastoGeral.run {
@@ -62,8 +60,6 @@ class GastoGeralViewModelSenado(private val repository: GastoGeralRepository): V
             )
         }
         adapter.updateData(infoSetor)
-        adapterGraph.updateData(infoSetor, ano)
     }
-
 }
 

@@ -27,7 +27,7 @@
     <string name="locacao">Locação veículos</string>
     <string name="alimentacao">Alimentacao</string>
     <string name="outros_servicos">Outros serviços e produtos</string>
-    <string name="value">R$ 0.000,00</string>
+    <string name="value">R$ 320 mi</string>
     <string name="ultimos8anos"> - últimos 8 anos</string>
     <string name="alugueDeImoveis">Aluguel de imóveis</string>
     <string name="consultoriaAcessoria">Consultoria, assessoria</string>
@@ -35,7 +35,7 @@
     <string name="locomocaoHospedagemAlimentacao">Locomoção, hospedagem, alimentação</string>
     <string name="senadores">Senadores</string>
     <string name="deputados">Deputados</string>
-    <string name="notas">Notas</string>
+    <string name="notas">Notas Fiscais</string>
     <string name="ranking_de_gastos">Ranking de gastos - últimos 12 anos</string>
     <string name="sem_dados_para_exibir_no_momento">Sem dados para exibir no momento.</string>
     <string name="nenhuma_frente_parlamentar">Nenhuma frente parlamentar</string>

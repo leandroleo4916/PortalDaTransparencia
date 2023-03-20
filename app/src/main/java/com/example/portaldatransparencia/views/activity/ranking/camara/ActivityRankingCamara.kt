@@ -2,6 +2,7 @@ package com.example.portaldatransparencia.views.activity.ranking.camara
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -87,9 +88,11 @@ class ActivityRankingCamara: AppCompatActivity(), IClickOpenDeputadoRanking, INo
             imageViewFilter.setOnClickListener {
                 hideFilter = if (hideFilter) {
                     showFilters(true)
+                    modifyFilter(true)
                     false
                 } else {
                     showFilters(false)
+                    modifyFilter(false)
                     true
                 }
             }
@@ -240,6 +243,13 @@ class ActivityRankingCamara: AppCompatActivity(), IClickOpenDeputadoRanking, INo
     private fun showFilters(boolean: Boolean){
         animeView.crossFade(binding.framePartidos, boolean)
         animeView.crossFade(binding.frameYearRanking, boolean)
+    }
+
+    private fun modifyFilter(boolean: Boolean){
+        binding.layoutTop.imageViewFilter.run {
+            if (boolean) this.setImageResource(R.drawable.ic_no_filter_dark)
+            else this.setImageResource(R.drawable.ic_filter_dark)
+        }
     }
 
     override fun notification() {
