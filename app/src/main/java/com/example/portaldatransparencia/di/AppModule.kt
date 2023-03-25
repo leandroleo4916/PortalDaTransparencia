@@ -97,6 +97,7 @@ val repositoryVotacoesCamara = module { single { VotacoesCamaraRepository(get())
 
 val animationView = module { single { AnimationView() }}
 val dialogFragment = module { single { BottomDialogFragment() }}
+val dialogPhoto = module { single { CreateDialogClass() }}
 
 val viewModelModule = module { viewModel { CamaraViewModel(get()) } }
 val viewModelDeputado = module { viewModel { DeputadoViewModel(get()) } }
@@ -123,7 +124,7 @@ val appModules = listOf( retrofitModule, viewModelModule, repositorySearch, prog
         viewModelSenador, visibilityNavFloating, repositorySenador, modifyChip, viewModelSenadorGeral,
         repositorySenadorGeral, retiraAcento, repositoryVotacoes, viewModelVotacoes, retValueInt,
         repositoryVotacoesItem, repositoryGastoGeral, viewModelGastoGeral, viewModelCotasSenador,
-        formatValorBi, formatValorFloat, validationInternet, modifyHttp,
+        formatValorBi, formatValorFloat, validationInternet, modifyHttp, dialogPhoto,
         viewModelRankingCamara, viewModelRankingSenado, viewModelGastoGeralSenado,
         viewModelVotacoesCamara, repositoryVotacoesCamara, viewModelFrontId, animationView,
         dialogFragment, converterValueNotes

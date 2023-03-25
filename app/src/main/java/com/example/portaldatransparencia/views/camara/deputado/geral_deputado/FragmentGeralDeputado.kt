@@ -90,12 +90,15 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
             if (dados.ultimoStatus.situacao == "Exercício") "é $deputado em exercício"
             else "foi $deputado - fim de mandato"
 
+        val escolaridade =
+            if (dados.escolaridade == "null" || dados.escolaridade == null) "."
+            else ", sua escolaridade atual é " +dados.escolaridade+"."
+
         binding?.run {
             ("Acompanhe $oDeputado nas redes sociais").also { textAcompanheRede.text = it }
             (dados.nomeCivil+", "+age+" anos, nascido na cidade de "+
                     dados.municipioNascimento+" - "+dados.ufNascimento+", $situation, filiado ao partido "+
-                    status.siglaPartido+" pelo estado de "+ status.siglaUf+
-                    ", sua escolaridade atual é " +dados.escolaridade+".")
+                    status.siglaPartido+" pelo estado de "+ status.siglaUf+escolaridade)
                 .also { textGeralInformation.text = it }
 
             textGeralPredio.text = "Predio: "+ (status.gabinete?.predio ?: "Não informado")

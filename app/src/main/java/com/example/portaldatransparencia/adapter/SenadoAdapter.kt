@@ -12,11 +12,14 @@ import com.bumptech.glide.Glide
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.databinding.RecyclerMainBinding
 import com.example.portaldatransparencia.dataclass.Parlamentar
+import com.example.portaldatransparencia.interfaces.IClickPhoto
 import com.example.portaldatransparencia.interfaces.IClickSenador
 import com.example.portaldatransparencia.interfaces.INotificationSenado
 import kotlinx.coroutines.*
 
-class SenadoAdapter(private val listener: IClickSenador, private val notify: INotificationSenado):
+class SenadoAdapter(private val listener: IClickSenador,
+                    private val notify: INotificationSenado,
+                    private val clickPhoto: IClickPhoto):
     RecyclerView.Adapter<SenadoAdapter.MainViewHolder>(), Filterable {
 
     private var binding: RecyclerMainBinding? = null
@@ -71,11 +74,14 @@ class SenadoAdapter(private val listener: IClickSenador, private val notify: INo
                     }
                 }
                 constraintDeputado.setOnClickListener {
-                    val animFade = AnimationUtils.loadAnimation(itemView.context, R.anim.click)
-                    it.startAnimation(animFade)
+                    it.startAnimation(AnimationUtils.loadAnimation(itemView.context, R.anim.click))
                     listener.clickSenador(
                         dataList[adapterPosition].identificacaoParlamentar.codigoParlamentar,
                         dataList[adapterPosition].identificacaoParlamentar.nomeParlamentar)
+                }
+                iconDeputado.setOnClickListener {
+                    it.startAnimation(AnimationUtils.loadAnimation(itemView.context, R.anim.click))
+                    clickPhoto.clickPhoto(photo)
                 }
             }
         }

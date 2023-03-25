@@ -13,10 +13,13 @@ import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.databinding.RecyclerMainBinding
 import com.example.portaldatransparencia.dataclass.Dado
 import com.example.portaldatransparencia.interfaces.IClickDeputado
+import com.example.portaldatransparencia.interfaces.IClickPhoto
 import com.example.portaldatransparencia.interfaces.INotification
 import kotlinx.coroutines.*
 
-class MainAdapter(private val listener: IClickDeputado, private val notify: INotification):
+class MainAdapter(private val listener: IClickDeputado,
+                  private val notify: INotification,
+                  private val clickPhoto: IClickPhoto):
     RecyclerView.Adapter<MainAdapter.MainViewHolder>(), Filterable {
 
     private var binding: RecyclerMainBinding? = null
@@ -68,6 +71,10 @@ class MainAdapter(private val listener: IClickDeputado, private val notify: INot
                 constraintDeputado.setOnClickListener {
                     it.startAnimation(AnimationUtils.loadAnimation(itemView.context, R.anim.click))
                     listener.clickDeputado(dataList[position].id.toString())
+                }
+                iconDeputado.setOnClickListener {
+                    it.startAnimation(AnimationUtils.loadAnimation(itemView.context, R.anim.click))
+                    clickPhoto.clickPhoto(dataList[position].urlFoto)
                 }
             }
         }

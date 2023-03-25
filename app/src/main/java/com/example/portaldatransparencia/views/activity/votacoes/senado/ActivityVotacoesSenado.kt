@@ -134,15 +134,14 @@ class ActivityVotacoesSenado: AppCompatActivity(), IAddVotoInRecycler, IClickSen
     }
 
     private fun modifyFilter() {
-        if (value == 1){
+        value = if (value == 1){
             binding.layoutTop.imageViewFilter.setImageResource(R.drawable.ic_no_filter_dark)
             crossFade(true)
-            value = 0
-        }
-        else {
+            0
+        } else {
             binding.layoutTop.imageViewFilter.setImageResource(R.drawable.ic_filter_dark)
             crossFade(false)
-            value = 1
+            1
         }
     }
 
@@ -185,6 +184,10 @@ class ActivityVotacoesSenado: AppCompatActivity(), IAddVotoInRecycler, IClickSen
                 chip2017.setOnClickListener { modify(chip2017) }
                 chip2016.setOnClickListener { modify(chip2016) }
                 chip2015.setOnClickListener { modify(chip2015) }
+                chip2014.setOnClickListener { modify(chip2014) }
+                chip2013.setOnClickListener { modify(chip2013) }
+                chip2012.setOnClickListener { modify(chip2012) }
+                chip2011.setOnClickListener { modify(chip2011) }
             }
             layoutMonth.run {
                 chipAll.setOnClickListener { modifyChipMonth(chipAll) }
@@ -292,6 +295,7 @@ class ActivityVotacoesSenado: AppCompatActivity(), IAddVotoInRecycler, IClickSen
         binding.layoutProgressAndText.run {
             statusView.run {
                 disableView(progressActive)
+                textNotValue.text = "Nenhuma votação em $monthName de $year"
                 enableView(textNotValue)
             }
         }

@@ -13,6 +13,6 @@ class TabViewAdapterController(fa: FragmentActivity): FragmentStateAdapter(fa) {
     override fun getItemCount() = fragments.size
 
     override fun createFragment(position: Int): Fragment {
-        return fragments[position]
+        return fragments[position] as Fragment
     }
 }

@@ -10,37 +10,37 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.view.animation.AnimationUtils
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.adapter.MainAdapter
 import com.example.portaldatransparencia.databinding.FragmentCamaraSenadoBinding
 import com.example.portaldatransparencia.interfaces.IClickDeputado
+import com.example.portaldatransparencia.interfaces.IClickPhoto
 import com.example.portaldatransparencia.interfaces.INotification
 import com.example.portaldatransparencia.util.ValidationInternet
 import com.example.portaldatransparencia.views.activity.gastogeral.camara.ActivityGastoGeralCamara
 import com.example.portaldatransparencia.views.activity.ranking.camara.ActivityRankingCamara
 import com.example.portaldatransparencia.views.activity.votacoes.camara.ActivityVotacoesCamara
 import com.example.portaldatransparencia.views.camara.deputado.DeputadoActivity
-import com.example.portaldatransparencia.views.view_generics.AnimationView
-import com.example.portaldatransparencia.views.view_generics.EnableDisableView
-import com.example.portaldatransparencia.views.view_generics.ModifyChip
-import com.example.portaldatransparencia.views.view_generics.VisibilityNavViewAndFloating
+import com.example.portaldatransparencia.views.view_generics.*
 import com.google.android.material.chip.Chip
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
-import kotlin.reflect.KClass
 
-class CamaraFragment: Fragment(R.layout.fragment_camara_senado), IClickDeputado, INotification {
+class CamaraFragment: Fragment(R.layout.fragment_camara_senado), IClickDeputado, INotification, IClickPhoto {
 
     private var binding: FragmentCamaraSenadoBinding? = null
     private val viewModel: CamaraViewModel by viewModel()
     private val hideView: EnableDisableView by inject()
     private val modifyChip: ModifyChip by inject()
     private val anime: AnimationView by inject()
+    private val dialogClass: CreateDialogClass by inject()
     private val validationInternet: ValidationInternet by inject()
     private val visibilityNavViewAndFloating: VisibilityNavViewAndFloating by inject()
     private lateinit var adapter: MainAdapter
@@ -64,7 +64,7 @@ class CamaraFragment: Fragment(R.layout.fragment_camara_senado), IClickDeputado,
 
     private fun recycler() {
         val recycler = binding?.recyclerDeputados
-        adapter = MainAdapter(this, this)
+        adapter = MainAdapter(this, this, this)
         recycler?.layoutManager = LinearLayoutManager(context)
         recycler?.adapter = adapter
     }
@@ -338,5 +338,17 @@ class CamaraFragment: Fragment(R.layout.fragment_camara_senado), IClickDeputado,
 
     private fun animaView(view: View){
         view.startAnimation(AnimationUtils.loadAnimation(context, R.anim.click))
+    }
+
+    override fun clickPhoto(photo: String) {
+        val dialog = dialogClass.createDialog(requireContext())
+        val inflate = layoutInflater.inflate(R.layout.layout_dialog_photo, null)
+        val image = inflate.findViewById<ImageView>(R.id.dialog_photo)
+        Glide.with(requireContext())
+            .load(photo)
+            .into(image)
+        dialog.setView(inflate)
+        dialog.create()
+        dialog.show()
     }
 }

@@ -318,10 +318,9 @@
                     android:id="@+id/icon_phone"
                     android:layout_width="24dp"
                     android:layout_height="25dp"
-                    android:layout_marginTop="4dp"
                     android:src="@drawable/phone"
                     app:layout_constraintEnd_toEndOf="@+id/icon_andar"
-                    app:layout_constraintTop_toBottomOf="@+id/icon_andar"
+                    app:layout_constraintTop_toBottomOf="@+id/text_geral_andar"
                     tools:ignore="ContentDescription" />
 
                 <TextView

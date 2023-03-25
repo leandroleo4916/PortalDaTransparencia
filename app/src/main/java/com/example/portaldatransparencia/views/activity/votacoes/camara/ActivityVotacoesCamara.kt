@@ -205,6 +205,10 @@ class ActivityVotacoesCamara: AppCompatActivity(), IClickSeeVideo, IClickSeeVote
                 chip2017.setOnClickListener { modify(chip2017) }
                 chip2016.setOnClickListener { modify(chip2016) }
                 chip2015.setOnClickListener { modify(chip2015) }
+                chip2014.setOnClickListener { modify(chip2014) }
+                chip2013.setOnClickListener { modify(chip2013) }
+                chip2012.setOnClickListener { modify(chip2012) }
+                chip2011.setOnClickListener { modify(chip2011) }
             }
             layoutMonth.run {
                 chipAll.setOnClickListener { modifyChipMonth(chipAll) }

@@ -10,13 +10,16 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.view.animation.AnimationUtils
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.adapter.SenadoAdapter
 import com.example.portaldatransparencia.databinding.FragmentCamaraSenadoBinding
+import com.example.portaldatransparencia.interfaces.IClickPhoto
 import com.example.portaldatransparencia.interfaces.IClickSenador
 import com.example.portaldatransparencia.interfaces.INotificationSenado
 import com.example.portaldatransparencia.repository.ResultSenadoRequest
@@ -27,16 +30,13 @@ import com.example.portaldatransparencia.views.activity.ranking.senado.ActivityR
 import com.example.portaldatransparencia.views.activity.votacoes.senado.ActivityVotacoesSenado
 import com.example.portaldatransparencia.views.camara.CamaraFragment
 import com.example.portaldatransparencia.views.senado.senador.SenadorActivity
-import com.example.portaldatransparencia.views.view_generics.AnimationView
-import com.example.portaldatransparencia.views.view_generics.EnableDisableView
-import com.example.portaldatransparencia.views.view_generics.ModifyChip
-import com.example.portaldatransparencia.views.view_generics.VisibilityNavViewAndFloating
+import com.example.portaldatransparencia.views.view_generics.*
 import com.google.android.material.chip.Chip
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
-class SenadoFragment: Fragment(R.layout.fragment_camara_senado), IClickSenador, INotificationSenado {
+class SenadoFragment: Fragment(R.layout.fragment_camara_senado), IClickSenador, INotificationSenado, IClickPhoto {
 
     private var binding: FragmentCamaraSenadoBinding? = null
     private val senadoViewModel: SenadoViewModel by viewModel()
@@ -45,6 +45,7 @@ class SenadoFragment: Fragment(R.layout.fragment_camara_senado), IClickSenador, 
     private val hideView: EnableDisableView by inject()
     private val animeView: AnimationView by inject()
     private val verifyInternet: ValidationInternet by inject()
+    private val dialogClass: CreateDialogClass by inject()
     private val visibilityNavViewAndFloating: VisibilityNavViewAndFloating by inject()
     private lateinit var adapter: SenadoAdapter
     private var chipEnabled: Chip? = null
@@ -83,7 +84,7 @@ class SenadoFragment: Fragment(R.layout.fragment_camara_senado), IClickSenador, 
 
     private fun recycler() {
         val recycler = binding?.recyclerDeputados
-        adapter = SenadoAdapter(this, this)
+        adapter = SenadoAdapter(this, this, this)
         recycler?.layoutManager = LinearLayoutManager(context)
         recycler?.adapter = adapter
     }
@@ -345,5 +346,17 @@ class SenadoFragment: Fragment(R.layout.fragment_camara_senado), IClickSenador, 
     private fun intentStarActivity(view: View, intent: Intent){
         animaView(view)
         startActivity(intent)
+    }
+
+    override fun clickPhoto(photo: String) {
+        val dialog = dialogClass.createDialog(requireContext())
+        val inflate = layoutInflater.inflate(R.layout.layout_dialog_photo, null)
+        val image = inflate.findViewById<ImageView>(R.id.dialog_photo)
+        Glide.with(requireContext())
+            .load(photo)
+            .into(image)
+        dialog.setView(inflate)
+        dialog.create()
+        dialog.show()
     }
 }
