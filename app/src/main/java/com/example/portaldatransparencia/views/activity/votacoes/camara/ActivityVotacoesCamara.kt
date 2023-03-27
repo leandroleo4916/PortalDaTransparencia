@@ -274,11 +274,12 @@ class ActivityVotacoesCamara: AppCompatActivity(), IClickSeeVideo, IClickSeeVote
             }
             else {
                 binding.run {
-                    layoutTop.textViewDescriptionTop.text =
-                        (if (sizeVotacoes == 0) "Nenhuma votação em $monthName de $year"
-                         else "$sizeVotacoes votações em $monthName de $year").toString()
+                    val value = if (sizeVotacoes == 0) "0 votação em $monthName de $year"
+                    else "$sizeVotacoes votações em $monthName de $year"
+                    layoutTop.textViewDescriptionTop.text = value
 
                     layoutProgressAndText.textNotValue.apply {
+                        this.text = value
                         statusView.enableView(this)
                     }
                 }

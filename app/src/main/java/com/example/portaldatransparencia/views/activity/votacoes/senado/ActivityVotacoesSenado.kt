@@ -109,11 +109,14 @@ class ActivityVotacoesSenado: AppCompatActivity(), IAddVotoInRecycler, IClickSen
                     200 ->
                         if (response.body() != null){
                             response.body()!!.listaVotacoes.votacoes.votacao.run {
-                                votacoes = this
-                                adapter.updateData(this as ArrayList<VotacaoSenadoItem>)
-                                sizeVotacoes = this.size
+                                if (this.isNotEmpty()){
+                                    votacoes = this
+                                    adapter.updateData(this as ArrayList<VotacaoSenadoItem>)
+                                    sizeVotacoes = this.size
+                                    addElement()
+                                }
+                                else disableProgressAndEnableText()
                             }
-                            addElement()
                         }
                         else disableProgressAndEnableText()
 
@@ -129,7 +132,7 @@ class ActivityVotacoesSenado: AppCompatActivity(), IAddVotoInRecycler, IClickSen
 
     private fun modifyTitle() {
         binding.layoutTop.run {
-            textViewTitleTop.text = "Votacões - Senadores"
+            textViewTitleTop.text = "Votacões - Senado"
         }
     }
 
@@ -209,6 +212,8 @@ class ActivityVotacoesSenado: AppCompatActivity(), IAddVotoInRecycler, IClickSen
 
     private fun modify(chip: Chip) {
         enableProgressAndDisable()
+        monthName = ""
+        month = "Todos"
         binding.run {
             layoutMonth.run {
                 chipAll.isChecked = true
@@ -253,12 +258,13 @@ class ActivityVotacoesSenado: AppCompatActivity(), IAddVotoInRecycler, IClickSen
             }
             else {
                 binding.run {
-                    layoutTop.textViewDescriptionTop.text =
-                        (if (sizeVotacoes == 0) "Nenhuma votação em $monthName de $year"
-                         else "$sizeVotacoes votações em $monthName de $year").toString()
+                    val value = if (sizeVotacoes == 0) "0 votação em $monthName de $year"
+                    else "$sizeVotacoes votações em $monthName de $year"
+                    layoutTop.textViewDescriptionTop.text = value
 
                     layoutProgressAndText.run {
                         statusView.enableView(textNotValue)
+                        textNotValue.text = value
                     }
                 }
             }
@@ -295,7 +301,7 @@ class ActivityVotacoesSenado: AppCompatActivity(), IAddVotoInRecycler, IClickSen
         binding.layoutProgressAndText.run {
             statusView.run {
                 disableView(progressActive)
-                textNotValue.text = "Nenhuma votação em $monthName de $year"
+                textNotValue.text = "Nenhuma votação em $year"
                 enableView(textNotValue)
             }
         }
