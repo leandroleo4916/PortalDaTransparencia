@@ -1,20 +1,17 @@
 package com.example.portaldatransparencia.adapter
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.databinding.RecyclerVotoSenadoBinding
 import com.example.portaldatransparencia.dataclass.*
-import com.example.portaldatransparencia.interfaces.IClickSenador
-import com.example.portaldatransparencia.views.view_generics.ModifyHttpToHttps
+import com.example.portaldatransparencia.interfaces.IClickParlamentar
 
-class VotacoesSenadoVotoAdapter(private val click: IClickSenador):
+class VotacoesSenadoVotoAdapter(private val click: IClickParlamentar):
     RecyclerView.Adapter<VotacoesSenadoVotoAdapter.VotacoesViewHolder>() {
 
     private var binding: RecyclerVotoSenadoBinding? = null
@@ -46,7 +43,7 @@ class VotacoesSenadoVotoAdapter(private val click: IClickSenador):
                 }
                 constraintVotoSenador.setOnClickListener {
                     it.startAnimation(AnimationUtils.loadAnimation(itemView.context, R.anim.click))
-                    click.clickSenador(votacao.id, votacao.nome)
+                    click.clickParlamentar(votacao.id, votacao.nome)
                 }
             }
         }

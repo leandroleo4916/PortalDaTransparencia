@@ -16,12 +16,13 @@ import com.example.portaldatransparencia.adapter.VotacoesSenadoVotoAdapter
 import com.example.portaldatransparencia.adapter.VotacoesSenadoVotoAdapterAbs
 import com.example.portaldatransparencia.adapter.VotacoesSenadoVotoAdapterNao
 import com.example.portaldatransparencia.databinding.ActivityVotacoesSenadoBinding
+import com.example.portaldatransparencia.databinding.DialogListVotoSenadoBinding
 import com.example.portaldatransparencia.dataclass.AddVoto
 import com.example.portaldatransparencia.dataclass.VotacaoSenado
 import com.example.portaldatransparencia.dataclass.VotacaoSenadoItem
 import com.example.portaldatransparencia.dataclass.VotoParlamentar
 import com.example.portaldatransparencia.interfaces.IAddVotoInRecycler
-import com.example.portaldatransparencia.interfaces.IClickSenador
+import com.example.portaldatransparencia.interfaces.IClickParlamentar
 import com.example.portaldatransparencia.network.ApiVotacoesSenado
 import com.example.portaldatransparencia.network.Retrofit
 import com.example.portaldatransparencia.util.RetiraAcento
@@ -37,7 +38,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ActivityVotacoesSenado: AppCompatActivity(), IAddVotoInRecycler, IClickSenador {
+class ActivityVotacoesSenado: AppCompatActivity(), IAddVotoInRecycler, IClickParlamentar {
 
     private val binding by lazy { ActivityVotacoesSenadoBinding.inflate(layoutInflater) }
     private val viewModel: VotacoesViewModelCamara by viewModel()
@@ -379,7 +380,7 @@ class ActivityVotacoesSenado: AppCompatActivity(), IAddVotoInRecycler, IClickSen
         }
     }
 
-    override fun clickSenador(id: String, nome: String) {
+    override fun clickParlamentar(id: String, nome: String) {
         create.dismiss()
         val name = retiraAcento.deleteAccent(nome)
         val intent = Intent(this, SenadorActivity::class.java)

@@ -81,6 +81,7 @@ class ActivityRankingCamara: AppCompatActivity(), IClickOpenDeputadoRanking, INo
     private fun listener() {
         binding.layoutTop.run {
             hideView.enableView(textViewDescriptionTop)
+            textViewTitleTop.text = "Ranking - Câmara"
             imageViewBack.setOnClickListener {
                 it.startAnimation(AnimationUtils.loadAnimation(applicationContext, R.anim.click))
                 finish()
@@ -120,7 +121,7 @@ class ActivityRankingCamara: AppCompatActivity(), IClickOpenDeputadoRanking, INo
                                 listGastoGeralDeputado = gastos.ranking as ArrayList
                                 disableProgressAndText()
                                 showFilters(true)
-                                modifyTextTop("Ranking gastos - $anoSelect")
+                                modifyTextTop("Ranking Gastos - $anoSelect")
                                 adapter.updateData(listGastoGeralDeputado)
                             }
                         }
@@ -192,12 +193,12 @@ class ActivityRankingCamara: AppCompatActivity(), IClickOpenDeputadoRanking, INo
             textPartido = ""
         }
         else adapter.filterList(viewDisabled.text as String)
-        modifyTextTop("Ranking gastos - $textPartido - $anoSelect")
+        modifyTextTop("Ranking Gastos - $textPartido - $anoSelect")
     }
 
     private fun modify(viewSelected: Chip, viewClicked: Chip) {
-        enableProgressAndText()
         if (anoSelect != viewClicked.text){
+            enableProgressAndText()
             adapter.updateData(arrayListOf())
             anoSelect = viewClicked.text.toString()
             viewSelected.isChecked = false
@@ -205,7 +206,7 @@ class ActivityRankingCamara: AppCompatActivity(), IClickOpenDeputadoRanking, INo
             chipSelected = viewClicked
             observerGastoCamara()
         }
-        chipEnabled?.isChecked = false
+        viewClicked.isChecked = true
     }
 
     private fun disableProgressAndText(){
@@ -236,7 +237,7 @@ class ActivityRankingCamara: AppCompatActivity(), IClickOpenDeputadoRanking, INo
         binding.layoutProgressAndText.apply {
             animeView.crossFade(textNotValue, true)
             hideView.disableView(progressActive)
-            textNotValue.text = getString(R.string.erro_api_senado)
+            textNotValue.text = getString(R.string.erro_api_camara)
         }
     }
 

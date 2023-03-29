@@ -170,3 +170,9 @@ interface ApiServiceEvento {
     : Call<EventoDataClass>
 }
 
+interface ApiServiceVotos {
+    @GET("https://dadosabertos.camara.leg.br/api/v2/votacoes/{id}/votos.json")
+    fun getVoto(@Path("id") id: String)
+    : Call<VotoDeputadosDataC>
+}
+

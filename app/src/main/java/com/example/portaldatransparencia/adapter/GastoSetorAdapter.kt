@@ -44,7 +44,6 @@ class GastoSetorAdapter(private val formatValor: FormaterValueBilhoes,
             binding?.run {
                 textDescriptionSetor.text = despesa.description
                 textValueSetor.text = formatValor.formatValor(despesa.value.toDouble())
-                viewLateral.setBackgroundResource(despesa.color)
 
                 Glide.with(itemView)
                     .load(despesa.photo)

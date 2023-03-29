@@ -13,11 +13,11 @@ import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.databinding.RecyclerMainBinding
 import com.example.portaldatransparencia.dataclass.Parlamentar
 import com.example.portaldatransparencia.interfaces.IClickPhoto
-import com.example.portaldatransparencia.interfaces.IClickSenador
+import com.example.portaldatransparencia.interfaces.IClickParlamentar
 import com.example.portaldatransparencia.interfaces.INotificationSenado
 import kotlinx.coroutines.*
 
-class SenadoAdapter(private val listener: IClickSenador,
+class SenadoAdapter(private val listener: IClickParlamentar,
                     private val notify: INotificationSenado,
                     private val clickPhoto: IClickPhoto):
     RecyclerView.Adapter<SenadoAdapter.MainViewHolder>(), Filterable {
@@ -75,7 +75,7 @@ class SenadoAdapter(private val listener: IClickSenador,
                 }
                 constraintDeputado.setOnClickListener {
                     it.startAnimation(AnimationUtils.loadAnimation(itemView.context, R.anim.click))
-                    listener.clickSenador(
+                    listener.clickParlamentar(
                         dataList[adapterPosition].identificacaoParlamentar.codigoParlamentar,
                         dataList[adapterPosition].identificacaoParlamentar.nomeParlamentar)
                 }

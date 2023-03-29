@@ -67,7 +67,7 @@ class ActivityRankingSenado: AppCompatActivity(), IClickOpenDeputadoRanking, INo
         binding.layoutTop.run {
             hideView.disableView(binding.layoutGroupPartidos.scrollState)
             hideView.enableView(textViewDescriptionTop)
-            textViewTitleTop.text = getString(R.string.senado_federal)
+            textViewTitleTop.text = "Ranking - Senado"
             imageViewBack.setOnClickListener {
                 it.startAnimation(AnimationUtils.loadAnimation(applicationContext, R.anim.click))
                 finish()
@@ -110,7 +110,7 @@ class ActivityRankingSenado: AppCompatActivity(), IClickOpenDeputadoRanking, INo
                             listGastoGeralSenador = gastos.ranking
                             disableProgressAndText()
                             showFilters(true)
-                            modifyTextTop("Ranking gastos - $anoSelect")
+                            modifyTextTop("Ranking Gastos - $anoSelect")
                             adapter.updateData(listGastoGeralSenador as ArrayList)
                         }
                     }
@@ -181,7 +181,7 @@ class ActivityRankingSenado: AppCompatActivity(), IClickOpenDeputadoRanking, INo
             textPartido = ""
         }
         else adapter.filterList(viewDisabled.text as String)
-        modifyTextTop("Ranking gastos - $textPartido - $anoSelect")
+        modifyTextTop("Ranking Gastos - $textPartido - $anoSelect")
     }
 
     private fun modify(viewSelected: Chip, viewClicked: Chip) {
@@ -194,7 +194,7 @@ class ActivityRankingSenado: AppCompatActivity(), IClickOpenDeputadoRanking, INo
             chipSelected = viewClicked
             observerRanking()
         }
-        chipEnabled?.isChecked = false
+        viewClicked.isChecked = true
     }
 
     private fun disableProgressAndText(){

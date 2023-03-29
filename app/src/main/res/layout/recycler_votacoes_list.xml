@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:text="Comissão Direitos da Mulher"
+        android:text="Comissão..."
         android:textColor="@color/black"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -110,7 +110,7 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar_notes_4" />
 
     <TextView
-        android:id="@+id/text_ultima_proposta_description"
+        android:id="@+id/text_last_description"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="2dp"
@@ -139,92 +139,121 @@
         android:background="@color/purple_500"
         app:layout_constraintEnd_toEndOf="@+id/text_date_votacao"
         app:layout_constraintStart_toStartOf="@+id/icon_check"
-        app:layout_constraintTop_toBottomOf="@+id/text_ultima_proposta_description" />
+        app:layout_constraintTop_toBottomOf="@+id/text_last_description" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/view_show_votos"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:layout_marginBottom="12dp"
-        android:background="@drawable/back_white_stroke"
-        android:textAlignment="center"
-        app:chipStrokeColor="@color/purple_700"
-        app:chipStrokeWidth="1.5dp"
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/icon_check"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/constraint_lateral"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_notes_3">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="12dp"
-            android:layout_marginBottom="6dp"
-            android:text="Ver votos"
-            android:textColor="@color/purple_700"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/view_show_votos"
-            app:layout_constraintEnd_toEndOf="@+id/view_show_votos"
-            app:layout_constraintStart_toStartOf="@+id/view_show_votos"
-            app:layout_constraintTop_toTopOf="@+id/view_show_votos" />
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginStart="8dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/constraint_lateral"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar_notes_3">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/view_show_votos"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/back_white_stroke"
+                android:backgroundTint="@color/purple_700"
+                android:textAlignment="center"
+                app:chipStrokeColor="@color/purple_700"
+                app:chipStrokeWidth="1.5dp"
+                android:elevation="10dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/icon_check"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar_notes_3">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/view_show_video"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/back_white_stroke"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="@+id/view_show_votos"
-        app:layout_constraintEnd_toStartOf="@+id/view_show_detail"
-        app:layout_constraintStart_toEndOf="@+id/view_show_votos"
-        app:layout_constraintTop_toTopOf="@+id/view_show_votos">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="12dp"
+                    android:gravity="center"
+                    android:text="Ver Votos"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/view_show_votos"
+                    app:layout_constraintEnd_toEndOf="@+id/view_show_votos"
+                    app:layout_constraintStart_toStartOf="@+id/view_show_votos"
+                    app:layout_constraintTop_toTopOf="@+id/view_show_votos" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="12dp"
-            android:layout_marginBottom="6dp"
-            android:text="Assistir votação"
-            android:textColor="@color/purple_700"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/view_show_video"
-            app:layout_constraintEnd_toEndOf="@+id/view_show_video"
-            app:layout_constraintStart_toStartOf="@+id/view_show_video"
-            app:layout_constraintTop_toTopOf="@+id/view_show_video" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/view_show_video"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/back_white_stroke"
+                android:backgroundTint="@color/purple_700"
+                android:textAlignment="center"
+                android:elevation="10dp"
+                app:layout_constraintBottom_toBottomOf="@+id/view_show_votos"
+                app:layout_constraintEnd_toStartOf="@+id/view_show_detail"
+                app:layout_constraintStart_toEndOf="@+id/view_show_votos"
+                app:layout_constraintTop_toTopOf="@+id/view_show_votos">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/view_show_detail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/back_white_stroke"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="@+id/view_show_votos"
-        app:layout_constraintEnd_toEndOf="@+id/toolbar_notes_3"
-        app:layout_constraintTop_toTopOf="@+id/view_show_votos">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="12dp"
+                    android:text="Assistir Votação"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/view_show_video"
+                    app:layout_constraintEnd_toEndOf="@+id/view_show_video"
+                    app:layout_constraintStart_toStartOf="@+id/view_show_video"
+                    app:layout_constraintTop_toTopOf="@+id/view_show_video" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="12dp"
-            android:layout_marginBottom="6dp"
-            android:text="Detalhes"
-            android:textColor="@color/purple_700"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/view_show_detail"
-            app:layout_constraintEnd_toEndOf="@+id/view_show_detail"
-            app:layout_constraintStart_toStartOf="@+id/view_show_detail"
-            app:layout_constraintTop_toTopOf="@+id/view_show_detail" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/view_show_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/back_white_stroke"
+                android:backgroundTint="@color/purple_700"
+                android:textAlignment="center"
+                android:elevation="10dp"
+                app:layout_constraintBottom_toBottomOf="@+id/view_show_votos"
+                app:layout_constraintEnd_toEndOf="@+id/toolbar_notes_3"
+                app:layout_constraintTop_toTopOf="@+id/view_show_votos">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="12dp"
+                    android:text="Detalhes"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/view_show_detail"
+                    app:layout_constraintEnd_toEndOf="@+id/view_show_detail"
+                    app:layout_constraintStart_toStartOf="@+id/view_show_detail"
+                    app:layout_constraintTop_toTopOf="@+id/view_show_detail" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.core.widget.NestedScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

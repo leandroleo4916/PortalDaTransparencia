@@ -45,22 +45,16 @@ class VotacoesCamaraAdapter(private val clickVote: IClickSeeVote,
                     (date[2] + "/" + date[1] + "/" + date[0]).also { textDateVotacao.text = it }
 
                     textComissao.text = siglaOrgao.ifEmpty { "Votação sem descrição" }
-                    val text = ultimaAberturaVotacao.descricao
-                    textDescriptionVotacao.text =
-                        if (text.isEmpty()) "Não foi adicionado descrição"
-                        else (if (text.length >= 120) text.substring(0..119)+"..."
-                        else text ).toString()
+                    textDescriptionVotacao.text = reduceString(ultimaAberturaVotacao.descricao)
+                    textDescriptionMateria.text = reduceString(descricao)
+                    textLastDescription.text = reduceString(ultimaApresentacaoProposicao.descricao)
 
-                    when (descricao.substring(0, 5)) {
-                        "Aprov" -> {
+                    when (aprovacao?.toInt()) {
+                        1 -> {
                             iconCheck.setImageResource(R.drawable.ic_check_green)
                             constraintLateral.setBackgroundResource(R.drawable.back_teal)
                         }
-                        "Aporv" -> {
-                            iconCheck.setImageResource(R.drawable.ic_check_green)
-                            constraintLateral.setBackgroundResource(R.drawable.back_teal)
-                        }
-                        "Rejei" -> {
+                        0 -> {
                             iconCheck.setImageResource(R.drawable.ic_close)
                             constraintLateral.setBackgroundResource(R.drawable.back_teal_red)
                         }
@@ -69,12 +63,9 @@ class VotacoesCamaraAdapter(private val clickVote: IClickSeeVote,
                             constraintLateral.setBackgroundResource(R.drawable.back_teal_yellow)
                         }
                     }
-                    textDescriptionMateria.text = descricao
-                    val txt = ultimaApresentacaoProposicao.descricao
-                    textUltimaPropostaDescription.text =
-                        if (txt.isEmpty()) "Não foi adicionado última proposta"
-                        else (if (txt.length >= 120) txt.substring(0..119)+"..."
-                        else txt).toString()
+                    if (votosSim.toInt() != 0 && votosNao.toInt() != 0 && votosOutros.toInt() != 0 ){
+                        viewShowVotos.visibility = View.VISIBLE
+                    }
                 }
                 viewShowVotos.setOnClickListener {
                     it.startAnimation(AnimationUtils.loadAnimation(itemView.context, R.anim.click))
@@ -90,6 +81,12 @@ class VotacoesCamaraAdapter(private val clickVote: IClickSeeVote,
                 }
             }
         }
+    }
+
+    private fun reduceString(txt: String): String{
+        return if (txt.isEmpty()) "Não foi adicionado última proposta"
+        else (if (txt.length >= 120) txt.substring(0..119)+"..."
+        else txt).toString()
     }
 
     @SuppressLint("NotifyDataSetChanged")

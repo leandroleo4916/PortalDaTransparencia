@@ -78,10 +78,10 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
         val oDeputado: String
         if (dados.sexo == "F") {
             deputado = "Deputada Federal"
-            oDeputado = "a deputado"
+            oDeputado = "a deputada"
         } else {
             deputado = "Deputado Federal"
-            oDeputado = "o deputada"
+            oDeputado = "o deputado"
         }
         val age = calculateAge.age(dados.dataNascimento)
         val status = dados.ultimoStatus

@@ -20,7 +20,7 @@ import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.adapter.SenadoAdapter
 import com.example.portaldatransparencia.databinding.FragmentCamaraSenadoBinding
 import com.example.portaldatransparencia.interfaces.IClickPhoto
-import com.example.portaldatransparencia.interfaces.IClickSenador
+import com.example.portaldatransparencia.interfaces.IClickParlamentar
 import com.example.portaldatransparencia.interfaces.INotificationSenado
 import com.example.portaldatransparencia.repository.ResultSenadoRequest
 import com.example.portaldatransparencia.util.RetiraAcento
@@ -36,7 +36,7 @@ import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
-class SenadoFragment: Fragment(R.layout.fragment_camara_senado), IClickSenador, INotificationSenado, IClickPhoto {
+class SenadoFragment: Fragment(R.layout.fragment_camara_senado), IClickParlamentar, INotificationSenado, IClickPhoto {
 
     private var binding: FragmentCamaraSenadoBinding? = null
     private val senadoViewModel: SenadoViewModel by viewModel()
@@ -256,7 +256,7 @@ class SenadoFragment: Fragment(R.layout.fragment_camara_senado), IClickSenador, 
         else adapter.filter.filter(textPartido)
     }
 
-    override fun clickSenador(id: String, nome: String) {
+    override fun clickParlamentar(id: String, nome: String) {
         val name = retiraAcento.deleteAccent(nome)
         val intent = Intent(context, SenadorActivity::class.java)
         intent.putExtra("id", id)

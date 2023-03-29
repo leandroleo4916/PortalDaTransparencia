@@ -5,20 +5,26 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.view.animation.AnimationUtils
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.adapter.VotacoesCamaraAdapter
+import com.example.portaldatransparencia.adapter.VotacoesSenadoVotoAdapter
+import com.example.portaldatransparencia.adapter.VotacoesSenadoVotoAdapterAbs
+import com.example.portaldatransparencia.adapter.VotacoesSenadoVotoAdapterNao
 import com.example.portaldatransparencia.databinding.ActivityVotacoesBinding
-import com.example.portaldatransparencia.dataclass.EventoDataClass
-import com.example.portaldatransparencia.dataclass.VotacaoId
-import com.example.portaldatransparencia.dataclass.VotacoesList
+import com.example.portaldatransparencia.dataclass.*
+import com.example.portaldatransparencia.interfaces.IClickParlamentar
 import com.example.portaldatransparencia.interfaces.IClickSeeDetails
 import com.example.portaldatransparencia.interfaces.IClickSeeVideo
 import com.example.portaldatransparencia.interfaces.IClickSeeVote
 import com.example.portaldatransparencia.network.ApiServiceEvento
+import com.example.portaldatransparencia.network.ApiServiceVotos
 import com.example.portaldatransparencia.network.ApiVotacoes
 import com.example.portaldatransparencia.network.Retrofit
 import com.example.portaldatransparencia.views.view_generics.createDialog
@@ -30,7 +36,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ActivityVotacoesCamara: AppCompatActivity(), IClickSeeVideo, IClickSeeVote, IClickSeeDetails {
+class ActivityVotacoesCamara: AppCompatActivity(), IClickSeeVideo, IClickSeeVote, IClickSeeDetails, IClickParlamentar {
 
     private val binding by lazy { ActivityVotacoesBinding.inflate(layoutInflater) }
     private val viewModel: VotacoesViewModelCamara by viewModel()
@@ -38,6 +44,9 @@ class ActivityVotacoesCamara: AppCompatActivity(), IClickSeeVideo, IClickSeeVote
     private lateinit var adapter: VotacoesCamaraAdapter
     private lateinit var chipYear: Chip
     private lateinit var chipMonth: Chip
+    private lateinit var adapterSim: VotacoesSenadoVotoAdapter
+    private lateinit var adapterNao: VotacoesSenadoVotoAdapterNao
+    private lateinit var adapterAbs: VotacoesSenadoVotoAdapterAbs
     private var votacoes: List<VotacaoId> = arrayListOf()
     private var votacoesFilter: ArrayList<VotacaoId> = arrayListOf()
     private var sizeVotacoes = 0
@@ -63,6 +72,10 @@ class ActivityVotacoesCamara: AppCompatActivity(), IClickSeeVideo, IClickSeeVote
     }
 
     private fun recycler() {
+        adapterSim = VotacoesSenadoVotoAdapter(this)
+        adapterNao = VotacoesSenadoVotoAdapterNao(this)
+        adapterAbs = VotacoesSenadoVotoAdapterAbs(this)
+
         val recycler = binding.recyclerVotacoes
         adapter = VotacoesCamaraAdapter(this, this, this)
         recycler.layoutManager = LinearLayoutManager(this)
@@ -98,14 +111,14 @@ class ActivityVotacoesCamara: AppCompatActivity(), IClickSeeVideo, IClickSeeVote
                             }
                             addElement()
                         }
-                        else disableProgressAndEnableText()
+                        else disableProgressAndEnableText(R.string.nenhuma_votacao_este_ano)
 
                     429 -> observerVotacoesCamara()
-                    else -> disableProgressAndEnableText()
+                    else -> disableProgressAndEnableText(R.string.nenhuma_votacao_este_ano)
                 }
             }
             override fun onFailure(call: Call<VotacoesList>, t: Throwable) {
-                disableProgressAndEnableText()
+                disableProgressAndEnableText(R.string.erro_api_camara)
             }
         })
     }
@@ -127,7 +140,7 @@ class ActivityVotacoesCamara: AppCompatActivity(), IClickSeeVideo, IClickSeeVote
                         else showToast("Não foi adicionado URL do vídeo")
 
                     429 -> searchVideoVotacao(id)
-                    else -> showToast("API não respondeu")
+                    else -> showToast("Não foi adicionado URL do vídeo")
                 }
             }
             override fun onFailure(call: Call<EventoDataClass>, t: Throwable) {
@@ -153,18 +166,16 @@ class ActivityVotacoesCamara: AppCompatActivity(), IClickSeeVideo, IClickSeeVote
     }
 
     private fun modifyFilter() {
-        if (value == 1){
+        value = if (value == 1){
             binding.layoutTop.imageViewFilter.setImageResource(R.drawable.ic_no_filter_dark)
             crossFade(true)
-            value = 0
-        }
-        else {
+            0
+        } else {
             binding.layoutTop.imageViewFilter.setImageResource(R.drawable.ic_filter_dark)
             crossFade(false)
-            value = 1
+            1
         }
     }
-
 
     private fun crossFade(visible: Boolean) {
         binding.run {
@@ -313,11 +324,12 @@ class ActivityVotacoesCamara: AppCompatActivity(), IClickSeeVideo, IClickSeeVote
         }
     }
 
-    private fun disableProgressAndEnableText(){
+    private fun disableProgressAndEnableText(text: Int){
         binding.layoutProgressAndText.run {
             statusView.run {
                 disableView(progressActive)
                 enableView(textNotValue)
+                textNotValue.text = getString(text)
             }
         }
         binding.layoutTop.textViewDescriptionTop.text = getString(R.string.nenhuma_votacao_este_ano)
@@ -337,6 +349,42 @@ class ActivityVotacoesCamara: AppCompatActivity(), IClickSeeVideo, IClickSeeVote
 
     override fun clickSeeVote(votacao: VotacaoId) {
 
+        val retrofit = Retrofit.createService(ApiServiceVotos::class.java)
+        val call: Call<VotoDeputadosDataC> = retrofit.getVoto(votacao.id)
+        call.enqueue(object: Callback<VotoDeputadosDataC> {
+            override fun onResponse(call: Call<VotoDeputadosDataC>, response: Response<VotoDeputadosDataC>) {
+                when (response.code()){
+                    200 -> response.body()?.run {
+                        if (this.dados.isNotEmpty()){
+                            processVotos(this, votacao.siglaOrgao)
+                        }
+                        else showToast("Não foi registrados votos")
+                    }
+                    else -> showToast("Não foi registrados votos")
+                }
+            }
+            override fun onFailure(call: Call<VotoDeputadosDataC>, t: Throwable) {
+                showToast("API não respondeu")
+            }
+        })
+    }
+
+    private fun processVotos(data: VotoDeputadosDataC, votacao: String) {
+        val listSim: ArrayList<AddVoto> = arrayListOf()
+        val listNao: ArrayList<AddVoto> = arrayListOf()
+        val listAbs: ArrayList<AddVoto> = arrayListOf()
+
+        data.dados.forEach {
+            val id = it.deputado.id.toString()
+            val nome = it.deputado.nome
+            val foto = Glide.with(this).load(it.deputado.urlFoto)
+            when (it.tipoVoto){
+                "Sim" -> listSim.add(AddVoto(id, nome, foto))
+                "Não" -> listNao.add(AddVoto(id, nome, foto))
+                else ->  listAbs.add(AddVoto(id, nome, foto))
+            }
+        }
+        createViewDialog(listSim, listNao, listAbs, votacao)
     }
 
     override fun clickSeeVideo(votacao: VotacaoId) {
@@ -347,12 +395,53 @@ class ActivityVotacoesCamara: AppCompatActivity(), IClickSeeVideo, IClickSeeVote
         searchVideoVotacao(votacao.idEvento.toString())
     }
 
-    override fun clickSeeDetails(votacao: VotacaoId) {
+    override fun clickSeeDetails(votacao: VotacaoId) {  }
 
+    private fun createViewDialog (listSim: ArrayList<AddVoto>, listNao: ArrayList<AddVoto>,
+                                  listAbs: ArrayList<AddVoto>, descricao: String?){
+
+        val dialog = createDialog()
+        val inflate = layoutInflater.inflate(R.layout.dialog_list_voto_senado, null)
+        val textVoto = inflate.findViewById<TextView>(R.id.text_voto_title)
+        textVoto.text = descricao
+
+        val sim = inflate.findViewById<RecyclerView>(R.id.recyclerView_voto_sim)
+        val textSim = inflate.findViewById<TextView>(R.id.text_sim)
+        textSim.text = "${searchVoto(listSim.size)}Sim"
+        sim.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        sim.adapter = adapterSim
+        adapterSim.updateData(listSim)
+
+        val nao = inflate.findViewById<RecyclerView>(R.id.recyclerView_voto_nao)
+        val textNao = inflate.findViewById<TextView>(R.id.text_nao)
+        textNao.text = "${searchVoto(listNao.size)}Não"
+        nao.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        nao.adapter = adapterNao
+        adapterNao.updateData(listNao)
+
+        val abs = inflate.findViewById<RecyclerView>(R.id.recyclerView_voto_abs)
+        val textAbs = inflate.findViewById<TextView>(R.id.text_abstencao)
+        textAbs.text = "${searchVoto(listAbs.size)}Abstenção"
+        abs.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        abs.adapter = adapterAbs
+        adapterAbs.updateData(listAbs)
+
+        dialog.setView(inflate)
+        create = dialog.create()
+        create.show()
+    }
+
+    private fun searchVoto(size: Int): String{
+        return when (size){
+            0 -> "Nenhum voto - "
+            1 -> "1 voto - "
+            else -> "$size votos - "
+        }
     }
 
     private fun showToast(message: String){
-        create.dismiss()
         Toast.makeText(application, message, Toast.LENGTH_SHORT).show()
     }
+
+    override fun clickParlamentar(id: String, nome: String) {  }
 }

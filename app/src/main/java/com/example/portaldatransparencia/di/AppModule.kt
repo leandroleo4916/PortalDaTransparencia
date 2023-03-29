@@ -66,6 +66,7 @@ val retrofitModule = module {
         single<ApiVotacoesSenado> { get<Retrofit>().create(ApiVotacoesSenado::class.java) }
         single<ApiServiceRankingDeputado> { get<Retrofit>().create(ApiServiceRankingDeputado::class.java) }
         single<ApiServiceGastoGeralSenado> { get<Retrofit>().create(ApiServiceGastoGeralSenado::class.java) }
+        single<ApiServiceVotos> { get<Retrofit>().create(ApiServiceVotos::class.java) }
 }
 
 val progressModule = module { factory { EnableDisableView() } }
