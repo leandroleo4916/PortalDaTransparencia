@@ -449,8 +449,13 @@ class ActivityVotacoesCamara: AppCompatActivity(), IClickSeeVideo, IClickSeeVote
     }
 
     override fun clickParlamentar(id: String, nome: String) {
-
+        create.dismiss()
+        val intent = Intent(applicationContext, DeputadoActivity::class.java)
+        intent.putExtra("id", id)
+        startActivity(intent)
     }
 
-    override fun clickSeeDoc(votacao: VotacaoId) {  }
+    override fun clickSeeDoc(votacao: VotacaoId) {
+
+    }
 }
