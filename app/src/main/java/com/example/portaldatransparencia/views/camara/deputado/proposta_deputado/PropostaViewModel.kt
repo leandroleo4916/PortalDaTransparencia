@@ -24,7 +24,10 @@ class PropostaViewModel(private val service: ApiServicePropostaItem,
     private val responseParlamentar = MutableLiveData<IdDeputadoDataClass>()
     val responseLiveParlamentar: LiveData<IdDeputadoDataClass> = responseParlamentar
 
-    fun propostaIdDeputado(id: String, idParlamentar: String){
+    private val responseErrorParlamentar = MutableLiveData<Int>()
+    val responseErrorLiveDataParlamentar: LiveData<Int> = responseErrorParlamentar
+
+    fun propostaIdDeputado(id: String){
 
         service.getPropostaItem(id).enqueue(object: Callback<ProposicaoDataClass> {
             override fun onResponse(call: Call<ProposicaoDataClass>, res: Response<ProposicaoDataClass>) {
@@ -32,11 +35,10 @@ class PropostaViewModel(private val service: ApiServicePropostaItem,
                     200 -> {
                         if (res.body() != null) {
                             response.value = res.body()!!.dados
-                            getParlamentar(idParlamentar)
                         }
                         else responseError.value = R.string.api_nao_respondeu
                     }
-                    429 -> propostaIdDeputado(id, idParlamentar)
+                    429 -> propostaIdDeputado(id)
                     else -> responseError.value = R.string.api_nao_respondeu
                 }
             }
@@ -46,8 +48,8 @@ class PropostaViewModel(private val service: ApiServicePropostaItem,
         })
     }
 
-    private fun getParlamentar(id: String){
-        serviceDeputado.getIdDeputado(id).enqueue(object: Callback<IdDeputadoDataClass> {
+    fun getParlamentar(idParlamentar: String){
+        serviceDeputado.getIdDeputado(idParlamentar).enqueue(object: Callback<IdDeputadoDataClass> {
             override fun onResponse(call: Call<IdDeputadoDataClass>, res: Response<IdDeputadoDataClass>) {
                 when (res.code()){
                     200 -> {
@@ -55,8 +57,10 @@ class PropostaViewModel(private val service: ApiServicePropostaItem,
                             responseParlamentar.value = res.body()
                         }
                     }
-                    429 -> getParlamentar(id)
-                    else -> {}
+                    429 -> getParlamentar(idParlamentar)
+                    else -> {
+
+                    }
                 }
             }
             override fun onFailure(call: Call<IdDeputadoDataClass>, t: Throwable) {}

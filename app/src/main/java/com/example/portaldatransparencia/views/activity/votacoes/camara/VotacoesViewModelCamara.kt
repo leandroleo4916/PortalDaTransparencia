@@ -13,14 +13,5 @@ import retrofit2.Response
 
 class VotacoesViewModelCamara: ViewModel() {
 
-    private val responseVotos = MutableLiveData<VotoDeputadosDataC>()
-    val responseLiveDataVotos: LiveData<VotoDeputadosDataC> = responseVotos
-
-    private val responseErrorVotos = MutableLiveData<String>()
-    val responseErrorLiveDataVotos: LiveData<String> = responseErrorVotos
-
-    fun searchVotosDeputados(id: String) {
-
-    }
 }
 

@@ -3,6 +3,7 @@ package com.example.portaldatransparencia.views.camara.deputado.proposta_deputad
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -52,15 +53,14 @@ class FragmentPropostaItem: AppCompatActivity() {
 
         val internet = verifyInternet.validationInternet(baseContext.applicationContext)
         if (internet){
-            viewModel.propostaIdDeputado(id, idParlamentar)
-            viewModel.responseLive.observe(this){
-                addElementToView(it)
-            }
-            viewModel.responseErrorLiveData.observe(this){
-                notValue()
-            }
-            viewModel.responseLiveParlamentar.observe(this){
-                addElementViewParlamentar(it)
+            viewModel.propostaIdDeputado(id)
+            viewModel.responseLive.observe(this){ addElementToView(it) }
+            viewModel.responseErrorLiveData.observe(this){ notValue() }
+
+            viewModel.getParlamentar(idParlamentar)
+            viewModel.responseLiveParlamentar.observe(this){ addElementViewParlamentar(it) }
+            viewModel.responseErrorLiveDataParlamentar.observe(this){
+                binding.layoutParlamentar.textErrorRelator.visibility = View.VISIBLE
             }
         }
         else notValue()

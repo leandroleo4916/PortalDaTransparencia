@@ -8,6 +8,21 @@
     android:layout_height="wrap_content"
     android:background="@drawable/back_white">
 
+    <TextView
+        android:id="@+id/text_error_relator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:visibility="gone"
+        android:text="Não foi possível buscar o Relator!"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <com.wang.avi.AVLoadingIndicatorView
         android:id="@+id/progress_relator"
         android:layout_width="wrap_content"

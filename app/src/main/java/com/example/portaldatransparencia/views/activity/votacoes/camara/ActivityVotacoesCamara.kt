@@ -19,14 +19,13 @@ import com.example.portaldatransparencia.adapter.VotacoesSenadoVotoAdapterAbs
 import com.example.portaldatransparencia.adapter.VotacoesSenadoVotoAdapterNao
 import com.example.portaldatransparencia.databinding.ActivityVotacoesBinding
 import com.example.portaldatransparencia.dataclass.*
-import com.example.portaldatransparencia.interfaces.IClickParlamentar
-import com.example.portaldatransparencia.interfaces.IClickSeeDetails
-import com.example.portaldatransparencia.interfaces.IClickSeeVideo
-import com.example.portaldatransparencia.interfaces.IClickSeeVote
+import com.example.portaldatransparencia.interfaces.*
 import com.example.portaldatransparencia.network.ApiServiceEvento
 import com.example.portaldatransparencia.network.ApiServiceVotos
 import com.example.portaldatransparencia.network.ApiVotacoes
 import com.example.portaldatransparencia.network.Retrofit
+import com.example.portaldatransparencia.views.camara.deputado.DeputadoActivity
+import com.example.portaldatransparencia.views.camara.deputado.proposta_deputado.FragmentPropostaItem
 import com.example.portaldatransparencia.views.view_generics.createDialog
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import com.google.android.material.chip.Chip
@@ -36,7 +35,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ActivityVotacoesCamara: AppCompatActivity(), IClickSeeVideo, IClickSeeVote, IClickSeeDetails, IClickParlamentar {
+class ActivityVotacoesCamara: AppCompatActivity(), IClickSeeVideo, IClickSeeVote,
+    IClickSeeDetails, IClickParlamentar, IClickSeeDoc {
 
     private val binding by lazy { ActivityVotacoesBinding.inflate(layoutInflater) }
     private val viewModel: VotacoesViewModelCamara by viewModel()
@@ -355,10 +355,10 @@ class ActivityVotacoesCamara: AppCompatActivity(), IClickSeeVideo, IClickSeeVote
             override fun onResponse(call: Call<VotoDeputadosDataC>, response: Response<VotoDeputadosDataC>) {
                 when (response.code()){
                     200 -> response.body()?.run {
-                        if (this.dados.isNotEmpty()){
-                            processVotos(this, votacao.siglaOrgao)
+                        when {
+                            this.dados.isNotEmpty() -> processVotos(this, votacao.siglaOrgao)
+                            else -> showToast("Não foi registrados votos")
                         }
-                        else showToast("Não foi registrados votos")
                     }
                     else -> showToast("Não foi registrados votos")
                 }
@@ -395,7 +395,12 @@ class ActivityVotacoesCamara: AppCompatActivity(), IClickSeeVideo, IClickSeeVote
         searchVideoVotacao(votacao.idEvento.toString())
     }
 
-    override fun clickSeeDetails(votacao: VotacaoId) {  }
+    override fun clickSeeDetails(votacao: VotacaoId) {
+        val intent = Intent(applicationContext, FragmentPropostaItem::class.java)
+        val id = votacao.ultimaApresentacaoProposicao.idProposicao
+        intent.putExtra("id", id)
+        startActivity(intent)
+    }
 
     private fun createViewDialog (listSim: ArrayList<AddVoto>, listNao: ArrayList<AddVoto>,
                                   listAbs: ArrayList<AddVoto>, descricao: String?){
@@ -443,5 +448,9 @@ class ActivityVotacoesCamara: AppCompatActivity(), IClickSeeVideo, IClickSeeVote
         Toast.makeText(application, message, Toast.LENGTH_SHORT).show()
     }
 
-    override fun clickParlamentar(id: String, nome: String) {  }
+    override fun clickParlamentar(id: String, nome: String) {
+
+    }
+
+    override fun clickSeeDoc(votacao: VotacaoId) {  }
 }
