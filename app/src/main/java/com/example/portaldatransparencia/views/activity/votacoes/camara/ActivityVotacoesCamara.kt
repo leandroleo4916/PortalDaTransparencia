@@ -24,8 +24,11 @@ import com.example.portaldatransparencia.network.ApiServiceEvento
 import com.example.portaldatransparencia.network.ApiServiceVotos
 import com.example.portaldatransparencia.network.ApiVotacoes
 import com.example.portaldatransparencia.network.Retrofit
+import com.example.portaldatransparencia.repository.PropostaIdRepository
+import com.example.portaldatransparencia.repository.ResultIdPropostaRequest
 import com.example.portaldatransparencia.views.camara.deputado.DeputadoActivity
 import com.example.portaldatransparencia.views.camara.deputado.proposta_deputado.FragmentPropostaItem
+import com.example.portaldatransparencia.views.camara.deputado.proposta_deputado.PropostaViewModel
 import com.example.portaldatransparencia.views.view_generics.createDialog
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import com.google.android.material.chip.Chip
@@ -40,7 +43,9 @@ class ActivityVotacoesCamara: AppCompatActivity(), IClickSeeVideo, IClickSeeVote
 
     private val binding by lazy { ActivityVotacoesBinding.inflate(layoutInflater) }
     private val viewModel: VotacoesViewModelCamara by viewModel()
+    private val viewModelProposicao: PropostaViewModel by viewModel()
     private val statusView: EnableDisableView by inject()
+    private val propostaId: PropostaIdRepository by inject()
     private lateinit var adapter: VotacoesCamaraAdapter
     private lateinit var chipYear: Chip
     private lateinit var chipMonth: Chip
@@ -77,7 +82,7 @@ class ActivityVotacoesCamara: AppCompatActivity(), IClickSeeVideo, IClickSeeVote
         adapterAbs = VotacoesSenadoVotoAdapterAbs(this)
 
         val recycler = binding.recyclerVotacoes
-        adapter = VotacoesCamaraAdapter(this, this, this)
+        adapter = VotacoesCamaraAdapter(this, this, this, this)
         recycler.layoutManager = LinearLayoutManager(this)
         recycler.adapter = adapter
     }
@@ -349,6 +354,8 @@ class ActivityVotacoesCamara: AppCompatActivity(), IClickSeeVideo, IClickSeeVote
 
     override fun clickSeeVote(votacao: VotacaoId) {
 
+        createDialogProgress("Processando votos...")
+
         val retrofit = Retrofit.createService(ApiServiceVotos::class.java)
         val call: Call<VotoDeputadosDataC> = retrofit.getVoto(votacao.id)
         call.enqueue(object: Callback<VotoDeputadosDataC> {
@@ -388,23 +395,52 @@ class ActivityVotacoesCamara: AppCompatActivity(), IClickSeeVideo, IClickSeeVote
     }
 
     override fun clickSeeVideo(votacao: VotacaoId) {
-        val dialog = createDialog()
-        dialog.setView(R.layout.layout_dialog)
-        create = dialog.create()
-        create.show()
+        createDialogProgress("Processando vídeo...")
         searchVideoVotacao(votacao.idEvento.toString())
     }
 
     override fun clickSeeDetails(votacao: VotacaoId) {
         val intent = Intent(applicationContext, FragmentPropostaItem::class.java)
-        val id = votacao.ultimaApresentacaoProposicao.idProposicao
+        intent.putExtra("id", votacao.ultimaApresentacaoProposicao.idProposicao)
+        startActivity(intent)
+    }
+
+    override fun clickParlamentar(id: String, nome: String) {
+        create.dismiss()
+        val intent = Intent(applicationContext, DeputadoActivity::class.java)
         intent.putExtra("id", id)
         startActivity(intent)
+    }
+
+    override fun clickSeeDoc(votacao: VotacaoId) {
+        createDialogProgress("Buscando documento...")
+        val idProposicao = votacao.ultimaApresentacaoProposicao.idProposicao
+
+        viewModel.getProposta(idProposicao.toString()).observe(this){
+            it?.let { result ->
+                when(result){
+                    is ResultIdPropostaRequest.Success -> {
+                        if (result.dado?.dados?.urlInteiroTeor != null && result.dado.dados.urlInteiroTeor != "" ) {
+                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(result.dado.dados.urlInteiroTeor))
+                            startActivity(intent)
+                        }
+                    }
+                    is ResultIdPropostaRequest.Error -> {
+                        showToast("Documento não foi anexado")
+                    }
+                    is ResultIdPropostaRequest.ErrorConnection -> {
+                        showToast("Documento não foi anexado")
+                    }
+                }
+            }
+            create.dismiss()
+        }
     }
 
     private fun createViewDialog (listSim: ArrayList<AddVoto>, listNao: ArrayList<AddVoto>,
                                   listAbs: ArrayList<AddVoto>, descricao: String?){
 
+        create.dismiss()
         val dialog = createDialog()
         val inflate = layoutInflater.inflate(R.layout.dialog_list_voto_senado, null)
         val textVoto = inflate.findViewById<TextView>(R.id.text_voto_title)
@@ -436,6 +472,16 @@ class ActivityVotacoesCamara: AppCompatActivity(), IClickSeeVideo, IClickSeeVote
         create.show()
     }
 
+    private fun createDialogProgress(text: String){
+        val dialog = createDialog()
+        val viewDialog = layoutInflater.inflate(R.layout.layout_dialog, null)
+        val textView = viewDialog.findViewById<TextView>(R.id.text_not_value)
+        textView.text = text
+        dialog.setView(viewDialog)
+        create = dialog.create()
+        create.show()
+    }
+
     private fun searchVoto(size: Int): String{
         return when (size){
             0 -> "Nenhum voto - "
@@ -446,16 +492,5 @@ class ActivityVotacoesCamara: AppCompatActivity(), IClickSeeVideo, IClickSeeVote
 
     private fun showToast(message: String){
         Toast.makeText(application, message, Toast.LENGTH_SHORT).show()
-    }
-
-    override fun clickParlamentar(id: String, nome: String) {
-        create.dismiss()
-        val intent = Intent(applicationContext, DeputadoActivity::class.java)
-        intent.putExtra("id", id)
-        startActivity(intent)
-    }
-
-    override fun clickSeeDoc(votacao: VotacaoId) {
-
     }
 }

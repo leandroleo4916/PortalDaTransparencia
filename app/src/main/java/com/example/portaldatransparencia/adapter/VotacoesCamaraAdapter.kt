@@ -11,12 +11,14 @@ import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.databinding.RecyclerVotacoesListBinding
 import com.example.portaldatransparencia.dataclass.VotacaoId
 import com.example.portaldatransparencia.interfaces.IClickSeeDetails
+import com.example.portaldatransparencia.interfaces.IClickSeeDoc
 import com.example.portaldatransparencia.interfaces.IClickSeeVideo
 import com.example.portaldatransparencia.interfaces.IClickSeeVote
 
 class VotacoesCamaraAdapter(private val clickVote: IClickSeeVote,
                             private val clickVideo: IClickSeeVideo,
-                            private val clickDetail: IClickSeeDetails ):
+                            private val clickDetail: IClickSeeDetails,
+                            private val clickSeeDoc: IClickSeeDoc):
     RecyclerView.Adapter<VotacoesCamaraAdapter.VotacoesViewHolder>() {
 
     private var binding: RecyclerVotacoesListBinding? = null
@@ -78,6 +80,10 @@ class VotacoesCamaraAdapter(private val clickVote: IClickSeeVote,
                 viewShowDetail.setOnClickListener {
                     it.startAnimation(AnimationUtils.loadAnimation(itemView.context, R.anim.click))
                     clickDetail.clickSeeDetails(votacao)
+                }
+                viewShowDocumento.setOnClickListener {
+                    it.startAnimation(AnimationUtils.loadAnimation(itemView.context, R.anim.click))
+                    clickSeeDoc.clickSeeDoc(votacao)
                 }
             }
         }

@@ -63,6 +63,7 @@ val retrofitModule = module {
         single<ApiVotacoes> { get<Retrofit>().create(ApiVotacoes::class.java) }
         single<ApiServiceEvento> { get<Retrofit>().create(ApiServiceEvento::class.java) }
         single<ApiServicePropostaItem> { get<Retrofit>().create(ApiServicePropostaItem::class.java) }
+        single<ApiServicePropostaItemSuspend> { get<Retrofit>().create(ApiServicePropostaItemSuspend::class.java) }
         single<ApiVotacoesSenado> { get<Retrofit>().create(ApiVotacoesSenado::class.java) }
         single<ApiServiceRankingDeputado> { get<Retrofit>().create(ApiServiceRankingDeputado::class.java) }
         single<ApiServiceGastoGeralSenado> { get<Retrofit>().create(ApiServiceGastoGeralSenado::class.java) }
@@ -95,6 +96,7 @@ val repositoryVotacoes = module { single { VotacoesRepository(get()) } }
 val repositoryVotacoesItem = module { single { VotacoesRepositoryItem(get()) } }
 val repositoryGastoGeral = module { single { GastoGeralRepository(get(), get(), get(), get()) } }
 val repositoryVotacoesCamara = module { single { VotacoesCamaraRepository(get()) } }
+val repositoryPropostaId = module { single { PropostaIdRepository(get()) } }
 
 val animationView = module { single { AnimationView() }}
 val dialogFragment = module { single { BottomDialogFragment() }}
@@ -116,7 +118,7 @@ val viewModelGastoGeral = module { viewModel { GastoGeralViewModelCamara(get()) 
 val viewModelRankingCamara = module { viewModel { RankingViewModelCamara(get()) } }
 val viewModelRankingSenado = module { viewModel { RankingViewModelSenado(get()) } }
 val viewModelGastoGeralSenado = module { viewModel { GastoGeralViewModelSenado(get()) } }
-val viewModelVotacoesCamara = module { viewModel { VotacoesViewModelCamara() } }
+val viewModelVotacoesCamara = module { viewModel { VotacoesViewModelCamara(get()) } }
 
 val appModules = listOf( retrofitModule, viewModelModule, repositorySearch, progressModule,
         viewModelDeputado, repositoryIdDeputado, viewModelDespesas, repositoryDespesasDeputado,
@@ -128,5 +130,5 @@ val appModules = listOf( retrofitModule, viewModelModule, repositorySearch, prog
         formatValorBi, formatValorFloat, validationInternet, modifyHttp, dialogPhoto,
         viewModelRankingCamara, viewModelRankingSenado, viewModelGastoGeralSenado,
         viewModelVotacoesCamara, repositoryVotacoesCamara, viewModelFrontId, animationView,
-        dialogFragment, converterValueNotes
+        dialogFragment, converterValueNotes, repositoryPropostaId
 )

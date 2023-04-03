@@ -86,6 +86,13 @@ interface ApiServicePropostaItem {
     ): Call<ProposicaoDataClass>
 }
 
+interface ApiServicePropostaItemSuspend {
+    @GET("/api/v2/proposicoes/{id}")
+    suspend fun getPropostaItem(
+        @Path("id") id: String
+    ): Response<ProposicaoDataClass>
+}
+
 interface ApiServiceSenado {
     @GET("https://legis.senado.leg.br/dadosabertos/senador/lista/atual.json")
     suspend fun getSenado(): Response<SenadoresDataClass>

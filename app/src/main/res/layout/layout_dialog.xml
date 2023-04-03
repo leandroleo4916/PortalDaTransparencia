@@ -24,7 +24,7 @@
         android:layout_marginStart="20dp"
         android:layout_gravity="center"
         android:gravity="center"
-        android:text="Buscando o vídeo..."
+        android:text=""
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold" />
