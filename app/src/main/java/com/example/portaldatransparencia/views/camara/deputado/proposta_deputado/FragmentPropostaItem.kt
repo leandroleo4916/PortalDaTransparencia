@@ -42,9 +42,7 @@ class FragmentPropostaItem: AppCompatActivity() {
     private fun modifyTop() {
         binding.groupTop.run {
             textViewTitleTop.text = "Projeto de Lei"
-            statusView.run {
-                disableView(imageViewFilter)
-            }
+            statusView.run { disableView(imageViewFilter) }
             imageViewBack.setOnClickListener { finish() }
         }
     }
@@ -54,22 +52,31 @@ class FragmentPropostaItem: AppCompatActivity() {
         val internet = verifyInternet.validationInternet(baseContext.applicationContext)
         if (internet){
             viewModel.propostaIdDeputado(id)
-            viewModel.responseLive.observe(this){ addElementToView(it) }
-            viewModel.responseErrorLiveData.observe(this){ notValue() }
-
-            viewModel.getParlamentar(idParlamentar)
-            viewModel.responseLiveParlamentar.observe(this){ addElementViewParlamentar(it) }
-            viewModel.responseErrorLiveDataParlamentar.observe(this){
-                binding.layoutParlamentar.textErrorRelator.visibility = View.VISIBLE
+            viewModel.responseLive.observe(this){
+                addElementToView(it)
+                if (idParlamentar != "") addRelatorId()
+                else binding.frameParlamentar.visibility = View.GONE
+            }
+            viewModel.responseErrorLiveData.observe(this){
+                notValueOrNoInternet(R.string.nao_ecnontrado_proposta)
             }
         }
-        else notValue()
+        else notValueOrNoInternet(R.string.verifique_sua_internet)
     }
 
-    private fun notValue(){
+    private fun addRelatorId(){
+        viewModel.getParlamentar(idParlamentar)
+        viewModel.responseLiveParlamentar.observe(this){ addElementViewParlamentar(it) }
+        viewModel.responseErrorLiveDataParlamentar.observe(this){
+            binding.layoutParlamentar.textErrorRelator.visibility = View.VISIBLE
+        }
+    }
+
+    private fun notValueOrNoInternet(value: Int) {
         binding.layoutProgress.run {
             statusView.run {
                 disableView(progressActive)
+                textNotValue.text = getString(value)
                 enableView(textNotValue)
             }
         }
@@ -91,16 +98,16 @@ class FragmentPropostaItem: AppCompatActivity() {
                 textTipoDescricao.text = descricaoTipo
                 statusProposicao.run {
                     textDescriptionTramitacao.text =
-                        if (descricaoTramitacao != "") descricaoTramitacao
+                        if (descricaoTramitacao != "" && descricaoTramitacao != null) descricaoTramitacao
                         else "Tramitação não informada"
                     textDescriptionSituacao.text =
-                        if (descricaoSituacao != "") descricaoSituacao
+                        if (descricaoSituacao != "" && descricaoSituacao != null) descricaoSituacao
                         else "Situação não informada"
                     textDescriptionDespacho.text =
-                        if (despacho == "") despacho
+                        if (despacho != "" && despacho != null) despacho
                         else "Despacho não informado"
                     textDescriptionApreciacao.text =
-                        if (apreciacao != "") apreciacao
+                        if (apreciacao != "" && apreciacao != null) apreciacao
                         else "Preciação não informada"
                 }
                 val date = dataApresentacao.split("T")
@@ -108,7 +115,7 @@ class FragmentPropostaItem: AppCompatActivity() {
                 "${dateDiv[2]}/${dateDiv[1]}/${dateDiv[0]}".also { textDateVotacao.text = it }
             }
             buttonSeeDoc.setOnClickListener {
-                it.startAnimation(AnimationUtils.loadAnimation(application, R.anim.click))
+                animeClickView(it)
                 if (body.urlInteiroTeor != null && body.urlInteiroTeor != "" ) {
                     val intent = Intent(Intent.ACTION_VIEW, Uri.parse(body.urlInteiroTeor))
                     startActivity(intent)
@@ -118,6 +125,7 @@ class FragmentPropostaItem: AppCompatActivity() {
                         "Documento não foi anexado", Toast.LENGTH_SHORT).show()
                 }
             }
+            buttonSeeVideo.setOnClickListener { animeClickView(it) }
         }
     }
 
@@ -151,5 +159,9 @@ class FragmentPropostaItem: AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun animeClickView(view: View){
+        view.startAnimation(AnimationUtils.loadAnimation(application, R.anim.click))
     }
 }

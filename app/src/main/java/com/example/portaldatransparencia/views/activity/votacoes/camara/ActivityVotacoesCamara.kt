@@ -26,6 +26,7 @@ import com.example.portaldatransparencia.network.ApiVotacoes
 import com.example.portaldatransparencia.network.Retrofit
 import com.example.portaldatransparencia.repository.PropostaIdRepository
 import com.example.portaldatransparencia.repository.ResultIdPropostaRequest
+import com.example.portaldatransparencia.security.SecurityPreferences
 import com.example.portaldatransparencia.views.camara.deputado.DeputadoActivity
 import com.example.portaldatransparencia.views.camara.deputado.proposta_deputado.FragmentPropostaItem
 import com.example.portaldatransparencia.views.camara.deputado.proposta_deputado.PropostaViewModel
@@ -45,7 +46,7 @@ class ActivityVotacoesCamara: AppCompatActivity(), IClickSeeVideo, IClickSeeVote
     private val viewModel: VotacoesViewModelCamara by viewModel()
     private val viewModelProposicao: PropostaViewModel by viewModel()
     private val statusView: EnableDisableView by inject()
-    private val propostaId: PropostaIdRepository by inject()
+    private val securityPreferences: SecurityPreferences by inject()
     private lateinit var adapter: VotacoesCamaraAdapter
     private lateinit var chipYear: Chip
     private lateinit var chipMonth: Chip
@@ -400,9 +401,16 @@ class ActivityVotacoesCamara: AppCompatActivity(), IClickSeeVideo, IClickSeeVote
     }
 
     override fun clickSeeDetails(votacao: VotacaoId) {
-        val intent = Intent(applicationContext, FragmentPropostaItem::class.java)
-        intent.putExtra("id", votacao.ultimaApresentacaoProposicao.idProposicao)
-        startActivity(intent)
+        votacao.ultimaApresentacaoProposicao.idProposicao.run {
+            if (this.toString() != "0" && this.toString() != ""){
+                securityPreferences.putString("id", "")
+                val intent = Intent(baseContext, FragmentPropostaItem::class.java)
+                val id = votacao.ultimaApresentacaoProposicao.idProposicao
+                intent.putExtra("id", id.toString())
+                startActivity(intent)
+            }
+            else showToast("Não foi informado mais detalhes!")
+        }
     }
 
     override fun clickParlamentar(id: String, nome: String) {

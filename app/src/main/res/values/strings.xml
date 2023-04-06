@@ -41,6 +41,7 @@
     <string name="nenhuma_frente_parlamentar">Nenhuma frente parlamentar</string>
     <string name="digite_ou_fale_o_nome_do_deputado">Digite ou fale o nome do deputado</string>
     <string name="verifique_sua_internet">Verifique sua conexão com a internet!</string>
+    <string name="nao_ecnontrado_proposta">Não encontrado proposta!</string>
     <string name="tentar_novamente">Tentar novamente</string>
     <string name="nao_recebeu_dados">API não respondeu, tente novamente!</string>
     <string name="api_nao_respondeu">API não respondeu!</string>
