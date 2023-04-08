@@ -1,8 +1,12 @@
 package com.example.portaldatransparencia.views.activity.gastogeral.senado
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.view.animation.AnimationUtils
+import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.portaldatransparencia.R
@@ -12,7 +16,9 @@ import com.example.portaldatransparencia.dataclass.GastoGeralSenadoData
 import com.example.portaldatransparencia.repository.ResultGastoGeralSenado
 import com.example.portaldatransparencia.util.FormaterValueBilhoes
 import com.example.portaldatransparencia.views.view_generics.AnimationView
+import com.example.portaldatransparencia.views.view_generics.CreateDialogClass
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
+import com.example.portaldatransparencia.views.view_generics.createDialog
 import com.google.android.material.chip.Chip
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -30,6 +36,7 @@ class ActivityGastoGeralSenado: AppCompatActivity() {
     private var anoSelect = "Todos"
     private var hideFilter = false
     private val animeView: AnimationView by inject()
+    private lateinit var create: AlertDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,8 +64,8 @@ class ActivityGastoGeralSenado: AppCompatActivity() {
     private fun modifyItemTop(){
         binding.run {
             layoutTop.run {
-                textViewTitleTop.text = getString(R.string.senado_federal)
-                modifyTextTop("últimos 12 anos")
+                textViewTitleTop.text = "Cotas - Senado"
+                modifyTextTop("Últimos 12 anos")
                 hideView.enableView(textViewDescriptionTop)
             }
             chipGroupItem.chip2023.isChecked = false
@@ -71,8 +78,7 @@ class ActivityGastoGeralSenado: AppCompatActivity() {
                 textViewDescriptionTop.text =
                     if (text != "Todos") "Gasto Geral - $text"
                     else getString(R.string.gastoGeral12Anos)
-                textViewDescriptionTop
-                    .startAnimation(AnimationUtils.loadAnimation(baseContext, R.anim.click_votacao))
+                animaView2(textViewDescriptionTop)
             }
         }
     }
@@ -81,6 +87,10 @@ class ActivityGastoGeralSenado: AppCompatActivity() {
         binding.layoutTop.imageViewFilter.setOnClickListener {
             animaView(it)
             showFilterIcons()
+        }
+        binding.layoutTop.imageViewOptionOrQuestion.setOnClickListener {
+            animaView(it)
+            clickOptionOrQuestion()
         }
     }
 
@@ -193,7 +203,28 @@ class ActivityGastoGeralSenado: AppCompatActivity() {
         }
     }
 
+    private fun clickOptionOrQuestion(){
+        val dialog = createDialog()
+        val viewDialog = layoutInflater.inflate(R.layout.layout_dialog_question, null)
+        val seeMore = viewDialog.findViewById<TextView>(R.id.text_see_more)
+        seeMore.setOnClickListener {
+            animaView(seeMore)
+            create.dismiss()
+            val url = "https://www2.camara.leg.br/transparencia/acesso-a-informacao/" +
+                    "copy_of_perguntas-frequentes/cota-para-o-exercicio-da-atividade-parlamentar#" +
+                    ":~:text=A%20Cota%20para%20o%20Exerc%C3%ADcio,ao%20exerc%C3%ADcio%20da%20atividade%20parlamentar."
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+            startActivity(browserIntent)
+        }
+        dialog.setView(viewDialog)
+        create = dialog.create()
+        create.show()
+    }
+
     private fun animaView(view: View){
         view.startAnimation(AnimationUtils.loadAnimation(applicationContext, R.anim.click))
+    }
+    private fun animaView2(view: View){
+        view.startAnimation(AnimationUtils.loadAnimation(applicationContext, R.anim.click_votacao))
     }
 }

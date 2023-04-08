@@ -218,6 +218,9 @@ class CamaraFragment: Fragment(R.layout.fragment_camara_senado), IClickDeputado,
                     val intent = Intent(context, ActivityVotacoesCamara::class.java)
                     startActivity(intent)
                 }
+                constraintLayout4.setOnClickListener {
+                    animaView(it)
+                }
             }
         }
     }
