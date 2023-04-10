@@ -13,6 +13,8 @@ import com.example.portaldatransparencia.repository.ResultCargosRequest
 import com.example.portaldatransparencia.repository.ResultSenadorRequest
 import com.example.portaldatransparencia.security.SecurityPreferences
 import com.example.portaldatransparencia.util.CalculateAge
+import com.example.portaldatransparencia.util.CotaState
+import com.example.portaldatransparencia.util.FormatValueFloat
 import com.example.portaldatransparencia.util.ValidationInternet
 import com.example.portaldatransparencia.views.senado.senador.SenadorViewModel
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
@@ -30,6 +32,8 @@ class FragmentGeralSenador: Fragment(R.layout.fragment_geral_senador) {
     private val statusView: EnableDisableView by inject()
     private lateinit var dadosBasicos: DadosBasicosParlamentar
     private lateinit var detalhes: IdentificacaoParlamentarItem
+    private val formatValue: FormatValueFloat by inject()
+    private val cotaState: CotaState by inject()
     private lateinit var id: String
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -49,12 +53,14 @@ class FragmentGeralSenador: Fragment(R.layout.fragment_geral_senador) {
                     when (result) {
                         is ResultSenadorRequest.Success -> {
                             result.dado?.let { senador ->
-                                dadosBasicos = senador.detalheParlamentar.parlamentar.dadosBasicosParlamentar
-                                detalhes = senador.detalheParlamentar.parlamentar.identificacaoParlamentar
-                                addElementSiteBlog()
-                                addElementView()
-                                addElementAddressContact(
-                                    senador.detalheParlamentar.parlamentar.telefones.telefone.toString())
+                                senador.detalheParlamentar.parlamentar.run {
+                                    dadosBasicos = this.dadosBasicosParlamentar
+                                    detalhes = this.identificacaoParlamentar
+                                    addValueToLimitCotas(this.identificacaoParlamentar.ufParlamentar)
+                                    addElementSiteBlog()
+                                    addElementView()
+                                    addElementAddressContact(this.telefones.telefone.toString())
+                                }
                             }
                         }
                         is ResultSenadorRequest.Error -> {
@@ -164,6 +170,24 @@ class FragmentGeralSenador: Fragment(R.layout.fragment_geral_senador) {
             statusView.enableView(constraintOccupation)
             ("Exerceu o cargo de "+cargo.descricaoCargo).also { textCargoSenador.text = it }
             (cargo.identificacaoComissao.nomeComissao).also { textCargoDescription.text = it }
+        }
+    }
+
+    private fun addValueToLimitCotas(estado: String) {
+        binding?.run {
+            if (estado != "" && estado != null){
+                val limit = cotaState.cotaState(estado)
+                if (limit != 0){
+                    layoutLimitCotas.run {
+                        this.textInformationCotasMes.text = formatValue.transformIntToString(limit)
+                        val ano = limit * 12
+                        this.textInformationCotasAno.text = formatValue.transformIntToString(ano)
+                        val mandato = limit * 48
+                        this.textInformationCotasMandato.text = formatValue.transformIntToString(mandato)
+                    }
+                    statusView.enableView(frameLimitCotas)
+                }
+            }
         }
     }
 

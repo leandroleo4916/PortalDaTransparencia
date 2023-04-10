@@ -15,6 +15,8 @@ import com.example.portaldatransparencia.security.SecurityPreferences
 import com.example.portaldatransparencia.util.CalculateAge
 import com.example.portaldatransparencia.util.ValidationInternet
 import com.example.portaldatransparencia.views.camara.deputado.DeputadoViewModel
+import com.example.portaldatransparencia.util.CotaState
+import com.example.portaldatransparencia.util.FormatValueFloat
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -27,7 +29,9 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
     private val securityPreferences: SecurityPreferences by inject()
     private val verifyInternet: ValidationInternet by inject()
     private val calculateAge: CalculateAge by inject()
+    private val formatValue: FormatValueFloat by inject()
     private val statusView: EnableDisableView by inject()
+    private val cotaState: CotaState by inject()
     private var sexoDeputado = ""
     private lateinit var id: String
 
@@ -54,6 +58,7 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
             viewModel.responseLiveData.observe(viewLifecycleOwner){
                 addElementView(it)
                 addElementRedeSocial(it)
+                addValueToLimitCotas(it)
                 sexoDeputado = it.sexo
             }
             viewModel.responseErrorLiveData.observe(viewLifecycleOwner){
@@ -106,12 +111,10 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
             textGeralSala.text = "Sala: "+ (status.gabinete?.sala ?: "Não informado")
             textGeralPhone.text = status.gabinete?.telefone ?: "Não informado"
 
-            context?.let {
-                Glide.with(it)
-                    .load(dados.ultimoStatus.urlFoto)
-                    .circleCrop()
-                    .into(iconDeputadoGeral)
-            }
+            Glide.with(requireContext())
+                .load(dados.ultimoStatus.urlFoto)
+                .circleCrop()
+                .into(iconDeputadoGeral)
 
             statusView.run {
                 disableView(layoutProgressAndText.progressActive)
@@ -151,10 +154,12 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
 
         if (dados.redeSocial.isNotEmpty()){
             dados.redeSocial.forEach {
-                if (it.contains("facebook")) facebook = it
-                else if (it.contains("instagram")) instagram = it
-                else if (it.contains("twitter")) twitter = it
-                else if (it.contains("youtube")) youtube = it
+                when {
+                    it.contains("facebook") -> facebook = it
+                    it.contains("instagram") -> instagram = it
+                    it.contains("twitter") -> twitter = it
+                    it.contains("youtube") -> youtube = it
+                }
             }
             binding?.textInformationRede?.visibility = View.INVISIBLE
             listenerRedeSocial(facebook, instagram, twitter, youtube)
@@ -165,6 +170,24 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
             if (instagram.isNotEmpty()) statusView.enableView(constraint2)
             if (twitter.isNotEmpty()) statusView.enableView(constraint3)
             if (youtube.isNotEmpty()) statusView.enableView(constraint4)
+        }
+    }
+
+    private fun addValueToLimitCotas(dados: Dados) {
+        binding?.run {
+            if (dados.ultimoStatus.siglaUf != "" && dados.ultimoStatus.siglaUf != null){
+                val limit = cotaState.cotaState(dados.ultimoStatus.siglaUf)
+                if (limit != 0){
+                    layoutLimitCotas.run {
+                        this.textInformationCotasMes.text = formatValue.transformIntToString(limit)
+                        val ano = limit * 12
+                        this.textInformationCotasAno.text = formatValue.transformIntToString(ano)
+                        val mandato = limit * 48
+                        this.textInformationCotasMandato.text = formatValue.transformIntToString(mandato)
+                    }
+                    statusView.enableView(frameLimitCotas)
+                }
+            }
         }
     }
 

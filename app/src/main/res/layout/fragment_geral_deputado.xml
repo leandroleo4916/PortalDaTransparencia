@@ -78,6 +78,23 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <FrameLayout
+                android:id="@+id/frame_limit_cotas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_marginEnd="6dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/white"
+                android:elevation="16sp"
+                android:visibility="gone">
+
+                <include
+                    android:id="@+id/layout_limit_cotas"
+                    layout="@layout/layout_limit_cotas" />
+
+            </FrameLayout>
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraint_social_media"
                 android:layout_width="match_parent"

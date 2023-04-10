@@ -16,7 +16,6 @@ import com.example.portaldatransparencia.dataclass.GastoGeralSenadoData
 import com.example.portaldatransparencia.repository.ResultGastoGeralSenado
 import com.example.portaldatransparencia.util.FormaterValueBilhoes
 import com.example.portaldatransparencia.views.view_generics.AnimationView
-import com.example.portaldatransparencia.views.view_generics.CreateDialogClass
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import com.example.portaldatransparencia.views.view_generics.createDialog
 import com.google.android.material.chip.Chip

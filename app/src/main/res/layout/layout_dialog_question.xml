@@ -59,8 +59,8 @@
         android:layout_gravity="end"
         android:gravity="start"
         android:textStyle="bold"
-        android:text="Ver Mais..."
-        android:textColor="@color/black"
+        android:text="Ver Detalhes >"
+        android:textColor="@color/teal_700"
         android:textSize="20sp"/>
 
 </LinearLayout>

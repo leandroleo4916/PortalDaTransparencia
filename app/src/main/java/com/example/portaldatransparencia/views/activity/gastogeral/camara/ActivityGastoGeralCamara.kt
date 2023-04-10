@@ -1,8 +1,12 @@
 package com.example.portaldatransparencia.views.activity.gastogeral.camara
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.view.animation.AnimationUtils
+import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.portaldatransparencia.R
@@ -14,6 +18,7 @@ import com.example.portaldatransparencia.util.ConverterValueNotes
 import com.example.portaldatransparencia.util.FormaterValueBilhoes
 import com.example.portaldatransparencia.views.view_generics.AnimationView
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
+import com.example.portaldatransparencia.views.view_generics.createDialog
 import com.google.android.material.chip.Chip
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -32,6 +37,7 @@ class ActivityGastoGeralCamara: AppCompatActivity() {
     private var anoSelect = "Todos"
     private var hideFilter = false
     private val animeView: AnimationView by inject()
+    private lateinit var create: AlertDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,6 +76,10 @@ class ActivityGastoGeralCamara: AppCompatActivity() {
         binding.layoutTop.imageViewFilter.setOnClickListener {
             animaView(it)
             showFilterIcons()
+        }
+        binding.layoutTop.imageViewOptionOrQuestion.setOnClickListener {
+            animaView(it)
+            clickOptionOrQuestion()
         }
     }
 
@@ -190,6 +200,24 @@ class ActivityGastoGeralCamara: AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun clickOptionOrQuestion(){
+        val dialog = createDialog()
+        val viewDialog = layoutInflater.inflate(R.layout.layout_dialog_question, null)
+        val seeMore = viewDialog.findViewById<TextView>(R.id.text_see_more)
+        seeMore.setOnClickListener {
+            animaView(seeMore)
+            create.dismiss()
+            val url = "https://www2.camara.leg.br/transparencia/acesso-a-informacao/" +
+                    "copy_of_perguntas-frequentes/cota-para-o-exercicio-da-atividade-parlamentar#" +
+                    ":~:text=A%20Cota%20para%20o%20Exerc%C3%ADcio,ao%20exerc%C3%ADcio%20da%20atividade%20parlamentar."
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+            startActivity(browserIntent)
+        }
+        dialog.setView(viewDialog)
+        create = dialog.create()
+        create.show()
     }
 
     private fun animaView(view: View){

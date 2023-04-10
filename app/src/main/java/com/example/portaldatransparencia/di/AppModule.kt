@@ -1,6 +1,5 @@
 package com.example.portaldatransparencia.di
 
-import com.example.portaldatransparencia.adapter.GastoSenadorAdapter
 import com.example.portaldatransparencia.network.*
 import com.example.portaldatransparencia.repository.*
 import com.example.portaldatransparencia.security.SecurityPreferences
@@ -101,6 +100,7 @@ val repositoryPropostaId = module { single { PropostaIdRepository(get()) } }
 val animationView = module { single { AnimationView() }}
 val dialogFragment = module { single { BottomDialogFragment() }}
 val dialogPhoto = module { single { CreateDialogClass() }}
+val cotaState = module { factory { CotaState() }}
 
 val viewModelModule = module { viewModel { CamaraViewModel(get()) } }
 val viewModelDeputado = module { viewModel { DeputadoViewModel(get()) } }
@@ -130,5 +130,5 @@ val appModules = listOf( retrofitModule, viewModelModule, repositorySearch, prog
         formatValorBi, formatValorFloat, validationInternet, modifyHttp, dialogPhoto,
         viewModelRankingCamara, viewModelRankingSenado, viewModelGastoGeralSenado,
         viewModelVotacoesCamara, repositoryVotacoesCamara, viewModelFrontId, animationView,
-        dialogFragment, converterValueNotes, repositoryPropostaId
+        dialogFragment, converterValueNotes, repositoryPropostaId, cotaState
 )
