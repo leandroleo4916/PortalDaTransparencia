@@ -176,13 +176,13 @@ class FragmentGeralSenador: Fragment(R.layout.fragment_geral_senador) {
     private fun addValueToLimitCotas(estado: String) {
         binding?.run {
             if (estado != "" && estado != null){
-                val limit = cotaState.cotaState(estado)
+                val limit = cotaState.cotaStateSenado(estado)
                 if (limit != 0){
                     layoutLimitCotas.run {
                         this.textInformationCotasMes.text = formatValue.transformIntToString(limit)
                         val ano = limit * 12
                         this.textInformationCotasAno.text = formatValue.transformIntToString(ano)
-                        val mandato = limit * 48
+                        val mandato = limit * 96
                         this.textInformationCotasMandato.text = formatValue.transformIntToString(mandato)
                     }
                     statusView.enableView(frameLimitCotas)

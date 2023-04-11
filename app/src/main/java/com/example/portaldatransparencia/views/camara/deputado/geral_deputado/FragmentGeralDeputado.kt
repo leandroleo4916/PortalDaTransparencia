@@ -5,6 +5,8 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.view.animation.AnimationUtils
+import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.portaldatransparencia.R
@@ -17,6 +19,7 @@ import com.example.portaldatransparencia.util.ValidationInternet
 import com.example.portaldatransparencia.views.camara.deputado.DeputadoViewModel
 import com.example.portaldatransparencia.util.CotaState
 import com.example.portaldatransparencia.util.FormatValueFloat
+import com.example.portaldatransparencia.views.view_generics.CreateDialogClass
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -31,9 +34,11 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
     private val calculateAge: CalculateAge by inject()
     private val formatValue: FormatValueFloat by inject()
     private val statusView: EnableDisableView by inject()
+    private val createDialog: CreateDialogClass by inject()
     private val cotaState: CotaState by inject()
     private var sexoDeputado = ""
     private lateinit var id: String
+    private lateinit var create: AlertDialog
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -61,13 +66,9 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
                 addValueToLimitCotas(it)
                 sexoDeputado = it.sexo
             }
-            viewModel.responseErrorLiveData.observe(viewLifecycleOwner){
-                addValueText(it)
-            }
+            viewModel.responseErrorLiveData.observe(viewLifecycleOwner){ addValueText(it) }
         }
-        else {
-            addValueText(R.string.verifique_sua_internet)
-        }
+        else addValueText(R.string.verifique_sua_internet)
     }
 
     private fun addValueText(text: Int) {
@@ -176,7 +177,7 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
     private fun addValueToLimitCotas(dados: Dados) {
         binding?.run {
             if (dados.ultimoStatus.siglaUf != "" && dados.ultimoStatus.siglaUf != null){
-                val limit = cotaState.cotaState(dados.ultimoStatus.siglaUf)
+                val limit = cotaState.cotaStateCamara(dados.ultimoStatus.siglaUf)
                 if (limit != 0){
                     layoutLimitCotas.run {
                         this.textInformationCotasMes.text = formatValue.transformIntToString(limit)
@@ -184,6 +185,10 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
                         this.textInformationCotasAno.text = formatValue.transformIntToString(ano)
                         val mandato = limit * 48
                         this.textInformationCotasMandato.text = formatValue.transformIntToString(mandato)
+                        imageQuestion.setOnClickListener {
+                            animaView(it)
+                            clickQuestion()
+                        }
                     }
                     statusView.enableView(frameLimitCotas)
                 }
@@ -194,22 +199,44 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
     private fun listenerRedeSocial(f: String, i: String, t: String, y: String){
         binding?.run {
             constraint1.setOnClickListener {
-                it.startAnimation(AnimationUtils.loadAnimation(context, R.anim.click))
+                animaView(it)
                 choose(f) }
             constraint2.setOnClickListener {
-                it.startAnimation(AnimationUtils.loadAnimation(context, R.anim.click))
+                animaView(it)
                 choose(i) }
             constraint3.setOnClickListener {
-                it.startAnimation(AnimationUtils.loadAnimation(context, R.anim.click))
+                animaView(it)
                 choose(t) }
             constraint4.setOnClickListener {
-                it.startAnimation(AnimationUtils.loadAnimation(context, R.anim.click))
+                animaView(it)
                 choose(y) }
         }
+    }
+
+    private fun clickQuestion(){
+        val dialog = createDialog.createDialog(requireContext())
+        val viewDialog = layoutInflater.inflate(R.layout.layout_dialog_question, null)
+        val seeMore = viewDialog.findViewById<TextView>(R.id.text_see_more)
+        seeMore.setOnClickListener {
+            animaView(seeMore)
+            create.dismiss()
+            val url = "https://www2.camara.leg.br/transparencia/acesso-a-informacao/" +
+                    "copy_of_perguntas-frequentes/cota-para-o-exercicio-da-atividade-parlamentar#" +
+                    ":~:text=A%20Cota%20para%20o%20Exerc%C3%ADcio,ao%20exerc%C3%ADcio%20da%20atividade%20parlamentar."
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+            startActivity(browserIntent)
+        }
+        dialog.setView(viewDialog)
+        create = dialog.create()
+        create.show()
     }
 
     private fun choose(social: String){
         val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(social))
         startActivity(browserIntent)
+    }
+
+    private fun animaView(view: View){
+        view.startAnimation(AnimationUtils.loadAnimation(requireContext(), R.anim.click))
     }
 }

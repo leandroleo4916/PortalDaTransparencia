@@ -227,7 +227,7 @@ class ActivityGastoGeralCamara: AppCompatActivity() {
     private fun listener() {
         binding.layoutTop.run {
             imageViewBack.setOnClickListener {
-                it.startAnimation(AnimationUtils.loadAnimation(applicationContext, R.anim.click))
+                animaView(it)
                 finish()
             }
         }
