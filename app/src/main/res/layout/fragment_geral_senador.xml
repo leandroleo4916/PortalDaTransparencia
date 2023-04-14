@@ -90,7 +90,7 @@
 
                 <include
                     android:id="@+id/layout_limit_cotas"
-                    layout="@layout/layout_limit_cotas" />
+                    layout="@layout/layout_dados" />
 
             </FrameLayout>
 

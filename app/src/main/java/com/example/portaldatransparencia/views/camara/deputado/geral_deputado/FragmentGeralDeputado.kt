@@ -180,11 +180,14 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
                 val limit = cotaState.cotaStateCamara(dados.ultimoStatus.siglaUf)
                 if (limit != 0){
                     layoutLimitCotas.run {
-                        this.textInformationCotasMes.text = formatValue.transformIntToString(limit)
-                        val ano = limit * 12
-                        this.textInformationCotasAno.text = formatValue.transformIntToString(ano)
-                        val mandato = limit * 48
-                        this.textInformationCotasMandato.text = formatValue.transformIntToString(mandato)
+                        textSalario.text = "Limite de Cotas"
+                        textSalarioMes.text = "Durante 1 mês"
+                        textSalarioMesValue.text = formatValue.transformIntToString(limit)
+                        textSalarioAno.text = "Durante 1 ano"
+                        textSalarioAnoValue.text = formatValue.transformIntToString(limit * 12)
+                        textSalarioMandato.text = "Durante 1 mandato"
+                        textSalarioMandatoValue.text = formatValue.transformIntToString(limit * 48)
+                        statusView.disableView(viewBellow)
                         imageQuestion.setOnClickListener {
                             animaView(it)
                             clickQuestion()

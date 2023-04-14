@@ -179,11 +179,15 @@ class FragmentGeralSenador: Fragment(R.layout.fragment_geral_senador) {
                 val limit = cotaState.cotaStateSenado(estado)
                 if (limit != 0){
                     layoutLimitCotas.run {
-                        this.textInformationCotasMes.text = formatValue.transformIntToString(limit)
-                        val ano = limit * 12
-                        this.textInformationCotasAno.text = formatValue.transformIntToString(ano)
-                        val mandato = limit * 96
-                        this.textInformationCotasMandato.text = formatValue.transformIntToString(mandato)
+                        textSalario.text = "Limite de Cotas"
+                        textSalarioMes.text = "Durante 1 mês"
+                        textSalarioMesValue.text = formatValue.transformIntToString(limit)
+                        textSalarioAno.text = "Durante 1 ano"
+                        textSalarioAnoValue.text = formatValue.transformIntToString(limit * 12)
+                        textSalarioMandato.text = "Durante 1 mandato"
+                        textSalarioMandatoValue.text = formatValue.transformIntToString(limit * 96)
+                        statusView.disableView(viewBellow)
+                        imageQuestion.setOnClickListener {}
                     }
                     statusView.enableView(frameLimitCotas)
                 }
