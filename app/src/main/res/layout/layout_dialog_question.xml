@@ -9,17 +9,17 @@
     android:background="@drawable/back_white_stroke"
     android:orientation="vertical">
 
-    <LinearLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+
         tools:ignore="UseCompoundDrawables">
 
         <ImageView
-            android:id="@+id/progress_despesas"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="12dp"
+            android:id="@id/image_question"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginTop="16dp"
             android:layout_marginStart="12dp"
             android:layout_marginBottom="8dp"
             android:src="@drawable/ic_question"
@@ -31,14 +31,27 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="18dp"
-            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
+            android:layout_gravity="center_horizontal"
             android:text="O que é Cota Parlamentar?"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"/>
 
-    </LinearLayout>
+        <ImageView
+            android:id="@+id/image_close"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:layout_gravity="end"
+            android:src="@drawable/ic_baseline_close"
+            app:indicatorColor="@color/purple_700"
+            tools:ignore="ContentDescription" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -75,7 +88,7 @@
                 android:textStyle="bold"
                 android:text="Ver Detalhes >"
                 android:textColor="@color/teal_700"
-                android:textSize="20sp"/>
+                android:textSize="18sp"/>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 

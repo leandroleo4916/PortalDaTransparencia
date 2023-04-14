@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.view.animation.AnimationUtils
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -90,8 +91,8 @@ class ActivityDadosCamara: AppCompatActivity() {
             layoutDadosAuxilio.apply {
                 textSalario.text = "Auxílio Moradia"
                 textSalarioMesValue.text = "R$ 4.253,00"
-                textSalarioAnoValue.text = "+R$ 51 mil"
-                textSalarioMandatoValue.text = "+R$ 204 mil"
+                textSalarioAnoValue.text = "R$ 51.036,00"
+                textSalarioMandatoValue.text = "R$ 204.144,00"
                 imageQuestion.setOnClickListener {
                     animaView(it)
                     clickOptionOrQuestion(
@@ -107,9 +108,9 @@ class ActivityDadosCamara: AppCompatActivity() {
             }
             layoutDadosVerba.apply {
                 textSalario.text = "Verba de Gabinete"
-                textSalarioMesValue.text = "+R$ 118 mil"
-                textSalarioAnoValue.text = "+R$ 1,420 mi"
-                textSalarioMandatoValue.text = "+R$ 5,682 mi"
+                textSalarioMesValue.text = "R$ 118.376,13"
+                textSalarioAnoValue.text = "R$ 1.420.513,56"
+                textSalarioMandatoValue.text = "R$ 5.682.054,24"
                 imageQuestion.setOnClickListener {
                     animaView(it)
                     clickOptionOrQuestion(
@@ -131,9 +132,9 @@ class ActivityDadosCamara: AppCompatActivity() {
             }
             layoutDadosCotas.apply {
                 textSalario.text = "Media - Cotas Parlamentares"
-                textSalarioMesValue.text = "R$ 40.330"
-                textSalarioAnoValue.text = "R$ 484 mil"
-                textSalarioMandatoValue.text = "R$ 1,935 mi"
+                textSalarioMesValue.text = "R$ 40.330,00"
+                textSalarioAnoValue.text = "R$ 483.960,00"
+                textSalarioMandatoValue.text = "R$ 1.935.840,00"
                 imageQuestion.setOnClickListener {
                     animaView(it)
                     clickOptionOrQuestion(
@@ -157,6 +158,7 @@ class ActivityDadosCamara: AppCompatActivity() {
     private fun clickOptionOrQuestion(description: String, text: String, url: String){
         val dialog = createDialog()
         val viewDialog = layoutInflater.inflate(R.layout.layout_dialog_question, null)
+        val imageClose = viewDialog.findViewById<ImageView>(R.id.image_close)
         val textTitle = viewDialog.findViewById<TextView>(R.id.text_description_dialog)
         val textDescription = viewDialog.findViewById<TextView>(R.id.text_not_value)
         val seeMore = viewDialog.findViewById<TextView>(R.id.text_see_more)
@@ -168,6 +170,7 @@ class ActivityDadosCamara: AppCompatActivity() {
             val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
             startActivity(browserIntent)
         }
+        imageClose.setOnClickListener { create.dismiss() }
         dialog.setView(viewDialog)
         create = dialog.create()
         create.show()
@@ -175,10 +178,6 @@ class ActivityDadosCamara: AppCompatActivity() {
 
     private fun animaView(view: View){
         view.startAnimation(AnimationUtils.loadAnimation(applicationContext, R.anim.click))
-    }
-
-    private fun animaViewShow(view: View){
-        view.startAnimation(AnimationUtils.loadAnimation(applicationContext, R.anim.click_votacao))
     }
 
     private fun listenerBack() {

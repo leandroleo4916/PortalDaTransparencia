@@ -21,11 +21,11 @@
             android:id="@+id/text_salario"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="12dp"
             android:layout_marginBottom="4dp"
             android:gravity="start"
-            android:text="Salário"
+            android:text="Salário - Estimativa"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -38,8 +38,8 @@
             android:id="@+id/image_question"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginTop="13dp"
+            android:layout_marginEnd="20dp"
             android:src="@drawable/ic_question"
             android:layout_gravity="end"
             tools:ignore="ContentDescription" />
@@ -54,115 +54,123 @@
             android:id="@+id/text_salario_mes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="4dp"
             android:gravity="start"
             android:text="Mês"
             android:textColor="@color/black"
-            android:textSize="14sp"
+            android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@color/purple_500"
+            app:layout_constraintBottom_toBottomOf="@+id/text_salario_mes"
+            app:layout_constraintEnd_toStartOf="@+id/text_salario_mes_value"
+            app:layout_constraintStart_toEndOf="@+id/text_salario_mes"
+            app:layout_constraintTop_toTopOf="@+id/text_salario_mes" />
 
         <TextView
             android:id="@+id/text_salario_ano"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginStart="20dp"
             android:gravity="center"
             android:text="Ano"
             android:textColor="@color/black"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="@+id/text_salario_ano_value"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_salario_mes" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@color/purple_500"
+            app:layout_constraintBottom_toBottomOf="@+id/text_salario_ano"
+            app:layout_constraintEnd_toStartOf="@+id/text_salario_ano_value"
+            app:layout_constraintStart_toEndOf="@+id/text_salario_ano"
+            app:layout_constraintTop_toBottomOf="@+id/text_salario_mes" />
 
         <TextView
             android:id="@+id/text_salario_mandato"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginStart="20dp"
             android:gravity="end"
             android:text="Mandato"
             android:textColor="@color/black"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="@+id/text_salario_mandato_value"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_salario_ano" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@color/purple_500"
+            app:layout_constraintBottom_toBottomOf="@+id/text_salario_mandato"
+            app:layout_constraintEnd_toStartOf="@+id/text_salario_mandato_value"
+            app:layout_constraintStart_toEndOf="@+id/text_salario_mandato"
+            app:layout_constraintTop_toTopOf="@+id/text_salario_mandato" />
 
         <TextView
             android:id="@+id/text_salario_mes_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="20dp"
             android:gravity="start"
-            android:textStyle="bold"
-            android:text="R$ 39.293"
+            android:text="R$ 41.650,92"
             android:textColor="@color/teal_700"
             android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_salario_mes" />
-
-        <View
-            android:id="@+id/view"
-            android:layout_width="1.2dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="12dp"
-            android:background="@color/purple_500"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/text_salario_ano_value"
-            app:layout_constraintStart_toEndOf="@+id/text_salario_mes_value"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/text_salario_mes"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/text_salario_mes" />
 
         <TextView
             android:id="@+id/text_salario_ano_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="20dp"
             android:gravity="center"
-            android:text="+R$ 537 mil"
+            android:text="R$ 569.226,46"
             android:textColor="@color/teal_700"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/text_salario_mandato_value"
-            app:layout_constraintStart_toEndOf="@+id/text_salario_mes_value"
-            app:layout_constraintTop_toBottomOf="@+id/text_salario_ano" />
-
-        <View
-            android:id="@+id/view2"
-            android:layout_width="1.2dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="12dp"
-            android:background="@color/purple_500"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/text_salario_mandato_value"
-            app:layout_constraintStart_toEndOf="@+id/text_salario_ano_value"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintBottom_toBottomOf="@+id/text_salario_ano"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_salario_mes" />
 
         <TextView
             android:id="@+id/text_salario_mandato_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="12dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="20dp"
             android:gravity="end"
-            android:text="+R$ 2,148 mi"
+            android:text="R$ 2.438.117,63"
             android:textColor="@color/teal_700"
-            android:textStyle="bold"
             android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/text_salario_mandato"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_salario_mandato" />
+            app:layout_constraintTop_toTopOf="@+id/text_salario_mandato" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1.2dp"
+        android:layout_marginTop="12dp"
         android:background="@color/purple_500"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"/>
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"/>
 
 </LinearLayout>
