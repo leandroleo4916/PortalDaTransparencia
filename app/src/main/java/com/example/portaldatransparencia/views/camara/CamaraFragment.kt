@@ -23,6 +23,7 @@ import com.example.portaldatransparencia.interfaces.IClickDeputado
 import com.example.portaldatransparencia.interfaces.IClickPhoto
 import com.example.portaldatransparencia.interfaces.INotification
 import com.example.portaldatransparencia.util.ValidationInternet
+import com.example.portaldatransparencia.views.activity.dados.ActivityDadosCamara
 import com.example.portaldatransparencia.views.activity.gastogeral.camara.ActivityGastoGeralCamara
 import com.example.portaldatransparencia.views.activity.ranking.camara.ActivityRankingCamara
 import com.example.portaldatransparencia.views.activity.votacoes.camara.ActivityVotacoesCamara
@@ -220,6 +221,8 @@ class CamaraFragment: Fragment(R.layout.fragment_camara_senado), IClickDeputado,
                 }
                 constraintLayout4.setOnClickListener {
                     animaView(it)
+                    val intent = Intent(context, ActivityDadosCamara::class.java)
+                    startActivity(intent)
                 }
             }
         }

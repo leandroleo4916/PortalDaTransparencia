@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/frame_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints">
+
+        <include
+            android:id="@+id/layout_top"
+            layout="@layout/layout_top" />
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include
+            android:id="@+id/layout_progress_and_text"
+            layout="@layout/layout_progress"/>
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/frame_salario"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
+        <include
+            android:id="@+id/layout_dados_salario"
+            layout="@layout/layout_dados"/>
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/frame_auxilio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
+        <include
+            android:id="@+id/layout_dados_auxilio"
+            layout="@layout/layout_dados"/>
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/frame_verba"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
+        <include
+            android:id="@+id/layout_dados_verba"
+            layout="@layout/layout_dados"/>
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/frame_cotas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
+        <include
+            android:id="@+id/layout_dados_cotas"
+            layout="@layout/layout_dados"/>
+
+    </FrameLayout>
+
+</LinearLayout>
