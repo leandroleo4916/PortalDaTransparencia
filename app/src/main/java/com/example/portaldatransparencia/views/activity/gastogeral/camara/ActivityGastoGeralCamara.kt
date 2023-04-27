@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.view.animation.AnimationUtils
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -206,6 +207,7 @@ class ActivityGastoGeralCamara: AppCompatActivity() {
         val dialog = createDialog()
         val viewDialog = layoutInflater.inflate(R.layout.layout_dialog_question, null)
         val seeMore = viewDialog.findViewById<TextView>(R.id.text_see_more)
+        val close = viewDialog.findViewById<ImageView>(R.id.image_close)
         seeMore.setOnClickListener {
             animaView(seeMore)
             create.dismiss()
@@ -215,6 +217,7 @@ class ActivityGastoGeralCamara: AppCompatActivity() {
             val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
             startActivity(browserIntent)
         }
+        close.setOnClickListener { create.dismiss() }
         dialog.setView(viewDialog)
         create = dialog.create()
         create.show()

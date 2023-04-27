@@ -97,6 +97,7 @@ class ActivityVotacoesSenado: AppCompatActivity(), IAddVotoInRecycler, IClickPar
                 it.startAnimation(AnimationUtils.loadAnimation(application, R.anim.click))
                 modifyFilter()
             }
+            imageViewOptionOrQuestion.apply { statusView.disableView(this) }
         }
     }
 

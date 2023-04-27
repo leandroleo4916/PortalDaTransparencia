@@ -98,6 +98,7 @@ class ActivityVotacoesCamara: AppCompatActivity(), IClickSeeVideo, IClickSeeVote
                 it.startAnimation(AnimationUtils.loadAnimation(applicationContext, R.anim.click))
                 modifyFilter()
             }
+            imageViewOptionOrQuestion.apply { statusView.disableView(this) }
         }
     }
 

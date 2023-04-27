@@ -83,6 +83,7 @@ class ActivityRankingSenado: AppCompatActivity(), IClickOpenDeputadoRanking, INo
                     true
                 }
             }
+            imageViewOptionOrQuestion.apply { hideView.disableView(this) }
         }
     }
 
