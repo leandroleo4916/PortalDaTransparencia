@@ -14,6 +14,7 @@ import com.example.portaldatransparencia.interfaces.IClickOpenDeputadoRanking
 import com.example.portaldatransparencia.interfaces.INotification
 import com.example.portaldatransparencia.repository.ResultRankingSenado
 import com.example.portaldatransparencia.util.FormaterValueBilhoes
+import com.example.portaldatransparencia.util.RetiraAcento
 import com.example.portaldatransparencia.views.senado.SenadoViewModel
 import com.example.portaldatransparencia.views.senado.senador.SenadorActivity
 import com.example.portaldatransparencia.views.view_generics.AnimationView
@@ -28,6 +29,7 @@ class ActivityRankingSenado: AppCompatActivity(), IClickOpenDeputadoRanking, INo
     private val binding by lazy { LayoutRankingBinding.inflate(layoutInflater) }
     private val viewModel: RankingViewModelSenado by viewModel()
     private val senadoViewModel: SenadoViewModel by viewModel()
+    private val retiraAcento: RetiraAcento by inject()
     private val hideView: EnableDisableView by inject()
     private val formatValor: FormaterValueBilhoes by inject()
     private val animeView: AnimationView by inject()
@@ -207,9 +209,11 @@ class ActivityRankingSenado: AppCompatActivity(), IClickOpenDeputadoRanking, INo
         }
     }
 
-    override fun clickRanking(id: String) {
+    override fun clickRanking(id: String, nome: String) {
+        val name = retiraAcento.deleteAccent(nome)
         val intent = Intent(this, SenadorActivity::class.java)
         intent.putExtra("id", id)
+        intent.putExtra("nome", name)
         startActivity(intent)
     }
 

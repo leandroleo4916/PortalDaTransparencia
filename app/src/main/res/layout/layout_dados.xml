@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,21 +7,35 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:foregroundGravity="center"
-    android:orientation="vertical"
+    android:orientation="horizontal"
+    android:background="@drawable/back_white_cyrcle"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent">
 
+    <View
+        android:id="@+id/view2"
+        android:layout_width="8dp"
+        android:layout_height="0dp"
+        android:background="@drawable/back_teal"
+        app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/coordinatorLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/view2"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/text_salario"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="12dp"
             android:layout_marginBottom="4dp"
             android:gravity="start"
@@ -38,23 +52,27 @@
             android:id="@+id/image_question"
             android:layout_width="24dp"
             android:layout_height="24dp"
+            android:layout_gravity="end"
             android:layout_marginTop="13dp"
             android:layout_marginEnd="20dp"
             android:src="@drawable/ic_question"
-            android:layout_gravity="end"
             tools:ignore="ContentDescription" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/view2"
+        app:layout_constraintTop_toBottomOf="@+id/coordinatorLayout">
 
         <TextView
             android:id="@+id/text_salario_mes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="4dp"
             android:gravity="start"
             android:text="Mês"
@@ -79,7 +97,7 @@
             android:id="@+id/text_salario_ano"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="24dp"
             android:gravity="center"
             android:text="Ano"
             android:textColor="@color/black"
@@ -102,11 +120,13 @@
             android:id="@+id/text_salario_mandato"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginBottom="12dp"
             android:gravity="end"
             android:text="Mandato"
             android:textColor="@color/black"
             android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_salario_ano" />
 
@@ -165,13 +185,4 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <View
-        android:id="@+id/view_bellow"
-        android:layout_width="match_parent"
-        android:layout_height="1.2dp"
-        android:layout_marginTop="12dp"
-        android:background="@color/purple_500"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"/>
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

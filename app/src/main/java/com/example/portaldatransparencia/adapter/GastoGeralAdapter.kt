@@ -73,7 +73,7 @@ class GastoGeralAdapter(private val formatValor: FormaterValueBilhoes,
 
                 constraintRancking.setOnClickListener {
                     it.startAnimation(AnimationUtils.loadAnimation(itemView.context, R.anim.click))
-                    clickRanking.clickRanking(item.id)
+                    clickRanking.clickRanking(item.id, item.nome)
                 }
             }
         }

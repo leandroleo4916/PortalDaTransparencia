@@ -186,7 +186,6 @@ class FragmentGeralSenador: Fragment(R.layout.fragment_geral_senador) {
                         textSalarioAnoValue.text = formatValue.transformIntToString(limit * 12)
                         textSalarioMandato.text = "Durante 1 mandato"
                         textSalarioMandatoValue.text = formatValue.transformIntToString(limit * 96)
-                        viewBellow.visibility = View.INVISIBLE
                         imageQuestion.setOnClickListener {}
                     }
                     statusView.enableView(frameLimitCotas)

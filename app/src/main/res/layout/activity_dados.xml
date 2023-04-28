@@ -37,6 +37,11 @@
         android:id="@+id/frame_salario"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/back_white"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:elevation="10sp"
         android:visibility="gone">
 
         <include
@@ -49,6 +54,11 @@
         android:id="@+id/frame_auxilio"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/back_white"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:elevation="10sp"
         android:visibility="gone">
 
         <include
@@ -61,6 +71,11 @@
         android:id="@+id/frame_verba"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/back_white"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:elevation="10sp"
         android:visibility="gone">
 
         <include
@@ -73,6 +88,11 @@
         android:id="@+id/frame_cotas"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/back_white"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:elevation="10sp"
         android:visibility="gone">
 
         <include

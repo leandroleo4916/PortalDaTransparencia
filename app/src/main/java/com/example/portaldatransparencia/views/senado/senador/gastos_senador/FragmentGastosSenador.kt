@@ -22,6 +22,8 @@ import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import com.google.android.material.chip.Chip
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.text.Normalizer
+import java.util.regex.Pattern
 
 class FragmentGastosSenador: Fragment(R.layout.fragment_gastos), INoteDespesas, IClickTipoDespesa, INotification {
 
@@ -43,7 +45,7 @@ class FragmentGastosSenador: Fragment(R.layout.fragment_gastos), INoteDespesas, 
         chipEnabled = binding!!.chipGroupItem.chip2023
         nome = securityPreferences.getString("nome")
         recyclerView()
-        observerGastosSenador(ano, nome)
+        observerGastosSenador()
         listenerChip()
     }
 
@@ -60,9 +62,9 @@ class FragmentGastosSenador: Fragment(R.layout.fragment_gastos), INoteDespesas, 
         recyclerDimension.adapter = adapterDimension
     }
 
-    private fun observerGastosSenador(year: String, nome: String) {
+    private fun observerGastosSenador() {
 
-        viewModelGastos.searchGastosSenador(year, nome).observe(viewLifecycleOwner){
+        viewModelGastos.searchGastosSenador(ano, nome).observe(viewLifecycleOwner){
             it?.let { result ->
                 when (result) {
                     is ResultCotaRequest.Success -> {
@@ -130,7 +132,7 @@ class FragmentGastosSenador: Fragment(R.layout.fragment_gastos), INoteDespesas, 
         ano = viewDisabled.text.toString()
         adapter.updateDataSenador(listOf())
         adapterDimension.updateData(arrayListOf())
-        observerGastosSenador(ano, nome)
+        observerGastosSenador()
     }
 
     override fun listenerDespesas(note: String?) {
@@ -150,5 +152,16 @@ class FragmentGastosSenador: Fragment(R.layout.fragment_gastos), INoteDespesas, 
 
     override fun notification() {
         Toast.makeText(requireContext(), "Comprovante não enviado", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun deleteAccent(str: String): String {
+        var ret = ""
+        val lower = str.lowercase()
+        val nfdNormalizedString: String = Normalizer.normalize(lower, Normalizer.Form.NFD)
+        val pattern: Pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+")
+        val text = pattern.matcher(nfdNormalizedString).replaceAll("")
+        val nome = text.split(" ")
+        nome.forEach { ret += it }
+        return ret
     }
 }

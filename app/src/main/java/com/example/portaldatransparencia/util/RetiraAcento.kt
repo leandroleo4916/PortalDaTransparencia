@@ -12,9 +12,7 @@ class RetiraAcento {
         val pattern: Pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+")
         val text = pattern.matcher(nfdNormalizedString).replaceAll("")
         val nome = text.split(" ")
-        nome.forEach{
-            ret += it
-        }
+        nome.forEach{ ret += it }
         return ret
     }
 }

@@ -228,7 +228,7 @@ class ActivityRankingCamara: AppCompatActivity(), IClickOpenDeputadoRanking, INo
         }
     }
 
-    override fun clickRanking(id: String) {
+    override fun clickRanking(id: String, nome: String) {
         val intent = Intent(this, DeputadoActivity::class.java)
         intent.putExtra("id", id)
         startActivity(intent)
