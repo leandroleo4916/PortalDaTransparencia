@@ -191,6 +191,7 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
                             animaView(it)
                             clickQuestion()
                         }
+                        statusView.disableView(viewLateral)
                     }
                     statusView.enableView(frameLimitCotas)
                 }

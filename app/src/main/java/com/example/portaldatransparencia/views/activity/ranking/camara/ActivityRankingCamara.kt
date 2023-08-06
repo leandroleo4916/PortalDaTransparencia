@@ -64,6 +64,7 @@ class ActivityRankingCamara: AppCompatActivity(), IClickOpenDeputadoRanking, INo
         }
 
         id = securityPreferences.getString("id")
+        showFilters(true)
         modifyElementTop()
         listenerChip()
         recycler()
@@ -121,7 +122,6 @@ class ActivityRankingCamara: AppCompatActivity(), IClickOpenDeputadoRanking, INo
                             result.dado?.let { gastos ->
                                 listGastoGeralDeputado = gastos.ranking as ArrayList
                                 disableProgressAndText()
-                                showFilters(true)
                                 modifyTextTop("Ranking Gastos - $anoSelect")
                                 adapter.updateData(listGastoGeralDeputado)
                             }

@@ -4,6 +4,9 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import android.view.animation.AnimationUtils
+import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.portaldatransparencia.R
@@ -17,6 +20,7 @@ import com.example.portaldatransparencia.util.CotaState
 import com.example.portaldatransparencia.util.FormatValueFloat
 import com.example.portaldatransparencia.util.ValidationInternet
 import com.example.portaldatransparencia.views.senado.senador.SenadorViewModel
+import com.example.portaldatransparencia.views.view_generics.CreateDialogClass
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -30,11 +34,13 @@ class FragmentGeralSenador: Fragment(R.layout.fragment_geral_senador) {
     private val verifyInternet: ValidationInternet by inject()
     private val calculateAge: CalculateAge by inject()
     private val statusView: EnableDisableView by inject()
+    private val createDialog: CreateDialogClass by inject()
     private lateinit var dadosBasicos: DadosBasicosParlamentar
     private lateinit var detalhes: IdentificacaoParlamentarItem
     private val formatValue: FormatValueFloat by inject()
     private val cotaState: CotaState by inject()
     private lateinit var id: String
+    private lateinit var create: AlertDialog
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -186,7 +192,11 @@ class FragmentGeralSenador: Fragment(R.layout.fragment_geral_senador) {
                         textSalarioAnoValue.text = formatValue.transformIntToString(limit * 12)
                         textSalarioMandato.text = "Durante 1 mandato"
                         textSalarioMandatoValue.text = formatValue.transformIntToString(limit * 96)
-                        imageQuestion.setOnClickListener {}
+                        imageQuestion.setOnClickListener {
+                            animaView(it)
+                            clickQuestion()
+                        }
+                        statusView.disableView(viewLateral)
                     }
                     statusView.enableView(frameLimitCotas)
                 }
@@ -212,5 +222,27 @@ class FragmentGeralSenador: Fragment(R.layout.fragment_geral_senador) {
     private fun choose(social: String){
         val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(social))
         startActivity(browserIntent)
+    }
+
+    private fun clickQuestion(){
+        val dialog = createDialog.createDialog(requireContext())
+        val viewDialog = layoutInflater.inflate(R.layout.layout_dialog_question, null)
+        val seeMore = viewDialog.findViewById<TextView>(R.id.text_see_more)
+        seeMore.setOnClickListener {
+            animaView(seeMore)
+            create.dismiss()
+            val url = "https://www2.camara.leg.br/transparencia/acesso-a-informacao/" +
+                    "copy_of_perguntas-frequentes/cota-para-o-exercicio-da-atividade-parlamentar#" +
+                    ":~:text=A%20Cota%20para%20o%20Exerc%C3%ADcio,ao%20exerc%C3%ADcio%20da%20atividade%20parlamentar."
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+            startActivity(browserIntent)
+        }
+        dialog.setView(viewDialog)
+        create = dialog.create()
+        create.show()
+    }
+
+    private fun animaView(view: View){
+        view.startAnimation(AnimationUtils.loadAnimation(requireContext(), R.anim.click))
     }
 }

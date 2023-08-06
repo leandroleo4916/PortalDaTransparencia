@@ -65,7 +65,7 @@
         android:id="@+id/imageView_filter"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="10dp"
         android:src="@drawable/ic_no_filter_dark"
         app:layout_constraintBottom_toBottomOf="@+id/textView_description_top"
         app:layout_constraintEnd_toStartOf="@+id/imageView_option_or_question"
