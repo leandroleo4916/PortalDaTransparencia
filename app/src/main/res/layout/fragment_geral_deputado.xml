@@ -79,6 +79,22 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <FrameLayout
+                android:id="@+id/frame_present"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_marginEnd="6dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/white"
+                android:elevation="16sp">
+
+                <include
+                    android:id="@+id/layout_present"
+                    layout="@layout/layout_present" />
+
+            </FrameLayout>
+
+            <FrameLayout
                 android:id="@+id/frame_limit_cotas"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
