@@ -67,6 +67,7 @@ val retrofitModule = module {
         single<ApiServiceRankingDeputado> { get<Retrofit>().create(ApiServiceRankingDeputado::class.java) }
         single<ApiServiceGastoGeralSenado> { get<Retrofit>().create(ApiServiceGastoGeralSenado::class.java) }
         single<ApiServiceVotos> { get<Retrofit>().create(ApiServiceVotos::class.java) }
+        single<ApiServicePresent> { get<Retrofit>().create(ApiServicePresent::class.java) }
 }
 
 val progressModule = module { factory { EnableDisableView() } }
@@ -81,6 +82,7 @@ val converterValueNotes = module { factory { ConverterValueNotes() } }
 val validationInternet = module { single { ValidationInternet() } }
 val modifyHttp = module { single { ModifyHttpToHttps() } }
 val retValueInt = module { single { RetValueFloatOrInt() } }
+val getMonth = module { single { DaysOfMonth() } }
 
 val repositorySearch = module { single { SearchRepository(get()) } }
 val repositoryIdDeputado = module { single { IdDeputadoRepository(get()) } }
@@ -130,5 +132,5 @@ val appModules = listOf( retrofitModule, viewModelModule, repositorySearch, prog
         formatValorBi, formatValorFloat, validationInternet, modifyHttp, dialogPhoto,
         viewModelRankingCamara, viewModelRankingSenado, viewModelGastoGeralSenado,
         viewModelVotacoesCamara, repositoryVotacoesCamara, viewModelFrontId, animationView,
-        dialogFragment, converterValueNotes, repositoryPropostaId, cotaState
+        dialogFragment, converterValueNotes, repositoryPropostaId, cotaState, getMonth
 )
