@@ -13,18 +13,19 @@ import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.databinding.FragmentGeralDeputadoBinding
 import com.example.portaldatransparencia.dataclass.Dados
 import com.example.portaldatransparencia.dataclass.Occupation
-import com.example.portaldatransparencia.network.ApiServicePresent
-import com.example.portaldatransparencia.network.Retrofit
 import com.example.portaldatransparencia.security.SecurityPreferences
 import com.example.portaldatransparencia.util.*
 import com.example.portaldatransparencia.views.camara.deputado.DeputadoViewModel
 import com.example.portaldatransparencia.views.view_generics.CreateDialogClass
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
+import com.google.android.material.chip.Chip
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import java.net.URL
 
 class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
 
@@ -45,10 +46,13 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
     private lateinit var dataIni: String
     private lateinit var dataFim: String
     private lateinit var matricula: String
+    private lateinit var chipEnabled: Chip
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentGeralDeputadoBinding.bind(view)
+
+        chipEnabled = binding!!.layoutPresent.layoutMesPresent.chipAll
         id = securityPreferences.getString("id")
         observerDeputado()
         observerOccupation()
@@ -56,7 +60,10 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
         dataIni = month[0]
         dataFim = month[1]
         matricula = "319"
-        getPresent()
+        runBlocking {
+            getPresent()
+        }
+        listenerChip()
     }
 
     private fun observerOccupation() {
@@ -254,27 +261,74 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
         view.startAnimation(AnimationUtils.loadAnimation(requireContext(), R.anim.click))
     }
 
-    private fun getPresent(){
-        val retrofit = Retrofit.createService(ApiServicePresent::class.java)
-        val call: Call<String> = retrofit.getPresent(dataIni, dataFim, matricula)
-        call.enqueue(object: Callback<String> {
-            override fun onResponse(call: Call<String>, despesas: Response<String>){
-                when (despesas.code()){
-                    200 -> {
-                        if (despesas.body() != ""){
+    private fun listenerChip() {
+        binding!!.layoutPresent.layoutMesPresent.run {
+            chipAll.setOnClickListener { modify(chipEnabled, chipAll) }
+            chipJaneiro.setOnClickListener { modify(chipEnabled, chipJaneiro) }
+            chipFevereiro.setOnClickListener { modify(chipEnabled, chipFevereiro) }
+            chipMarco.setOnClickListener { modify(chipEnabled, chipMarco) }
+            chipAbril.setOnClickListener { modify(chipEnabled, chipAbril) }
+            chipMaio.setOnClickListener { modify(chipEnabled, chipMaio) }
+            chipJunho.setOnClickListener { modify(chipEnabled, chipJunho) }
+            chipJulho.setOnClickListener { modify(chipEnabled, chipJulho) }
+            chipAgosto.setOnClickListener { modify(chipEnabled, chipAgosto) }
+            chipSetembro.setOnClickListener { modify(chipEnabled, chipSetembro) }
+            chipOutubro.setOnClickListener { modify(chipEnabled, chipOutubro) }
+            chipNovembro.setOnClickListener { modify(chipEnabled, chipNovembro) }
+            chipDezembro.setOnClickListener { modify(chipEnabled, chipDezembro) }
+        }
+    }
 
-                        }
-                        else {
-                            noValue("Não há dados este mês")
-                        }
-                    }
-                    else -> noValue("API não respondeu!")
-                }
+    private fun modify(viewEnabled: Chip, viewDisabled: Chip) {
+        viewEnabled.isChecked = false
+        viewDisabled.isChecked = true
+        chipEnabled = viewDisabled
+        val month = dayOfMonth.month(viewDisabled.text.toString())
+        dataIni = month[0]
+        dataFim = month[1]
+        runBlocking {
+            launch {
+                getPresent()
             }
-            override fun onFailure(call: Call<String>, t: Throwable) {
-                noValue("API não respondeu!")
+        }
+    }
+
+    private suspend fun getPresent() {
+        withContext(Dispatchers.IO) {
+            var present = 0
+            var falta = 0
+            val urlForm =
+                "https://www.camara.leg.br/SitCamaraWS/sessoesreunioes.asmx/ListarPresencasParlamentar?dataIni=$dataIni&dataFim=$dataFim&numMatriculaParlamentar=$matricula"
+            val url = URL(urlForm)
+            val connection = url.openConnection()
+            val inputStream = connection.getInputStream()
+            val xmlStringBuilder = StringBuilder()
+
+            val reader = inputStream.bufferedReader()
+            var line: String? = reader.readLine()
+            while (line != null) {
+                xmlStringBuilder.append(line)
+                line = reader.readLine()
+                if (parseXml(line) == 1) present ++
+                else if (parseXml(line) == 0) falta ++
             }
-        })
+        }
+    }
+
+    private fun parseXml(line: String?): Int {
+        var present = 0
+        if (line != null) {
+            when {
+                line.contains("Presença") -> present = 1
+                line.contains("Ausência justificada") -> present = 0
+                line.contains("Ausência") -> present = 0
+            }
+        }
+        return present
+    }
+
+    private fun setValueToView(despesas: String?) {
+
     }
 
     private fun noValue(value: String){

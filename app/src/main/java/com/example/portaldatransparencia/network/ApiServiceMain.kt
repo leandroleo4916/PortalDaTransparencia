@@ -186,9 +186,9 @@ interface ApiServiceVotos {
 interface ApiServicePresent {
     @GET("https://www.camara.leg.br/sitcamaraws/SessoesReunioes.asmx/ListarPresencasParlamentar?")
     fun getPresent(
-        @Path("dataIni") dataIni: String,
-        @Path("dataFim") dataFim: String,
-        @Path("numMatriculaParlamentar") numMatriculaParlamentar: String)
+        @Query("dataIni") dataIni: String,
+        @Query("dataFim") dataFim: String,
+        @Query("numMatriculaParlamentar") numMatriculaParlamentar: String)
     : Call<String>
 }
 
