@@ -19,10 +19,7 @@ import com.example.portaldatransparencia.views.camara.deputado.DeputadoViewModel
 import com.example.portaldatransparencia.views.view_generics.CreateDialogClass
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import com.google.android.material.chip.Chip
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.net.URL
@@ -47,6 +44,9 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
     private lateinit var dataFim: String
     private lateinit var matricula: String
     private lateinit var chipEnabled: Chip
+    private var present = 0
+    private var falta = 0
+    private var faltaJust = 0
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -60,7 +60,7 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
         dataIni = month[0]
         dataFim = month[1]
         matricula = "319"
-        runBlocking {
+        CoroutineScope(Dispatchers.Main).launch {
             getPresent()
         }
         listenerChip()
@@ -294,41 +294,98 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
     }
 
     private suspend fun getPresent() {
-        withContext(Dispatchers.IO) {
-            var present = 0
-            var falta = 0
-            val urlForm =
-                "https://www.camara.leg.br/SitCamaraWS/sessoesreunioes.asmx/ListarPresencasParlamentar?dataIni=$dataIni&dataFim=$dataFim&numMatriculaParlamentar=$matricula"
-            val url = URL(urlForm)
-            val connection = url.openConnection()
-            val inputStream = connection.getInputStream()
-            val xmlStringBuilder = StringBuilder()
+        present = 0
+        faltaJust = 0
+        falta = 0
 
-            val reader = inputStream.bufferedReader()
-            var line: String? = reader.readLine()
-            while (line != null) {
-                xmlStringBuilder.append(line)
-                line = reader.readLine()
-                if (parseXml(line) == 1) present ++
-                else if (parseXml(line) == 0) falta ++
+        withContext(Dispatchers.Default) {
+            try {
+                val urlForm =
+                    "https://www.camara.leg.br/SitCamaraWS/sessoesreunioes.asmx/ListarPresencasParlamentar?dataIni=$dataIni&dataFim=$dataFim&numMatriculaParlamentar=$matricula"
+                val url = URL(urlForm)
+                val connection = url.openConnection()
+                val inputStream = connection.getInputStream()
+                val xmlStringBuilder = StringBuilder()
+
+                val reader = inputStream.bufferedReader()
+                var line: String? = reader.readLine()
+                while (line != null) {
+                    xmlStringBuilder.append(line)
+                    line = reader.readLine()
+                    parseXml(line)
+                }
+            }
+            catch (e:Exception){
+                println("Falta implemtar validações")
+                noValue("")
             }
         }
+        setValueToView()
     }
 
-    private fun parseXml(line: String?): Int {
-        var present = 0
+    private fun parseXml(line: String?) {
         if (line != null) {
             when {
-                line.contains("Presença") -> present = 1
-                line.contains("Ausência justificada") -> present = 0
-                line.contains("Ausência") -> present = 0
+                line.contains("Presença") -> present += 1
+                line.contains("Ausência justificada") -> faltaJust += 1
+                line.contains("Ausência") -> falta += 1
             }
         }
-        return present
     }
 
-    private fun setValueToView(despesas: String?) {
+    private fun setValueToView() {
 
+        val totalSessions = present+faltaJust+falta
+        binding!!.layoutPresent.progressPresent.max = totalSessions
+        var valuePresent = 0
+        CoroutineScope(Dispatchers.Main).launch {
+            withContext(Dispatchers.Default) {
+                while (valuePresent <= present) {
+                    withContext(Dispatchers.Main) {
+                        binding!!.layoutPresent.run {
+                            progressPresent.progress = valuePresent
+                            textPresentValue.text = valuePresent.toString()
+                        }
+                    }
+                    delay(5)
+                    valuePresent++
+                }
+            }
+        }
+
+        binding!!.layoutPresent.progressFaltas.max = totalSessions
+        var valueFaltas = 0
+        CoroutineScope(Dispatchers.Main).launch {
+            withContext(Dispatchers.Default) {
+                while (valueFaltas <= faltaJust+falta) {
+                    withContext(Dispatchers.Main) {
+                        binding!!.layoutPresent.run {
+                            progressFaltas.progress = valueFaltas
+                            textFaltasValue.text = valueFaltas.toString()
+                        }
+                    }
+                    delay(5)
+                    valueFaltas++
+                }
+            }
+        }
+
+        binding!!.layoutPresent.progressSessions.max = totalSessions
+        var valueSessions = 0
+        CoroutineScope(Dispatchers.Main).launch {
+            withContext(Dispatchers.Default) {
+                while (valueSessions <= totalSessions) {
+                    withContext(Dispatchers.Main) {
+                        binding!!.layoutPresent.run {
+                            progressSessions.progress = valueSessions
+                            textSessionsValue.text = valueSessions.toString()
+                        }
+                    }
+                    delay(5)
+                    valueSessions++
+                }
+            }
+        }
     }
 
     private fun noValue(value: String){

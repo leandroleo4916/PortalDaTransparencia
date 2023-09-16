@@ -65,6 +65,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView1" />
 
         <TextView
+            android:id="@+id/text_sessions_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="8"
@@ -114,6 +115,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
         <TextView
+            android:id="@+id/text_present_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="8"
@@ -163,6 +165,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
         <TextView
+            android:id="@+id/text_faltas_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="8"
