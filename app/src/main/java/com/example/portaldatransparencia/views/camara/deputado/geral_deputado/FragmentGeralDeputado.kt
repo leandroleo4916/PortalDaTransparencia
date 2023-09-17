@@ -299,6 +299,13 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
         chipEnabled = viewDisabled
         mesSelected = viewDisabled.hint.toString()
         mesSelectedValue = viewDisabled.text.toString()
+        binding!!.layoutPresent.run {
+            textSessions.text = "Buscando..."
+            statusView.disableView(constraintLayout5)
+            statusView.disableView(constraintLayout6)
+            statusView.disableView(constraintLayout7)
+            progressMain.smoothToShow()
+        }
         getPresentSessions()
     }
 
@@ -359,6 +366,10 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
             progressPresentSessions.max = present+faltaJust+faltaInjust
             progressFaltasJust.max = faltaJust+faltaInjust
             progressFaltasInjust.max = faltaJust+faltaInjust
+            progressMain.smoothToHide()
+            statusView.enableView(constraintLayout5)
+            statusView.enableView(constraintLayout6)
+            statusView.enableView(constraintLayout7)
         }
         var valuePresent = 0
         CoroutineScope(Dispatchers.Main).launch {
