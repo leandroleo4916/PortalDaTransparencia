@@ -336,7 +336,9 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
     private fun modifyViewSessions(){
         val totalSessions = present+faltaJust+faltaInjust
         binding!!.run {
-            layoutPresent.textSessions.text = "$totalSessions Sessões em $mesSelectedValue"
+            layoutPresent.textSessions.text =
+                (if (mesSelectedValue != "Todos") "$totalSessions Sessões em $mesSelectedValue"
+                 else "$totalSessions Sessões em 2023").toString()
             framePresent.visibility = View.VISIBLE
         }
     }
@@ -353,11 +355,10 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
 
     private fun setValueToView() {
 
-        val totalSessions = present+faltaJust+faltaInjust
         binding!!.layoutPresent.run {
-            progressPresentSessions.max = totalSessions
-            progressFaltasJust.max = totalSessions
-            progressFaltasInjust.max = totalSessions
+            progressPresentSessions.max = present+faltaJust+faltaInjust
+            progressFaltasJust.max = faltaJust+faltaInjust
+            progressFaltasInjust.max = faltaJust+faltaInjust
         }
         var valuePresent = 0
         CoroutineScope(Dispatchers.Main).launch {
@@ -385,7 +386,7 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
                             textFaltasJustValue.text = valueFaltasJust.toString()
                         }
                     }
-                    delay(20)
+                    delay(100)
                     valueFaltasJust++
                 }
             }
@@ -401,7 +402,7 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
                             textFaltasInjustValue.text = valueFaltasInjust.toString()
                         }
                     }
-                    delay(20)
+                    delay(100)
                     valueFaltasInjust++
                 }
             }
