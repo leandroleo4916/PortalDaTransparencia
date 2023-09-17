@@ -79,7 +79,7 @@ class CamaraFragment: Fragment(R.layout.fragment_camara_senado), IClickDeputado,
                 binding?.run {
                     hideView.run {
                         enableView(recyclerDeputados)
-                        disableView(progressMain)
+                        progressMain.smoothToHide()
                         disableView(frameValidation)
                     }
                 }

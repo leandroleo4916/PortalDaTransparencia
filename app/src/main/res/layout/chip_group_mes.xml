@@ -10,6 +10,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbas_mes_top"
         android:layout_width="0dp"
         android:layout_height="1.2dp"
         android:background="@color/purple_500"
@@ -45,7 +46,7 @@
                 android:checkable="true"
                 android:checked="true"
                 android:text="Todos"
-                android:hint="Todos"
+                android:hint="2023"
                 app:chipStrokeColor="@color/purple_700"
                 app:chipStrokeWidth="1.5dp"
                 app:chipBackgroundColor="@color/back_chip_select" />
@@ -211,6 +212,7 @@
     </HorizontalScrollView>
 
     <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_mes_bottom"
         android:layout_width="0dp"
         android:layout_height="1.2dp"
         android:background="@color/purple_500"

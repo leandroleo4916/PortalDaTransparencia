@@ -44,26 +44,41 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
     private lateinit var dataFim: String
     private lateinit var matricula: String
     private lateinit var chipEnabled: Chip
+    private var mesSelected = "2023"
+    private var mesSelectedValue = "2023"
     private var present = 0
-    private var falta = 0
     private var faltaJust = 0
+    private var faltaInjust = 0
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentGeralDeputadoBinding.bind(view)
 
+        beHideView()
         chipEnabled = binding!!.layoutPresent.layoutMesPresent.chipAll
         id = securityPreferences.getString("id")
         observerDeputado()
         observerOccupation()
-        val month = dayOfMonth.month("Todos")
+        getPresentSessions()
+        listenerChip()
+    }
+
+    private fun getPresentSessions(){
+        val month = dayOfMonth.month(mesSelected)
         dataIni = month[0]
         dataFim = month[1]
         matricula = "319"
         CoroutineScope(Dispatchers.Main).launch {
             getPresent()
         }
-        listenerChip()
+    }
+
+    private fun beHideView(){
+        binding!!.layoutPresent.layoutMesPresent.run {
+            chipJaneiro.visibility = View.GONE
+            toolbasMesTop.visibility = View.GONE
+            toolbarMesBottom.visibility = View.GONE
+        }
     }
 
     private fun observerOccupation() {
@@ -91,7 +106,7 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
 
     private fun addValueText(text: Int) {
         binding?.layoutProgressAndText?.run {
-            statusView.disableView(progressActive)
+            progressActive.smoothToHide()
             statusView.enableView(textNotValue)
             textNotValue.text = getString(text)
         }
@@ -264,7 +279,6 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
     private fun listenerChip() {
         binding!!.layoutPresent.layoutMesPresent.run {
             chipAll.setOnClickListener { modify(chipEnabled, chipAll) }
-            chipJaneiro.setOnClickListener { modify(chipEnabled, chipJaneiro) }
             chipFevereiro.setOnClickListener { modify(chipEnabled, chipFevereiro) }
             chipMarco.setOnClickListener { modify(chipEnabled, chipMarco) }
             chipAbril.setOnClickListener { modify(chipEnabled, chipAbril) }
@@ -283,20 +297,15 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
         viewEnabled.isChecked = false
         viewDisabled.isChecked = true
         chipEnabled = viewDisabled
-        val month = dayOfMonth.month(viewDisabled.text.toString())
-        dataIni = month[0]
-        dataFim = month[1]
-        runBlocking {
-            launch {
-                getPresent()
-            }
-        }
+        mesSelected = viewDisabled.hint.toString()
+        mesSelectedValue = viewDisabled.text.toString()
+        getPresentSessions()
     }
 
     private suspend fun getPresent() {
         present = 0
         faltaJust = 0
-        falta = 0
+        faltaInjust = 0
 
         withContext(Dispatchers.Default) {
             try {
@@ -321,6 +330,15 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
             }
         }
         setValueToView()
+        modifyViewSessions()
+    }
+
+    private fun modifyViewSessions(){
+        val totalSessions = present+faltaJust+faltaInjust
+        binding!!.run {
+            layoutPresent.textSessions.text = "$totalSessions Sessões em $mesSelectedValue"
+            framePresent.visibility = View.VISIBLE
+        }
     }
 
     private fun parseXml(line: String?) {
@@ -328,23 +346,27 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
             when {
                 line.contains("Presença") -> present += 1
                 line.contains("Ausência justificada") -> faltaJust += 1
-                line.contains("Ausência") -> falta += 1
+                line.contains("Ausência") -> faltaInjust += 1
             }
         }
     }
 
     private fun setValueToView() {
 
-        val totalSessions = present+faltaJust+falta
-        binding!!.layoutPresent.progressPresent.max = totalSessions
+        val totalSessions = present+faltaJust+faltaInjust
+        binding!!.layoutPresent.run {
+            progressPresentSessions.max = totalSessions
+            progressFaltasJust.max = totalSessions
+            progressFaltasInjust.max = totalSessions
+        }
         var valuePresent = 0
         CoroutineScope(Dispatchers.Main).launch {
             withContext(Dispatchers.Default) {
                 while (valuePresent <= present) {
                     withContext(Dispatchers.Main) {
                         binding!!.layoutPresent.run {
-                            progressPresent.progress = valuePresent
-                            textPresentValue.text = valuePresent.toString()
+                            progressPresentSessions.progress = valuePresent
+                            textPresentSessionsValue.text = valuePresent.toString()
                         }
                     }
                     delay(5)
@@ -353,36 +375,34 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
             }
         }
 
-        binding!!.layoutPresent.progressFaltas.max = totalSessions
-        var valueFaltas = 0
+        var valueFaltasJust = 0
         CoroutineScope(Dispatchers.Main).launch {
             withContext(Dispatchers.Default) {
-                while (valueFaltas <= faltaJust+falta) {
+                while (valueFaltasJust <= faltaJust) {
                     withContext(Dispatchers.Main) {
                         binding!!.layoutPresent.run {
-                            progressFaltas.progress = valueFaltas
-                            textFaltasValue.text = valueFaltas.toString()
+                            progressFaltasJust.progress = valueFaltasJust
+                            textFaltasJustValue.text = valueFaltasJust.toString()
                         }
                     }
-                    delay(5)
-                    valueFaltas++
+                    delay(20)
+                    valueFaltasJust++
                 }
             }
         }
 
-        binding!!.layoutPresent.progressSessions.max = totalSessions
-        var valueSessions = 0
+        var valueFaltasInjust = 0
         CoroutineScope(Dispatchers.Main).launch {
             withContext(Dispatchers.Default) {
-                while (valueSessions <= totalSessions) {
+                while (valueFaltasInjust <= faltaInjust) {
                     withContext(Dispatchers.Main) {
                         binding!!.layoutPresent.run {
-                            progressSessions.progress = valueSessions
-                            textSessionsValue.text = valueSessions.toString()
+                            progressFaltasInjust.progress = valueFaltasInjust
+                            textFaltasInjustValue.text = valueFaltasInjust.toString()
                         }
                     }
-                    delay(5)
-                    valueSessions++
+                    delay(20)
+                    valueFaltasInjust++
                 }
             }
         }

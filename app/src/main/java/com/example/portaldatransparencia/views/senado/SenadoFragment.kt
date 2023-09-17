@@ -74,7 +74,7 @@ class SenadoFragment: Fragment(R.layout.fragment_camara_senado), IClickParlament
                 verifiqueInternet.text = getString(text)
                 buttonAgain.setOnClickListener {
                     animaView(it)
-                    hideView.enableView(progressMain)
+                    progressMain.smoothToHide()
                     hideView.disableView(frameValidation)
                     observer()
                 }
