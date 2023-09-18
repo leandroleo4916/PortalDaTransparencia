@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="Presença em Sessões"
+        android:text="Buscando Sessões..."
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -40,19 +40,19 @@
 
     </FrameLayout>
 
-    <com.wang.avi.AVLoadingIndicatorView
-        android:id="@+id/progress_main"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        android:elevation="2dp"
-        app:indicatorColor="@color/purple_700"
-        app:indicatorName="BallPulseIndicator"
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout" >
+
+        <include
+            android:id="@+id/layout_progress_and_text"
+            layout="@layout/layout_progress" />
+
+    </FrameLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout5"

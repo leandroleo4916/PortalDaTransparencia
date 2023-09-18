@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.view.animation.AnimationUtils
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
@@ -23,6 +24,7 @@ import kotlinx.coroutines.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.net.URL
+import java.util.ArrayList
 
 class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
 
@@ -67,9 +69,8 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
         val month = dayOfMonth.month(mesSelected)
         dataIni = month[0]
         dataFim = month[1]
-        matricula = "319"
         CoroutineScope(Dispatchers.Main).launch {
-            getPresent()
+            getIdMatriculaParlamentar()
         }
     }
 
@@ -253,6 +254,7 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
         val dialog = createDialog.createDialog(requireContext())
         val viewDialog = layoutInflater.inflate(R.layout.layout_dialog_question, null)
         val seeMore = viewDialog.findViewById<TextView>(R.id.text_see_more)
+        val closeDialog = viewDialog.findViewById<ImageView>(R.id.image_close)
         seeMore.setOnClickListener {
             animaView(seeMore)
             create.dismiss()
@@ -261,6 +263,9 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
                     ":~:text=A%20Cota%20para%20o%20Exerc%C3%ADcio,ao%20exerc%C3%ADcio%20da%20atividade%20parlamentar."
             val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
             startActivity(browserIntent)
+        }
+        closeDialog.setOnClickListener {
+            create.dismiss()
         }
         dialog.setView(viewDialog)
         create = dialog.create()
@@ -274,6 +279,47 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
 
     private fun animaView(view: View){
         view.startAnimation(AnimationUtils.loadAnimation(requireContext(), R.anim.click))
+    }
+
+    // Todas as classes abaixo refere-se ao Layout Presença em Sessões
+    private suspend fun getIdMatriculaParlamentar(){
+
+        var call = false
+        var count = 3
+
+        withContext(Dispatchers.Default) {
+            try {
+                val urlForm = "https://www.camara.leg.br/SitCamaraWS/deputados.asmx/ObterDeputados"
+                val url = URL(urlForm)
+                val connection = url.openConnection()
+                val inputStream = connection.getInputStream()
+
+                val reader = inputStream.bufferedReader()
+                val res = reader.readLines()
+
+                while (!call) {
+                    if (!res[count].contains(id)){
+                        count += 21
+                    }
+                    else {
+                        call = true
+                        val str = res[count+3].substring(15)
+                        val strDiv = str.split("<")
+                        matricula = strDiv[0]
+                    }
+                }
+            }
+            catch (e:Exception){
+                withContext(Dispatchers.Main){
+                    noValue()
+                }
+            }
+        }
+        if (call){
+            CoroutineScope(Dispatchers.Main).launch {
+                getPresent()
+            }
+        }
     }
 
     private fun listenerChip() {
@@ -304,7 +350,8 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
             statusView.disableView(constraintLayout5)
             statusView.disableView(constraintLayout6)
             statusView.disableView(constraintLayout7)
-            progressMain.smoothToShow()
+            statusView.enableView(layoutProgressAndText.progressActive)
+            statusView.disableView(layoutProgressAndText.textNotValue)
         }
         getPresentSessions()
     }
@@ -313,6 +360,7 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
         present = 0
         faltaJust = 0
         faltaInjust = 0
+        var call = false
 
         withContext(Dispatchers.Default) {
             try {
@@ -330,17 +378,21 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
                     line = reader.readLine()
                     parseXml(line)
                 }
+                call = true
             }
             catch (e:Exception){
-                println("Falta implemtar validações")
-                noValue("")
+                withContext(Dispatchers.Main){
+                    noValue()
+                }
             }
         }
-        setValueToView()
-        modifyViewSessions()
+        if (call){
+            setValueToView()
+            modifyTextViewTitle()
+        }
     }
 
-    private fun modifyViewSessions(){
+    private fun modifyTextViewTitle(){
         val totalSessions = present+faltaJust+faltaInjust
         binding!!.run {
             layoutPresent.textSessions.text =
@@ -366,11 +418,13 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
             progressPresentSessions.max = present+faltaJust+faltaInjust
             progressFaltasJust.max = faltaJust+faltaInjust
             progressFaltasInjust.max = faltaJust+faltaInjust
-            progressMain.smoothToHide()
+            statusView.disableView(layoutProgressAndText.progressActive)
+            statusView.disableView(layoutProgressAndText.textNotValue)
             statusView.enableView(constraintLayout5)
             statusView.enableView(constraintLayout6)
             statusView.enableView(constraintLayout7)
         }
+
         var valuePresent = 0
         CoroutineScope(Dispatchers.Main).launch {
             withContext(Dispatchers.Default) {
@@ -420,7 +474,17 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
         }
     }
 
-    private fun noValue(value: String){
+    private fun noValue(){
+        binding!!.layoutPresent.run {
+            textSessions.text = "Presença em Sessões"
 
+            layoutProgressAndText.run {
+                progressActive.smoothToHide()
+                textNotValue.text =
+                    (if (mesSelectedValue != "Todos") "Não tem informações para $mesSelectedValue"
+                    else "Não tem informações para 2023").toString()
+                statusView.enableView(textNotValue)
+            }
+        }
     }
 }
