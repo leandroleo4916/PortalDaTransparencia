@@ -10,7 +10,6 @@ import com.bumptech.glide.Glide
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.databinding.RecyclerGastoSetorBinding
 import com.example.portaldatransparencia.dataclass.AddInfoSetor
-import com.example.portaldatransparencia.interfaces.ISmoothPosition
 import com.example.portaldatransparencia.util.FormaterValueBilhoes
 import com.example.portaldatransparencia.views.view_generics.AnimationView
 
@@ -49,7 +48,7 @@ class GastoSetorAdapter(private val formatValor: FormaterValueBilhoes,
                     .load(despesa.photo)
                     .into(iconGasto)
             }
-            animeView.crossFade(itemView, true)
+            animeView.crossVisibleView(itemView)
             itemView.setOnClickListener {
                 it.startAnimation(AnimationUtils.loadAnimation(itemView.context, R.anim.click))
             }

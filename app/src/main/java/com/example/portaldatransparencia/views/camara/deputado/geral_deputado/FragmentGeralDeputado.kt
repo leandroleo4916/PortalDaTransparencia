@@ -17,6 +17,7 @@ import com.example.portaldatransparencia.dataclass.Occupation
 import com.example.portaldatransparencia.security.SecurityPreferences
 import com.example.portaldatransparencia.util.*
 import com.example.portaldatransparencia.views.camara.deputado.DeputadoViewModel
+import com.example.portaldatransparencia.views.view_generics.AnimationView
 import com.example.portaldatransparencia.views.view_generics.CreateDialogClass
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import com.google.android.material.chip.Chip
@@ -24,7 +25,6 @@ import kotlinx.coroutines.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.net.URL
-import java.util.ArrayList
 
 class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
 
@@ -38,6 +38,7 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
     private val formatValue: FormatValueFloat by inject()
     private val statusView: EnableDisableView by inject()
     private val createDialog: CreateDialogClass by inject()
+    private val animeView: AnimationView by inject()
     private val cotaState: CotaState by inject()
     private var sexoDeputado = ""
     private lateinit var id: String
@@ -347,9 +348,9 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
         mesSelectedValue = viewDisabled.text.toString()
         binding!!.layoutPresent.run {
             textSessions.text = "Buscando..."
-            statusView.disableView(constraintLayout5)
-            statusView.disableView(constraintLayout6)
-            statusView.disableView(constraintLayout7)
+            animeView.crossFade(constraintLayout5)
+            animeView.crossFade(constraintLayout6)
+            animeView.crossFade(constraintLayout7)
             statusView.enableView(layoutProgressAndText.progressActive)
             statusView.disableView(layoutProgressAndText.textNotValue)
         }
@@ -415,14 +416,17 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
     private fun setValueToView() {
 
         binding!!.layoutPresent.run {
+            progressPresentSessions.progress = 0
+            progressFaltasJust.progress = 0
+            progressFaltasInjust.progress = 0
             progressPresentSessions.max = present+faltaJust+faltaInjust
             progressFaltasJust.max = faltaJust+faltaInjust
             progressFaltasInjust.max = faltaJust+faltaInjust
             statusView.disableView(layoutProgressAndText.progressActive)
             statusView.disableView(layoutProgressAndText.textNotValue)
-            statusView.enableView(constraintLayout5)
-            statusView.enableView(constraintLayout6)
-            statusView.enableView(constraintLayout7)
+            animeView.crossFade(constraintLayout5)
+            animeView.crossFade(constraintLayout6)
+            animeView.crossFade(constraintLayout7)
         }
 
         var valuePresent = 0

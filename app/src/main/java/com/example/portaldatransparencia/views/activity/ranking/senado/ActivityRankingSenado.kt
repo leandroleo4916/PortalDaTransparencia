@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.marginEnd
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.adapter.GastoGeralAdapter
@@ -24,7 +23,6 @@ import com.example.portaldatransparencia.views.view_generics.ModifyChip
 import com.google.android.material.chip.Chip
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import kotlin.math.absoluteValue
 
 class ActivityRankingSenado: AppCompatActivity(), IClickOpenDeputadoRanking, INotification {
 
@@ -61,7 +59,7 @@ class ActivityRankingSenado: AppCompatActivity(), IClickOpenDeputadoRanking, INo
             }
         }
 
-        showFilters(true)
+        showFilters()
         listenerChip()
         modifyTextTitleAndListenerBack()
         recycler()
@@ -80,11 +78,11 @@ class ActivityRankingSenado: AppCompatActivity(), IClickOpenDeputadoRanking, INo
             imageViewFilter.setOnClickListener {
                 hideFilter = if (hideFilter) {
                     modifyFilter(true)
-                    showFilters(true)
+                    showFilters()
                     false
                 } else {
                     modifyFilter(false)
-                    showFilters(false)
+                    showFilters()
                     true
                 }
             }
@@ -221,15 +219,15 @@ class ActivityRankingSenado: AppCompatActivity(), IClickOpenDeputadoRanking, INo
 
     private fun showErrorApi(){
         binding.layoutProgressAndText.apply {
-            animeView.crossFade(textNotValue, true)
+            animeView.crossFade(textNotValue)
             hideView.disableView(progressActive)
             textNotValue.text = getString(R.string.erro_api_senado)
         }
     }
 
-    private fun showFilters(boolean: Boolean){
-        animeView.crossFade(binding.framePartidos, boolean)
-        animeView.crossFade(binding.frameYearRanking, boolean)
+    private fun showFilters(){
+        animeView.crossFade(binding.framePartidos)
+        animeView.crossFade(binding.frameYearRanking)
     }
 
     override fun notification() {

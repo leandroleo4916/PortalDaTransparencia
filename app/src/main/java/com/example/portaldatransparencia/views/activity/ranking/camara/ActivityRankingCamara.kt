@@ -2,7 +2,6 @@ package com.example.portaldatransparencia.views.activity.ranking.camara
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -64,7 +63,7 @@ class ActivityRankingCamara: AppCompatActivity(), IClickOpenDeputadoRanking, INo
         }
 
         id = securityPreferences.getString("id")
-        showFilters(true)
+        showFilters()
         modifyElementTop()
         listenerChip()
         recycler()
@@ -89,11 +88,11 @@ class ActivityRankingCamara: AppCompatActivity(), IClickOpenDeputadoRanking, INo
             }
             imageViewFilter.setOnClickListener {
                 hideFilter = if (hideFilter) {
-                    showFilters(true)
+                    showFilters()
                     modifyFilter(true)
                     false
                 } else {
-                    showFilters(false)
+                    showFilters()
                     modifyFilter(false)
                     true
                 }
@@ -236,15 +235,15 @@ class ActivityRankingCamara: AppCompatActivity(), IClickOpenDeputadoRanking, INo
 
     private fun showErrorApi(){
         binding.layoutProgressAndText.apply {
-            animeView.crossFade(textNotValue, true)
+            animeView.crossFade(textNotValue)
             hideView.disableView(progressActive)
             textNotValue.text = getString(R.string.erro_api_camara)
         }
     }
 
-    private fun showFilters(boolean: Boolean){
-        animeView.crossFade(binding.framePartidos, boolean)
-        animeView.crossFade(binding.frameYearRanking, boolean)
+    private fun showFilters(){
+        animeView.crossFade(binding.framePartidos)
+        animeView.crossFade(binding.frameYearRanking)
     }
 
     private fun modifyFilter(boolean: Boolean){

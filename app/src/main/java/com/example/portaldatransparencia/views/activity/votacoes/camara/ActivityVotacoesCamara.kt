@@ -30,6 +30,7 @@ import com.example.portaldatransparencia.security.SecurityPreferences
 import com.example.portaldatransparencia.views.camara.deputado.DeputadoActivity
 import com.example.portaldatransparencia.views.camara.deputado.proposta_deputado.FragmentPropostaItem
 import com.example.portaldatransparencia.views.camara.deputado.proposta_deputado.PropostaViewModel
+import com.example.portaldatransparencia.views.view_generics.AnimationView
 import com.example.portaldatransparencia.views.view_generics.createDialog
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import com.google.android.material.chip.Chip
@@ -47,6 +48,7 @@ class ActivityVotacoesCamara: AppCompatActivity(), IClickSeeVideo, IClickSeeVote
     private val viewModelProposicao: PropostaViewModel by viewModel()
     private val statusView: EnableDisableView by inject()
     private val securityPreferences: SecurityPreferences by inject()
+    private val crossFade: AnimationView by inject()
     private lateinit var adapter: VotacoesCamaraAdapter
     private lateinit var chipYear: Chip
     private lateinit var chipMonth: Chip
@@ -175,40 +177,13 @@ class ActivityVotacoesCamara: AppCompatActivity(), IClickSeeVideo, IClickSeeVote
     private fun modifyFilter() {
         value = if (value == 1){
             binding.layoutTop.imageViewFilter.setImageResource(R.drawable.ic_no_filter_dark)
-            crossFade(true)
             0
         } else {
             binding.layoutTop.imageViewFilter.setImageResource(R.drawable.ic_filter_dark)
-            crossFade(false)
             1
         }
-    }
-
-    private fun crossFade(visible: Boolean) {
-        binding.run {
-            frameYear.apply {
-                alpha = 0F
-                visibility =
-                    if (visible) View.VISIBLE
-                    else View.GONE
-
-                animate()
-                    .alpha(1f)
-                    .setDuration(shortAnimationDuration.toLong())
-                    .setListener(null)
-            }
-            frameMonth.apply {
-                alpha = 0F
-                visibility =
-                    if (visible) View.VISIBLE
-                    else View.GONE
-
-                animate()
-                    .alpha(1f)
-                    .setDuration(shortAnimationDuration.toLong())
-                    .setListener(null)
-            }
-        }
+        crossFade.crossFade(binding.frameYear)
+        crossFade.crossFade(binding.frameMonth)
     }
 
     private fun listenerChip(){
@@ -316,7 +291,7 @@ class ActivityVotacoesCamara: AppCompatActivity(), IClickSeeVideo, IClickSeeVote
             layoutTop.textViewDescriptionTop.run {
                 text = (if (month == "Todos") "$sizeVotacoes votações em $year"
                 else "$sizeVotacoes votações em $monthName de $year").toString()
-                statusView.enableView(this)
+                crossFade.crossVisibleView(this)
                 this.startAnimation(AnimationUtils.loadAnimation(context, R.anim.click_votacao))
             }
         }
@@ -335,7 +310,7 @@ class ActivityVotacoesCamara: AppCompatActivity(), IClickSeeVideo, IClickSeeVote
         binding.layoutProgressAndText.run {
             statusView.run {
                 disableView(progressActive)
-                enableView(textNotValue)
+                crossFade.crossVisibleView(textNotValue)
                 textNotValue.text = getString(text)
             }
         }

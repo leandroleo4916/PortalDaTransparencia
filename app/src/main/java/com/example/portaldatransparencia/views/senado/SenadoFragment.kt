@@ -215,17 +215,17 @@ class SenadoFragment: Fragment(R.layout.fragment_camara_senado), IClickParlament
 
     private fun showFilterIcons(){
         binding?.run {
-            if (hideFilter) modifyIcon(R.drawable.ic_no_filter, value1 = false, value2 = true)
-            else modifyIcon(R.drawable.ic_filter, value1 = true, value2 = false)
+            if (hideFilter) modifyIcon(R.drawable.ic_no_filter, value1 = false)
+            else modifyIcon(R.drawable.ic_filter, value1 = true)
         }
     }
 
-    private fun modifyIcon(res: Int, value1: Boolean,value2: Boolean){
+    private fun modifyIcon(res: Int, value1: Boolean){
         binding?.run {
             icFilter.setImageResource(res)
             hideFilter = value1
             binding?.frameChip?.apply {
-                animeView.crossFade(this, value2)
+                animeView.crossFade(this)
             }
         }
     }

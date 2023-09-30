@@ -29,6 +29,7 @@ import com.example.portaldatransparencia.util.RetiraAcento
 import com.example.portaldatransparencia.views.view_generics.createDialog
 import com.example.portaldatransparencia.views.activity.votacoes.camara.VotacoesViewModelCamara
 import com.example.portaldatransparencia.views.senado.senador.SenadorActivity
+import com.example.portaldatransparencia.views.view_generics.AnimationView
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import com.example.portaldatransparencia.views.view_generics.ModifyHttpToHttps
 import com.google.android.material.chip.Chip
@@ -44,6 +45,7 @@ class ActivityVotacoesSenado: AppCompatActivity(), IAddVotoInRecycler, IClickPar
     private val viewModel: VotacoesViewModelCamara by viewModel()
     private val statusView: EnableDisableView by inject()
     private val modifyHttp: ModifyHttpToHttps by inject()
+    private val crossFade: AnimationView by inject()
     private lateinit var adapter: VotacoesSenadoAdapter
     private lateinit var adapterSim: VotacoesSenadoVotoAdapter
     private lateinit var adapterNao: VotacoesSenadoVotoAdapterNao
@@ -141,40 +143,13 @@ class ActivityVotacoesSenado: AppCompatActivity(), IAddVotoInRecycler, IClickPar
     private fun modifyFilter() {
         value = if (value == 1){
             binding.layoutTop.imageViewFilter.setImageResource(R.drawable.ic_no_filter_dark)
-            crossFade(true)
             0
         } else {
             binding.layoutTop.imageViewFilter.setImageResource(R.drawable.ic_filter_dark)
-            crossFade(false)
             1
         }
-    }
-
-    private fun crossFade(visible: Boolean) {
-        binding.run {
-            frameYear.apply {
-                alpha = 0F
-                visibility =
-                    if (visible) View.VISIBLE
-                    else View.GONE
-
-                animate()
-                    .alpha(1f)
-                    .setDuration(shortAnimationDuration.toLong())
-                    .setListener(null)
-            }
-            frameMonth.apply {
-                alpha = 0F
-                visibility =
-                    if (visible) View.VISIBLE
-                    else View.GONE
-
-                animate()
-                    .alpha(1f)
-                    .setDuration(shortAnimationDuration.toLong())
-                    .setListener(null)
-            }
-        }
+        crossFade.crossFade(binding.frameYear)
+        crossFade.crossFade(binding.frameMonth)
     }
 
     private fun listenerChip(){

@@ -230,16 +230,14 @@ class CamaraFragment: Fragment(R.layout.fragment_camara_senado), IClickDeputado,
 
     private fun showFilterIcons(){
         binding?.run {
-            if (hideFilter){
+            hideFilter = if (hideFilter){
                 icFilter.setImageResource(R.drawable.ic_no_filter)
-                hideFilter = false
-                anime.crossFade(frameChip, true)
-            }
-            else {
+                false
+            } else {
                 icFilter.setImageResource(R.drawable.ic_filter)
-                hideFilter = true
-                anime.crossFade(frameChip,false)
+                true
             }
+            anime.crossFade(frameChip)
         }
     }
 

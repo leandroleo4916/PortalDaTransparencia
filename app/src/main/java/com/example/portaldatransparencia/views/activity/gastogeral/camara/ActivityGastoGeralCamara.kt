@@ -101,14 +101,14 @@ class ActivityGastoGeralCamara: AppCompatActivity() {
             if (hideFilter){
                 layoutTop.imageViewFilter.setImageResource(R.drawable.ic_no_filter_dark)
                 hideFilter = false
-                animeView.crossFade(frameYear, true)
-                animeView.crossFade(viewDiv, true)
+                animeView.crossFade(frameYear)
+                animeView.crossFade(viewDiv)
             }
             else {
                 layoutTop.imageViewFilter.setImageResource(R.drawable.ic_filter_dark)
                 hideFilter = true
-                animeView.crossFade(frameYear,false)
-                animeView.crossFade(viewDiv,false)
+                animeView.crossFade(frameYear)
+                animeView.crossFade(viewDiv)
             }
         }
     }
@@ -194,10 +194,10 @@ class ActivityGastoGeralCamara: AppCompatActivity() {
                 textViewTotalNotas.text = notes
                 hideView.run {
                     disableView(layoutProgressAndText.progressActive)
-                    crossFade.crossFade(linearLayout, true)
-                    crossFade.crossFade(constraintNumberParlamentar, true)
-                    crossFade.crossFade(constraintNumberTotal, true)
-                    crossFade.crossFade(constraintNumberNotas, true)
+                    crossFade.crossVisibleView(linearLayout)
+                    crossFade.crossVisibleView(constraintNumberParlamentar)
+                    crossFade.crossVisibleView(constraintNumberTotal)
+                    crossFade.crossVisibleView(constraintNumberNotas)
                 }
             }
         }

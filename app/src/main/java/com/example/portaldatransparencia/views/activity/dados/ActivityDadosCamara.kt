@@ -9,20 +9,14 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.portaldatransparencia.R
-import com.example.portaldatransparencia.adapter.GastoSetorAdapter
 import com.example.portaldatransparencia.databinding.ActivityDadosBinding
-import com.example.portaldatransparencia.databinding.FragmentMaisBinding
-import com.example.portaldatransparencia.dataclass.GastoGeralCamara
-import com.example.portaldatransparencia.repository.ResultGastoGeralCamara
 import com.example.portaldatransparencia.util.ConverterValueNotes
 import com.example.portaldatransparencia.util.FormaterValueBilhoes
 import com.example.portaldatransparencia.views.activity.gastogeral.camara.GastoGeralViewModelCamara
 import com.example.portaldatransparencia.views.view_generics.AnimationView
 import com.example.portaldatransparencia.views.view_generics.EnableDisableView
 import com.example.portaldatransparencia.views.view_generics.createDialog
-import com.google.android.material.chip.Chip
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -86,7 +80,7 @@ class ActivityDadosCamara: AppCompatActivity() {
                 }
             }
             frameSalario.apply {
-                crossFade.crossFade(this, true)
+                crossFade.crossFade(this)
             }
             layoutDadosAuxilio.apply {
                 textSalario.text = "Auxílio Moradia"
@@ -104,7 +98,7 @@ class ActivityDadosCamara: AppCompatActivity() {
                 }
             }
             frameAuxilio.apply {
-                crossFade.crossFade(this, true)
+                crossFade.crossFade(this)
             }
             layoutDadosVerba.apply {
                 textSalario.text = "Verba de Gabinete"
@@ -128,7 +122,7 @@ class ActivityDadosCamara: AppCompatActivity() {
                 }
             }
             frameVerba.apply {
-                crossFade.crossFade(this, true)
+                crossFade.crossFade(this)
             }
             layoutDadosCotas.apply {
                 textSalario.text = "Media - Cotas Parlamentares"
@@ -150,7 +144,7 @@ class ActivityDadosCamara: AppCompatActivity() {
                 }
             }
             frameCotas.apply {
-                crossFade.crossFade(this, true)
+                crossFade.crossFade(this)
             }
         }
     }
