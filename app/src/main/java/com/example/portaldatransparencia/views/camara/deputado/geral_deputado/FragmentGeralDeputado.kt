@@ -348,9 +348,9 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
         mesSelectedValue = viewDisabled.text.toString()
         binding!!.layoutPresent.run {
             textSessions.text = "Buscando..."
-            animeView.crossFade(constraintLayout5)
-            animeView.crossFade(constraintLayout6)
-            animeView.crossFade(constraintLayout7)
+            animeView.crossInvisibleView(constraintLayout5)
+            animeView.crossInvisibleView(constraintLayout6)
+            animeView.crossInvisibleView(constraintLayout7)
             statusView.enableView(layoutProgressAndText.progressActive)
             statusView.disableView(layoutProgressAndText.textNotValue)
         }

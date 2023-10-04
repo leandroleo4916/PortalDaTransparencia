@@ -65,7 +65,7 @@ class CamaraFragment: Fragment(R.layout.fragment_camara_senado), IClickDeputado,
 
     private fun recycler() {
         val recycler = binding?.recyclerDeputados
-        adapter = MainAdapter(this, this, this)
+        adapter = MainAdapter(this, this, this, AnimatorViewParlamentar())
         recycler?.layoutManager = LinearLayoutManager(context)
         recycler?.adapter = adapter
     }
@@ -134,21 +134,23 @@ class CamaraFragment: Fragment(R.layout.fragment_camara_senado), IClickDeputado,
             chipGroupItem.run {
                 chipAvante.setOnClickListener { modifyChipPartido(chipAvante) }
                 chipCidadania.setOnClickListener { modifyChipPartido(chipCidadania) }
-                chipDc.setOnClickListener { modifyChipPartido(chipDc) }
+                chipPv.setOnClickListener { modifyChipPartido(chipPv) }
                 chipDem.setOnClickListener { modifyChipPartido(chipDem) }
                 chipMdb.setOnClickListener { modifyChipPartido(chipMdb) }
                 chipNovo.setOnClickListener { modifyChipPartido(chipNovo) }
                 chipPatri.setOnClickListener { modifyChipPartido(chipPatri) }
                 chipPatriota.setOnClickListener { modifyChipPartido(chipPatriota) }
-                chipPcb.setOnClickListener { modifyChipPartido(chipPcb) }
+                chipPsol.setOnClickListener { modifyChipPartido(chipPsol) }
                 chipPcdob.setOnClickListener { modifyChipPartido(chipPcdob) }
-                chipPco.setOnClickListener { modifyChipPartido(chipPco) }
+                chipPsd.setOnClickListener { modifyChipPartido(chipPsd) }
                 chipPdt.setOnClickListener { modifyChipPartido(chipPdt) }
                 chipPhs.setOnClickListener { modifyChipPartido(chipPhs) }
                 chipPl.setOnClickListener { modifyChipPartido(chipPl) }
                 chipPros.setOnClickListener { modifyChipPartido(chipPros) }
                 chipPsc.setOnClickListener { modifyChipPartido(chipPsc) }
-                chipPmb.setOnClickListener { modifyChipPartido(chipPmb) }
+                chipPsb.setOnClickListener { modifyChipPartido(chipPsb) }
+                chipPsdb.setOnClickListener { modifyChipPartido(chipPsdb) }
+                chipSolidariedade.setOnClickListener { modifyChipPartido(chipSolidariedade) }
                 chipPodemos.setOnClickListener { modifyChipPartido(chipPodemos) }
                 chipPp.setOnClickListener { modifyChipPartido(chipPp) }
                 chipPt.setOnClickListener { modifyChipPartido(chipPt) }
@@ -242,6 +244,7 @@ class CamaraFragment: Fragment(R.layout.fragment_camara_senado), IClickDeputado,
     }
 
     private fun modifyChipPartido(viewDisabled: Chip) {
+
         chipEnabled = modifyChip.modify(chipEnabled, viewDisabled)
         if (chipEnabledState != null) {
             chipEnabledState!!.isChecked = false
@@ -252,7 +255,7 @@ class CamaraFragment: Fragment(R.layout.fragment_camara_senado), IClickDeputado,
             textPartido = ""
         }
         else {
-            adapter.filter.filter(viewDisabled.text as String)
+            adapter.filter.filter(viewDisabled.text.trim() as String)
         }
     }
 

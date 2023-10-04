@@ -109,8 +109,10 @@ class BottomNavigationBehavior<V : View>(context: Context, attrs: AttributeSet) 
 
     private fun animateBarVisibility(child: View, isVisible: Boolean) {
         if (offsetAnimator == null) {
-            offsetAnimator = ValueAnimator().apply { interpolator = DecelerateInterpolator()
-                duration = 150L }
+            offsetAnimator = ValueAnimator().apply {
+                interpolator = DecelerateInterpolator()
+                duration = 150L
+            }
 
             offsetAnimator?.addUpdateListener { child.translationY = it.animatedValue as Float }
         } else { offsetAnimator?.cancel() }

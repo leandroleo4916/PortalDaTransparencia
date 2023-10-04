@@ -15,11 +15,13 @@ import com.example.portaldatransparencia.dataclass.Parlamentar
 import com.example.portaldatransparencia.interfaces.IClickPhoto
 import com.example.portaldatransparencia.interfaces.IClickParlamentar
 import com.example.portaldatransparencia.interfaces.INotificationSenado
+import com.example.portaldatransparencia.views.view_generics.AnimatorViewParlamentar
 import kotlinx.coroutines.*
 
 class SenadoAdapter(private val listener: IClickParlamentar,
                     private val notify: INotificationSenado,
-                    private val clickPhoto: IClickPhoto):
+                    private val clickPhoto: IClickPhoto,
+                    private val animatorView: AnimatorViewParlamentar):
     RecyclerView.Adapter<SenadoAdapter.MainViewHolder>(), Filterable {
 
     private var binding: RecyclerMainBinding? = null
@@ -61,18 +63,8 @@ class SenadoAdapter(private val listener: IClickParlamentar,
                 textPartido.text = item.siglaPartidoParlamentar
                 textState.text = " - ${item.ufParlamentar}"
 
-                var value = 0
-                CoroutineScope(Dispatchers.Main).launch {
-                    withContext(Dispatchers.Default) {
-                        while (value <= 20) {
-                            withContext(Dispatchers.Main) {
-                                progressList.progress = value
-                            }
-                            delay(5)
-                            value++
-                        }
-                    }
-                }
+                animatorView.animatorView(iconPartidoTransparent)
+
                 constraintDeputado.setOnClickListener {
                     it.startAnimation(AnimationUtils.loadAnimation(itemView.context, R.anim.click))
                     listener.clickParlamentar(
@@ -82,6 +74,28 @@ class SenadoAdapter(private val listener: IClickParlamentar,
                 iconDeputado.setOnClickListener {
                     it.startAnimation(AnimationUtils.loadAnimation(itemView.context, R.anim.click))
                     clickPhoto.clickPhoto(photo)
+                }
+
+                CoroutineScope(Dispatchers.Main).launch {
+                    withContext(Dispatchers.Default) {
+                        withContext(Dispatchers.Main) {
+                            when (item.siglaPartidoParlamentar){
+                                "PL" -> iconPartidoTransparent.setBackgroundResource(R.drawable.back_gradient_blue)
+                                "PT" -> iconPartidoTransparent.setBackgroundResource(R.drawable.back_gradient_red)
+                                "PP" -> iconPartidoTransparent.setBackgroundResource(R.drawable.back_gradient_blue_c)
+                                "AVANTE" -> iconPartidoTransparent.setBackgroundResource(R.drawable.back_gradient_orange)
+                                "CIDADANIA" -> iconPartidoTransparent.setBackgroundResource(R.drawable.back_gradient_rose)
+                                "MDB" -> iconPartidoTransparent.setBackgroundResource(R.drawable.back_gradient_green_mdb)
+                                "NOVO" -> iconPartidoTransparent.setBackgroundResource(R.drawable.back_gradient_orange_new)
+                                "PATRIOTA" -> iconPartidoTransparent.setBackgroundResource(R.drawable.back_gradient_green_patri)
+                                "PCdoB" -> iconPartidoTransparent.setBackgroundResource(R.drawable.back_gradient_red_pc)
+                                "PDT" -> iconPartidoTransparent.setBackgroundResource(R.drawable.back_gradient_red)
+                                "PODEMOS" -> iconPartidoTransparent.setBackgroundResource(R.drawable.back_gradient_blue_pode)
+                                "REPUBLICANOS" -> iconPartidoTransparent.setBackgroundResource(R.drawable.back_gradient_blue_c)
+                                else -> iconPartidoTransparent.setBackgroundResource(R.drawable.back_gradient_green)
+                            }
+                        }
+                    }
                 }
             }
         }

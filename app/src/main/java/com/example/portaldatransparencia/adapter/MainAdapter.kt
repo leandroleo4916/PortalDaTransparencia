@@ -15,11 +15,16 @@ import com.example.portaldatransparencia.dataclass.Dado
 import com.example.portaldatransparencia.interfaces.IClickDeputado
 import com.example.portaldatransparencia.interfaces.IClickPhoto
 import com.example.portaldatransparencia.interfaces.INotification
-import kotlinx.coroutines.*
+import com.example.portaldatransparencia.views.view_generics.AnimatorViewParlamentar
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MainAdapter(private val listener: IClickDeputado,
                   private val notify: INotification,
-                  private val clickPhoto: IClickPhoto):
+                  private val clickPhoto: IClickPhoto,
+                  private val animatorView: AnimatorViewParlamentar):
     RecyclerView.Adapter<MainAdapter.MainViewHolder>(), Filterable {
 
     private var binding: RecyclerMainBinding? = null
@@ -56,15 +61,26 @@ class MainAdapter(private val listener: IClickDeputado,
                 textPartido.text = deputado.siglaPartido
                 textState.text = " - ${deputado.siglaUf}"
 
-                var value = 0
+                animatorView.animatorView(iconPartidoTransparent)
+
                 CoroutineScope(Dispatchers.Main).launch {
                     withContext(Dispatchers.Default) {
-                        while (value <= 20) {
-                            withContext(Dispatchers.Main) {
-                                progressList.progress = value
+                        withContext(Dispatchers.Main) {
+                            when (deputado.siglaPartido){
+                                "PL" -> iconPartidoTransparent.setBackgroundResource(R.drawable.back_gradient_blue)
+                                "PT" -> iconPartidoTransparent.setBackgroundResource(R.drawable.back_gradient_red)
+                                "PP" -> iconPartidoTransparent.setBackgroundResource(R.drawable.back_gradient_blue_c)
+                                "AVANTE" -> iconPartidoTransparent.setBackgroundResource(R.drawable.back_gradient_orange)
+                                "CIDADANIA" -> iconPartidoTransparent.setBackgroundResource(R.drawable.back_gradient_rose)
+                                "MDB" -> iconPartidoTransparent.setBackgroundResource(R.drawable.back_gradient_green_mdb)
+                                "NOVO" -> iconPartidoTransparent.setBackgroundResource(R.drawable.back_gradient_orange_new)
+                                "PATRIOTA" -> iconPartidoTransparent.setBackgroundResource(R.drawable.back_gradient_green_patri)
+                                "PCdoB" -> iconPartidoTransparent.setBackgroundResource(R.drawable.back_gradient_red_pc)
+                                "PDT" -> iconPartidoTransparent.setBackgroundResource(R.drawable.back_gradient_red)
+                                "PODEMOS" -> iconPartidoTransparent.setBackgroundResource(R.drawable.back_gradient_blue_pode)
+                                "REPUBLICANOS" -> iconPartidoTransparent.setBackgroundResource(R.drawable.back_gradient_blue_c)
+                                else -> iconPartidoTransparent.setBackgroundResource(R.drawable.back_gradient_green)
                             }
-                            delay(5)
-                            value++
                         }
                     }
                 }

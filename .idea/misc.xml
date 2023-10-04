@@ -21,6 +21,19 @@
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/drawable-v24/back_black.xml" value="0.165" />
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/drawable-v24/back_dark.xml" value="0.1755" />
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/drawable-v24/back_face.xml" value="0.1645" />
+        <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/drawable-v24/back_gradient.xml" value="0.1635" />
+        <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/drawable-v24/back_gradient_2.xml" value="0.1635" />
+        <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/drawable-v24/back_gradient_blue.xml" value="0.1635" />
+        <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/drawable-v24/back_gradient_blue_c.xml" value="0.1635" />
+        <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/drawable-v24/back_gradient_blue_pode.xml" value="0.1635" />
+        <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/drawable-v24/back_gradient_green.xml" value="0.1635" />
+        <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/drawable-v24/back_gradient_green_mdb.xml" value="0.1635" />
+        <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/drawable-v24/back_gradient_green_patri.xml" value="0.1635" />
+        <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/drawable-v24/back_gradient_orange.xml" value="0.1635" />
+        <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/drawable-v24/back_gradient_orange_new.xml" value="0.1635" />
+        <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/drawable-v24/back_gradient_red.xml" value="0.1635" />
+        <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/drawable-v24/back_gradient_red_pc.xml" value="0.1635" />
+        <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/drawable-v24/back_gradient_rose.xml" value="0.1635" />
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/drawable-v24/back_gray_circle.xml" value="0.1795" />
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/drawable-v24/back_insta.xml" value="0.165" />
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/drawable-v24/back_partido.xml" value="0.1755" />
@@ -78,7 +91,7 @@
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/layout/chip_group_year.xml" value="0.16640625" />
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/layout/chip_select.xml" value="0.1" />
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/layout/dialog_list_voto_senado.xml" value="0.16640625" />
-        <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/layout/fragment_camara_senado.xml" value="0.15272726941699832" />
+        <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/layout/fragment_camara_senado.xml" value="0.1" />
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/layout/fragment_frente.xml" value="0.22909090412549746" />
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/layout/fragment_frente_Id.xml" value="0.19636363210756924" />
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/layout/fragment_frente_id.xml" value="0.21818181345285476" />
@@ -115,7 +128,7 @@
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/layout/recycler_gasto_setor.xml" value="0.21818181345285476" />
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/layout/recycler_gastos.xml" value="0.2727272668160684" />
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/layout/recycler_graph_gasto.xml" value="0.15272726941699832" />
-        <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/layout/recycler_main.xml" value="0.19636363210756924" />
+        <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/layout/recycler_main.xml" value="0.2727272668160684" />
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/layout/recycler_proposta.xml" value="0.23999999479814021" />
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/layout/recycler_rancking.xml" value="0.35999999219721035" />
         <entry key="..\:/Users/LEANDRO/AndroidStudioProjects/PortaldaTransparencia/app/src/main/res/layout/recycler_ranking.xml" value="0.17454545076228378" />

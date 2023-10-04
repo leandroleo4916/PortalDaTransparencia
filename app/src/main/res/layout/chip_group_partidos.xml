@@ -62,12 +62,12 @@
                 app:chipBackgroundColor="@color/back_chip_select" />
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/chip_dc"
+                android:id="@+id/chip_pv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checkable="true"
                 android:checked="false"
-                android:text="DC"
+                android:text="PV"
                 android:textColor="@color/back_chip_select_text"
                 app:chipStrokeColor="@color/purple_700"
                 app:chipStrokeWidth="1.5dp"
@@ -134,12 +134,12 @@
                 app:chipBackgroundColor="@color/back_chip_select" />
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/chip_pcb"
+                android:id="@+id/chip_psol"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checkable="true"
                 android:checked="false"
-                android:text="PCB"
+                android:text="PSOL"
                 android:textColor="@color/back_chip_select_text"
                 app:chipStrokeColor="@color/purple_700"
                 app:chipStrokeWidth="1.5dp"
@@ -158,12 +158,12 @@
                 app:chipBackgroundColor="@color/back_chip_select" />
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/chip_pco"
+                android:id="@+id/chip_psd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checkable="true"
                 android:checked="false"
-                android:text="PCO"
+                android:text="PSD"
                 android:textColor="@color/back_chip_select_text"
                 app:chipStrokeColor="@color/purple_700"
                 app:chipStrokeWidth="1.5dp"
@@ -206,12 +206,12 @@
                 app:chipBackgroundColor="@color/back_chip_select" />
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/chip_pmb"
+                android:id="@+id/chip_solidariedade"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checkable="true"
                 android:checked="false"
-                android:text="PMB"
+                android:text="SOLIDARIEDADE"
                 android:textColor="@color/back_chip_select_text"
                 app:chipStrokeColor="@color/purple_700"
                 app:chipStrokeWidth="1.5dp"
@@ -248,6 +248,30 @@
                 android:checkable="true"
                 android:checked="false"
                 android:text="PROS"
+                android:textColor="@color/back_chip_select_text"
+                app:chipStrokeColor="@color/purple_700"
+                app:chipStrokeWidth="1.5dp"
+                app:chipBackgroundColor="@color/back_chip_select" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_psb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:checked="false"
+                android:text="PSB"
+                android:textColor="@color/back_chip_select_text"
+                app:chipStrokeColor="@color/purple_700"
+                app:chipStrokeWidth="1.5dp"
+                app:chipBackgroundColor="@color/back_chip_select" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_psdb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:checked="false"
+                android:text="PSDB"
                 android:textColor="@color/back_chip_select_text"
                 app:chipStrokeColor="@color/purple_700"
                 app:chipStrokeWidth="1.5dp"
