@@ -21,6 +21,7 @@ import com.example.portaldatransparencia.adapter.MainAdapter
 import com.example.portaldatransparencia.databinding.FragmentCamaraSenadoBinding
 import com.example.portaldatransparencia.interfaces.IClickDeputado
 import com.example.portaldatransparencia.interfaces.IClickPhoto
+import com.example.portaldatransparencia.interfaces.IHideViewController
 import com.example.portaldatransparencia.interfaces.INotification
 import com.example.portaldatransparencia.util.ValidationInternet
 import com.example.portaldatransparencia.views.activity.dados.ActivityDadosCamara
@@ -34,7 +35,8 @@ import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
-class CamaraFragment: Fragment(R.layout.fragment_camara_senado), IClickDeputado, INotification, IClickPhoto {
+class CamaraFragment: Fragment(R.layout.fragment_camara_senado),
+    IClickDeputado, INotification, IClickPhoto {
 
     private var binding: FragmentCamaraSenadoBinding? = null
     private val viewModel: CamaraViewModel by viewModel()
@@ -60,7 +62,7 @@ class CamaraFragment: Fragment(R.layout.fragment_camara_senado), IClickDeputado,
         observer()
         search()
         listener()
-        showTabView()
+        showFloatingView()
     }
 
     private fun recycler() {
@@ -196,9 +198,7 @@ class CamaraFragment: Fragment(R.layout.fragment_camara_senado), IClickDeputado,
             }
             floatingController.setOnClickListener {
                 recyclerDeputados.smoothScrollToPosition(0)
-                visibilityNavViewAndFloating
-                    .visibilityNavViewAndFloating(
-                        requireContext().applicationContext, true, floatingController, anime)
+                binding?.let { anime.crossInvisibleView(it.floatingController) }
             }
             layoutValidation.buttonAgain.setOnClickListener {
                 animaView(it)
@@ -331,7 +331,7 @@ class CamaraFragment: Fragment(R.layout.fragment_camara_senado), IClickDeputado,
         super.onActivityResult(requestCode, resultCode, data)
     }
 
-    private fun showTabView() {
+    private fun showFloatingView() {
         binding?.run {
             visibilityNavViewAndFloating
                 .showTabView(appbar, requireContext(), floatingController, anime)

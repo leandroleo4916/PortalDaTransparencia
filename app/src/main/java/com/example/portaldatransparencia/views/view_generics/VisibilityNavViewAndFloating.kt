@@ -25,10 +25,11 @@ class VisibilityNavViewAndFloating {
         }
     }
 
-    fun visibilityNavViewAndFloating(context: Context, value: Boolean, view: View, anime: AnimationView){
+    private fun visibilityNavViewAndFloating(context: Context, value: Boolean, view: View, anime: AnimationView){
         if (context is IHideViewController) { viewController = context }
         viewController.hideNavView(value)
-        anime.crossFade(view)
+        if (value) anime.crossInvisibleView(view)
+        else anime.crossVisibleView(view)
     }
 
 }

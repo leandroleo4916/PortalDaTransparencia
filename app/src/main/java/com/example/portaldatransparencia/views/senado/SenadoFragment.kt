@@ -19,8 +19,8 @@ import com.bumptech.glide.Glide
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.adapter.SenadoAdapter
 import com.example.portaldatransparencia.databinding.FragmentCamaraSenadoBinding
-import com.example.portaldatransparencia.interfaces.IClickPhoto
 import com.example.portaldatransparencia.interfaces.IClickParlamentar
+import com.example.portaldatransparencia.interfaces.IClickPhoto
 import com.example.portaldatransparencia.interfaces.INotificationSenado
 import com.example.portaldatransparencia.repository.ResultSenadoRequest
 import com.example.portaldatransparencia.util.RetiraAcento
@@ -36,14 +36,15 @@ import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
-class SenadoFragment: Fragment(R.layout.fragment_camara_senado), IClickParlamentar, INotificationSenado, IClickPhoto {
+class SenadoFragment: Fragment(R.layout.fragment_camara_senado),
+    IClickParlamentar, INotificationSenado, IClickPhoto {
 
     private var binding: FragmentCamaraSenadoBinding? = null
     private val senadoViewModel: SenadoViewModel by viewModel()
     private val modifyChip: ModifyChip by inject()
     private val retiraAcento: RetiraAcento by inject()
     private val hideView: EnableDisableView by inject()
-    private val animeView: AnimationView by inject()
+    private val anime: AnimationView by inject()
     private val verifyInternet: ValidationInternet by inject()
     private val dialogClass: CreateDialogClass by inject()
     private val visibilityNavViewAndFloating: VisibilityNavViewAndFloating by inject()
@@ -60,7 +61,7 @@ class SenadoFragment: Fragment(R.layout.fragment_camara_senado), IClickParlament
 
         recycler()
         observer()
-        showTabView()
+        showFloatingView()
         listener()
         search()
     }
@@ -194,9 +195,7 @@ class SenadoFragment: Fragment(R.layout.fragment_camara_senado), IClickParlament
             }
             floatingController.setOnClickListener {
                 recyclerDeputados.smoothScrollToPosition(0)
-                visibilityNavViewAndFloating
-                    .visibilityNavViewAndFloating(
-                        requireContext().applicationContext, true, floatingController, animeView)
+                binding?.let { anime.crossInvisibleView(it.floatingController) }
             }
             layoutItemParlamento.run {
                 constraintLayout1.setOnClickListener {
@@ -227,7 +226,7 @@ class SenadoFragment: Fragment(R.layout.fragment_camara_senado), IClickParlament
             icFilter.setImageResource(res)
             hideFilter = value1
             binding?.frameChip?.apply {
-                animeView.crossFade(this)
+                anime.crossFade(this)
             }
         }
     }
@@ -266,10 +265,10 @@ class SenadoFragment: Fragment(R.layout.fragment_camara_senado), IClickParlament
         startActivity(intent)
     }
 
-    private fun showTabView() {
+    private fun showFloatingView() {
         binding?.run {
             visibilityNavViewAndFloating
-                .showTabView(appbar, requireContext(), floatingController, animeView)
+                .showTabView(appbar, requireContext(), floatingController, anime)
         }
     }
 
