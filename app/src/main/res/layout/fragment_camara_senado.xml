@@ -48,20 +48,38 @@
                         android:layout_marginEnd="20dp"
                         android:layout_marginStart="20dp">
 
+                        <TextView
+                            android:id="@+id/title_toolbar"
+                            android:layout_width="0dp"
+                            android:layout_height="60dp"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="6dp"
+                            android:layout_marginEnd="8dp"
+                            android:gravity="center|start"
+                            android:text="Câmara"
+                            android:textColor="@color/white"
+                            android:textSize="26sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/ic_search"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/text_search"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                             android:layout_width="0dp"
                             android:layout_height="60dp"
                             android:layout_marginTop="4dp"
-                            android:layout_marginEnd="10dp"
+                            android:layout_marginEnd="8dp"
                             android:layout_marginBottom="6dp"
                             android:hint="Digite ou fale"
                             android:textColorHint="@color/purple_200"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@+id/ic_voz"
+                            app:layout_constraintEnd_toStartOf="@+id/ic_search"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent">
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:visibility="gone">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:layout_width="match_parent"
@@ -74,10 +92,24 @@
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <ImageView
+                            android:id="@+id/ic_search"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_marginEnd="8dp"
+                            android:elevation="5dp"
+                            android:tag="search"
+                            android:layout_marginStart="5dp"
+                            android:src="@drawable/ic_search_24"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/ic_voz"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:ignore="ContentDescription,MissingConstraints" />
+
+                        <ImageView
                             android:id="@+id/ic_voz"
                             android:layout_width="30dp"
                             android:layout_height="30dp"
-                            android:layout_marginEnd="10dp"
+                            android:layout_marginEnd="8dp"
                             android:elevation="5dp"
                             android:src="@drawable/ic_voice"
                             app:layout_constraintBottom_toBottomOf="parent"

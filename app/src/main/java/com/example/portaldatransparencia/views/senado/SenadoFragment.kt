@@ -59,6 +59,7 @@ class SenadoFragment: Fragment(R.layout.fragment_camara_senado),
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentCamaraSenadoBinding.bind(view)
 
+        modifyTitle()
         recycler()
         observer()
         showFloatingView()
@@ -80,6 +81,12 @@ class SenadoFragment: Fragment(R.layout.fragment_camara_senado),
                     observer()
                 }
             }
+        }
+    }
+
+    private fun modifyTitle(){
+        binding?.run {
+            titleToolbar.text = "Senado"
         }
     }
 
@@ -118,13 +125,30 @@ class SenadoFragment: Fragment(R.layout.fragment_camara_senado),
     }
 
     private fun search() {
-        binding?.textSearch?.editText?.addTextChangedListener(object : TextWatcher {
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                adapter.filter.filter(s)
+        binding?.run {
+            icSearch.setOnClickListener {
+                if (icSearch.tag == "search") {
+                    icSearch.setImageResource(R.drawable.ic_close_w)
+                    icSearch.tag = "close"
+                    anime.crossVisibleView(textSearch)
+                    anime.crossInvisibleView(titleToolbar)
+                }
+                else {
+                    icSearch.setImageResource(R.drawable.ic_search_24)
+                    icSearch.tag = "search"
+                    anime.crossInvisibleView(textSearch)
+                    anime.crossVisibleView(titleToolbar)
+                }
+                anime.crossVisibleView(icSearch)
             }
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-            override fun afterTextChanged(s: Editable) {}
-        })
+            textSearch.editText?.addTextChangedListener(object : TextWatcher {
+                override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                    adapter.filter.filter(s)
+                }
+                override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+                override fun afterTextChanged(s: Editable) {}
+            })
+        }
     }
 
     private fun listener(){

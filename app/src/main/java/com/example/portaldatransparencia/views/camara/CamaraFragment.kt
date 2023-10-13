@@ -11,6 +11,7 @@ import android.text.TextWatcher
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -116,13 +117,30 @@ class CamaraFragment: Fragment(R.layout.fragment_camara_senado),
     }
 
     private fun search() {
-        binding?.textSearch?.editText?.addTextChangedListener(object : TextWatcher {
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                adapter.filter.filter(s)
+        binding?.run {
+            icSearch.setOnClickListener {
+                if (icSearch.tag == "search") {
+                    icSearch.setImageResource(R.drawable.ic_close_w)
+                    icSearch.tag = "close"
+                    anime.crossVisibleView(textSearch)
+                    anime.crossInvisibleView(titleToolbar)
+                }
+                else {
+                    icSearch.setImageResource(R.drawable.ic_search_24)
+                    icSearch.tag = "search"
+                    anime.crossInvisibleView(textSearch)
+                    anime.crossVisibleView(titleToolbar)
+                }
+                anime.crossVisibleView(icSearch)
             }
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-            override fun afterTextChanged(s: Editable) {}
-        })
+            textSearch.editText?.addTextChangedListener(object : TextWatcher {
+                override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                    adapter.filter.filter(s)
+                }
+                override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+                override fun afterTextChanged(s: Editable) {}
+            })
+        }
     }
 
     override fun clickDeputado(id: String) {
