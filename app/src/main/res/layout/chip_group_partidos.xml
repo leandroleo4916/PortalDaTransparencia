@@ -319,7 +319,7 @@
                 android:layout_height="wrap_content"
                 android:checkable="true"
                 android:checked="false"
-                android:text="UNIÂO"
+                android:text="UNIÃO"
                 android:textColor="@color/back_chip_select_text"
                 app:chipStrokeColor="@color/purple_700"
                 app:chipStrokeWidth="1.5dp"

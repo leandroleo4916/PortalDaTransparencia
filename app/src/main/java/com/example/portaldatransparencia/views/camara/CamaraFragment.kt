@@ -11,7 +11,6 @@ import android.text.TextWatcher
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
-import android.widget.SearchView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -22,7 +21,6 @@ import com.example.portaldatransparencia.adapter.MainAdapter
 import com.example.portaldatransparencia.databinding.FragmentCamaraSenadoBinding
 import com.example.portaldatransparencia.interfaces.IClickDeputado
 import com.example.portaldatransparencia.interfaces.IClickPhoto
-import com.example.portaldatransparencia.interfaces.IHideViewController
 import com.example.portaldatransparencia.interfaces.INotification
 import com.example.portaldatransparencia.util.ValidationInternet
 import com.example.portaldatransparencia.views.activity.dados.ActivityDadosCamara
