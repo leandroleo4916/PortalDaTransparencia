@@ -99,6 +99,8 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
                 addElementView(it)
                 addElementRedeSocial(it)
                 addValueToLimitCotas(it)
+                setValueViewGabinete(it)
+                ifInternet()
                 sexoDeputado = it.sexo
             }
             viewModel.responseErrorLiveData.observe(viewLifecycleOwner){ addValueText(it) }
@@ -142,22 +144,32 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
                     status.siglaPartido+" pelo estado de "+ status.siglaUf+escolaridade)
                 .also { textGeralInformation.text = it }
 
-            textGeralPredio.text = "Predio: "+ (status.gabinete?.predio ?: "Não informado")
-            textGeralAndar.text = "Andar: "+ (status.gabinete?.andar ?: "Não informado")
-            textGeralSala.text = "Sala: "+ (status.gabinete?.sala ?: "Não informado")
-            textGeralPhone.text = status.gabinete?.telefone ?: "Não informado"
-
             Glide.with(requireContext())
                 .load(dados.ultimoStatus.urlFoto)
                 .circleCrop()
                 .into(iconDeputadoGeral)
+        }
+    }
 
+    private fun setValueViewGabinete(dados: Dados){
+        val status = dados.ultimoStatus.gabinete
+        binding?.run {
+            textGeralPredio.text = "Predio: " + (status?.predio ?: "Não informado")
+            textGeralAndar.text = "Andar: " + (status?.andar ?: "Não informado")
+            textGeralSala.text = "Sala: " + (status?.sala ?: "Não informado")
+            textGeralPhone.text = status?.telefone ?: "Não informado"
+            textGeralEmail.text = status?.email ?: "Não informado"
+        }
+    }
+
+    private fun ifInternet(){
+        binding?.run {
             statusView.run {
                 disableView(layoutProgressAndText.progressActive)
                 enableView(iconDeputadoGeral)
                 enableView(textGeralInformation)
-                enableView(constraintSocialMedia)
                 enableView(constraintGabinete)
+                enableView(framePresent)
             }
         }
     }
@@ -177,8 +189,8 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
             if (occupation.titulo != null){
                 ("Trabalhou como "+occupation.titulo+" na "+ occupation.entidade+part+", no ano de "+
                         occupation.anoInicio+".").also { textOccupationDescription.text = it }
+                statusView.enableView(constraintOccupation)
             }
-            statusView.enableView(constraintOccupation)
         }
     }
 
@@ -201,11 +213,14 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
             listenerRedeSocial(facebook, instagram, twitter, youtube)
         }
 
-        binding?.run {
-            if (facebook.isNotEmpty()) statusView.enableView(constraint1)
-            if (instagram.isNotEmpty()) statusView.enableView(constraint2)
-            if (twitter.isNotEmpty()) statusView.enableView(constraint3)
-            if (youtube.isNotEmpty()) statusView.enableView(constraint4)
+        if (facebook != "" && instagram != "" && twitter != "" && youtube != ""){
+            binding?.run {
+                if (facebook.isNotEmpty()) statusView.enableView(constraint1)
+                if (instagram.isNotEmpty()) statusView.enableView(constraint2)
+                if (twitter.isNotEmpty()) statusView.enableView(constraint3)
+                if (youtube.isNotEmpty()) statusView.enableView(constraint4)
+                statusView.enableView(constraintSocialMedia)
+            }
         }
     }
 

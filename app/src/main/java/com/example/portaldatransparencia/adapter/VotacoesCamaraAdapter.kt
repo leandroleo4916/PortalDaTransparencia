@@ -97,7 +97,7 @@ class VotacoesCamaraAdapter(private val clickVote: IClickSeeVote,
 
     @SuppressLint("NotifyDataSetChanged")
     fun updateData(front: ArrayList<VotacaoId>) {
-        data = front
+        data = front.reversed()
         notifyDataSetChanged()
     }
 }

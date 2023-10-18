@@ -57,11 +57,19 @@ class CamaraFragment: Fragment(R.layout.fragment_camara_senado),
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentCamaraSenadoBinding.bind(view)
 
+        disableChipAll()
         recycler()
         observer()
         search()
         listener()
         showFloatingView()
+    }
+
+    private fun disableChipAll(){
+        binding?.chipGroupItem?.run {
+            hideView.disableView(chipAllState)
+            hideView.disableView(chipAll)
+        }
     }
 
     private fun recycler() {

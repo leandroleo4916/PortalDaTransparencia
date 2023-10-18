@@ -38,30 +38,17 @@ class ActivityRankingCamara: AppCompatActivity(), IClickOpenDeputadoRanking, INo
     private lateinit var adapter: GastoGeralAdapter
     private lateinit var listGastoGeralDeputado: ArrayList<Ranking>
     private lateinit var id: String
-    private lateinit var chipSelected: Chip
+    private lateinit var chipSelectedYear: Chip
+    private lateinit var chipEnabledPart: Chip
     private var anoSelect = "Todos"
     private var hideFilter = false
-
-    private var chipEnabled: Chip? = null
-    private var chipEnabledState: Chip? = null
-    private val modifyChip: ModifyChip by inject()
     private var textPartido = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        binding.run {
-            layoutYear.chipAll.apply {
-                chipSelected = this
-                hideView.enableView(this)
-            }
-            layoutYear.chip2023.isChecked = false
-            layoutGroupPartidos.run {
-                hideView.disableView(scrollState)
-            }
-        }
-
+        enableChipAll()
         id = securityPreferences.getString("id")
         showFilters()
         modifyElementTop()
@@ -69,6 +56,20 @@ class ActivityRankingCamara: AppCompatActivity(), IClickOpenDeputadoRanking, INo
         recycler()
         listener()
         observerGastoCamara()
+    }
+    
+    private fun enableChipAll(){
+        binding.run {
+            layoutYear.chipAll.apply {
+                chipSelectedYear = this
+                hideView.enableView(this)
+            }
+            layoutYear.chip2023.isChecked = false
+            layoutGroupPartidos.run {
+                hideView.disableView(scrollState)
+            }
+            chipEnabledPart = layoutGroupPartidos.chipAll
+        }
     }
 
     private fun recycler(){
@@ -140,62 +141,68 @@ class ActivityRankingCamara: AppCompatActivity(), IClickOpenDeputadoRanking, INo
     private fun listenerChip(){
         binding.run {
             layoutYear.run {
-                chipAll.setOnClickListener { modify(chipSelected, chipAll) }
-                chip2023.setOnClickListener { modify(chipSelected, chip2023) }
-                chip2022.setOnClickListener { modify(chipSelected, chip2022) }
-                chip2021.setOnClickListener { modify(chipSelected, chip2021) }
-                chip2020.setOnClickListener { modify(chipSelected, chip2020) }
-                chip2019.setOnClickListener { modify(chipSelected, chip2019) }
-                chip2018.setOnClickListener { modify(chipSelected, chip2018) }
-                chip2017.setOnClickListener { modify(chipSelected, chip2017) }
-                chip2016.setOnClickListener { modify(chipSelected, chip2016) }
-                chip2015.setOnClickListener { modify(chipSelected, chip2015) }
-                chip2014.setOnClickListener { modify(chipSelected, chip2014) }
-                chip2013.setOnClickListener { modify(chipSelected, chip2013) }
-                chip2012.setOnClickListener { modify(chipSelected, chip2012) }
-                chip2011.setOnClickListener { modify(chipSelected, chip2011) }
+                chipAll.setOnClickListener  { modify(chipSelectedYear, chipAll) }
+                chip2023.setOnClickListener { modify(chipSelectedYear, chip2023) }
+                chip2022.setOnClickListener { modify(chipSelectedYear, chip2022) }
+                chip2021.setOnClickListener { modify(chipSelectedYear, chip2021) }
+                chip2020.setOnClickListener { modify(chipSelectedYear, chip2020) }
+                chip2019.setOnClickListener { modify(chipSelectedYear, chip2019) }
+                chip2018.setOnClickListener { modify(chipSelectedYear, chip2018) }
+                chip2017.setOnClickListener { modify(chipSelectedYear, chip2017) }
+                chip2016.setOnClickListener { modify(chipSelectedYear, chip2016) }
+                chip2015.setOnClickListener { modify(chipSelectedYear, chip2015) }
+                chip2014.setOnClickListener { modify(chipSelectedYear, chip2014) }
+                chip2013.setOnClickListener { modify(chipSelectedYear, chip2013) }
+                chip2012.setOnClickListener { modify(chipSelectedYear, chip2012) }
+                chip2011.setOnClickListener { modify(chipSelectedYear, chip2011) }
             }
             layoutGroupPartidos.run {
-                chipAvante.setOnClickListener { modifyChipPartido(chipAvante) }
-                chipCidadania.setOnClickListener { modifyChipPartido(chipCidadania) }
-                chipPv.setOnClickListener { modifyChipPartido(chipPv) }
-                chipDem.setOnClickListener { modifyChipPartido(chipDem) }
-                chipMdb.setOnClickListener { modifyChipPartido(chipMdb) }
-                chipNovo.setOnClickListener { modifyChipPartido(chipNovo) }
-                chipPatri.setOnClickListener { modifyChipPartido(chipPatri) }
-                chipPatriota.setOnClickListener { modifyChipPartido(chipPatriota) }
-                chipPsol.setOnClickListener { modifyChipPartido(chipPsol) }
-                chipPcdob.setOnClickListener { modifyChipPartido(chipPcdob) }
-                chipPsd.setOnClickListener { modifyChipPartido(chipPsd) }
-                chipPdt.setOnClickListener { modifyChipPartido(chipPdt) }
-                chipPhs.setOnClickListener { modifyChipPartido(chipPhs) }
-                chipPl.setOnClickListener { modifyChipPartido(chipPl) }
-                chipPros.setOnClickListener { modifyChipPartido(chipPros) }
-                chipPsc.setOnClickListener { modifyChipPartido(chipPsc) }
-                chipPsb.setOnClickListener { modifyChipPartido(chipPsb) }
-                chipPsdb.setOnClickListener { modifyChipPartido(chipPsdb) }
-                chipSolidariedade.setOnClickListener { modifyChipPartido(chipSolidariedade) }
-                chipPodemos.setOnClickListener { modifyChipPartido(chipPodemos) }
-                chipPp.setOnClickListener { modifyChipPartido(chipPp) }
-                chipPt.setOnClickListener { modifyChipPartido(chipPt) }
-                chipRepublicanos.setOnClickListener { modifyChipPartido(chipRepublicanos) }
-                chipUniao.setOnClickListener { modifyChipPartido(chipUniao) }
+                chipAvante.setOnClickListener { modifyChipPartido(chipEnabledPart, chipAvante) }
+                chipCidadania.setOnClickListener { modifyChipPartido(chipEnabledPart, chipCidadania) }
+                chipPv.setOnClickListener { modifyChipPartido(chipEnabledPart, chipPv) }
+                chipDem.setOnClickListener { modifyChipPartido(chipEnabledPart, chipDem) }
+                chipMdb.setOnClickListener { modifyChipPartido(chipEnabledPart, chipMdb) }
+                chipNovo.setOnClickListener { modifyChipPartido(chipEnabledPart, chipNovo) }
+                chipPatri.setOnClickListener { modifyChipPartido(chipEnabledPart, chipPatri) }
+                chipPatriota.setOnClickListener { modifyChipPartido(chipEnabledPart, chipPatriota) }
+                chipPsol.setOnClickListener { modifyChipPartido(chipEnabledPart, chipPsol) }
+                chipPcdob.setOnClickListener { modifyChipPartido(chipEnabledPart, chipPcdob) }
+                chipPsd.setOnClickListener { modifyChipPartido(chipEnabledPart, chipPsd) }
+                chipPdt.setOnClickListener { modifyChipPartido(chipEnabledPart, chipPdt) }
+                chipPhs.setOnClickListener { modifyChipPartido(chipEnabledPart, chipPhs) }
+                chipPl.setOnClickListener { modifyChipPartido(chipEnabledPart, chipPl) }
+                chipPros.setOnClickListener { modifyChipPartido(chipEnabledPart, chipPros) }
+                chipPsc.setOnClickListener { modifyChipPartido(chipEnabledPart, chipPsc) }
+                chipPsb.setOnClickListener { modifyChipPartido(chipEnabledPart, chipPsb) }
+                chipPsdb.setOnClickListener { modifyChipPartido(chipEnabledPart, chipPsdb) }
+                chipSolidariedade.setOnClickListener { modifyChipPartido(chipEnabledPart, chipSolidariedade) }
+                chipPodemos.setOnClickListener { modifyChipPartido(chipEnabledPart, chipPodemos) }
+                chipPp.setOnClickListener { modifyChipPartido(chipEnabledPart, chipPp) }
+                chipPt.setOnClickListener { modifyChipPartido(chipEnabledPart, chipPt) }
+                chipRepublicanos.setOnClickListener { modifyChipPartido(chipEnabledPart, chipRepublicanos) }
+                chipUniao.setOnClickListener { modifyChipPartido(chipEnabledPart, chipUniao) }
             }
         }
     }
 
-    private fun modifyChipPartido(viewDisabled: Chip) {
-        chipEnabled = modifyChip.modify(chipEnabled, viewDisabled)
-        if (chipEnabledState != null) {
-            chipEnabledState!!.isChecked = false
+    private fun modifyChipPartido(chipPart: Chip, viewClicked: Chip) {
+        if (textPartido != viewClicked.text){
+            enableProgressAndText()
+            textPartido = viewClicked.text as String
+            chipPart.isChecked = false
+            viewClicked.isChecked = true
+            chipEnabledPart = viewClicked
+
+            if (textPartido != "TODOS"){
+                adapter.filterList(textPartido)
+                modifyTextTop("Ranking Gastos - $textPartido - $anoSelect")
+            }
+            else {
+                adapter.filterList("")
+                textPartido = "TODOS"
+            }
+            disableProgressAndText()
         }
-        textPartido = viewDisabled.text as String
-        if (!viewDisabled.isChecked) {
-            adapter.filterList("")
-            textPartido = ""
-        }
-        else adapter.filterList(viewDisabled.text as String)
-        modifyTextTop("Ranking Gastos - $textPartido - $anoSelect")
     }
 
     private fun modify(viewSelected: Chip, viewClicked: Chip) {
@@ -205,8 +212,15 @@ class ActivityRankingCamara: AppCompatActivity(), IClickOpenDeputadoRanking, INo
             anoSelect = viewClicked.text.toString()
             viewSelected.isChecked = false
             viewClicked.isChecked = true
-            chipSelected = viewClicked
+            chipSelectedYear = viewClicked
             observerGastoCamara()
+
+            if (chipEnabledPart.text != "TODOS") {
+                chipEnabledPart.isChecked = false
+                chipEnabledPart = binding.layoutGroupPartidos.chipAll
+                chipEnabledPart.isChecked = true
+                textPartido = "TODOS"
+            }
         }
         viewClicked.isChecked = true
     }

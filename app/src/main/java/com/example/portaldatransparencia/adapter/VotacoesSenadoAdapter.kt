@@ -25,7 +25,7 @@ class VotacoesSenadoAdapter (private val clickSeeVotos: IAddVotoInRecycler):
     }
 
     override fun onBindViewHolder(holder: VotacoesViewHolder, position: Int) {
-        val item = data[position]
+        val item = data.reversed()[position]
         holder.bind(item)
     }
 

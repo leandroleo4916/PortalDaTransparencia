@@ -38,6 +38,18 @@
             app:layout_constraintTop_toBottomOf="@+id/text_search">
 
             <com.google.android.material.chip.Chip
+                android:id="@+id/chip_all"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:checked="true"
+                android:text="TODOS"
+                android:textColor="@color/back_chip_select_text"
+                app:chipStrokeColor="@color/purple_700"
+                app:chipStrokeWidth="1.5dp"
+                app:chipBackgroundColor="@color/back_chip_select" />
+
+            <com.google.android.material.chip.Chip
                 android:id="@+id/chip_avante"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -348,6 +360,18 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_search">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_all_state"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:checked="true"
+                android:text="TODOS"
+                android:textColor="@color/back_chip_select_text"
+                app:chipStrokeColor="@color/purple_700"
+                app:chipStrokeWidth="1.5dp"
+                app:chipBackgroundColor="@color/back_chip_select" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_ac"

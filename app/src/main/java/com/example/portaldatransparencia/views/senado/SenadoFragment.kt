@@ -59,12 +59,20 @@ class SenadoFragment: Fragment(R.layout.fragment_camara_senado),
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentCamaraSenadoBinding.bind(view)
 
+        disableChipAll()
         modifyTitle()
         recycler()
         observer()
         showFloatingView()
         listener()
         search()
+    }
+
+    private fun disableChipAll(){
+        binding?.chipGroupItem?.run {
+            hideView.disableView(chipAllState)
+            hideView.disableView(chipAll)
+        }
     }
 
     private fun validationInternet(text: Int){
