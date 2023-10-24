@@ -45,6 +45,15 @@ class ActivityRankingSenado: AppCompatActivity(), IClickOpenDeputadoRanking, INo
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        enableChipAll()
+        showFilters()
+        listenerChip()
+        modifyTextTitleAndListenerBack()
+        recycler()
+        observerRanking()
+    }
+
+    private fun enableChipAll(){
         binding.run {
             layoutYear.chipAll.apply {
                 chipSelected = this
@@ -54,13 +63,8 @@ class ActivityRankingSenado: AppCompatActivity(), IClickOpenDeputadoRanking, INo
             layoutGroupPartidos.run {
                 hideView.disableView(scrollState)
             }
+            chipEnabledPart = layoutGroupPartidos.chipAll
         }
-
-        showFilters()
-        listenerChip()
-        modifyTextTitleAndListenerBack()
-        recycler()
-        observerRanking()
     }
 
     private fun modifyTextTitleAndListenerBack() {
@@ -199,6 +203,7 @@ class ActivityRankingSenado: AppCompatActivity(), IClickOpenDeputadoRanking, INo
             viewClicked.isChecked = true
             chipSelected = viewClicked
             observerRanking()
+
             if (chipEnabledPart.text != "TODOS") {
                 chipEnabledPart.isChecked = false
                 chipEnabledPart = binding.layoutGroupPartidos.chipAll
