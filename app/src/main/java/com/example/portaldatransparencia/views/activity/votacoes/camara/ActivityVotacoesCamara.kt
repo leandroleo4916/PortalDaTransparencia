@@ -141,10 +141,7 @@ class ActivityVotacoesCamara: AppCompatActivity(), IClickSeeVideo, IClickSeeVote
                 when (response.code()){
                     200 ->
                         if (response.body() != null){
-                            response.body()!!.dados.run {
-                                create.dismiss()
-                                openVideoVotacao(this.urlRegistro)
-                            }
+                            response.body()!!.dados.run { openVideoVotacao(this.urlRegistro) }
                         }
                         else showToast("Não foi adicionado URL do vídeo")
 
@@ -156,6 +153,7 @@ class ActivityVotacoesCamara: AppCompatActivity(), IClickSeeVideo, IClickSeeVote
                 showToast("API não respondeu")
             }
         })
+        create.dismiss()
     }
 
     private fun openVideoVotacao(url: String){
@@ -163,6 +161,7 @@ class ActivityVotacoesCamara: AppCompatActivity(), IClickSeeVideo, IClickSeeVote
             val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
             startActivity(browserIntent)
         } else {
+            create.dismiss()
             Toast.makeText(application,
                 "Não foi adicionado link do vídeo", Toast.LENGTH_SHORT).show()
         }
@@ -351,6 +350,7 @@ class ActivityVotacoesCamara: AppCompatActivity(), IClickSeeVideo, IClickSeeVote
                 showToast("API não respondeu")
             }
         })
+        create.dismiss()
     }
 
     private fun processVotos(data: VotoDeputadosDataC, votacao: String) {

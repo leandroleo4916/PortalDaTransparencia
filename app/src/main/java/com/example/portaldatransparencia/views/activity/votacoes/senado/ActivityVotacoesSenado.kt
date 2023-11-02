@@ -61,7 +61,6 @@ class ActivityVotacoesSenado: AppCompatActivity(), IAddVotoInRecycler, IClickPar
     private var monthName = ""
     private lateinit var create: AlertDialog
     private val retiraAcento: RetiraAcento by inject()
-    private var shortAnimationDuration = 300
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
