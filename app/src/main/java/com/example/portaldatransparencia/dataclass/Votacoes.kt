@@ -14,7 +14,7 @@ data class VotacaoId (
     val siglaOrgao: String,
     val idEvento: Long,
     val uriEvento: String,
-    val aprovacao: Long? = null,
+    var aprovacao: Long? = null,
     val votosSim: Long,
     val votosNao: Long,
     val votosOutros: Long,

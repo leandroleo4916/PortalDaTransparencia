@@ -31,11 +31,35 @@
             app:chipBackgroundColor="@color/back_chip_select" />
 
         <com.google.android.material.chip.Chip
+            android:id="@+id/chip_2025"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checkable="true"
+            android:checked="false"
+            android:text="2025"
+            android:textColor="@color/back_chip_select_text"
+            app:chipStrokeColor="@color/purple_700"
+            app:chipStrokeWidth="1.5dp"
+            app:chipBackgroundColor="@color/back_chip_select" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_2024"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checkable="true"
+            android:checked="false"
+            android:text="2024"
+            android:textColor="@color/back_chip_select_text"
+            app:chipStrokeColor="@color/purple_700"
+            app:chipStrokeWidth="1.5dp"
+            app:chipBackgroundColor="@color/back_chip_select" />
+
+        <com.google.android.material.chip.Chip
             android:id="@+id/chip_2023"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checkable="true"
-            android:checked="true"
+            android:checked="false"
             android:text="2023"
             android:textColor="@color/back_chip_select_text"
             app:chipStrokeColor="@color/purple_700"

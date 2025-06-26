@@ -59,7 +59,7 @@ class ActivityVotacoesCamara: AppCompatActivity(), IClickSeeVideo, IClickSeeVote
     private var votacoesFilter: ArrayList<VotacaoId> = arrayListOf()
     private var sizeVotacoes = 0
     private var value = 0
-    private var year = "2023"
+    private var year = "2025"
     private var month = "Todos"
     private var monthName = ""
     private lateinit var create: AlertDialog
@@ -69,7 +69,7 @@ class ActivityVotacoesCamara: AppCompatActivity(), IClickSeeVideo, IClickSeeVote
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        chipYear = binding.layoutYear.chip2023
+        chipYear = binding.layoutYear.chip2025
         chipMonth = binding.layoutMonth.chipAll
 
         recycler()
@@ -188,6 +188,8 @@ class ActivityVotacoesCamara: AppCompatActivity(), IClickSeeVideo, IClickSeeVote
     private fun listenerChip(){
         binding.run {
             layoutYear.run {
+                chip2025.setOnClickListener { modify(chip2025) }
+                chip2024.setOnClickListener { modify(chip2024) }
                 chip2023.setOnClickListener { modify(chip2023) }
                 chip2022.setOnClickListener { modify(chip2022) }
                 chip2021.setOnClickListener { modify(chip2021) }

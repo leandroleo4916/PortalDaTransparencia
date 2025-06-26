@@ -2,7 +2,6 @@ package com.example.portaldatransparencia.views.activity.votacoes.senado
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
@@ -16,7 +15,6 @@ import com.example.portaldatransparencia.adapter.VotacoesSenadoVotoAdapter
 import com.example.portaldatransparencia.adapter.VotacoesSenadoVotoAdapterAbs
 import com.example.portaldatransparencia.adapter.VotacoesSenadoVotoAdapterNao
 import com.example.portaldatransparencia.databinding.ActivityVotacoesSenadoBinding
-import com.example.portaldatransparencia.databinding.DialogListVotoSenadoBinding
 import com.example.portaldatransparencia.dataclass.AddVoto
 import com.example.portaldatransparencia.dataclass.VotacaoSenado
 import com.example.portaldatransparencia.dataclass.VotacaoSenadoItem

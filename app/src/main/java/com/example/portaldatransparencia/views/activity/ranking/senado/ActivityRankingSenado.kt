@@ -133,6 +133,8 @@ class ActivityRankingSenado: AppCompatActivity(), IClickOpenDeputadoRanking, INo
         binding.run {
             layoutYear.run {
                 chipAll.setOnClickListener  { modify(chipSelected, chipAll) }
+                chip2025.setOnClickListener { modify(chipSelected, chip2025) }
+                chip2024.setOnClickListener { modify(chipSelected, chip2024) }
                 chip2023.setOnClickListener { modify(chipSelected, chip2023) }
                 chip2022.setOnClickListener { modify(chipSelected, chip2022) }
                 chip2021.setOnClickListener { modify(chipSelected, chip2021) }

@@ -46,7 +46,8 @@ class DespesasAdapter(private val listener: INoteDespesas,
                 despesa.run {
                     if (dataDocumento != null){
                         val dateDoc = dataDocumento.split("-")
-                        (dateDoc[2]+"/"+dateDoc[1]+"/"+dateDoc[0]).also { textDate.text = it }
+                        val day = dateDoc[2].split("T")
+                        (day[0]+"/"+dateDoc[1]+"/"+dateDoc[0]).also { textDate.text = it }
                     }
                     tipoDespesa.let { textTypeDoc.text = it }
                     nomeFornecedor.let { textNomeFornecedor.text = it }

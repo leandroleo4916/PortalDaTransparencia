@@ -47,8 +47,8 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
     private lateinit var dataFim: String
     private lateinit var matricula: String
     private lateinit var chipEnabled: Chip
-    private var mesSelected = "2023"
-    private var mesSelectedValue = "2023"
+    private var mesSelected = "2025"
+    private var mesSelectedValue = "2025"
     private var present = 0
     private var faltaJust = 0
     private var faltaInjust = 0
@@ -213,14 +213,12 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
             listenerRedeSocial(facebook, instagram, twitter, youtube)
         }
 
-        if (facebook != "" && instagram != "" && twitter != "" && youtube != ""){
-            binding?.run {
-                if (facebook.isNotEmpty()) statusView.enableView(constraint1)
-                if (instagram.isNotEmpty()) statusView.enableView(constraint2)
-                if (twitter.isNotEmpty()) statusView.enableView(constraint3)
-                if (youtube.isNotEmpty()) statusView.enableView(constraint4)
-                statusView.enableView(constraintSocialMedia)
-            }
+        binding?.run {
+            if (facebook.isNotEmpty()) statusView.enableView(constraint1)
+            if (instagram.isNotEmpty()) statusView.enableView(constraint2)
+            if (twitter.isNotEmpty()) statusView.enableView(constraint3)
+            if (youtube.isNotEmpty()) statusView.enableView(constraint4)
+            statusView.enableView(constraintSocialMedia)
         }
     }
 
@@ -297,7 +295,7 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
         view.startAnimation(AnimationUtils.loadAnimation(requireContext(), R.anim.click))
     }
 
-    // Todas as classes abaixo refere-se ao Layout Presença em Sessões
+    // Classes abaixo refere-se ao Layout Presença em Sessões
     private suspend fun getIdMatriculaParlamentar(){
 
         var call = false
@@ -413,7 +411,7 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
         binding!!.run {
             layoutPresent.textSessions.text =
                 (if (mesSelectedValue != "Todos") "$totalSessions Sessões em $mesSelectedValue"
-                 else "$totalSessions Sessões em 2023").toString()
+                 else "$totalSessions Sessões em 2025").toString()
             framePresent.visibility = View.VISIBLE
         }
     }
@@ -501,7 +499,7 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
                 progressActive.smoothToHide()
                 textNotValue.text =
                     (if (mesSelectedValue != "Todos") "Não tem informações para $mesSelectedValue"
-                    else "Não tem informações para 2023").toString()
+                    else "Não tem informações para 2025").toString()
                 statusView.enableView(textNotValue)
             }
         }

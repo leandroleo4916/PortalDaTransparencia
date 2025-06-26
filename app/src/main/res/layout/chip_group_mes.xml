@@ -46,7 +46,7 @@
                 android:checkable="true"
                 android:checked="true"
                 android:text="Todos"
-                android:hint="2023"
+                android:hint="2025"
                 app:chipStrokeColor="@color/purple_700"
                 app:chipStrokeWidth="1.5dp"
                 app:chipBackgroundColor="@color/back_chip_select" />

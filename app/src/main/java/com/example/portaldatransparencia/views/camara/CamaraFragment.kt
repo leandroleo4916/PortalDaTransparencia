@@ -125,6 +125,9 @@ class CamaraFragment: Fragment(R.layout.fragment_camara_senado),
     private fun search() {
         binding?.run {
             icSearch.setOnClickListener {
+                if (textSearch.editText?.text.toString() != ""){
+                    textSearch.editText?.setText("")
+                }
                 if (icSearch.tag == "search") {
                     icSearch.setImageResource(R.drawable.ic_close_w)
                     icSearch.tag = "close"

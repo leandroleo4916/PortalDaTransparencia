@@ -32,12 +32,12 @@ class FragmentProposta: Fragment(R.layout.fragment_proposta), IClickItemProposta
     private lateinit var chipEnabled: Chip
     private var numberProposta = 0
     private var page = 1
-    private var year = "2023"
+    private var year = "2025"
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentPropostaBinding.bind(view)
-        chipEnabled = binding!!.chipGroupItem.chip2023
+        chipEnabled = binding!!.chipGroupItem.chip2025
         id = securityPreferences.getString("id")
         recyclerView()
         listenerChip()
@@ -88,6 +88,8 @@ class FragmentProposta: Fragment(R.layout.fragment_proposta), IClickItemProposta
     private fun listenerChip(){
         binding?.run {
             chipGroupItem.run {
+                chip2025.setOnClickListener { modify(chipEnabled, chip2025) }
+                chip2024.setOnClickListener { modify(chipEnabled, chip2024) }
                 chip2023.setOnClickListener { modify(chipEnabled, chip2023) }
                 chip2022.setOnClickListener { modify(chipEnabled, chip2022) }
                 chip2021.setOnClickListener { modify(chipEnabled, chip2021) }

@@ -65,8 +65,11 @@ class VotacoesCamaraAdapter(private val clickVote: IClickSeeVote,
                             constraintLateral.setBackgroundResource(R.drawable.back_teal_yellow)
                         }
                     }
-                    if (votosSim.toInt() != 0 && votosNao.toInt() != 0 && votosOutros.toInt() != 0 ){
+                    if (descricao.contains("Sim:")){
                         viewShowVotos.visibility = View.VISIBLE
+                    }
+                    if (uriEvento != ""){
+                        viewShowVideo.visibility = View.VISIBLE
                     }
                 }
                 viewShowVotos.setOnClickListener {

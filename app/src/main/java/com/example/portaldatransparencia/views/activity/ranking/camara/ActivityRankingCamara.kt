@@ -141,6 +141,8 @@ class ActivityRankingCamara: AppCompatActivity(), IClickOpenDeputadoRanking, INo
         binding.run {
             layoutYear.run {
                 chipAll.setOnClickListener  { modify(chipSelectedYear, chipAll) }
+                chip2025.setOnClickListener { modify(chipSelectedYear, chip2025) }
+                chip2024.setOnClickListener { modify(chipSelectedYear, chip2024) }
                 chip2023.setOnClickListener { modify(chipSelectedYear, chip2023) }
                 chip2022.setOnClickListener { modify(chipSelectedYear, chip2022) }
                 chip2021.setOnClickListener { modify(chipSelectedYear, chip2021) }

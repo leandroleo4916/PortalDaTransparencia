@@ -36,7 +36,7 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas, IClickT
     private val statusView: EnableDisableView by inject()
     private lateinit var chipEnabled: Chip
     private lateinit var id: String
-    private var ano = "2023"
+    private var ano = "2025"
     private var page = 1
     private var numberNote = 0
     private var listDadosDimension: ArrayList<DadoDespesas> = arrayListOf()
@@ -45,7 +45,7 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas, IClickT
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentGastosBinding.bind(view)
 
-        chipEnabled = binding!!.chipGroupItem.chip2023
+        chipEnabled = binding!!.chipGroupItem.chip2025
         id = securityPreferences.getString("id")
         recyclerView()
         observer()
@@ -104,6 +104,8 @@ class FragmentGastos: Fragment(R.layout.fragment_gastos), INoteDespesas, IClickT
     private fun listenerChip(){
         binding?.run {
             chipGroupItem.run {
+                chip2025.setOnClickListener { modify(chipEnabled, chip2025) }
+                chip2024.setOnClickListener { modify(chipEnabled, chip2024) }
                 chip2023.setOnClickListener { modify(chipEnabled, chip2023) }
                 chip2022.setOnClickListener { modify(chipEnabled, chip2022) }
                 chip2021.setOnClickListener { modify(chipEnabled, chip2021) }
