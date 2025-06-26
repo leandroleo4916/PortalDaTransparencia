@@ -182,7 +182,7 @@ class ActivityGastoGeralSenado: AppCompatActivity() {
             gastoSenado.gastoGeral.run {
                 val total = formatValor.formatValor(total.toDouble())
                 textViewParlamentar.text = getString(R.string.senadores)
-                textViewTotalParlamentar.text = "83"
+                textViewTotalParlamentar.text = "81"
                 textViewGastoParlamentar.text = total
                 textViewTotalNotas.text = notas
                 hideView.run {

@@ -54,7 +54,7 @@ class ActivityVotacoesSenado: AppCompatActivity(), IAddVotoInRecycler, IClickPar
     private var votacoesFilter: ArrayList<VotacaoSenadoItem> = arrayListOf()
     private var sizeVotacoes = 0
     private var value = 0
-    private var year = "2023"
+    private var year = "2025"
     private var month = "Todos"
     private var monthName = ""
     private lateinit var create: AlertDialog
@@ -64,7 +64,10 @@ class ActivityVotacoesSenado: AppCompatActivity(), IAddVotoInRecycler, IClickPar
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        chipYear = binding.layoutYear.chip2023
+        binding.layoutYear.chip2025.apply {
+            chipYear = this
+            this.isChecked = true
+        }
         chipMonth = binding.layoutMonth.chipAll
 
         recycler()
@@ -152,6 +155,8 @@ class ActivityVotacoesSenado: AppCompatActivity(), IAddVotoInRecycler, IClickPar
     private fun listenerChip(){
         binding.run {
             layoutYear.run {
+                chip2025.setOnClickListener { modify(chip2025) }
+                chip2024.setOnClickListener { modify(chip2024) }
                 chip2023.setOnClickListener { modify(chip2023) }
                 chip2022.setOnClickListener { modify(chip2022) }
                 chip2021.setOnClickListener { modify(chip2021) }
@@ -215,7 +220,7 @@ class ActivityVotacoesSenado: AppCompatActivity(), IAddVotoInRecycler, IClickPar
         chipMonth = viewDisabled
         adapter.updateData(arrayListOf())
 
-        if (month != "Todos") {
+        if (monthName != "Todos") {
             adapter.updateData(arrayListOf())
             votacoesFilter = arrayListOf()
             votacoes.forEach {

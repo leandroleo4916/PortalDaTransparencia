@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/constraint_deputado"
@@ -11,32 +12,19 @@
     android:background="@drawable/back_white"
     android:elevation="16dp">
 
-    <ProgressBar
-        android:id="@+id/progress_list"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="95dp"
-        android:layout_height="95dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="4dp"
-        android:layout_marginStart="12dp"
-        android:max="20"
-        android:progress="0"
-        android:progressDrawable="@drawable/progress_hrs"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <ImageView
         android:id="@+id/icon_deputado"
         android:layout_width="75dp"
         android:layout_height="75dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
+        android:layout_marginStart="16dp"
         android:background="@drawable/back_white_cyrcle"
         android:elevation="15dp"
         android:src="@drawable/ic_avatar"
-        app:layout_constraintBottom_toBottomOf="@+id/progress_list"
-        app:layout_constraintEnd_toEndOf="@+id/progress_list"
-        app:layout_constraintStart_toStartOf="@+id/progress_list"
-        app:layout_constraintTop_toTopOf="@+id/progress_list"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/icon_partido_transparent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="ContentDescription" />
 
     <TextView

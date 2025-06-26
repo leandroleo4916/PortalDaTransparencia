@@ -1,49 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container_setor"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="12dp"
-    android:layout_marginTop="4dp"
-    android:layout_marginEnd="12dp"
-    android:layout_marginBottom="8dp"
-    android:background="@drawable/back_white"
-    android:elevation="8dp">
+    android:layout_height="80dp"
+    android:background="@drawable/back_white">
 
-    <View
-        android:id="@+id/view_lateral"
-        android:layout_width="12dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/icon_partido_transparent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_gravity="bottom"
-        android:background="@drawable/back_teal"
+        android:background="@drawable/back_gradient_green"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
 
-    <androidx.appcompat.widget.AppCompatImageView
+    <ImageView
         android:id="@+id/icon_gasto"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="10dp"
-        app:layout_constraintStart_toEndOf="@+id/view_lateral"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/icon_partido_transparent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/text_description_setor"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="10dp"
-        android:gravity="center|top"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="start"
         android:singleLine="true"
         android:text="@string/manutencao_escritorio"
         android:textColor="@color/purple_700"
         android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/icon_gasto"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/icon_gasto" />
 
     <TextView
         android:id="@+id/text_value_setor"
@@ -54,8 +50,16 @@
         android:textColor="@color/teal_700"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/text_description_setor"
         app:layout_constraintTop_toBottomOf="@+id/text_description_setor" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="0dp"
+        android:layout_height="1.2dp"
+        android:background="@color/purple_500"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/text_description_setor"
+        app:layout_constraintStart_toStartOf="@+id/text_value_setor" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

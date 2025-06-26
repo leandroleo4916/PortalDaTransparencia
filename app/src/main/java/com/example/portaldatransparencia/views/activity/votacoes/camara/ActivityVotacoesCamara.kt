@@ -63,13 +63,15 @@ class ActivityVotacoesCamara: AppCompatActivity(), IClickSeeVideo, IClickSeeVote
     private var month = "Todos"
     private var monthName = ""
     private lateinit var create: AlertDialog
-    private var shortAnimationDuration = 300
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        chipYear = binding.layoutYear.chip2025
+        binding.layoutYear.chip2025.apply {
+            chipYear = this
+            this.isChecked = true
+        }
         chipMonth = binding.layoutMonth.chipAll
 
         recycler()
@@ -224,6 +226,8 @@ class ActivityVotacoesCamara: AppCompatActivity(), IClickSeeVideo, IClickSeeVote
 
     private fun modify(chip: Chip) {
         enableProgressAndDisable()
+        monthName = ""
+        month = "Todos"
         binding.run {
             layoutMonth.run {
                 chipAll.isChecked = true
@@ -251,7 +255,7 @@ class ActivityVotacoesCamara: AppCompatActivity(), IClickSeeVideo, IClickSeeVote
         chipMonth = viewDisabled
         adapter.updateData(arrayListOf())
 
-        if (month != "Todos") {
+        if (monthName != "Todos") {
             adapter.updateData(arrayListOf())
             votacoesFilter = arrayListOf()
             votacoes.forEach {
@@ -268,7 +272,7 @@ class ActivityVotacoesCamara: AppCompatActivity(), IClickSeeVideo, IClickSeeVote
             }
             else {
                 binding.run {
-                    val value = if (sizeVotacoes == 0) "0 votação em $monthName de $year"
+                    val value = if (sizeVotacoes == 0) "0 votação em $year"
                     else "$sizeVotacoes votações em $monthName de $year"
                     layoutTop.textViewDescriptionTop.text = value
 
@@ -417,6 +421,8 @@ class ActivityVotacoesCamara: AppCompatActivity(), IClickSeeVideo, IClickSeeVote
                     is ResultIdPropostaRequest.ErrorConnection -> {
                         showToast("Documento não foi anexado")
                     }
+
+                    else -> { showToast("Documento não foi anexado") }
                 }
             }
             create.dismiss()

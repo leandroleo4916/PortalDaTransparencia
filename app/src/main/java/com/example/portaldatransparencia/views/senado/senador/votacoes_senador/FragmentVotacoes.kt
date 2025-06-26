@@ -32,7 +32,11 @@ class FragmentVotacoes: Fragment(R.layout.fragment_votacoes_senador), ISmoothPos
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentVotacoesSenadorBinding.bind(view)
-        chipEnabled = binding.chipGroupItem.chip2025
+
+        binding!!.chipGroupItem.chip2025.apply {
+            chipEnabled = this
+            this.isChecked = true
+        }
         id = securityPreferences.getString("id")
         recyclerView()
         listenerChip()

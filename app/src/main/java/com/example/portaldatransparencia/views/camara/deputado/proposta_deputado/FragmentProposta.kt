@@ -37,7 +37,11 @@ class FragmentProposta: Fragment(R.layout.fragment_proposta), IClickItemProposta
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentPropostaBinding.bind(view)
-        chipEnabled = binding!!.chipGroupItem.chip2025
+
+        binding!!.chipGroupItem.chip2025.apply {
+            chipEnabled = this
+            this.isChecked = true
+        }
         id = securityPreferences.getString("id")
         recyclerView()
         listenerChip()

@@ -178,7 +178,7 @@ interface ApiServiceEvento {
 }
 
 interface ApiServiceVotos {
-    @GET("https://dadosabertos.camara.leg.br/api/v2/votacoes/{id}/votos.json")
+    @GET("https://dadosabertos.camara.leg.br/api/v2/votacoes/{id}/votos")
     fun getVoto(@Path("id") id: String)
     : Call<VotoDeputadosDataC>
 }

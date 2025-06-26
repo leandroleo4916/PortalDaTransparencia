@@ -42,7 +42,10 @@ class FragmentGastosSenador: Fragment(R.layout.fragment_gastos), INoteDespesas, 
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentGastosBinding.bind(view)
 
-        chipEnabled = binding!!.chipGroupItem.chip2025
+        binding!!.chipGroupItem.chip2025.apply {
+            chipEnabled = this
+            this.isChecked = true
+        }
         nome = securityPreferences.getString("nome")
         recyclerView()
         observerGastosSenador()
