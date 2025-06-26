@@ -150,6 +150,7 @@ class ActivityRankingSenado: AppCompatActivity(), IClickOpenDeputadoRanking, INo
                 chip2011.setOnClickListener { modify(chipSelected, chip2011) }
             }
             layoutGroupPartidos.run {
+                chipAll.setOnClickListener { modifyChipPartido(chipEnabledPart, chipAll) }
                 chipAvante.setOnClickListener { modifyChipPartido(chipEnabledPart, chipAvante) }
                 chipCidadania.setOnClickListener { modifyChipPartido(chipEnabledPart, chipCidadania) }
                 chipPv.setOnClickListener { modifyChipPartido(chipEnabledPart, chipPv) }
@@ -185,14 +186,8 @@ class ActivityRankingSenado: AppCompatActivity(), IClickOpenDeputadoRanking, INo
             viewClicked.isChecked = true
             chipEnabledPart = viewClicked
 
-            if (textPartido != "TODOS"){
-                adapter.filterList(textPartido)
-                modifyTextTop("Ranking Gastos - $textPartido - $anoSelect")
-            }
-            else {
-                adapter.filterList("")
-                textPartido = "TODOS"
-            }
+            modifyTextTop("Ranking Gastos - $textPartido")
+            adapter.filterList(textPartido)
         }
     }
 

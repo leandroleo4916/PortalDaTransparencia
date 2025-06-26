@@ -48,7 +48,9 @@ class GastoGeralAdapter(private val formatValor: FormaterValueBilhoes,
 
             binding?.run {
                 textNameRancking.text = item.nome
-                textPartidoUf.text = "${item.partido} - ${item.estado}"
+                textPartidoUf.text =
+                    if (item.estado == null) "${item.partido}"
+                    else "${item.partido} - ${item.estado}"
                 textValorItem.text = formatValor.formatValor(item.gasto.toDouble())
 
                 var value = 0
@@ -94,7 +96,7 @@ class GastoGeralAdapter(private val formatValor: FormaterValueBilhoes,
     @SuppressLint("NotifyDataSetChanged")
     fun filterList(estado: String){
         dataListState = mutableListOf()
-        if (estado == "") data = dataList
+        if (estado == "TODOS") data = dataList
         else {
             dataList.forEach {
                 if (it.partido == estado) dataListState.add(it)

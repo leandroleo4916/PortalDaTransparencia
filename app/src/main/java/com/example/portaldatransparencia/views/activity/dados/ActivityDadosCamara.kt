@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import com.example.portaldatransparencia.R
 import com.example.portaldatransparencia.databinding.ActivityDadosBinding
 import com.example.portaldatransparencia.util.ConverterValueNotes
@@ -78,6 +79,7 @@ class ActivityDadosCamara: AppCompatActivity() {
                                 "guia-para-jornalistas/salario-de-deputados"
                         )
                 }
+                addImage(R.drawable.salario, this.imageDados)
             }
             frameSalario.apply {
                 crossFade.crossFade(this)
@@ -87,13 +89,16 @@ class ActivityDadosCamara: AppCompatActivity() {
                 textSalarioMesValue.text = "R$ 4.253,00"
                 textSalarioAnoValue.text = "R$ 51.036,00"
                 textSalarioMandatoValue.text = "R$ 204.144,00"
+                addImage(R.drawable.moradia, this.imageDados)
                 imageQuestion.setOnClickListener {
                     animaView(it)
                     clickOptionOrQuestion(
-                        "Auxílio Moradia", "Os deputados federais têm direito a " +
+                        "Auxílio Moradia",
+                        "Os deputados federais têm direito a " +
                                 "receber um auxílio-moradia no valor de R$ 4.253,00 quando não " +
                                 "ocupam um dos 432 apartamentos funcionais que a Câmara tem em Brasília.",
-                        "https://www2.camara.leg.br/transparencia/imoveis-funcionais-e-auxilio-moradia")
+                        "https://www2.camara.leg.br/transparencia/imoveis-funcionais-e-auxilio-moradia"
+                    )
 
                 }
             }
@@ -105,6 +110,7 @@ class ActivityDadosCamara: AppCompatActivity() {
                 textSalarioMesValue.text = "R$ 118.376,13"
                 textSalarioAnoValue.text = "R$ 1.420.513,56"
                 textSalarioMandatoValue.text = "R$ 5.682.054,24"
+                addImage(R.drawable.verba, this.imageDados)
                 imageQuestion.setOnClickListener {
                     animaView(it)
                     clickOptionOrQuestion(
@@ -125,10 +131,11 @@ class ActivityDadosCamara: AppCompatActivity() {
                 crossFade.crossFade(this)
             }
             layoutDadosCotas.apply {
-                textSalario.text = "Media - Cotas Parlamentares"
+                textSalario.text = "Media Cota Parlamentar"
                 textSalarioMesValue.text = "R$ 40.330,00"
                 textSalarioAnoValue.text = "R$ 483.960,00"
                 textSalarioMandatoValue.text = "R$ 1.935.840,00"
+                addImage(R.drawable.cotas, this.imageDados)
                 imageQuestion.setOnClickListener {
                     animaView(it)
                     clickOptionOrQuestion(
@@ -140,7 +147,8 @@ class ActivityDadosCamara: AppCompatActivity() {
                         "https://www2.camara.leg.br/transparencia/acesso-a-informacao/" +
                                 "copy_of_perguntas-frequentes/cota-para-o-exercicio-da-atividade-" +
                                 "parlamentar#:~:text=A%20Cota%20para%20o%20Exerc%C3%ADcio," +
-                                "ao%20exerc%C3%ADcio%20da%20atividade%20parlamentar.")
+                                "ao%20exerc%C3%ADcio%20da%20atividade%20parlamentar."
+                    )
                 }
             }
             frameCotas.apply {
@@ -181,5 +189,9 @@ class ActivityDadosCamara: AppCompatActivity() {
                 finish()
             }
         }
+    }
+
+    private fun addImage(photo: Int, layout: ImageView){
+        layout.setImageResource(photo)
     }
 }

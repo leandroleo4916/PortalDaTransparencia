@@ -41,7 +41,7 @@ class ActivityRankingCamara: AppCompatActivity(), IClickOpenDeputadoRanking, INo
     private lateinit var chipEnabledPart: Chip
     private var anoSelect = "Todos"
     private var hideFilter = false
-    private var textPartido = ""
+    private var textPartido = "TODOS"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -158,6 +158,7 @@ class ActivityRankingCamara: AppCompatActivity(), IClickOpenDeputadoRanking, INo
                 chip2011.setOnClickListener { modify(chipSelectedYear, chip2011) }
             }
             layoutGroupPartidos.run {
+                chipAll.setOnClickListener { modifyChipPartido(chipEnabledPart, chipAll) }
                 chipAvante.setOnClickListener { modifyChipPartido(chipEnabledPart, chipAvante) }
                 chipCidadania.setOnClickListener { modifyChipPartido(chipEnabledPart, chipCidadania) }
                 chipPv.setOnClickListener { modifyChipPartido(chipEnabledPart, chipPv) }
@@ -194,14 +195,8 @@ class ActivityRankingCamara: AppCompatActivity(), IClickOpenDeputadoRanking, INo
             viewClicked.isChecked = true
             chipEnabledPart = viewClicked
 
-            if (textPartido != "TODOS"){
-                adapter.filterList(textPartido)
-                modifyTextTop("Ranking Gastos - $textPartido - $anoSelect")
-            }
-            else {
-                adapter.filterList("")
-                textPartido = "TODOS"
-            }
+            modifyTextTop("Ranking Gastos - $textPartido")
+            adapter.filterList(textPartido)
             disableProgressAndText()
         }
     }

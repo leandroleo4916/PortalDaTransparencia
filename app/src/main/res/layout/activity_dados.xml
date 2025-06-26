@@ -33,72 +33,86 @@
 
     </FrameLayout>
 
-    <FrameLayout
-        android:id="@+id/frame_salario"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/back_white"
-        android:layout_marginTop="12dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:elevation="10sp"
-        android:visibility="gone">
+        android:layout_height="match_parent">
 
-        <include
-            android:id="@+id/layout_dados_salario"
-            layout="@layout/layout_dados"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    </FrameLayout>
+            <FrameLayout
+                android:id="@+id/frame_salario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/back_white"
+                android:layout_marginTop="12dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:elevation="10sp"
+                android:visibility="gone">
 
-    <FrameLayout
-        android:id="@+id/frame_auxilio"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/back_white"
-        android:layout_marginTop="12dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:elevation="10sp"
-        android:visibility="gone">
+                <include
+                    android:id="@+id/layout_dados_salario"
+                    layout="@layout/layout_dados"/>
 
-        <include
-            android:id="@+id/layout_dados_auxilio"
-            layout="@layout/layout_dados"/>
+            </FrameLayout>
 
-    </FrameLayout>
+            <FrameLayout
+                android:id="@+id/frame_auxilio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/back_white"
+                android:layout_marginTop="12dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:elevation="10sp"
+                android:visibility="gone">
 
-    <FrameLayout
-        android:id="@+id/frame_verba"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/back_white"
-        android:layout_marginTop="12dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:elevation="10sp"
-        android:visibility="gone">
+                <include
+                    android:id="@+id/layout_dados_auxilio"
+                    layout="@layout/layout_dados"/>
 
-        <include
-            android:id="@+id/layout_dados_verba"
-            layout="@layout/layout_dados"/>
+            </FrameLayout>
 
-    </FrameLayout>
+            <FrameLayout
+                android:id="@+id/frame_verba"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/back_white"
+                android:layout_marginTop="12dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:elevation="10sp"
+                android:visibility="gone">
 
-    <FrameLayout
-        android:id="@+id/frame_cotas"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/back_white"
-        android:layout_marginTop="12dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:elevation="10sp"
-        android:visibility="gone">
+                <include
+                    android:id="@+id/layout_dados_verba"
+                    layout="@layout/layout_dados"/>
 
-        <include
-            android:id="@+id/layout_dados_cotas"
-            layout="@layout/layout_dados"/>
+            </FrameLayout>
 
-    </FrameLayout>
+            <FrameLayout
+                android:id="@+id/frame_cotas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/back_white"
+                android:layout_marginTop="12dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="22dp"
+                android:elevation="10sp"
+                android:visibility="gone">
+
+                <include
+                    android:id="@+id/layout_dados_cotas"
+                    layout="@layout/layout_dados"/>
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>
