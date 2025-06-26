@@ -235,6 +235,7 @@ class FragmentGeralDeputado: Fragment(R.layout.fragment_geral_deputado) {
                         textSalarioAnoValue.text = formatValue.transformIntToString(limit * 12)
                         textSalarioMandato.text = "Durante 1 mandato"
                         textSalarioMandatoValue.text = formatValue.transformIntToString(limit * 48)
+                        imageDados.setImageResource(R.drawable.cotas)
                         imageQuestion.setOnClickListener {
                             animaView(it)
                             clickQuestion()
