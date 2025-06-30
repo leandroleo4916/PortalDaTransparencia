@@ -138,12 +138,7 @@ class SenadoFragment: Fragment(R.layout.fragment_camara_senado),
                 if (textSearch.editText?.text.toString() != ""){
                     textSearch.editText?.setText("")
                 }
-                if (icSearch.tag == "search") {
-                    icSearch.setImageResource(R.drawable.ic_close_w)
-                    icSearch.tag = "close"
-                    anime.crossVisibleView(textSearch)
-                    anime.crossInvisibleView(titleToolbar)
-                }
+                if (icSearch.tag == "search") addTextInEditText()
                 else {
                     icSearch.setImageResource(R.drawable.ic_search_24)
                     icSearch.tag = "search"
@@ -159,6 +154,17 @@ class SenadoFragment: Fragment(R.layout.fragment_camara_senado),
                 override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
                 override fun afterTextChanged(s: Editable) {}
             })
+        }
+    }
+
+    private fun addTextInEditText(){
+        binding?.run {
+            icSearch?.apply {
+                icSearch.setImageResource(R.drawable.ic_close_w)
+                icSearch.tag = "close"
+                anime.crossVisibleView(textSearch)
+                anime.crossInvisibleView(titleToolbar)
+            }
         }
     }
 
@@ -370,7 +376,10 @@ class SenadoFragment: Fragment(R.layout.fragment_camara_senado),
                 data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS).let {
                         results -> results?.get(0)
                 }
-            binding?.textSearch?.editText?.setText(spokenText)
+            if (spokenText != null) {
+                binding?.textSearch?.editText?.setText(spokenText)
+                addTextInEditText()
+            }
         }
         super.onActivityResult(requestCode, resultCode, data)
     }
